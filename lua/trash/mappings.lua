@@ -1,13 +1,11 @@
 local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
+local fn = vim.fn
 
 -- Leader key
 keymap("", "<Space>", "<Nop>", opts)
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
--- Tree navigation
---[[ vim.keymap.set("n", "<leader>1", toggleOrFocus , opts) ]]
 
 keymap("v", "p", '"_dP', opts)
 
@@ -19,7 +17,9 @@ keymap("n", "H", "^", opts)
 -- <A-j> join line below, weird coz of other remap
 -- nnoremap <C-j> J "for windows
 
-keymap("n", "<C-j>", "J", opts)
+local An = fn.has("macunix") == 1 and "ń" or "<A-n>"
+
+keymap("n", An, "J", opts)
 
 keymap("", "N", "9j", opts)
 keymap("", "E", "9k", opts)
@@ -83,6 +83,7 @@ vim.cmd([[
 --[[ keymap("n", "<leader>j", "<C-w>j", opts) ]]
 --[[ keymap("n", "<leader>k", "<C-w>k", opts) ]]
 --[[ keymap("n", "<leader>l", "<C-w>l", opts) ]]
+--hj
 
 -- Resize
 --[[ keymap("n", "<M-j>", ":resize -2<CR>", opts) ]]

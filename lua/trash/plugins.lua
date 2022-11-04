@@ -41,6 +41,7 @@ return packer.startup(function(use)
 
 	-- Colorschemes
 	use({ "catppuccin/nvim", as = "catppuccin" })
+	use({ "ellisonleao/gruvbox.nvim" })
 
 	-- File explorer
 	use("kyazdani42/nvim-web-devicons")
@@ -105,12 +106,6 @@ return packer.startup(function(use)
 	use("ethanholz/nvim-lastplace")
 	use("abecodes/tabout.nvim")
 	use({
-		"max397574/better-escape.nvim",
-		config = function()
-			require("better_escape").setup()
-		end,
-	})
-	use({
 		"kylechui/nvim-surround",
 		config = function()
 			require("nvim-surround").setup()
@@ -135,6 +130,7 @@ return packer.startup(function(use)
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
 	use("neovim/nvim-lspconfig")
+	use({ "glepnir/lspsaga.nvim", branch = "main" })
 	use("b0o/schemastore.nvim")
 	use("jose-elias-alvarez/typescript.nvim")
 	use("jayp0521/mason-null-ls.nvim")
