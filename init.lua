@@ -25,6 +25,7 @@ require("trash.tmux")
 require("trash.dressing")
 require("trash.toggleterm")
 require("trash.scrollbar")
+require("trash.lsp-saga")
 
 -- Restart nvim after lua config change
 if File_watchers == nil then
