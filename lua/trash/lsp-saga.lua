@@ -1,7 +1,12 @@
 local keymap = vim.keymap.set
 local saga = require("lspsaga")
 
-saga.init_lsp_saga()
+saga.init_lsp_saga({
+	-- TODO
+	--[[ symbol_in_winbar = { ]]
+	--[[ 	in_custom = true, ]]
+	--[[ }, ]]
+})
 
 local ASquareRight = vim.fn.has("macunix") == 1 and "≥" or "<A->>"
 -- Lsp finder find the symbol definition implement reference
@@ -28,7 +33,7 @@ keymap("n", "gh", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
 -- Show cursor diagnostic
 
 -- Diagnsotic jump can use `<c-o>` to jump back
-keymap("n", "<C-n>", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
+keymap("n", "<C-k>", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
 
 -- Hover Doc
 keymap("n", "gk", "<cmd>Lspsaga hover_doc<CR>", { silent = true })

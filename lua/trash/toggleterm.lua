@@ -14,7 +14,7 @@ toggleterm.setup({
 	start_in_insert = true,
 	insert_mappings = false,
 	persist_size = true,
-	direction = "float",
+	direction = "horizontal",
 	close_on_exit = true,
 	shell = vim.o.shell,
 	float_opts = {
@@ -30,8 +30,12 @@ toggleterm.setup({
 
 function _G.set_terminal_keymaps()
 	local opts = { noremap = true }
-	vim.api.nvim_buf_set_keymap(0, "t", "<esc>", [[<C-\><C-n>]], opts)
-	vim.api.nvim_buf_set_keymap(0, "t", "<esc><esc>", "<cmd>wincmd j<cr>", opts)
+	vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
+	vim.api.nvim_buf_set_keymap(0, "t", "<esc><esc>", "<cmd>wincmd k<cr><cmd>wincmd k<cr>", opts)
+	vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
+	vim.keymap.set("t", "<C-n>", [[<Cmd>wincmd j<CR>]], opts)
+	vim.keymap.set("t", "<C-e>", [[<Cmd>wincmd k<CR>]], opts)
+	vim.keymap.set("t", "<C-i>", [[<Cmd>wincmd l<CR>]], opts)
 end
 
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")

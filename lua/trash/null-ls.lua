@@ -2,7 +2,7 @@ local lspconfig = require("lspconfig")
 local lsp_format = require("lsp-format")
 local null_ls = require("null-ls")
 local mason_lspconfig = require("mason-lspconfig")
-local prettier_utils = require("trash.lsp.prettier-config")
+local prettier_utils = require("utils.prettier-config")
 
 local JS_TS_SETTINGS = {
 	tab_width = 2,

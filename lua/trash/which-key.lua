@@ -47,7 +47,7 @@ local opts = {
 
 local mappings = {
 	["w"] = { "<cmd>wall<CR>", "Save" },
-	["q"] = { "<cmd>q<CR>", "Quit" },
+	["q"] = { "<cmd>qall<CR>", "Quit" },
 	["x"] = { "<cmd>bd<CR>", "Close buffer" },
 	["p"] = { "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000})<CR>", "Format with prettier" },
 	["t"] = {
@@ -78,6 +78,7 @@ local mappings = {
 		["s"] = { "<cmd>lua require('telescope.builtin').git_status()<CR>", "Status" },
 		["c"] = { "<cmd>lua require('telescope.builtin').git_commits()<CR>", "Commits" },
 		["b"] = { "<cmd>lua require('telescope.builtin').git_branches()<CR>", "Branches" },
+		["p"] = { "<cmd>Git pull<CR>", "Git pull" },
 		["g"] = { "<cmd>Git<CR>", "Fugitive" },
 		["r"] = { "<cmd>Gread<CR>", "Checkout file" },
 	},

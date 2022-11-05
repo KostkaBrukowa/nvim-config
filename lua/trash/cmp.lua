@@ -37,13 +37,11 @@ cmp.setup({
 	},
 	mapping = {
 		["<Up>"] = cmp.mapping.select_prev_item(),
+		["<C-Space>"] = cmp.mapping.complete(),
 		["<Esc>"] = cmp.mapping({
 			i = function()
+				print(vim.api.nvim_get_mode()["mode"])
 				cmp.mapping.abort()
-				vim.cmd("stopinsert")
-			end,
-			c = function()
-				cmp.mapping.close()
 				vim.cmd("stopinsert")
 			end,
 		}),

@@ -12,9 +12,6 @@ keymap("v", "p", '"_dP', opts)
 -- Tree
 keymap("n", "<C-1>", "<cmd>lua require('utils.tree').focusOrToggleIfFocused()<CR>", opts)
 
--- Find
-keymap("n", "<C-1>", "<cmd>lua require('utils.tree').focusOrToggleIfFocused()<CR>", opts)
-
 -- Text editing
 -- Faster movement to end and beggining of the line
 keymap("n", "I", "$", opts)
@@ -49,21 +46,24 @@ keymap("n", "<S-Enter>", "O<ESC>j", opts)
 keymap("n", "c*", "*Ncgn", opts)
 
 -- Git commands TODO
--- nmap :gb <Action>(Git.Branches)
 -- nmap :gpl <Action>(Git.Pull)
 
 -- leader mappings
-
 -- TODO
--- nmap <leader>f <Action>(OptimizeImports)<Action>(Javascript.Linters.EsLint.Fix)
--- nmap <leader>p <Action>(ReformatWithPrettierAction)
 -- nmap <leader>c <Action>(Vcs.Show.Local.Changes)
 
 keymap("n", "<leader>r", "<Plug>ReplaceWithRegisterOperator", {})
 keymap("n", "<leader>rr", "<Plug>ReplaceWithRegisterLine", {})
 
--- TODO
--- nmap gh <Action>(ShowErrorDescription)
+-- Window navigation
+keymap("n", "<C-h>", "<C-w>h", opts)
+keymap("n", "<C-n>", "<C-w>j", opts)
+keymap("n", "<C-e>", "<C-w>k", opts)
+keymap("n", "<C-i>", "<C-w>l", opts)
+
+-- Go back and forward
+keymap("n", "<C-l>", "<C-o>", opts)
+keymap("n", "<C-u>", "<C-i>", opts)
 
 keymap("n", "``", "``zz", opts)
 
@@ -79,15 +79,6 @@ vim.cmd([[
 -- nnoremap <C-i> ea
 
 -- NOT MINE
--- Window navigation
---[[ keymap("n", "<C-h>", "<C-w>h", opts) ]]
---[[ keymap("n", "<C-j>", "<C-w>j", opts) ]]
---[[ keymap("n", "<C-k>", "<C-w>k", opts) ]]
---[[ keymap("n", "<C-l>", "<C-w>l", opts) ]]
---[[ keymap("n", "<leader>h", "<C-w>h", opts) ]]
---[[ keymap("n", "<leader>j", "<C-w>j", opts) ]]
---[[ keymap("n", "<leader>k", "<C-w>k", opts) ]]
---[[ keymap("n", "<leader>l", "<C-w>l", opts) ]]
 --hj
 
 -- Resize
