@@ -21,11 +21,11 @@ require("trash.tabout")
 require("trash.lsp")
 require("trash.null-ls")
 require("trash.true-zen")
-require("trash.tmux")
 require("trash.dressing")
 require("trash.toggleterm")
 require("trash.scrollbar")
 require("trash.lsp-saga")
+require("trash.auto-save")
 
 -- Restart nvim after lua config change
 if File_watchers == nil then
@@ -73,4 +73,10 @@ local init_lua = vim.fn.stdpath("config") .. "/lua/trash/nvim-tree.lua"
 watch_file(init_lua, function()
 	dofile(init_lua)
 	vim.notify("Reloaded nvim-tree.lua", vim.diagnostic.severity.INFO)
+end, 500)
+
+local init_lua = vim.fn.stdpath("config") .. "/lua/trash/colorscheme.lua"
+watch_file(init_lua, function()
+	dofile(init_lua)
+	vim.notify("Reloaded colorscheme.lua", vim.diagnostic.severity.INFO)
 end, 500)

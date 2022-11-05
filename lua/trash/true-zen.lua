@@ -6,6 +6,9 @@ end
 
 trueZen.setup({
 	modes = {
+		kitty = { -- increment font size in Kitty. Note: you must set `allow_remote_control socket-only` and `listen_on unix:/tmp/kitty` in your personal config (ataraxis)
+			enabled = true,
+		},
 		minimalist = {
 			options = {
 				number = true,

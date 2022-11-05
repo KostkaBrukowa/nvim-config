@@ -10,14 +10,6 @@ if not nvim_tree_config then
 	return
 end
 
-local tree_cb = nvim_tree_config.nvim_tree_callback
-
-local function print_node_path(node)
-	for k, v in pairs(node) do
-		print(k)
-	end
-end
-
 nvim_tree.setup({
 	hijack_netrw = true,
 	view = {
@@ -29,6 +21,13 @@ nvim_tree.setup({
 				{ key = "<Left>", action = "close_node" },
 				{ key = "v", action = "vsplit" },
 				{ key = "E", action = "" },
+				{
+					key = "<ESC>",
+					action = "lose_focus",
+					action_cb = function()
+						vim.cmd("wincmd l")
+					end,
+				},
 			},
 		},
 	},

@@ -11,7 +11,7 @@ local ASquareRight = vim.fn.has("macunix") == 1 and "≥" or "<A->>"
 keymap("n", ASquareRight, "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
 
 -- Code action
-keymap({ "n", "v" }, "<leader>ca", "<cmd>Lspsaga code_action<CR>", { silent = true })
+keymap({ "n", "v" }, "<C-.>", "<cmd>Lspsaga code_action<CR>", { silent = true })
 
 -- Rename
 keymap("n", "<leader>2", "<cmd>Lspsaga rename<CR>", { silent = true })

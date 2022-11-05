@@ -40,8 +40,7 @@ return packer.startup(function(use)
 	use("nvim-lua/plenary.nvim")
 
 	-- Colorschemes
-	use({ "catppuccin/nvim", as = "catppuccin" })
-	use({ "ellisonleao/gruvbox.nvim" })
+	use("folke/tokyonight.nvim")
 
 	-- File explorer
 	use("kyazdani42/nvim-web-devicons")
@@ -71,7 +70,11 @@ return packer.startup(function(use)
 				auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
 			})
 		end,
-	}) -- CMP
+	})
+
+	use("pocco81/auto-save.nvim")
+
+	-- CMP
 
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-buffer")
@@ -120,7 +123,6 @@ return packer.startup(function(use)
 		end,
 	})
 	use("Pocco81/true-zen.nvim")
-	use("aserowy/tmux.nvim")
 	use("akinsho/toggleterm.nvim")
 	use("rcarriga/nvim-notify")
 	use("petertriho/nvim-scrollbar")
@@ -130,6 +132,7 @@ return packer.startup(function(use)
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
 	use("neovim/nvim-lspconfig")
+	use("lukas-reineke/lsp-format.nvim")
 	use({ "glepnir/lspsaga.nvim", branch = "main" })
 	use("b0o/schemastore.nvim")
 	use("jose-elias-alvarez/typescript.nvim")

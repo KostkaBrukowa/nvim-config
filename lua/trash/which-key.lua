@@ -18,8 +18,8 @@ local setup = {
 			text_objects = false,
 			windows = false,
 			nav = false,
-			z = false,
-			g = false,
+			z = true,
+			g = true,
 		},
 	},
 	window = {
@@ -43,15 +43,17 @@ local opts = {
 }
 
 local mappings = {
-	["e"] = { "<cmd>lua require('utils.tree').focusOrToggleIfFocused()<CR>", "Toggle Explorer" },
 	["w"] = { "<cmd>wall<CR>", "Save" },
 	["q"] = { "<cmd>q<CR>", "Quit" },
+	["x"] = { "<cmd>bd<CR>", "Close buffer" },
+	["p"] = { "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000})<CR>", "Format with prettier" },
 	["t"] = {
 		name = "File Explorer",
 		["t"] = { "<cmd>NvimTreeToggle<CR>", "Toggle" },
-		["r"] = { "<cmd>NvimTreeRefresh<CR>", "Refresh" },
+		["f"] = { "<cmd>NvimTreeRefresh<CR>", "Refresh" },
 		["c"] = { "<cmd>NvimTreeClose<CR>", "Close" },
 		["o"] = { "<cmd>NvimTreeCollapse<CR>", "Collapse" },
+		["r"] = { "<cmd>TypescriptRenameFile<CR>", "Rename file" },
 	},
 	["b"] = {
 		name = "Buffers",
@@ -60,7 +62,6 @@ local mappings = {
 		["d"] = { "<cmd>lua require('bufdelete').bufdelete(0, true)<CR>", "Close Current" },
 		["m"] = { "<cmd>BufferLineCloseRight<CR><cmd>BufferLineCloseLeft<CR>", "Close except active" },
 	},
-	["x"] = { "<cmd>bd<CR>", "Close buffer" },
 	["f"] = {
 		name = "Find",
 		["f"] = { "<cmd>lua require('telescope.builtin').live_grep()<CR>", "Text" },
@@ -90,19 +91,16 @@ local mappings = {
 		["v"] = { "<cmd>HopVertical<cr>", "Vertical" },
 		["w"] = { "<cmd>HopWord<cr>", "Word" },
 	},
-	["m"] = { "<cmd>Glow<CR>", "Preview Markdown" },
-	["z"] = { "<cmd>TZMinimalist<CR>", "Zen mode" },
-	["l"] = {
-		name = "LSP",
-		["t"] = {
-			name = "TypeScript",
-			["a"] = { "<cmd>TypescriptAddMissingImports<CR>", "Add missing imports" },
-			["o"] = { "<cmd>TypescriptOrganizeImports<CR>", "Organize imports" },
-			["u"] = { "<cmd>TypescriptRemoveUnused<CR>", "Remove unused" },
-			["f"] = { "<cmd>TypescriptFixAll<CR>", "Fix all" },
-			["g"] = { "<cmd>TypescriptGoToSourceDefinition<CR>", "Go to source definition" },
-			["r"] = { "<cmd>TypescriptRenameFile<CR>", "Rename file" },
-		},
+	["u"] = {
+		name = "Utils",
+		["m"] = { "<cmd>Glow<CR>", "Preview Markdown" },
+		["z"] = { "<cmd>TZAtaraxis<CR>", "Zen mode" },
+	},
+	["i"] = {
+		name = "Imports",
+		["a"] = { "<cmd>TypescriptAddMissingImports<CR>", "Add missing imports" },
+		["o"] = { "<cmd>TypescriptOrganizeImports<CR>", "Organize imports" },
+		["u"] = { "<cmd>TypescriptRemoveUnused<CR>", "Remove unused" },
 	},
 }
 

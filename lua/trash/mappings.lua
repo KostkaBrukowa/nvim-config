@@ -9,16 +9,16 @@ vim.g.maplocalleader = " "
 
 keymap("v", "p", '"_dP', opts)
 
+-- Tree
+keymap("n", "<C-1>", "<cmd>lua require('utils.tree').focusOrToggleIfFocused()<CR>", opts)
+
 -- Text editing
 -- Faster movement to end and beggining of the line
 keymap("n", "I", "$", opts)
 keymap("n", "H", "^", opts)
 
 -- <A-j> join line below, weird coz of other remap
--- nnoremap <C-j> J "for windows
-
 local An = fn.has("macunix") == 1 and "ń" or "<A-n>"
-
 keymap("n", An, "J", opts)
 
 keymap("", "N", "9j", opts)
