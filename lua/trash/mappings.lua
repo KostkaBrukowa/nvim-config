@@ -12,10 +12,15 @@ keymap("v", "p", '"_dP', opts)
 -- Tree
 keymap("n", "<C-1>", "<cmd>lua require('utils.tree').focusOrToggleIfFocused()<CR>", opts)
 
+-- Find
+keymap("n", "<C-1>", "<cmd>lua require('utils.tree').focusOrToggleIfFocused()<CR>", opts)
+
 -- Text editing
 -- Faster movement to end and beggining of the line
 keymap("n", "I", "$", opts)
 keymap("n", "H", "^", opts)
+keymap("v", "I", "$", opts)
+keymap("v", "H", "^", opts)
 
 -- <A-j> join line below, weird coz of other remap
 local An = fn.has("macunix") == 1 and "ń" or "<A-n>"

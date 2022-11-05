@@ -12,7 +12,6 @@ local JS_TS_SETTINGS = {
 }
 
 for _, server_name in pairs(mason_lspconfig.get_installed_servers()) do
-	print(server_name)
 	if server_name == "eslint" then
 		lspconfig[server_name].setup(vim.tbl_extend("force", {
 			capabilities = require("cmp_nvim_lsp").default_capabilities(),

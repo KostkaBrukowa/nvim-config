@@ -42,6 +42,9 @@ local opts = {
 	noremap = true,
 }
 
+--[[ vnoremap  "zy<cmd>exec 'Telescope grep_string default_text=' . escape(@z, ' ')<cr>" ]]
+--vim.api.nvim_set_keymap('v', '<C-f>', 'y<ESC>:Telescope live_grep default_text=<c-r>0<CR>', default_opts)
+
 local mappings = {
 	["w"] = { "<cmd>wall<CR>", "Save" },
 	["q"] = { "<cmd>q<CR>", "Quit" },
@@ -64,7 +67,8 @@ local mappings = {
 	},
 	["f"] = {
 		name = "Find",
-		["f"] = { "<cmd>lua require('telescope.builtin').live_grep()<CR>", "Text" },
+		["f"] = { "<cmd>lua require('telescope.builtin').live_grep()<CR>", "Live grep" },
+		["s"] = { "<cmd>lua require('telescope.builtin').grep_string()<CR>", "Grep string" },
 		["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
 		["h"] = { "<cmd>lua require('telescope.builtin').help_tags()<CR>", "Help tags" },
 		["b"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", "Buffers" },
