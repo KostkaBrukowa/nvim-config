@@ -29,6 +29,20 @@ local check_backspace = function()
 	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
 
+local function selectNextOption(fallback)
+	if cmp.visible() then
+		cmp.select_next_item()
+	elseif luasnip.expandable() then
+		luasnip.expand()
+	elseif luasnip.expand_or_jumpable() then
+		luasnip.expand_or_jump()
+	elseif check_backspace() then
+		fallback()
+	else
+		fallback()
+	end
+end
+
 cmp.setup({
 	snippet = {
 		expand = function(args)
@@ -46,22 +60,8 @@ cmp.setup({
 			end,
 		}),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		["<Down>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip.expandable() then
-				luasnip.expand()
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
-			elseif check_backspace() then
-				fallback()
-			else
-				fallback()
-			end
-		end, {
-			"i",
-			"s",
-		}),
+		["<Down>"] = cmp.mapping(selectNextOption, { "i", "s" }),
+		["<Tab>"] = cmp.mapping(selectNextOption, { "i", "s" }),
 	},
 	formatting = {
 		fields = { "kind", "abbr", "menu" },

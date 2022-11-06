@@ -42,14 +42,12 @@ local opts = {
 	noremap = true,
 }
 
---[[ vnoremap  "zy<cmd>exec 'Telescope grep_string default_text=' . escape(@z, ' ')<cr>" ]]
---vim.api.nvim_set_keymap('v', '<C-f>', 'y<ESC>:Telescope live_grep default_text=<c-r>0<CR>', default_opts)
-
 local mappings = {
 	["w"] = { "<cmd>wall<CR>", "Save" },
 	["q"] = { "<cmd>qall<CR>", "Quit" },
 	["x"] = { "<cmd>bd<CR>", "Close buffer" },
 	["p"] = { "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000})<CR>", "Format with prettier" },
+	["s"] = { "<Plug>(leap-forward-to)", "Leap" },
 	["t"] = {
 		name = "File Explorer",
 		["t"] = { "<cmd>NvimTreeToggle<CR>", "Toggle" },
@@ -86,15 +84,6 @@ local mappings = {
 		name = "Diff View",
 		["o"] = { "<cmd>DiffviewOpen<CR>", "Open" },
 		["c"] = { "<cmd>DiffviewClose<CR>", "Close" },
-	},
-	["h"] = {
-		name = "Hop",
-		["h"] = { "<cmd>HopChar2<cr>", "2 Chars" },
-		["f"] = { "<cmd>HopChar1<cr>", "1 Chars" },
-		["p"] = { "<cmd>HopPattern<cr>", "Pattern" },
-		["l"] = { "<cmd>HopLineStart<cr>", "Line start" },
-		["v"] = { "<cmd>HopVertical<cr>", "Vertical" },
-		["w"] = { "<cmd>HopWord<cr>", "Word" },
 	},
 	["u"] = {
 		name = "Utils",

@@ -71,49 +71,39 @@ return packer.startup(function(use)
 			})
 		end,
 	})
-
 	use("pocco81/auto-save.nvim")
 
 	-- CMP
-
 	use("hrsh7th/nvim-cmp")
 	use("hrsh7th/cmp-buffer")
 	use("hrsh7th/cmp-path")
 	use("hrsh7th/cmp-cmdline")
-	use("saadparwaiz1/cmp_luasnip")
 	use("hrsh7th/cmp-nvim-lsp")
-	use("L3MON4D3/LuaSnip")
-	use("rafamadriz/friendly-snippets")
 	use("windwp/nvim-autopairs")
 	use("onsails/lspkind.nvim")
+
+	-- Snippets
+	use("L3MON4D3/LuaSnip")
+	use("rafamadriz/friendly-snippets")
+	use("saadparwaiz1/cmp_luasnip")
 
 	-- Comments
 	use("numToStr/Comment.nvim")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
 
 	-- Git
-	use({
-		"lewis6991/gitsigns.nvim",
-		config = function()
-			require("gitsigns").setup()
-		end,
-	})
 	use("sindrets/diffview.nvim")
 	use("tpope/vim-fugitive")
 
 	-- Utils
 	use("lewis6991/impatient.nvim")
 	use("goolord/alpha-nvim")
-	use("phaazon/hop.nvim")
+	use("ggandor/leap.nvim")
+	use("ThePrimeagen/harpoon")
+
 	use("lukas-reineke/indent-blankline.nvim")
 	use("ethanholz/nvim-lastplace")
 	use("abecodes/tabout.nvim")
-	use({
-		"kylechui/nvim-surround",
-		config = function()
-			require("nvim-surround").setup()
-		end,
-	})
 	use("ellisonleao/glow.nvim")
 	use("famiu/bufdelete.nvim")
 	use({
@@ -127,6 +117,13 @@ return packer.startup(function(use)
 	use("rcarriga/nvim-notify")
 	use("petertriho/nvim-scrollbar")
 	use("inkarkat/vim-ReplaceWithRegister")
+	use({
+		"kylechui/nvim-surround",
+		config = function()
+			require("nvim-surround").setup()
+		end,
+	})
+	use("stevearc/dressing.nvim")
 
 	-- LSP
 	use("williamboman/mason.nvim")
@@ -140,7 +137,6 @@ return packer.startup(function(use)
 	use("WhoIsSethDaniel/mason-tool-installer.nvim")
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("ray-x/lsp_signature.nvim")
-	use("stevearc/dressing.nvim")
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()

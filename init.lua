@@ -14,7 +14,6 @@ require("trash.autopairs")
 require("trash.impatient")
 require("trash.alpha")
 require("trash.comment")
-require("trash.hop")
 require("trash.indent_blankline")
 require("trash.lastplace")
 require("trash.tabout")
@@ -26,6 +25,7 @@ require("trash.toggleterm")
 require("trash.scrollbar")
 require("trash.lsp-saga")
 require("trash.auto-save")
+require("trash.leap")
 
 -- Restart nvim after lua config change
 if File_watchers == nil then
