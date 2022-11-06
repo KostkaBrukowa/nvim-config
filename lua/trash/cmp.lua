@@ -54,7 +54,6 @@ cmp.setup({
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<Esc>"] = cmp.mapping({
 			i = function()
-				print(vim.api.nvim_get_mode()["mode"])
 				cmp.mapping.abort()
 				vim.cmd("stopinsert")
 			end,

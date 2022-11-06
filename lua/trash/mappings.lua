@@ -12,6 +12,9 @@ keymap("v", "p", '"_dP', opts)
 -- Tree
 keymap("n", "<C-1>", "<cmd>lua require('utils.tree').focusOrToggleIfFocused()<CR>", opts)
 
+-- Last buffers
+keymap("n", "<C-Tab>", "<cmd>lua require('telescope.builtin').buffers({sort_lastused = true})<CR>", opts)
+
 -- Text editing
 -- Faster movement to end and beggining of the line
 keymap("n", "I", "$", opts)

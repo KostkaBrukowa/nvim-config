@@ -18,6 +18,7 @@ telescope.setup({
 		mappings = {
 			i = {
 				["<ESC>"] = actions.close,
+				["<C-Tab>"] = actions.move_selection_previous,
 			},
 		},
 	},

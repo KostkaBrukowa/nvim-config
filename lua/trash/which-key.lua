@@ -58,6 +58,7 @@ local mappings = {
 	},
 	["b"] = {
 		name = "Buffers",
+		["b"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", "Buffers search" },
 		["l"] = { "<cmd>BufferLineCloseRight<CR>", "Close all to right" },
 		["h"] = { "<cmd>BufferLineCloseLeft<CR>", "Close all to left" },
 		["d"] = { "<cmd>lua require('bufdelete').bufdelete(0, true)<CR>", "Close Current" },
