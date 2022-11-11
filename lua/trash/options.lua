@@ -37,6 +37,7 @@ local options = {
 	signcolumn = "yes",
 	wrap = false,
 	scrolloff = 8,
+	switchbuf = "useopen,usetab",
 	sidescrolloff = 8,
 }
 

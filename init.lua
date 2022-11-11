@@ -2,7 +2,6 @@ require("trash.utils")
 require("trash.options")
 require("trash.mappings")
 require("trash.plugins")
-require("trash.colorscheme")
 require("trash.treesitter")
 require("trash.which-key")
 require("trash.nvim-tree")
@@ -25,6 +24,9 @@ require("trash.scrollbar")
 require("trash.lsp-saga")
 require("trash.auto-save")
 require("trash.leap")
+require("trash.tint")
+require("trash.auto-session")
+require("trash.colorscheme")
 
 -- Restart nvim after lua config change
 if File_watchers == nil then
@@ -76,6 +78,14 @@ end, 500)
 
 local init_lua = vim.fn.stdpath("config") .. "/lua/trash/colorscheme.lua"
 watch_file(init_lua, function()
+	dofile(init_lua)
+	vim.notify("Reloaded colorscheme.lua", vim.diagnostic.severity.INFO)
+end, 500)
+
+local init_lua = vim.fn.stdpath("config") .. "/lua/lush/colorscheme.lua"
+watch_file(init_lua, function()
+	dofile(init_lua)
+	local init_lua = vim.fn.stdpath("config") .. "/lua/trash/colorscheme.lua"
 	dofile(init_lua)
 	vim.notify("Reloaded colorscheme.lua", vim.diagnostic.severity.INFO)
 end, 500)

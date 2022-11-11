@@ -58,7 +58,7 @@ cmp.setup({
 				vim.cmd("stopinsert")
 			end,
 		}),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<CR>"] = cmp.mapping.confirm({ select = false }),
 		["<Down>"] = cmp.mapping(selectNextOption, { "i", "s" }),
 		["<Tab>"] = cmp.mapping(selectNextOption, { "i", "s" }),
 	},

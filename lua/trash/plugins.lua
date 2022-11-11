@@ -18,6 +18,13 @@ end
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
 local packer = require("packer")
 
+vim.cmd([[
+  augroup packer_user_config
+    autocmd!
+    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+  augroup end
+]])
+
 -- Have packer use a popup window
 packer.init({
 	display = {
@@ -34,10 +41,14 @@ return packer.startup(function(use)
 
 	-- Colorschemes
 	use("folke/tokyonight.nvim")
+	use("levouh/tint.nvim")
+	use("rktjmp/lush.nvim")
+	use("doums/darcula")
 
 	-- File explorer
 	use("kyazdani42/nvim-web-devicons")
 	use("kyazdani42/nvim-tree.lua")
+	use("elihunter173/dirbuf.nvim")
 
 	-- Buffer and status lines
 	use({ "akinsho/bufferline.nvim", tag = "v2.*" })
@@ -47,23 +58,18 @@ return packer.startup(function(use)
 	use("nvim-treesitter/nvim-treesitter")
 	use("windwp/nvim-ts-autotag")
 	use("nvim-treesitter/nvim-treesitter-textobjects")
-	use("p00f/nvim-ts-rainbow")
+	use("nvim-treesitter/playground")
+	use("theHamsta/nvim-semantic-tokens")
 
 	use("folke/which-key.nvim")
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	use("nvim-telescope/telescope-project.nvim")
 
 	-- Session management
-	use({
-		"rmagatti/auto-session",
-		config = function()
-			require("auto-session").setup({
-				log_level = "error",
-				auto_session_suppress_dirs = { "~/", "~/Projects", "~/Downloads", "/" },
-			})
-		end,
-	})
+	use("rmagatti/auto-session")
 	use("pocco81/auto-save.nvim")
 
 	-- CMP

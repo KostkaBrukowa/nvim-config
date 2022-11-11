@@ -31,7 +31,6 @@ toggleterm.setup({
 function _G.set_terminal_keymaps()
 	local opts = { noremap = true }
 	vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
-	vim.api.nvim_buf_set_keymap(0, "t", "<esc><esc>", "<cmd>wincmd k<cr><cmd>wincmd k<cr>", opts)
 	vim.keymap.set("t", "<C-h>", [[<Cmd>wincmd h<CR>]], opts)
 	vim.keymap.set("t", "<C-n>", [[<Cmd>wincmd j<CR>]], opts)
 	vim.keymap.set("t", "<C-e>", [[<Cmd>wincmd k<CR>]], opts)

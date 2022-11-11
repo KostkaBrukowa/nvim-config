@@ -13,7 +13,13 @@ keymap("v", "p", '"_dP', opts)
 keymap("n", "<C-1>", "<cmd>lua require('utils.tree').focusOrToggleIfFocused()<CR>", opts)
 
 -- Last buffers
-keymap("n", "<C-Tab>", "<cmd>lua require('telescope.builtin').buffers({sort_lastused = true})<CR>", opts)
+--[[ keymap( ]]
+--[[ 	"n", ]]
+--[[ 	"<C-Tab>", ]]
+--[[ 	"<cmd>lua require('telescope.builtin').buffers({sort_lastused = true, ignore_current_buffer = true})<CR>", ]]
+--[[ 	opts ]]
+--[[ ) ]]
+keymap("n", "<C-Tab>", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", opts)
 
 -- Text editing
 -- Faster movement to end and beggining of the line
@@ -77,6 +83,23 @@ vim.cmd([[
     autocmd TextYankPost * silent! lua vim.highlight.on_yank { timeout = 300 }
   augroup end
 ]])
+--
+-- Enter normal mode on init
+vim.cmd([[
+  augroup NormalModeInit
+    autocmd!
+    autocmd VimEnter * silent! stopinsert
+  augroup end
+]])
+
+-- Remove cursor from inactive windows disables cursor in nvim tree which is bad
+--[[ vim.cmd([[ ]]
+--[[   augroup CursorLineOnlyInActiveWindow ]]
+--[[     autocmd! ]]
+--[[     autocmd VimEnter,WinEnter,BufWinEnter * setlocal cursorline ]]
+--[[     autocmd WinLeave * setlocal nocursorline ]]
+--[[   augroup END   ]]
+--[[ \]\]) ]]
 
 -- nnoremap <M-n> <C-u>
 -- nnoremap <C-i> ea
@@ -97,11 +120,3 @@ vim.cmd([[
 -- Stay in indent mode
 --[[ keymap("v", "<", "<gv", opts) ]]
 --[[ keymap("v", ">", ">gv", opts) ]]
-
--- Move text up and down
---[[ keymap("v", "<A-j>", ":m .+1<CR>==", opts) ]]
---[[ keymap("v", "<A-k>", ":m .-2<CR>==", opts) ]]
---[[ keymap("x", "J", ":move '>+1<CR>gv-gv", opts) ]]
---[[ keymap("x", "K", ":move '<-2<CR>gv-gv", opts) ]]
---[[ keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts) ]]
---[[ keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts) ]]

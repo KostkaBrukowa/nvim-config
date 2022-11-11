@@ -67,10 +67,12 @@ local mappings = {
 	["f"] = {
 		name = "Find",
 		["f"] = { "<cmd>lua require('telescope.builtin').live_grep()<CR>", "Live grep" },
+		["l"] = { "<cmd>lua require('telescope.builtin').resume()<CR>", "Last find window" },
 		["s"] = { "<cmd>lua require('telescope.builtin').grep_string()<CR>", "Grep string" },
 		["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
 		["h"] = { "<cmd>lua require('telescope.builtin').help_tags()<CR>", "Help tags" },
 		["b"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", "Buffers" },
+		["o"] = { "<cmd>lua require('telescope').extensions.project.project({})<CR>", "Projects" },
 	},
 	["g"] = {
 		name = "Git",
@@ -90,6 +92,7 @@ local mappings = {
 		name = "Utils",
 		["m"] = { "<cmd>Glow<CR>", "Preview Markdown" },
 		["z"] = { "<cmd>TZAtaraxis<CR>", "Zen mode" },
+		["c"] = { "<cmd>highlight Cursor<CR>", "Get color under curor" },
 	},
 	["i"] = {
 		name = "Imports",
