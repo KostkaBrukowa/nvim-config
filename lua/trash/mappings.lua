@@ -76,6 +76,9 @@ keymap("n", "<C-u>", "<C-i>", opts)
 
 keymap("n", "``", "``zz", opts)
 
+-- mapping to execute in spectre as vim.normal
+keymap("n", "|||", "<c-w><c-p>", opts)
+
 -- Highlight on yank
 vim.cmd([[
   augroup YankHighlight

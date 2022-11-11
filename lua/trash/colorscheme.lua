@@ -76,6 +76,7 @@ local pop = c7
 
 -- Color palette
 local red = hsl(1, 77, 59)
+local diff_red = hsl(356, 32, 25)
 local salmon = hsl(10, 90, 70)
 local orange = hsl(27, 80, 50)
 local yellow = hsl(37, 100, 71)
@@ -172,9 +173,11 @@ require("tokyonight").setup({
 		set_hl(0, "@tag.attribute", { fg = fg.hex })
 		set_hl(0, "@type.builtin", { fg = orange.hex })
 		set_hl(0, "@variable.builtin", { fg = magenta.hex })
+		set_hl(0, "@keyword.function", { fg = orange.hex })
 
 		set_hl(0, "Statement", { fg = orange.hex })
 		set_hl(0, "Number", { fg = blue.hex })
+		set_hl(0, "SpectreReplace", { bg = diff_red.hex })
 	end,
 })
 

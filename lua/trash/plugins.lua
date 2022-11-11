@@ -51,7 +51,6 @@ return packer.startup(function(use)
 	use("elihunter173/dirbuf.nvim")
 
 	-- Buffer and status lines
-	use({ "akinsho/bufferline.nvim", tag = "v2.*" })
 	use("nvim-lualine/lualine.nvim")
 
 	-- Treesitter
@@ -67,6 +66,7 @@ return packer.startup(function(use)
 	use("nvim-telescope/telescope.nvim")
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
 	use("nvim-telescope/telescope-project.nvim")
+	use("windwp/nvim-spectre")
 
 	-- Session management
 	use("rmagatti/auto-session")
@@ -93,6 +93,8 @@ return packer.startup(function(use)
 	-- Git
 	use("sindrets/diffview.nvim")
 	use("tpope/vim-fugitive")
+
+	use({ "lewis6991/gitsigns.nvim" })
 
 	-- Utils
 	use("lewis6991/impatient.nvim")

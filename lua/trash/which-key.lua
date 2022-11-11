@@ -45,9 +45,17 @@ local opts = {
 local mappings = {
 	["w"] = { "<cmd>wall<CR>", "Save" },
 	["q"] = { "<cmd>qall<CR>", "Quit" },
-	["x"] = { "<cmd>bd<CR>", "Close buffer" },
+	["x"] = { "<cmd>q<CR>", "Close buffer" },
 	["p"] = { "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000})<CR>", "Format with prettier" },
-	["s"] = { "<Plug>(leap-forward-to)", "Leap" },
+	["s"] = { "<Plug>(leap-forward-to)", "Leap forward" },
+	["S"] = { "<Plug>(leap-backward-to)", "Leap backwards" },
+	["r"] = {
+		name = "Find and replace",
+		["o"] = { "<cmd>lua require('spectre').open()<cr>", "Open" },
+		["w"] = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Seach current word" },
+		["l"] = { "<cmd>lua require('spectre').resume_last_search()<cr>", "Resume last search" },
+		["f"] = { "<cmd>lua require('spectre').open_file_search()<cr>", "Rearch in file" },
+	},
 	["t"] = {
 		name = "File Explorer",
 		["t"] = { "<cmd>NvimTreeToggle<CR>", "Toggle" },
@@ -102,5 +110,20 @@ local mappings = {
 	},
 }
 
+local visual_opts = {
+	mode = "v",
+	prefix = "<leader>",
+	silent = true,
+	noremap = true,
+}
+
+local visual_mappings = {
+	["r"] = {
+		name = "Find and replace",
+		["o"] = { "<esc>:lua require('spectre').open_visual()<cr>", "Find under cursor" },
+	},
+}
+
 which_key.setup(setup)
 which_key.register(mappings, opts)
+which_key.register(visual_mappings, visual_opts)

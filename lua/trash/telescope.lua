@@ -34,6 +34,7 @@ telescope.setup({
 				["<C-Tab>"] = actions.move_selection_previous,
 				["<C-u>"] = function(options)
 					actions.add_to_qflist(options)
+					vim.cmd([[copen]])
 				end,
 				--[[ ["<Cr>"] = function(bufnr) ]]
 				--[[ 	actions_set.edit(bufnr, "tab drop") ]]
