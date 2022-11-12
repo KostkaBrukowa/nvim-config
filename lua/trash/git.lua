@@ -6,6 +6,7 @@ if not signs or not utils then
 end
 
 signs.setup({
+	attach_to_untracked = true,
 	signs = {
 		add = { hl = "GitSignsAdd", text = "█", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
 		change = { hl = "GitSignsChange", text = "█", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
