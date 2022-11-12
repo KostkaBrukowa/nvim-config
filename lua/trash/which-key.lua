@@ -98,6 +98,7 @@ local mappings = {
 		["p"] = { "<cmd>Git push<CR>", "Git push" },
 		["l"] = { "<cmd>Git pull<CR>", "Git pull" },
 		["g"] = { "<cmd>Git<CR>", "Fugitive" },
+		["u"] = { "<cmd>lua require('gitlinker').get_buf_range_url('n')<CR>", "Fugitive" },
 	},
 	["d"] = {
 		name = "Diff View",
@@ -130,6 +131,10 @@ local visual_mappings = {
 	["r"] = {
 		name = "Find and replace",
 		["o"] = { "<esc>:lua require('spectre').open_visual()<cr>", "Find under cursor" },
+	},
+	["g"] = {
+		name = "Git",
+		["u"] = { "<cmd>lua require('gitlinker').get_buf_range_url('v')<CR>", "Fugitive" },
 	},
 }
 

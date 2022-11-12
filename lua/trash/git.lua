@@ -1,7 +1,8 @@
 local signs = safe_require("gitsigns")
+local git_linker = safe_require("gitlinker")
 local utils = safe_require("utils")
 
-if not signs or not utils then
+if not signs or not utils or not git_linker then
 	return
 end
 
@@ -45,3 +46,7 @@ vim.api.nvim_create_user_command("DiffviewToggle", function(e)
 		vim.cmd("DiffviewOpen " .. e.args)
 	end
 end, { nargs = "*" })
+
+git_linker.setup({
+	mappings = nil,
+})

@@ -93,6 +93,7 @@ return packer.startup(function(use)
 	-- Git
 	use("sindrets/diffview.nvim")
 	use("tpope/vim-fugitive")
+	use({ "ruifm/gitlinker.nvim", requires = "nvim-lua/plenary.nvim" })
 
 	use({ "lewis6991/gitsigns.nvim" })
 
