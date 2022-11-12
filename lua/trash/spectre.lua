@@ -5,6 +5,7 @@ if not spectre then
 	return
 end
 
+local x = "helll"
 spectre.setup({
 	mapping = {
 		["Preview"] = {

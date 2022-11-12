@@ -28,7 +28,7 @@ require("trash.tint")
 require("trash.auto-session")
 require("trash.colorscheme")
 require("trash.spectre")
-require("trash.gitsigns")
+require("trash.git")
 
 -- Restart nvim after lua config change
 if File_watchers == nil then

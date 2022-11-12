@@ -1,6 +1,7 @@
 local signs = safe_require("gitsigns")
+local utils = safe_require("utils")
 
-if not signs then
+if not signs or not utils then
 	return
 end
 
@@ -13,4 +14,23 @@ signs.setup({
 		changedelete = { hl = "GitSignsChange", text = "~", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
 		untracked = { hl = "GitSignsAdd", text = "┇", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
 	},
+})
+
+-- Add jira task to commit message
+utils.create_onetime_autocmd("FileType", {
+	pattern = "gitcommit",
+	callback = function()
+		local content = vim.api.nvim_buf_get_lines(0, 0, -1, false)[1]
+
+		if content ~= "" and content:find("^Merge branch") == nil then
+			return
+		end
+
+		local branch = vim.fn.system("git branch --show-current"):match("/?([%u%d]+-%d+)-?")
+
+		if branch then
+			vim.api.nvim_buf_set_lines(0, 0, -1, false, { branch .. " | " })
+			vim.cmd(":startinsert!")
+		end
+	end,
 })
