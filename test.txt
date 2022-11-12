@@ -1,5 +1,0 @@
-Jarek
-jarek hhhhhhello
-helllo world
-hhhhhello worl
-function() vim.incpect('hhhhhhello') end
