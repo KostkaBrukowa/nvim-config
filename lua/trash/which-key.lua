@@ -49,6 +49,7 @@ local mappings = {
 	["p"] = { "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000})<CR>", "Format with prettier" },
 	["s"] = { "<Plug>(leap-forward-to)", "Leap forward" },
 	["S"] = { "<Plug>(leap-backward-to)", "Leap backwards" },
+	["c"] = { "<cmd>DiffviewToggle<cr>", "Toggle diffview" },
 	["r"] = {
 		name = "Find and replace",
 		["o"] = { "<cmd>lua require('spectre').open()<cr>", "Open" },
@@ -63,6 +64,11 @@ local mappings = {
 		["c"] = { "<cmd>NvimTreeClose<CR>", "Close" },
 		["o"] = { "<cmd>NvimTreeCollapse<CR>", "Collapse" },
 		["r"] = { "<cmd>TypescriptRenameFile<CR>", "Rename file" },
+	},
+	["h"] = {
+		name = "Hunks",
+		["p"] = { "<cmd>Gitsigns preview_hunk<CR>", "Preview" },
+		["r"] = { "<cmd>Gitsigns reset_hunk<CR>", "Reset" },
 	},
 	["b"] = {
 		name = "Buffers",
@@ -92,12 +98,12 @@ local mappings = {
 		["p"] = { "<cmd>Git push<CR>", "Git push" },
 		["l"] = { "<cmd>Git pull<CR>", "Git pull" },
 		["g"] = { "<cmd>Git<CR>", "Fugitive" },
-		["r"] = { "<cmd>Gread<CR>", "Checkout file" },
 	},
 	["d"] = {
 		name = "Diff View",
 		["o"] = { "<cmd>DiffviewOpen<CR>", "Open" },
 		["c"] = { "<cmd>DiffviewClose<CR>", "Close" },
+		["f"] = { "<cmd>DiffviewFileHistory %<CR>", "File history" },
 	},
 	["u"] = {
 		name = "Utils",
