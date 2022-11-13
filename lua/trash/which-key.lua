@@ -1,6 +1,7 @@
 local which_key = safe_require("which-key")
+local legendary = safe_require("legendary")
 
-if not which_key then
+if not which_key or not legendary then
 	return
 end
 
@@ -65,18 +66,13 @@ local mappings = {
 		["o"] = { "<cmd>NvimTreeCollapse<CR>", "Collapse" },
 		["r"] = { "<cmd>TypescriptRenameFile<CR>", "Rename file" },
 	},
-	["h"] = {
-		name = "Hunks",
-		["p"] = { "<cmd>Gitsigns preview_hunk<CR>", "Preview" },
-		["r"] = { "<cmd>Gitsigns reset_hunk<CR>", "Reset" },
-	},
 	["b"] = {
 		name = "Buffers",
 		["b"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", "Buffers search" },
 		["l"] = { "<cmd>BufferLineCloseRight<CR>", "Close all to right" },
 		["h"] = { "<cmd>BufferLineCloseLeft<CR>", "Close all to left" },
 		["d"] = { "<cmd>lua require('bufdelete').bufdelete(0, true)<CR>", "Close Current" },
-		["m"] = { "<cmd>BufferLineCloseRight<CR><cmd>BufferLineCloseLeft<CR>", "Close except active" },
+		["m"] = { "<cmd>%bd|e#<CR><CR>", "Close except active" },
 	},
 	["f"] = {
 		name = "Find",
@@ -86,7 +82,8 @@ local mappings = {
 		["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
 		["h"] = { "<cmd>lua require('telescope.builtin').help_tags()<CR>", "Help tags" },
 		["b"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", "Buffers" },
-		["o"] = { "<cmd>lua require('telescope').extensions.project.project({})<CR>", "Projects" },
+		["o"] = { "<cmd>lua require('telescope').extensions.projects.projects({})<CR>", "Projects" },
+		["c"] = { "<cmd>Legendary<CR>", "All commands" },
 	},
 	["g"] = {
 		name = "Git",
@@ -98,13 +95,15 @@ local mappings = {
 		["p"] = { "<cmd>Git push<CR>", "Git push" },
 		["l"] = { "<cmd>Git pull<CR>", "Git pull" },
 		["g"] = { "<cmd>Git<CR>", "Fugitive" },
-		["u"] = { "<cmd>lua require('gitlinker').get_buf_range_url('n')<CR>", "Fugitive" },
+		["u"] = { "<cmd>lua require('gitlinker').get_buf_range_url('n')<CR>", "Get github url/link" },
+		["f"] = { "<cmd>DiffviewFileHistory %<CR>", "File history" },
 	},
 	["d"] = {
 		name = "Diff View",
 		["o"] = { "<cmd>DiffviewOpen<CR>", "Open" },
 		["c"] = { "<cmd>DiffviewClose<CR>", "Close" },
-		["f"] = { "<cmd>DiffviewFileHistory %<CR>", "File history" },
+		["p"] = { "<cmd>Gitsigns preview_hunk<CR>", "Preview hunk" },
+		["r"] = { "<cmd>Gitsigns reset_hunk<CR>", "Reset hunk" },
 	},
 	["u"] = {
 		name = "Utils",
@@ -138,6 +137,8 @@ local visual_mappings = {
 	},
 }
 
+legendary.setup({ which_key = { auto_register = true } })
 which_key.setup(setup)
+
 which_key.register(mappings, opts)
 which_key.register(visual_mappings, visual_opts)

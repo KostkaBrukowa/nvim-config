@@ -41,14 +41,11 @@ return packer.startup(function(use)
 
 	-- Colorschemes
 	use("folke/tokyonight.nvim")
-	use("levouh/tint.nvim")
 	use("rktjmp/lush.nvim")
-	use("doums/darcula")
 
 	-- File explorer
 	use("kyazdani42/nvim-web-devicons")
 	use("kyazdani42/nvim-tree.lua")
-	use("elihunter173/dirbuf.nvim")
 
 	-- Buffer and status lines
 	use("nvim-lualine/lualine.nvim")
@@ -60,13 +57,20 @@ return packer.startup(function(use)
 	use("nvim-treesitter/playground")
 	use("theHamsta/nvim-semantic-tokens")
 
+	-- Keymaps
 	use("folke/which-key.nvim")
+	use("mrjones2014/legendary.nvim")
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-	use("nvim-telescope/telescope-project.nvim")
 	use("windwp/nvim-spectre")
+	use({
+		"ahmedkhalf/project.nvim",
+		config = function()
+			require("project_nvim").setup({})
+		end,
+	})
 
 	-- Session management
 	use("rmagatti/auto-session")
@@ -94,7 +98,6 @@ return packer.startup(function(use)
 	use("sindrets/diffview.nvim")
 	use("tpope/vim-fugitive")
 	use({ "ruifm/gitlinker.nvim", requires = "nvim-lua/plenary.nvim" })
-
 	use({ "lewis6991/gitsigns.nvim" })
 
 	-- Utils
@@ -108,17 +111,11 @@ return packer.startup(function(use)
 	use("abecodes/tabout.nvim")
 	use("ellisonleao/glow.nvim")
 	use("famiu/bufdelete.nvim")
-	use({
-		"sitiom/nvim-numbertoggle",
-		config = function()
-			require("numbertoggle").setup()
-		end,
-	})
 	use("Pocco81/true-zen.nvim")
 	use("akinsho/toggleterm.nvim")
 	use("rcarriga/nvim-notify")
 	use("petertriho/nvim-scrollbar")
-	use("inkarkat/vim-ReplaceWithRegister")
+	use("gbprod/substitute.nvim")
 	use({
 		"kylechui/nvim-surround",
 		config = function()
