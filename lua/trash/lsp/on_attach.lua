@@ -1,6 +1,7 @@
 local lsp_signature = safe_require("lsp_signature")
+local lsp_inlayhints = safe_require("lsp-inlayhints")
 
-if not lsp_signature then
+if not lsp_signature or not lsp_inlayhints then
 	return
 end
 
@@ -19,6 +20,7 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.document_formatting = false
 	end
 
+	-- Semantic Tokens
 	local caps = client.server_capabilities
 	if caps.semanticTokensProvider and caps.semanticTokensProvider.full then
 		local augroup = vim.api.nvim_create_augroup("SemanticTokens", {})
@@ -32,6 +34,10 @@ M.on_attach = function(client, bufnr)
 		-- fire it first time on load as well
 		vim.lsp.buf.semantic_tokens_full()
 	end
+
+	-- Inlay hints maybe in the future
+	--[[ lsp_inlayhints.setup({}) ]]
+	--[[ lsp_inlayhints.on_attach(client, bufnr) ]]
 end
 
 return M

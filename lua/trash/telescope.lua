@@ -53,6 +53,7 @@ telescope.setup({
 	},
 })
 
+
 project_nvim.setup({})
 
 telescope.load_extension("fzf")

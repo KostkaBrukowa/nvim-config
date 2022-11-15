@@ -20,6 +20,7 @@ keymap("n", "<C-1>", "<cmd>lua require('utils.tree').focusOrToggleIfFocused()<CR
 --[[ 	opts ]]
 --[[ ) ]]
 keymap("n", "<C-Tab>", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", opts)
+keymap("n", "<A-Tab>", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", opts)
 
 -- Text editing
 -- Faster movement to end and beggining of the line
@@ -64,8 +65,9 @@ keymap("n", "c*", "*Ncgn", opts)
 --[[ keymap("n", "<leader>r", "<Plug>ReplaceWithRegisterOperator", {}) ]]
 --[[ keymap("n", "<leader>rr", "<Plug>ReplaceWithRegisterLine", {}) ]]
 
-keymap("n", "<leader>r", "<cmd>lua require('substitute').operator()<cr>", opts)
-keymap("n", "<leader>rr", "<cmd>lua require('substitute').line()<cr>", opts)
+keymap("n", "R", "r", opts)
+keymap("n", "r", "<cmd>lua require('substitute').operator()<cr>", opts)
+keymap("n", "rr", "<cmd>lua require('substitute').line()<cr>", opts)
 
 -- Window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
@@ -99,13 +101,13 @@ vim.cmd([[
 ]])
 
 -- Remove cursor from inactive windows disables cursor in nvim tree which is bad
-vim.cmd([[
-  augroup CursorLineOnlyInActiveWindow
-    autocmd!
-    autocmd VimEnter,WinEnter,BufWinEnter * setlocal relativenumber
-    autocmd WinLeave * setlocal norelativenumber
-  augroup END  
-]])
+--[[ vim.cmd([[ ]]
+--[[   augroup CursorLineOnlyInActiveWindow ]]
+--[[     autocmd! ]]
+--[[     autocmd VimEnter,WinEnter,BufWinEnter * setlocal relativenumber ]]
+--[[     autocmd WinLeave * setlocal norelativenumber ]]
+--[[   augroup END   ]]
+--[[ \]\]) ]]
 
 -- nnoremap <M-n> <C-u>
 -- nnoremap <C-i> ea

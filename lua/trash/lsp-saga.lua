@@ -2,6 +2,20 @@ local keymap = vim.keymap.set
 local saga = require("lspsaga")
 
 saga.init_lsp_saga({
+	code_action_keys = {
+		quit = "<esc>",
+		exec = "<CR>",
+	},
+
+	--[[ code_action_lightbulb = { ]]
+	--[[ 	enable = true, ]]
+	--[[ 	enable_in_insert = true, ]]
+	--[[ 	cache_code_action = true, ]]
+	--[[ 	sign = true, ]]
+	--[[ 	update_time = 150, ]]
+	--[[ 	sign_priority = 20, ]]
+	--[[ 	virtual_text = true, ]]
+	--[[ }, ]]
 	-- TODO
 	--[[ symbol_in_winbar = { ]]
 	--[[ 	in_custom = true, ]]

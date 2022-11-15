@@ -88,7 +88,7 @@ local cyan = hsl(180, 58, 38)
 
 local blue = hsl(215, 80, 63).li(10)
 local hightlight_blue = hsl(220, 60, 32)
-local purple = hsl(279, 23, 56)
+local purple = hsl(279, 33, 56)
 local light_purple = hsl(282, 29, 64)
 local magenta = hsl(310, 40, 70)
 
@@ -174,6 +174,7 @@ require("tokyonight").setup({
 		set_hl(0, "@type.builtin", { fg = orange.hex })
 		set_hl(0, "@variable.builtin", { fg = magenta.hex })
 		set_hl(0, "@keyword.function", { fg = orange.hex })
+		set_hl(0, "@keyword.operator", { fg = orange.hex })
 
 		set_hl(0, "Statement", { fg = orange.hex })
 		set_hl(0, "Number", { fg = blue.hex })

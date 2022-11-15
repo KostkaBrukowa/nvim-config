@@ -35,6 +35,9 @@ function _G.set_terminal_keymaps()
 	vim.keymap.set("t", "<C-n>", [[<Cmd>wincmd j<CR>]], opts)
 	vim.keymap.set("t", "<C-e>", [[<Cmd>wincmd k<CR>]], opts)
 	vim.keymap.set("t", "<C-i>", [[<Cmd>wincmd l<CR>]], opts)
+
+	-- Reset tab because its overriden somewhere
+	vim.keymap.set("t", "<tab>", "<tab>", opts)
 end
 
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")

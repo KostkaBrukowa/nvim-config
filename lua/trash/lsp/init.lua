@@ -69,10 +69,11 @@ m.setup_handlers({
 		end
 
 		lspconfig[server_name].setup(opts)
-	end,
-	["tsserver"] = function()
-		typescript.setup({
-			server = opts,
-		})
+
+		if server_name == "tsserver" then
+			typescript.setup({
+				server = opts,
+			})
+		end
 	end,
 })

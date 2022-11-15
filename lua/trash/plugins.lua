@@ -71,6 +71,7 @@ return packer.startup(function(use)
 			require("project_nvim").setup({})
 		end,
 	})
+	use("rgroli/other.nvim")
 
 	-- Session management
 	use("rmagatti/auto-session")
@@ -110,7 +111,6 @@ return packer.startup(function(use)
 	use("ethanholz/nvim-lastplace")
 	use("abecodes/tabout.nvim")
 	use("ellisonleao/glow.nvim")
-	use("famiu/bufdelete.nvim")
 	use("Pocco81/true-zen.nvim")
 	use("akinsho/toggleterm.nvim")
 	use("rcarriga/nvim-notify")
@@ -123,6 +123,7 @@ return packer.startup(function(use)
 		end,
 	})
 	use("stevearc/dressing.nvim")
+	use("ThePrimeagen/refactoring.nvim")
 
 	-- LSP
 	use("williamboman/mason.nvim")
@@ -136,6 +137,20 @@ return packer.startup(function(use)
 	use("WhoIsSethDaniel/mason-tool-installer.nvim")
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("ray-x/lsp_signature.nvim")
+	use("lvimuser/lsp-inlayhints.nvim")
+
+	-- Testing
+	use({
+		"nvim-neotest/neotest",
+		wants = {
+			"neotest-jest",
+			"neotest-vim-test",
+		},
+		requires = {
+			"haydenmeade/neotest-jest",
+			"nvim-neotest/neotest-vim-test",
+		},
+	})
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()

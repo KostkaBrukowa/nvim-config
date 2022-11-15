@@ -5,5 +5,5 @@ if not auto_save then
 end
 
 auto_save.setup({
-    trigger_events = { "FocusLost" }, -- vim events that trigger auto-save. See :h events
+	trigger_events = { "FocusLost", "BufLeave" }, -- vim events that trigger auto-save. See :h events
 })
