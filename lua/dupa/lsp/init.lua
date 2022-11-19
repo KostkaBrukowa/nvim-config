@@ -38,7 +38,7 @@ m.setup({
 	},
 })
 
-require("trash.lsp.config")
+require("dupa.lsp.config")
 
 local cmp_nvim_lsp = safe_require("cmp_nvim_lsp")
 
@@ -51,7 +51,7 @@ capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
 
 local opts = {
 	capabilities = capabilities,
-	on_attach = require("trash.lsp.on_attach").on_attach,
+	on_attach = require("dupa.lsp.on_attach").on_attach,
 }
 
 local typescript = safe_require("typescript")
@@ -62,7 +62,7 @@ end
 
 m.setup_handlers({
 	function(server_name)
-		local has_custom_opts, custom_opts = pcall(require, "trash.lsp.settings." .. server_name)
+		local has_custom_opts, custom_opts = pcall(require, "dupa.lsp.settings." .. server_name)
 
 		if has_custom_opts then
 			opts = vim.tbl_deep_extend("force", custom_opts, opts)
