@@ -152,6 +152,7 @@ function Finder:loading_bar()
 
 						if is_cursor_on_the_definition then
 							self:open_link_raw(only_reference)
+							vim.notify("Only one reference found", "info", { timeout = 500 })
 							return
 						end
 					end
@@ -562,17 +563,72 @@ function Finder:set_cursor()
 	local first_ref_uri_lnum = self.ref_scope[1] + 3
 	local last_ref_uri_lnum = self.ref_scope[2]
 
+	local def_result_count = #self.request_result[methods[1]]
+	local ref_result_count = #self.request_result[methods[2]]
+
+	local function move_to_references_section()
+		if ref_result_count == 0 then
+			fn.cursor(first_def_uri_lnum, column)
+		else
+			fn.cursor(first_ref_uri_lnum, column)
+		end
+	end
+
+	local function move_to_definitions_section()
+		if def_result_count == 0 then
+			fn.cursor(first_ref_uri_lnum, column)
+		else
+			fn.cursor(first_def_uri_lnum, column)
+		end
+	end
+
+	-- User entered buffer
+	if current_line == 1 then
+		move_to_definitions_section()
+	-- User moved forward
+	elseif current_line == last_def_uri_lnum + 1 then
+		move_to_references_section()
+	elseif current_line == last_ref_uri_lnum + 1 then
+		move_to_definitions_section()
+	-- User moved backwards
+	elseif current_line == first_ref_uri_lnum - 1 then
+		move_to_definitions_section()
+	elseif current_line == first_def_uri_lnum - 1 then
+		move_to_references_section()
+	end
+
+	local actual_line = api.nvim_win_get_cursor(0)[1]
+	if actual_line == first_def_uri_lnum then
+		api.nvim_buf_add_highlight(0, finder_ns, "LspSagaFinderSelection", 2, #indent + #self.f_icon, -1)
+	end
+
+	api.nvim_buf_clear_namespace(0, finder_ns, 0, -1)
+	api.nvim_buf_add_highlight(0, finder_ns, "LspSagaFinderSelection", actual_line - 1, #indent + #self.f_icon, -1)
+end
+
+function Finder:set_cursor_old()
+	local current_line = api.nvim_win_get_cursor(0)[1]
+	local column = #indent + #self.f_icon + 1
+
+	local first_def_uri_lnum = self.def_scope[1] + 3
+	local last_def_uri_lnum = self.def_scope[2]
+	local first_ref_uri_lnum = self.ref_scope[1] + 3
+	local last_ref_uri_lnum = self.ref_scope[2]
+
+	local first_imp_uri_lnum = self.imp_scope and self.imp_scope[1] + 3 or -2
+	local last_imp_uri_lnum = self.imp_scope and self.imp_scope[2] or -2
+
 	if current_line == 1 then
 		fn.cursor(first_def_uri_lnum, column)
 	elseif current_line == last_def_uri_lnum + 1 then
-		fn.cursor(first_ref_uri_lnum > 0 and first_ref_uri_lnum or first_ref_uri_lnum, column)
-	elseif current_line == last_def_uri_lnum + 1 then
+		fn.cursor(first_imp_uri_lnum > 0 and first_imp_uri_lnum or first_ref_uri_lnum, column)
+	elseif current_line == last_imp_uri_lnum + 1 then
 		fn.cursor(first_ref_uri_lnum, column)
 	elseif current_line == last_ref_uri_lnum + 1 then
 		fn.cursor(first_def_uri_lnum, column)
 	elseif current_line == first_ref_uri_lnum - 1 then
-		fn.cursor(last_def_uri_lnum > 0 and last_def_uri_lnum or last_def_uri_lnum, column)
-	elseif current_line == first_ref_uri_lnum - 1 then
+		fn.cursor(last_imp_uri_lnum > 0 and last_imp_uri_lnum or last_def_uri_lnum, column)
+	elseif current_line == first_imp_uri_lnum - 1 then
 		fn.cursor(last_def_uri_lnum, column)
 	elseif current_line == first_def_uri_lnum - 1 then
 		fn.cursor(last_ref_uri_lnum, column)

@@ -33,6 +33,7 @@ require("trash.other")
 require("trash.neotest")
 require("trash.dap")
 require("trash.tint")
+require("trash.notify")
 
 -- Restart nvim after lua config change
 if File_watchers == nil then

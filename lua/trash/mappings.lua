@@ -127,5 +127,3 @@ vim.cmd([[
 -- Stay in indent mode
 --[[ keymap("v", "<", "<gv", opts) ]]
 --[[ keymap("v", ">", ">gv", opts) ]]
-
-keymap("n", "<leader><leader>s", "<cmd>source ~/.config/nvim/lua/utils/saga-test.lua<cr>", {})
