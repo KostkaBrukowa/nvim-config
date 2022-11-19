@@ -2,20 +2,20 @@ local keymap = vim.keymap.set
 local saga = require("lspsaga")
 
 saga.init_lsp_saga({
+	move_in_saga = { prev = "e", next = "n" },
 	code_action_keys = {
 		quit = "<esc>",
 		exec = "<CR>",
 	},
-
-	--[[ code_action_lightbulb = { ]]
-	--[[ 	enable = true, ]]
-	--[[ 	enable_in_insert = true, ]]
-	--[[ 	cache_code_action = true, ]]
-	--[[ 	sign = true, ]]
-	--[[ 	update_time = 150, ]]
-	--[[ 	sign_priority = 20, ]]
-	--[[ 	virtual_text = true, ]]
-	--[[ }, ]]
+	code_action_lightbulb = {
+		enable = true,
+		enable_in_insert = true,
+		cache_code_action = true,
+		sign = false,
+		update_time = 150,
+		sign_priority = 20,
+		virtual_text = true,
+	},
 	-- TODO
 	--[[ symbol_in_winbar = { ]]
 	--[[ 	in_custom = true, ]]
@@ -27,7 +27,8 @@ local ASquareRight = vim.fn.has("macunix") == 1 and "≥" or "<A->>"
 -- if there is no implement it will hide
 -- when you use action in finder like open vsplit then you can
 -- use <C-t> to jump back
-keymap("n", ASquareRight, "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
+--[[ keymap("n", ASquareRight, "<cmd>Lspsaga lsp_finder<CR>", { silent = true }) ]]
+keymap("n", ASquareRight, "<cmd>lua require('utils.saga-test'):lsp_finder()<CR>", { silent = true })
 
 -- Code action
 keymap({ "n", "v" }, "<C-.>", "<cmd>Lspsaga code_action<CR>", { silent = true })
@@ -50,4 +51,4 @@ keymap("n", "gh", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
 keymap("n", "<C-k>", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
 
 -- Hover Doc
-keymap("n", "gk", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
+keymap("n", "gt", "<cmd>Lspsaga hover_doc<CR>", { silent = true })

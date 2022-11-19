@@ -72,12 +72,16 @@ local mappings = {
 		["l"] = { "<cmd>BufferLineCloseRight<CR>", "Close all to right" },
 		["h"] = { "<cmd>BufferLineCloseLeft<CR>", "Close all to left" },
 		["d"] = { "<cmd>lua require('bufdelete').bufdelete(0, true)<CR>", "Close Current" },
-		["m"] = { "<cmd>%bd|e#<CR><CR>", "Close except active" },
+		["c"] = { "<cmd>%bd|e#<CR><CR>", "Close except active" },
 	},
 	["f"] = {
 		name = "Find",
 		["f"] = { "<cmd>lua require('telescope.builtin').live_grep()<CR>", "Live grep" },
 		["l"] = { "<cmd>lua require('telescope.builtin').resume()<CR>", "Last find window" },
+		["L"] = {
+			"<cmd>lua require('utils.telescope-custom-pickers').last_picker()<CR>",
+			"Last find window with index",
+		},
 		["s"] = { "<cmd>lua require('telescope.builtin').grep_string()<CR>", "Grep string" },
 		["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
 		["h"] = { "<cmd>lua require('telescope.builtin').help_tags()<CR>", "Help tags" },
@@ -104,6 +108,7 @@ local mappings = {
 		name = "Diff View",
 		["o"] = { "<cmd>DiffviewOpen<CR>", "Open" },
 		["c"] = { "<cmd>DiffviewClose<CR>", "Close" },
+		["d"] = { "<cmd>diffoff<CR>", "Close fugitive diff" },
 		["p"] = { "<cmd>Gitsigns preview_hunk<CR>", "Preview hunk" },
 		["r"] = { "<cmd>Gitsigns reset_hunk<CR>", "Reset hunk" },
 	},
@@ -111,7 +116,6 @@ local mappings = {
 		name = "Utils",
 		["m"] = { "<cmd>Glow<CR>", "Preview Markdown" },
 		["z"] = { "<cmd>TZAtaraxis<CR>", "Zen mode" },
-		["c"] = { "<cmd>highlight Cursor<CR>", "Get color under curor" },
 	},
 	["i"] = {
 		name = "Imports",
@@ -119,18 +123,33 @@ local mappings = {
 		["o"] = { "<cmd>TypescriptOrganizeImports<CR>", "Organize imports" },
 		["u"] = { "<cmd>TypescriptRemoveUnused<CR>", "Remove unused" },
 	},
+	["h"] = {
+		name = "Harpoon",
+		["m"] = { "<cmd>lua require('harpoon.mark').toggle_file()<CR>", "Add mark" },
+		["q"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "Quick menu" },
+		["a"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", "Nav file 1" },
+		["r"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", "Nav file 2" },
+		["s"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", "Nav file 3" },
+		["t"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", "Nav file 4" },
+		["h"] = { "<cmd>lua require('harpoon.ui').nav_prev()<CR>", "Mark prev" },
+		["i"] = { "<cmd>lua require('harpoon.ui').nav_next()<CR>", "Mark next" },
+	},
 	["n"] = {
 		["name"] = "Neotest",
 		["a"] = { "<cmd>lua require('neotest').run.attach()<cr>", "Attach" },
-		["f"] = { "<cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Run File" },
-		["F"] = { "<cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>", "Debug File" },
-		["l"] = { "<cmd>lua require('neotest').run.run_last()<cr>", "Run Last" },
-		["L"] = { "<cmd>lua require('neotest').run.run_last({ strategy = 'dap' })<cr>", "Debug Last" },
-		["n"] = { "<cmd>lua require('neotest').run.run()<cr>", "Run Nearest" },
-		["N"] = { "<cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Debug Nearest" },
-		["o"] = { "<cmd>lua require('neotest').output.open({ enter = true })<cr>", "Output" },
+		["f"] = { "<cmd>w<cr><cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Run File" },
+		["F"] = {
+			"<cmd>w<cr><cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>",
+			"Debug File",
+		},
+		["l"] = { "<cmd>w<cr><cmd>lua require('neotest').run.run_last()<cr>", "Run Last" },
+		["L"] = { "<cmd>w<cr><cmd>lua require('neotest').run.run_last({ strategy = 'dap' })<cr>", "Debug Last" },
+		["n"] = { "<cmd>w<cr><cmd>lua require('neotest').run.run()<cr>", "Run Nearest" },
+		["N"] = { "<cmd>w<cr><cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Debug Nearest" },
+		["O"] = { "<cmd>lua require('neotest').output.open({ enter = true })<cr>", "Full Output" },
+		["o"] = { "<cmd>lua require('neotest').output.open({ enter = true, short = true })<cr>", "Short output" },
 		["S"] = { "<cmd>lua require('neotest').run.stop()<cr>", "Stop" },
-		["s"] = { "<cmd>lua require('neotest').summary.toggle()<cr>", "Summary" },
+		["s"] = { "<cmd>lua require('neotest').summary.open()<cr>", "Summary" },
 	},
 }
 
@@ -157,3 +176,6 @@ which_key.setup(setup)
 
 which_key.register(mappings, opts)
 which_key.register(visual_mappings, visual_opts)
+
+require("messages").setup()
+

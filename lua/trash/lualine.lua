@@ -43,7 +43,7 @@ local config = {
 		-- Disable sections and component separators
 		component_separators = "",
 		section_separators = "",
-		theme = "tokyonight",
+		--[[ theme = "tokyonight", ]]
 		disabled_filetypes = { "NvimTree", "alpha" },
 	},
 	sections = {
@@ -196,17 +196,17 @@ ins_right({
 	color = { fg = colors.violet, gui = "bold" },
 })
 
-ins_right({
-	"diff",
-	-- Is it me or the symbol for modified us really weird
-	symbols = { added = " ", modified = "柳 ", removed = " " },
-	diff_color = {
-		added = { fg = colors.green },
-		modified = { fg = colors.orange },
-		removed = { fg = colors.red },
-	},
-	cond = conditions.hide_in_width,
-})
+--[[ ins_right({ ]]
+--[[ 	"diff", ]]
+--[[ 	-- Is it me or the symbol for modified us really weird ]]
+--[[ 	symbols = { added = " ", modified = "柳 ", removed = " " }, ]]
+--[[ 	diff_color = { ]]
+--[[ 		added = { fg = colors.green }, ]]
+--[[ 		modified = { fg = colors.orange }, ]]
+--[[ 		removed = { fg = colors.red }, ]]
+--[[ 	}, ]]
+--[[ 	cond = conditions.hide_in_width, ]]
+--[[ }) ]]
 
 ins_right({
 	function()

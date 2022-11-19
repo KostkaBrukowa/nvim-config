@@ -65,9 +65,8 @@ keymap("n", "c*", "*Ncgn", opts)
 --[[ keymap("n", "<leader>r", "<Plug>ReplaceWithRegisterOperator", {}) ]]
 --[[ keymap("n", "<leader>rr", "<Plug>ReplaceWithRegisterLine", {}) ]]
 
-keymap("n", "R", "r", opts)
-keymap("n", "r", "<cmd>lua require('substitute').operator()<cr>", opts)
-keymap("n", "rr", "<cmd>lua require('substitute').line()<cr>", opts)
+keymap("n", "<leader>r", "<cmd>lua require('substitute').operator()<cr>", opts)
+keymap("n", "<leader>rr", "<cmd>lua require('substitute').line()<cr>", opts)
 
 -- Window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
@@ -128,3 +127,5 @@ vim.cmd([[
 -- Stay in indent mode
 --[[ keymap("v", "<", "<gv", opts) ]]
 --[[ keymap("v", ">", ">gv", opts) ]]
+
+keymap("n", "<leader><leader>s", "<cmd>source ~/.config/nvim/lua/utils/saga-test.lua<cr>", {})

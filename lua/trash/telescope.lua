@@ -17,10 +17,9 @@ end
 
 telescope.setup({
 	defaults = {
-		--[[ get_selection_window = function(picker, entry) ]]
-		--[[ 	print(vim.inspect(picker)) ]]
-		--[[ 	return 0 ]]
-		--[[ end, ]]
+		cache_picker = {
+			num_pickers = 3,
+		},
 		file_ignore_patterns = {
 			".git/",
 			"node_modules/*",
@@ -33,13 +32,11 @@ telescope.setup({
 					vim.cmd("stopinsert")
 				end,
 				["<C-Tab>"] = actions.move_selection_previous,
+				["<A-Tab>"] = actions.move_selection_previous,
 				["<C-u>"] = function(options)
 					actions.add_to_qflist(options)
 					vim.cmd([[copen]])
 				end,
-				--[[ ["<Cr>"] = function(bufnr) ]]
-				--[[ 	actions_set.edit(bufnr, "tab drop") ]]
-				--[[ end, ]]
 			},
 		},
 	},
@@ -52,7 +49,6 @@ telescope.setup({
 		},
 	},
 })
-
 
 project_nvim.setup({})
 

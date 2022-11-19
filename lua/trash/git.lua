@@ -50,3 +50,7 @@ end, { nargs = "*" })
 git_linker.setup({
 	mappings = nil,
 })
+
+require("diffview").setup({
+	enhanced_diff_hl = true,
+})

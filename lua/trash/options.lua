@@ -2,6 +2,14 @@ vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 vim.cmd([[set fillchars+=diff:╱]])
 
+vim.cmd([[set fillchars+=vert:┃]])
+vim.cmd([[set fillchars+=horiz:━]])
+vim.cmd([[set fillchars+=horizup:┻]])
+vim.cmd([[set fillchars+=horizdown:┳]])
+vim.cmd([[set fillchars+=vertleft:┫]])
+vim.cmd([[set fillchars+=vertright:┣]])
+vim.cmd([[set fillchars+=verthoriz:╋]])
+
 vim.opt.shortmess:append("c")
 vim.notify = require("notify")
 

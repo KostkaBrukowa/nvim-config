@@ -10,10 +10,13 @@ if not nvim_tree_config then
 	return
 end
 
+local telescope_utils = safe_require("utils.telescope-custom-pickers")
+
 nvim_tree.setup({
 	hijack_netrw = true,
 	view = {
 		hide_root_folder = true,
+		width = 45,
 		mappings = {
 			custom_only = false,
 			list = {
@@ -21,6 +24,11 @@ nvim_tree.setup({
 				{ key = "<Left>", action = "close_node" },
 				{ key = "v", action = "vsplit" },
 				{ key = "E", action = "" },
+				{
+					key = "<leader>ff",
+					action = "Find in folder",
+					action_cb = telescope_utils.find_in_focused_file,
+				},
 				{
 					key = "<ESC>",
 					action = "lose_focus",

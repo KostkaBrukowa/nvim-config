@@ -20,6 +20,8 @@ M.on_attach = function(client, bufnr)
 		client.server_capabilities.document_formatting = false
 	end
 
+	--[[ keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts) ]]
+
 	-- Semantic Tokens
 	local caps = client.server_capabilities
 	if caps.semanticTokensProvider and caps.semanticTokensProvider.full then

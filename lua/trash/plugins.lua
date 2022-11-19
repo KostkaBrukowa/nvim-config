@@ -42,6 +42,7 @@ return packer.startup(function(use)
 	-- Colorschemes
 	use("folke/tokyonight.nvim")
 	use("rktjmp/lush.nvim")
+	use("levouh/tint.nvim")
 
 	-- File explorer
 	use("kyazdani42/nvim-web-devicons")
@@ -124,7 +125,9 @@ return packer.startup(function(use)
 	})
 	use("stevearc/dressing.nvim")
 	use("ThePrimeagen/refactoring.nvim")
-
+	use({
+		"AckslD/messages.nvim",
+	})
 	-- LSP
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
@@ -144,13 +147,23 @@ return packer.startup(function(use)
 		"nvim-neotest/neotest",
 		wants = {
 			"neotest-jest",
-			"neotest-vim-test",
 		},
 		requires = {
 			"haydenmeade/neotest-jest",
-			"nvim-neotest/neotest-vim-test",
 		},
 	})
+
+	-- Debugging
+	use({ "Pocco81/dap-buddy.nvim" })
+	use("theHamsta/nvim-dap-virtual-text")
+	use("rcarriga/nvim-dap-ui")
+	use("nvim-telescope/telescope-dap.nvim")
+	use("mfussenegger/nvim-dap")
+	use({
+		"microsoft/vscode-js-debug",
+		run = "npm install --legacy-peer-deps && npm run compile",
+	})
+	use("mxsdev/nvim-dap-vscode-js")
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
