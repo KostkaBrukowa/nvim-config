@@ -85,47 +85,6 @@ ins_left({
 	padding = { left = 0, right = 1 }, -- We don't need space before this
 })
 
-local foo
---[[ ins_left({ ]]
---[[ 	-- mode component ]]
---[[ 	function() ]]
---[[ 		return "" ]]
---[[ 	end, ]]
---[[ 	color = function() ]]
---[[ 		-- auto change color according to neovims mode ]]
---[[ 		local mode_color = { ]]
---[[ 			n = colors.red, ]]
---[[ 			i = colors.green, ]]
---[[ 			v = colors.blue, ]]
---[[ 			[""] = colors.blue, ]]
---[[ 			V = colors.blue, ]]
---[[ 			c = colors.magenta, ]]
---[[ 			no = colors.red, ]]
---[[ 			s = colors.orange, ]]
---[[ 			S = colors.orange, ]]
---[[ 			[""] = colors.orange, ]]
---[[ 			ic = colors.yellow, ]]
---[[ 			R = colors.violet, ]]
---[[ 			Rv = colors.violet, ]]
---[[ 			cv = colors.red, ]]
---[[ 			ce = colors.red, ]]
---[[ 			r = colors.cyan, ]]
---[[ 			rm = colors.cyan, ]]
---[[ 			["r?"] = colors.cyan, ]]
---[[ 			["!"] = colors.red, ]]
---[[ 			t = colors.red, ]]
---[[ 		} ]]
---[[ 		return { fg = mode_color[vim.fn.mode()] } ]]
---[[ 	end, ]]
---[[ 	padding = { right = 1 }, ]]
---[[ }) ]]
-
---[[ ins_left({ ]]
---[[ 	-- filesize component ]]
---[[ 	"filesize", ]]
---[[ 	cond = conditions.buffer_not_empty, ]]
---[[ }) ]]
-
 ins_left({
 	"filename",
 	cond = conditions.buffer_not_empty,
@@ -155,22 +114,7 @@ ins_left({
 })
 
 ins_left({
-	-- Lsp server name .
-	function()
-		local msg = "No Active Lsp"
-		local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
-		local clients = vim.lsp.get_active_clients()
-		if next(clients) == nil then
-			return msg
-		end
-		for _, client in ipairs(clients) do
-			local filetypes = client.config.filetypes
-			if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-				return client.name
-			end
-		end
-		return msg
-	end,
+	"lsp_progress",
 	icon = " LSP:",
 	color = { fg = "#ffffff", gui = "bold" },
 })
@@ -195,18 +139,6 @@ ins_right({
 	icon = "",
 	color = { fg = colors.violet, gui = "bold" },
 })
-
---[[ ins_right({ ]]
---[[ 	"diff", ]]
---[[ 	-- Is it me or the symbol for modified us really weird ]]
---[[ 	symbols = { added = " ", modified = "柳 ", removed = " " }, ]]
---[[ 	diff_color = { ]]
---[[ 		added = { fg = colors.green }, ]]
---[[ 		modified = { fg = colors.orange }, ]]
---[[ 		removed = { fg = colors.red }, ]]
---[[ 	}, ]]
---[[ 	cond = conditions.hide_in_width, ]]
---[[ }) ]]
 
 ins_right({
 	function()

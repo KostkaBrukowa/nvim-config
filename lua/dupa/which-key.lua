@@ -161,6 +161,7 @@ local visual_opts = {
 }
 
 local visual_mappings = {
+	["y"] = { '"+y', "Yank to global register" },
 	["r"] = {
 		name = "Find and replace",
 		["o"] = { "<esc>:lua require('spectre').open_visual()<cr>", "Find under cursor" },
@@ -178,4 +179,3 @@ which_key.register(mappings, opts)
 which_key.register(visual_mappings, visual_opts)
 
 require("messages").setup()
-

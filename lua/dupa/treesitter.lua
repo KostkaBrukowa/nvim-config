@@ -40,23 +40,6 @@ treesitter.setup({
 		enable = true,
 	},
 	indent = { enable = true },
-	textobjects = {
-		select = {
-			enable = true,
-			lookahead = true,
-			keymaps = {
-				["aa"] = "@parameter.outer",
-				["ia"] = "@parameter.inner",
-			},
-			include_surrounding_whitespace = true,
-		},
-		swap = {
-			enable = true,
-		},
-		move = {
-			enable = true,
-		},
-	},
 })
 
 vim.cmd([[hi rainbowcol1 guifg=#7f849c]])

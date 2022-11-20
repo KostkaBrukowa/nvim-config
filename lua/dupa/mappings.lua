@@ -12,16 +12,6 @@ keymap("v", "p", '"_dP', opts)
 -- Tree
 keymap("n", "<C-1>", "<cmd>lua require('utils.tree').focusOrToggleIfFocused()<CR>", opts)
 
--- Last buffers
---[[ keymap( ]]
---[[ 	"n", ]]
---[[ 	"<C-Tab>", ]]
---[[ 	"<cmd>lua require('telescope.builtin').buffers({sort_lastused = true, ignore_current_buffer = true})<CR>", ]]
---[[ 	opts ]]
---[[ ) ]]
-keymap("n", "<C-Tab>", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", opts)
-keymap("n", "<A-Tab>", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", opts)
-
 -- Text editing
 -- Faster movement to end and beggining of the line
 keymap("n", "I", "$", opts)
@@ -43,9 +33,6 @@ keymap("", "J", "E", opts)
 keymap("", "k", "n", opts)
 keymap("", "K", "N", opts)
 
--- TODO
--- let g:argtextobj_pairs="(:),{:},<:>,[:]"
-
 keymap("n", "Y", "y$", opts)
 
 -- make enter below and go back to original position
@@ -55,18 +42,15 @@ keymap("n", "<S-Enter>", "O<ESC>j", opts)
 -- change current word and allow to use . for changing next words
 keymap("n", "c*", "*Ncgn", opts)
 
--- Git commands TODO
--- nmap :gpl <Action>(Git.Pull)
-
--- leader mappings
--- TODO
--- nmap <leader>c <Action>(Vcs.Show.Local.Changes)
-
---[[ keymap("n", "<leader>r", "<Plug>ReplaceWithRegisterOperator", {}) ]]
---[[ keymap("n", "<leader>rr", "<Plug>ReplaceWithRegisterLine", {}) ]]
-
+-- Plugins
 keymap("n", "<leader>r", "<cmd>lua require('substitute').operator()<cr>", opts)
 keymap("n", "<leader>rr", "<cmd>lua require('substitute').line()<cr>", opts)
+
+keymap("v", "*", "<Plug>(visualstar-*)", opts)
+
+-- Old files
+keymap("n", "<C-Tab>", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", opts)
+keymap("n", "<A-Tab>", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", opts)
 
 -- Window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
@@ -83,6 +67,11 @@ keymap("n", "``", "``zz", opts)
 -- mapping to execute in spectre as vim.normal
 keymap("n", "|||", "<c-w><c-p>", opts)
 
+-- Stay in indent mode when formatting
+keymap("v", "<", "<gv", opts)
+keymap("v", ">", ">gv", opts)
+
+
 -- Highlight on yank
 vim.cmd([[
   augroup YankHighlight
@@ -98,32 +87,3 @@ vim.cmd([[
     autocmd VimEnter * silent! stopinsert
   augroup end
 ]])
-
--- Remove cursor from inactive windows disables cursor in nvim tree which is bad
---[[ vim.cmd([[ ]]
---[[   augroup CursorLineOnlyInActiveWindow ]]
---[[     autocmd! ]]
---[[     autocmd VimEnter,WinEnter,BufWinEnter * setlocal relativenumber ]]
---[[     autocmd WinLeave * setlocal norelativenumber ]]
---[[   augroup END   ]]
---[[ \]\]) ]]
-
--- nnoremap <M-n> <C-u>
--- nnoremap <C-i> ea
-
--- NOT MINE
---hj
-
--- Resize
---[[ keymap("n", "<M-j>", ":resize -2<CR>", opts) ]]
---[[ keymap("n", "<M-k>", ":resize +2<CR>", opts) ]]
---[[ keymap("n", "<M-l>", ":vertical resize -2<CR>", opts) ]]
---[[ keymap("n", "<M-h>", ":vertical resize +2<CR>", opts) ]]
-
--- Navigate buffers
---[[ keymap("n", "<Tab>", ":BufferLineCycleNext<CR>", opts) ]]
---[[ keymap("n", "<S-Tab>", ":BufferLineCyclePrev<CR>", opts) ]]
-
--- Stay in indent mode
---[[ keymap("v", "<", "<gv", opts) ]]
---[[ keymap("v", ">", ">gv", opts) ]]

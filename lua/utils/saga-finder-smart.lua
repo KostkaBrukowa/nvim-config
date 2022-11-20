@@ -1,4 +1,4 @@
--- Code copied and modified from https://github.com/glepnir/lspsaga.nvim/blob/main/lua/lspsaga/finder.lua
+-- Code copied and modified from https://github.com/glepnir/lspsaga.nvim/blob/main/lua/lspsaga/finder.luahttps://github.com/glepnir/lspsaga.nvim/blob/main/lua/lspsaga/finder.lua
 local window = require("lspsaga.window")
 local api, lsp, fn = vim.api, vim.lsp, vim.fn
 local config = require("lspsaga").config_values

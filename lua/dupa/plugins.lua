@@ -41,7 +41,6 @@ return packer.startup(function(use)
 
 	-- Colorschemes
 	use("folke/tokyonight.nvim")
-	use("rktjmp/lush.nvim")
 	use("levouh/tint.nvim")
 
 	-- File explorer
@@ -50,6 +49,7 @@ return packer.startup(function(use)
 
 	-- Buffer and status lines
 	use("nvim-lualine/lualine.nvim")
+	use("arkav/lualine-lsp-progress")
 
 	-- Treesitter
 	use("nvim-treesitter/nvim-treesitter")
@@ -128,6 +128,9 @@ return packer.startup(function(use)
 	use({
 		"AckslD/messages.nvim",
 	})
+	use("wellle/targets.vim")
+	use("thinca/vim-visualstar")
+
 	-- LSP
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")

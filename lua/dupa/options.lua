@@ -15,7 +15,6 @@ vim.notify = require("notify")
 
 local options = {
 	backup = false,
-	clipboard = "unnamedplus",
 	cmdheight = 0,
 	laststatus = 3,
 	completeopt = { "menuone", "noselect" },
@@ -53,3 +52,12 @@ local options = {
 for k, v in pairs(options) do
 	vim.opt[k] = v
 end
+
+vim.cmd([[
+  autocmd User targets#mappings#user call targets#mappings#extend({
+      \ 'a': {'argument': [{'o': '(', 'c': ')', 's': ','}, {'o': '[', 'c': ']', 's': ','}, {'o': '{', 'c': '}', 's': ','}]},
+      \ 't': {},
+      \ 'b': {},
+      \ 'q': {},
+      \ })
+]])
