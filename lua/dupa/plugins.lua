@@ -21,7 +21,7 @@ local packer = require("packer")
 vim.cmd([[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+    autocmd BufWritePost plugins.lua source <afile> 
   augroup end
 ]])
 
@@ -41,6 +41,7 @@ return packer.startup(function(use)
 
 	-- Colorschemes
 	use("folke/tokyonight.nvim")
+	use({ "catppuccin/nvim", as = "catppuccin" })
 	use("levouh/tint.nvim")
 
 	-- File explorer
@@ -54,8 +55,6 @@ return packer.startup(function(use)
 	-- Treesitter
 	use("nvim-treesitter/nvim-treesitter")
 	use("windwp/nvim-ts-autotag")
-	use("nvim-treesitter/nvim-treesitter-textobjects")
-	use("nvim-treesitter/playground")
 	use("theHamsta/nvim-semantic-tokens")
 
 	-- Keymaps
@@ -89,7 +88,6 @@ return packer.startup(function(use)
 
 	-- Snippets
 	use("L3MON4D3/LuaSnip")
-	use("rafamadriz/friendly-snippets")
 	use("saadparwaiz1/cmp_luasnip")
 
 	-- Comments

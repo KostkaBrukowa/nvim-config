@@ -18,6 +18,24 @@ function M.merge_branch()
 	})
 end
 
+function M.checkout_remote_smart()
+	builtin.git_branches({
+		attach_mappings = function(prompt_bufnr, map)
+			actions.select_default:replace(function()
+				actions.close(prompt_bufnr)
+				local selection_value = action_state.get_selected_entry().value
+				if string.find(selection_value, "origin/") then
+					vim.cmd("Git checkout --track " .. selection_value)
+				else
+					vim.cmd("Git checkout " .. selection_value)
+				end
+			end)
+
+			return true
+		end,
+	})
+end
+
 function M.find_in_focused_file(node)
 	if node.type == "directory" then
 		builtin.live_grep({ search_dirs = { node.absolute_path } })

@@ -144,19 +144,26 @@ function Finder:loading_bar()
 					local is_cursor_on_the_definition = not self:current_cursor_not_on_result(only_definition)
 
 					if not is_cursor_on_the_definition then
-						self:open_link_raw(only_definition)
+						self:open_link_from_result(only_definition)
 						return
 					end
 
-					if self:only_one_reference_present() then
+					if self:get_references_count() == 1 then
 						local only_reference = self.request_result[methods[2]][1]
 
 						if is_cursor_on_the_definition then
-							self:open_link_raw(only_reference)
+							self:open_link_from_result(only_reference)
 							vim.notify("Only one reference found", "info", { timeout = 500 })
 							return
 						end
 					end
+
+					if self:get_references_count() == 0 then
+						vim.notify("No references found...", "info", { timeout = 1000 })
+						return
+					end
+
+					-- TODO don't render finder if there are no references and send vim.notify
 
 					if is_cursor_on_the_definition then
 						self.request_result[methods[1]][1] = nil
@@ -175,10 +182,14 @@ function Finder:only_one_definition_present()
 	return definition_result ~= nil and #definition_result == 1
 end
 
-function Finder:only_one_reference_present()
+function Finder:get_references_count()
 	local definition_result = self.request_result[methods[2]]
 
-	return definition_result ~= nil and #definition_result == 1
+	if definition_result == nil then
+		return 0
+	end
+
+	return #definition_result
 end
 
 function Finder:current_cursor_not_on_result(result)
@@ -785,7 +796,7 @@ function Finder:open_link(action_type)
 	self:clear_tmp_data()
 end
 
-function Finder:open_link_raw(result)
+function Finder:open_link_from_result(result)
 	local uri = result.targetUri or result.uri
 	local range = result.targetSelectionRange or result.range
 

@@ -66,14 +66,6 @@ local mappings = {
 		["o"] = { "<cmd>NvimTreeCollapse<CR>", "Collapse" },
 		["r"] = { "<cmd>TypescriptRenameFile<CR>", "Rename file" },
 	},
-	["b"] = {
-		name = "Buffers",
-		["b"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", "Buffers search" },
-		["l"] = { "<cmd>BufferLineCloseRight<CR>", "Close all to right" },
-		["h"] = { "<cmd>BufferLineCloseLeft<CR>", "Close all to left" },
-		["d"] = { "<cmd>lua require('bufdelete').bufdelete(0, true)<CR>", "Close Current" },
-		["c"] = { "<cmd>%bd|e#<CR><CR>", "Close except active" },
-	},
 	["f"] = {
 		name = "Find",
 		["f"] = { "<cmd>lua require('telescope.builtin').live_grep()<CR>", "Live grep" },
@@ -96,7 +88,7 @@ local mappings = {
 		["c"] = { "<cmd>Git commit<CR>", "Commit files" },
 		["n"] = { "<cmd>Git commit --amend<CR>", "Commit ammend" },
 		["a"] = { "<cmd>Git add .<CR>", "Add everything" },
-		["b"] = { "<cmd>lua require('telescope.builtin').git_branches()<CR>", "Branches" },
+		["b"] = { "<cmd>lua require('utils.telescope-custom-pickers').checkout_remote_smart()<CR>", "Branches" },
 		["m"] = { "<cmd>lua require('utils.telescope-custom-pickers').merge_branch()<CR>", "Git merge" },
 		["p"] = { "<cmd>Git push<CR>", "Git push" },
 		["l"] = { "<cmd>Git pull<CR>", "Git pull" },
@@ -116,6 +108,7 @@ local mappings = {
 		name = "Utils",
 		["m"] = { "<cmd>Glow<CR>", "Preview Markdown" },
 		["z"] = { "<cmd>TZAtaraxis<CR>", "Zen mode" },
+		["c"] = { "<cmd>%bd|e#<CR><CR>", "Close all buffers except active" },
 	},
 	["i"] = {
 		name = "Imports",

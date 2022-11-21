@@ -71,7 +71,6 @@ keymap("n", "|||", "<c-w><c-p>", opts)
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 
-
 -- Highlight on yank
 vim.cmd([[
   augroup YankHighlight
@@ -84,6 +83,6 @@ vim.cmd([[
 vim.cmd([[
   augroup NormalModeInit
     autocmd!
-    autocmd VimEnter * silent! stopinsert
+    autocmd BufEnter * silent! stopinsert
   augroup end
 ]])

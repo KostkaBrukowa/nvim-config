@@ -1,9 +1,4 @@
 local function configure()
-	--[[ local dap_install = require("dap-buddy") ]]
-	--[[ dap_install.setup({ ]]
-	--[[ 	installation_path = vim.fn.stdpath("data") .. "/dapinstall/", ]]
-	--[[ }) ]]
-
 	local dap_breakpoint = {
 		error = {
 			text = "🟥",
@@ -36,7 +31,38 @@ local function configure_exts()
 	})
 
 	local dap, dapui = require("dap"), require("dapui")
-	dapui.setup({}) -- use default
+	dapui.setup({
+		mappings = {
+			-- Use a table to apply multiple mappings
+			expand = { "<CR>", "<2-LeftMouse>" },
+			open = "o",
+			remove = "d",
+			edit = "c", -- configure
+			repl = "r",
+			toggle = "t",
+		},
+		layouts = {
+			{
+				elements = {
+					-- Elements can be strings or table with id and size keys.
+					{ id = "scopes", size = 0.4 },
+					{ id = "watches", size = 0.4 },
+					{ id = "breakpoints", size = 0.1 },
+					{ id = "stacks", size = 0.1 },
+				},
+				size = 40, -- 40 columns
+				position = "left",
+			},
+			{
+				elements = {
+					"repl",
+					"console",
+				},
+				size = 0.25, -- 25% of total lines
+				position = "bottom",
+			},
+		},
+	}) -- use default
 	dap.listeners.after.event_initialized["dapui_config"] = function()
 		dapui.open()
 	end
@@ -50,6 +76,7 @@ end
 
 local function configure_debuggers()
 	require("config.dap.javascript")
+	require("config.dap.keymaps").setup()
 end
 
 configure() -- Configuration
