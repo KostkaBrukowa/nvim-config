@@ -34,6 +34,7 @@ require("dupa.neotest")
 require("dupa.dap")
 require("dupa.tint")
 require("dupa.notify")
+require("config.luasnip")
 
 -- Restart nvim after lua config change
 if File_watchers == nil then

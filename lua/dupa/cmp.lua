@@ -22,6 +22,8 @@ if not luasnip_vscode_loader then
 	return
 end
 
+local compare = require("cmp.config.compare")
+
 luasnip_vscode_loader.lazy_load()
 
 local check_backspace = function()
@@ -44,6 +46,21 @@ local function selectNextOption(fallback)
 end
 
 cmp.setup({
+	completion = { completeopt = "menu,menuone,noinsert", keyword_length = 1 },
+	sorting = {
+		priority_weight = 2,
+		comparators = {
+			compare.score,
+			compare.recently_used,
+			compare.offset,
+			compare.exact,
+			compare.kind,
+			compare.sort_text,
+			compare.length,
+			compare.order,
+		},
+	},
+
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)

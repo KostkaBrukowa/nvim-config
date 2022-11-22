@@ -97,15 +97,14 @@ return packer.startup(function(use)
 	-- Git
 	use("sindrets/diffview.nvim")
 	use("tpope/vim-fugitive")
-	use({ "ruifm/gitlinker.nvim", requires = "nvim-lua/plenary.nvim" })
-	use({ "lewis6991/gitsigns.nvim" })
+	use("ruifm/gitlinker.nvim")
+	use("lewis6991/gitsigns.nvim")
 
 	-- Utils
 	use("lewis6991/impatient.nvim")
 	use("goolord/alpha-nvim")
 	use("ggandor/leap.nvim")
 	use("ThePrimeagen/harpoon")
-
 	use("lukas-reineke/indent-blankline.nvim")
 	use("ethanholz/nvim-lastplace")
 	use("abecodes/tabout.nvim")
@@ -127,7 +126,7 @@ return packer.startup(function(use)
 		"AckslD/messages.nvim",
 	})
 	use("wellle/targets.vim")
-	use("thinca/vim-visualstar")
+	use("thinca/vim-visualstar") -- Remove after 0.9 nvim
 
 	-- LSP
 	use("williamboman/mason.nvim")
@@ -158,7 +157,6 @@ return packer.startup(function(use)
 	use({ "Pocco81/dap-buddy.nvim" })
 	use("theHamsta/nvim-dap-virtual-text")
 	use("rcarriga/nvim-dap-ui")
-	use("nvim-telescope/telescope-dap.nvim")
 	use("mfussenegger/nvim-dap")
 	use({
 		"microsoft/vscode-js-debug",
