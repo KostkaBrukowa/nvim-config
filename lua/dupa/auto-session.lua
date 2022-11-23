@@ -7,6 +7,7 @@ session.setup({
 	log_level = "error",
 	auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
 	pre_save_cmds = { 'lua require("dupa.auto-session").close_plugin_owned()' },
+	auto_session_use_git_branch = true,
 })
 
 local M = {}

@@ -109,6 +109,10 @@ local mappings = {
 		["m"] = { "<cmd>Glow<CR>", "Preview Markdown" },
 		["z"] = { "<cmd>TZAtaraxis<CR>", "Zen mode" },
 		["c"] = { "<cmd>%bd|e#<CR><CR>", "Close all buffers except active" },
+		["t"] = {
+			"<cmd>lua require('utils.treesitter-utils').goto_translation()<CR>",
+			"Close all buffers except active",
+		},
 	},
 	["i"] = {
 		name = "Imports",

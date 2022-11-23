@@ -85,6 +85,8 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-nvim-lsp")
 	use("windwp/nvim-autopairs")
 	use("onsails/lspkind.nvim")
+	--[[ use({ "ms-jpq/coq_nvim", branch = "coq" }) ]]
+	--[[ use({ "ms-jpq/coq.thirdparty", branch = "3p" }) ]]
 
 	-- Snippets
 	use("L3MON4D3/LuaSnip")

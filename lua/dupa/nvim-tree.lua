@@ -98,8 +98,8 @@ nvim_tree.setup({
 	},
 	update_focused_file = {
 		enable = true,
-		update_root = true,
+		update_root = false,
 	},
-	sync_root_with_cwd = true,
+	sync_root_with_cwd = false,
 	respect_buf_cwd = true,
 })

@@ -38,9 +38,12 @@ end
 
 function M.find_in_focused_file(node)
 	if node.type == "directory" then
-		builtin.live_grep({ search_dirs = { node.absolute_path } })
+		builtin.live_grep({ search_dirs = { node.absolute_path }, prompt_title = "Live grep: " .. node.absolute_path })
 	elseif node.parent ~= nil then
-		builtin.live_grep({ search_dirs = { node.parent.absolute_path } })
+		builtin.live_grep({
+			search_dirs = { node.parent.absolute_path },
+			prompt_title = "Live grep: " .. node.parent.absolute_path,
+		})
 	end
 end
 
