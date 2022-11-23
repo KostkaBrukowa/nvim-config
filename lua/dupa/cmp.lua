@@ -46,7 +46,6 @@ local function selectNextOption(fallback)
 end
 
 cmp.setup({
-	completion = { completeopt = "menu,menuone,noinsert", keyword_length = 1 },
 	sorting = {
 		priority_weight = 2,
 		comparators = {

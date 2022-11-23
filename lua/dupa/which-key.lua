@@ -78,7 +78,7 @@ local mappings = {
 		["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
 		["h"] = { "<cmd>lua require('telescope.builtin').help_tags()<CR>", "Help tags" },
 		["b"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", "Buffers" },
-		["o"] = { "<cmd>lua require('telescope').extensions.projects.projects({})<CR>", "Projects" },
+		["o"] = { "<cmd>lua require('telescope').extensions.project.project({})<CR>", "Projects" },
 		["c"] = { "<cmd>Legendary<CR>", "All commands" },
 		["t"] = { "<cmd>lua require('other-nvim').open('test')<CR>", "Find test file" },
 	},

@@ -100,6 +100,6 @@ nvim_tree.setup({
 		enable = true,
 		update_root = false,
 	},
-	sync_root_with_cwd = false,
+	sync_root_with_cwd = true,
 	respect_buf_cwd = true,
 })

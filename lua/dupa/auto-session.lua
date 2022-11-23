@@ -1,8 +1,10 @@
 local session = require("auto-session")
+
 if not session then
 	return
 end
 
+--print("session")
 session.setup({
 	log_level = "error",
 	auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
@@ -28,7 +30,6 @@ end
 -- Detect if window is owned by plugin by checking buftype.
 M.is_plugin_owned = function(bufid)
 	local origin_type = vim.api.nvim_buf_get_option(bufid, "buftype")
-	local name = vim.api.nvim_buf_get_name(bufid)
 
 	if origin_type == "" or origin_type == "help" then
 		return false
@@ -38,3 +39,52 @@ M.is_plugin_owned = function(bufid)
 end
 
 return M
+
+--[[ local file_utils = require("utils.file") ]]
+--[[]]
+--[[ local M = {} ]]
+--[[]]
+--[[ vim.g.session_dir = vim.fn.stdpath("data") .. "/sessions/" ]]
+--[[]]
+--[[ if vim.fn.isdirectory(vim.g.session_dir) == 0 then ]]
+--[[ 	vim.fn.mkdir(vim.g.session_dir, "p") ]]
+--[[ end ]]
+--[[]]
+--[[ local function get_session_name() ]]
+--[[ 	if vim.fn.trim(vim.fn.system("git rev-parse --is-inside-work-tree")) == "true" then ]]
+--[[ 		return vim.g.session_dir .. vim.fn.trim(vim.fn.system("git rev-parse --show-toplevel")):gsub("/", "_") ]]
+--[[ 	end ]]
+--[[]]
+--[[ 	return nil ]]
+--[[ end ]]
+--[[]]
+--[[ local function make_session(session_name) ]]
+--[[ 	local cmd = "mks! " .. session_name ]]
+--[[ 	vim.cmd(cmd) ]]
+--[[ end ]]
+--[[]]
+--[[ local function restore_session() ]]
+--[[ 	local session_name = get_session_name() ]]
+--[[]]
+--[[ 	if session_name ~= nil and file_utils.file_exists(session_name) then ]]
+--[[ 		local cmd = "silent! source " .. session_name ]]
+--[[ 		vim.cmd(cmd) ]]
+--[[ 	end ]]
+--[[ end ]]
+--[[]]
+--[[ restore_session() ]]
+--[[]]
+--[[ -- Create autocmd ]]
+--[[ vim.api.nvim_create_autocmd("VimLeave", { ]]
+--[[ 	callback = function() ]]
+--[[ 		local session_name = get_session_name() ]]
+--[[ 		if session_name ~= nil then ]]
+--[[ 			make_session(session_name) ]]
+--[[ 		end ]]
+--[[ 	end, ]]
+--[[ }) ]]
+--[[]]
+--[[ -- todo add pre save command ]]
+--[[]]
+--[[ return M ]]
+--

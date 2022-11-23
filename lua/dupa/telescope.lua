@@ -1,9 +1,8 @@
 local telescope = safe_require("telescope")
 local actions = safe_require("telescope.actions")
 local actions_set = safe_require("telescope.actions.set")
-local project_nvim = safe_require("project_nvim")
 
-if not telescope or not project_nvim then
+if not telescope then
 	return
 end
 
@@ -50,7 +49,5 @@ telescope.setup({
 	},
 })
 
-project_nvim.setup({})
-
 telescope.load_extension("fzf")
-telescope.load_extension("projects")
+telescope.load_extension("project")

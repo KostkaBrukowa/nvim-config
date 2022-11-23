@@ -1,3 +1,4 @@
+require("dupa.colorscheme")
 require("dupa.utils")
 require("dupa.options")
 require("dupa.mappings")
@@ -25,8 +26,6 @@ require("dupa.lsp-saga")
 require("dupa.auto-save")
 require("dupa.leap")
 require("dupa.tint")
-require("dupa.auto-session")
-require("dupa.colorscheme")
 require("dupa.spectre")
 require("dupa.git")
 require("dupa.other")
@@ -35,6 +34,7 @@ require("dupa.dap")
 require("dupa.tint")
 require("dupa.notify")
 require("config.luasnip")
+require("dupa.auto-session")
 
 -- Restart nvim after lua config change
 if File_watchers == nil then
