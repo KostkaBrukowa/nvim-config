@@ -2,6 +2,7 @@ local keymap = vim.keymap.set
 local saga = require("lspsaga")
 
 saga.init_lsp_saga({
+	--[[ show_diagnostic_source = true, ]]
 	finder_request_timeout = 5000,
 	move_in_saga = { prev = "e", next = "n" },
 	code_action_keys = {
@@ -49,7 +50,12 @@ keymap("n", "<leader>2", "<cmd>Lspsaga rename<CR>", { silent = true })
 keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
 
 -- Show line diagnostics
-keymap("n", "gh", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
+keymap(
+	"n",
+	"gh",
+	"<cmd>lua require('modified-plugins.lspsaga.lua.lspsaga.diagnostic'):show_line_diagnostics()<CR>",
+	{ silent = true }
+)
 
 -- Show cursor diagnostic
 

@@ -1,6 +1,7 @@
 local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
 local action_state = require("telescope.actions.state")
+local project_actions = require("telescope._extensions.project.actions")
 
 local M = {}
 
@@ -35,6 +36,39 @@ function M.checkout_remote_smart()
 		end,
 	})
 end
+
+function M.open_saved_project_picker()
+	require("telescope").extensions.project.project({
+		attach_mappings = function(prompt_bufnr)
+			actions.select_default:replace(function()
+				actions.close(prompt_bufnr)
+				local selection_value = action_state.get_selected_entry().value
+
+				local handle_select_choice = function(picked_option)
+					if picked_option == "This window" then
+						vim.cmd("e " .. selection_value)
+					elseif picked_option == "New window" then
+						vim.cmd("silent ! kitty -d " .. selection_value .. " --single-instance --instance-group 100 &")
+					end
+				end
+
+				vim.ui.select(
+					{ "New window", "This window" },
+					{ prompt = "Open " .. selection_value .. " in: " },
+					handle_select_choice
+				)
+			end)
+			return true
+		end,
+	})
+end
+
+vim.api.nvim_set_keymap(
+	"n",
+	"<leader><leader><leader>",
+	"",
+	{}
+)
 
 function M.find_in_focused_file(node)
 	if node.type == "directory" then

@@ -78,7 +78,7 @@ local mappings = {
 		["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
 		["h"] = { "<cmd>lua require('telescope.builtin').help_tags()<CR>", "Help tags" },
 		["b"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", "Buffers" },
-		["o"] = { "<cmd>lua require('telescope').extensions.project.project({})<CR>", "Projects" },
+		["o"] = { "<cmd>lua require('utils.telescope-custom-pickers').open_saved_project_picker()<CR>", "Projects" },
 		["c"] = { "<cmd>Legendary<CR>", "All commands" },
 		["t"] = { "<cmd>lua require('other-nvim').open('test')<CR>", "Find test file" },
 	},
@@ -106,9 +106,10 @@ local mappings = {
 	},
 	["u"] = {
 		name = "Utils",
-		["m"] = { "<cmd>Glow<CR>", "Preview Markdown" },
+		["p"] = { "<cmd>Glow<CR>", "Preview Markdown" },
 		["z"] = { "<cmd>TZAtaraxis<CR>", "Zen mode" },
 		["c"] = { "<cmd>%bd|e#<CR><CR>", "Close all buffers except active" },
+		["m"] = { "<cmd>WindowsMaximize<cr>", "Maximize current buffer" },
 		["t"] = {
 			"<cmd>lua require('utils.treesitter-utils').goto_translation()<CR>",
 			"Close all buffers except active",
@@ -176,3 +177,12 @@ which_key.register(mappings, opts)
 which_key.register(visual_mappings, visual_opts)
 
 require("messages").setup()
+require("windows").setup({
+	autowidth = { --		       |windows.autowidth|
+		enable = false,
+	},
+})
+require("smoothcursor").setup({
+	speed = 25, -- max is 100 to stick to your current position
+	intervals = 35, -- tick interval
+})

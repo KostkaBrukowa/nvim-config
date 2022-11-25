@@ -108,6 +108,7 @@ return packer.startup(function(use)
 	use("akinsho/toggleterm.nvim")
 	use("rcarriga/nvim-notify")
 	use("petertriho/nvim-scrollbar")
+	use("gen740/SmoothCursor.nvim")
 	use("gbprod/substitute.nvim")
 	use({
 		"kylechui/nvim-surround",
@@ -122,6 +123,10 @@ return packer.startup(function(use)
 	})
 	use("wellle/targets.vim")
 	use("thinca/vim-visualstar") -- Remove after 0.9 nvim
+	use({
+		"anuvyklack/windows.nvim",
+		requires = { "anuvyklack/middleclass", "anuvyklack/animation.nvim" },
+	})
 
 	-- LSP
 	use("williamboman/mason.nvim")
