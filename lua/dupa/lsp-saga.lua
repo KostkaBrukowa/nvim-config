@@ -5,6 +5,7 @@ saga.init_lsp_saga({
 	--[[ show_diagnostic_source = true, ]]
 	finder_request_timeout = 5000,
 	move_in_saga = { prev = "e", next = "n" },
+	preview_lines_above = 3,
 	code_action_keys = {
 		quit = "<esc>",
 		exec = "<CR>",
@@ -29,7 +30,7 @@ local ASquareRight = vim.fn.has("macunix") == 1 and "≥" or "<A->>"
 -- if there is no implement it will hide
 -- when you use action in finder like open vsplit then you can
 -- use <C-t> to jump back
---[[ keymap("n", "<leader><leader>s", "<cmd>Lspsaga lsp_finder<CR>", { silent = true }) ]]
+-- keymap("n", "<leader><leader>s", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
 keymap(
 	"n",
 	ASquareRight,

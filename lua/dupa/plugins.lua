@@ -163,6 +163,7 @@ return packer.startup(function(use)
 		run = "npm install --legacy-peer-deps && npm run compile",
 	})
 	use("mxsdev/nvim-dap-vscode-js")
+	use("jbyuki/one-small-step-for-vimkind")
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
