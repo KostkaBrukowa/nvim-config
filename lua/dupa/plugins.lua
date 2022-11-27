@@ -45,8 +45,8 @@ return packer.startup(function(use)
 	use("levouh/tint.nvim")
 
 	-- File explorer
-	use("kyazdani42/nvim-web-devicons")
-	use("kyazdani42/nvim-tree.lua")
+	use("nvim-tree/nvim-web-devicons")
+	use("nvim-tree/nvim-tree.lua")
 
 	-- Buffer and status lines
 	use("nvim-lualine/lualine.nvim")

@@ -175,16 +175,3 @@ which_key.setup(setup)
 
 which_key.register(mappings, opts)
 which_key.register(visual_mappings, visual_opts)
-
-require("messages").setup()
-require("windows").setup({
-	autowidth = { --		       |windows.autowidth|
-		enable = false,
-	},
-})
-require("smoothcursor").setup({
-	speed = 25, -- max is 100 to stick to your current position
-	intervals = 35, -- tick interval
-})
-
-require("lab").setup()
