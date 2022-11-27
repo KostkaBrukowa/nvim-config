@@ -164,6 +164,7 @@ return packer.startup(function(use)
 	})
 	use("mxsdev/nvim-dap-vscode-js")
 	use("jbyuki/one-small-step-for-vimkind")
+	use({ "0x100101/lab.nvim", run = "cd js && npm ci" })
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()

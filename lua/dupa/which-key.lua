@@ -186,3 +186,5 @@ require("smoothcursor").setup({
 	speed = 25, -- max is 100 to stick to your current position
 	intervals = 35, -- tick interval
 })
+
+require("lab").setup()

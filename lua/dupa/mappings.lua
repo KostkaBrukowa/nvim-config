@@ -86,3 +86,11 @@ vim.cmd([[
     autocmd BufEnter * silent! stopinsert
   augroup end
 ]])
+
+-- Enter normal mode on init
+-- vim.cmd([[
+--   augroup Test
+--     autocmd!
+--     autocmd BufWritePost,FileWritePost * :lua print('Saved')
+--   augroup end
+-- ]])
