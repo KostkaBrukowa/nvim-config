@@ -17,7 +17,6 @@ require("dupa.indent_blankline")
 require("dupa.lastplace")
 require("dupa.tabout")
 require("dupa.lsp")
-require("dupa.null-ls")
 require("dupa.true-zen")
 require("dupa.dressing")
 require("dupa.toggleterm")
@@ -35,6 +34,8 @@ require("dupa.tint")
 require("dupa.notify")
 require("config.luasnip")
 require("dupa.auto-session")
+require("dupa.null-ls")
+require("dupa.fidget")
 
 -- Restart nvim after lua config change
 if File_watchers == nil then

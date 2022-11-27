@@ -1,3 +1,4 @@
+-- TODO delete if null-ls works fine in project
 local util = require("lspconfig.util")
 local PACKAGE_JSON = "package.json"
 

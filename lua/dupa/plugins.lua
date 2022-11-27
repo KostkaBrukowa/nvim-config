@@ -50,7 +50,7 @@ return packer.startup(function(use)
 
 	-- Buffer and status lines
 	use("nvim-lualine/lualine.nvim")
-	use("arkav/lualine-lsp-progress")
+	use("j-hui/fidget.nvim")
 
 	-- Treesitter
 	use("nvim-treesitter/nvim-treesitter")
@@ -140,7 +140,6 @@ return packer.startup(function(use)
 	use("WhoIsSethDaniel/mason-tool-installer.nvim")
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("ray-x/lsp_signature.nvim")
-	use("lvimuser/lsp-inlayhints.nvim")
 
 	-- Testing
 	use({

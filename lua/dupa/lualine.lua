@@ -113,12 +113,6 @@ ins_left({
 	end,
 })
 
-ins_left({
-	"lsp_progress",
-	icon = " LSP:",
-	color = { fg = "#ffffff", gui = "bold" },
-})
-
 -- Add components to right sections
 ins_right({
 	"o:encoding", -- option component same as &encoding in viml

@@ -24,6 +24,8 @@ m.setup({
 		"jsonls",
 		"tsserver",
 		"eslint",
+		"eslint_d",
+		"prettierd",
 		"prismals",
 		"tailwindcss",
 		"html",
@@ -69,11 +71,10 @@ m.setup_handlers({
 		end
 
 		lspconfig[server_name].setup(opts)
-
-		if server_name == "tsserver" then
-			typescript.setup({
-				server = opts,
-			})
-		end
+	end,
+	["tsserver"] = function()
+		typescript.setup({
+			server = opts,
+		})
 	end,
 })
