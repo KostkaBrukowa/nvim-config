@@ -77,7 +77,7 @@ end
 local function configure_debuggers()
 	require("config.dap.javascript")
 	require("config.dap.lua")
-	require("config.dap.keymaps").setup()
+	-- require("config.dap.keymaps").setup() -- Done it hydra-dap
 end
 
 configure() -- Configuration

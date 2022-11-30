@@ -45,7 +45,7 @@ local opts = {
 
 local mappings = {
 	["w"] = { "<cmd>wall<CR>", "Save" },
-	["q"] = { "<cmd>qall<CR>", "Quit" },
+	["q"] = { "<cmd>wall<CR><cmd>qall<CR>", "Save and Quit" },
 	["x"] = { "<cmd>q<CR>", "Close buffer" },
 	["p"] = { "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000})<CR>", "Format with prettier" },
 	["s"] = { "<Plug>(leap-forward-to)", "Leap forward" },

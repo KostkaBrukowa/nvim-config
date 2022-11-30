@@ -1,4 +1,5 @@
 local session = require("auto-session")
+local tree_utils = require("utils.tree")
 
 if not session then
 	return
@@ -9,7 +10,7 @@ session.setup({
 	log_level = "error",
 	auto_session_suppress_dirs = { "~/", "~/Downloads", "/" },
 	pre_save_cmds = { 'lua require("dupa.auto-session").close_plugin_owned()' },
-	auto_session_use_git_branch = true,
+	auto_session_use_git_branch = false,
 })
 
 local M = {}
@@ -30,8 +31,9 @@ end
 -- Detect if window is owned by plugin by checking buftype.
 M.is_plugin_owned = function(bufid)
 	local origin_type = vim.api.nvim_buf_get_option(bufid, "buftype")
+	local is_nvim_tree = tree_utils.is_buffer_nvim_tree(bufid)
 
-	if origin_type == "" or origin_type == "help" then
+	if origin_type == "" or origin_type == "help" or is_nvim_tree then
 		return false
 	end
 

@@ -1,7 +1,7 @@
 require("lab").setup()
 require("fidget").setup({})
 require("messages").setup()
-require("indent_blankline").setup()
+-- require("indent_blankline").setup() -- Test if I need it
 require("leap").setup({})
 require("scrollbar").setup()
 require("substitute").setup({})

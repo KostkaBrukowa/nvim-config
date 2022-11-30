@@ -46,7 +46,7 @@ nvim_tree.setup({
 	},
 	filters = {
 		custom = { "\\.git" },
-		exclude = { ".gitignore" },
+		exclude = { ".gitignore", "scenarios.private.js" },
 	},
 	renderer = {
 		add_trailing = false,

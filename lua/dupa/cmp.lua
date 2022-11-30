@@ -1,4 +1,6 @@
 local cmp = safe_require("cmp")
+local keymap = require("cmp.utils.keymap")
+local feedkeys = require("cmp.utils.feedkeys")
 
 if not cmp then
 	return
@@ -66,7 +68,6 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		["<Up>"] = cmp.mapping.select_prev_item(),
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<Esc>"] = cmp.mapping({
 			i = function()
@@ -75,8 +76,26 @@ cmp.setup({
 			end,
 		}),
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<Up>"] = cmp.mapping.select_prev_item(),
 		["<Down>"] = cmp.mapping(selectNextOption, { "i", "s" }),
-		["<Tab>"] = cmp.mapping(selectNextOption, { "i", "s" }),
+		["<Tab>"] = {
+			i = function()
+				if cmp.visible() then
+					cmp.select_next_item()
+				else
+					feedkeys.call(keymap.t("<tab>"), "n")
+				end
+			end,
+		},
+		["<S-Tab>"] = {
+			i = function()
+				if cmp.visible() then
+					cmp.select_prev_item()
+				else
+					feedkeys.call(keymap.t("<tab>"), "n")
+				end
+			end,
+		},
 	},
 	formatting = {
 		fields = { "kind", "abbr", "menu" },

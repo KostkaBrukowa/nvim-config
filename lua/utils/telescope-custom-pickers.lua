@@ -63,12 +63,12 @@ function M.open_saved_project_picker()
 	})
 end
 
-vim.api.nvim_set_keymap(
-	"n",
-	"<leader><leader><leader>",
-	"",
-	{}
-)
+-- vim.api.nvim_set_keymap(
+-- 	"n",
+-- 	"<leader><leader><leader>",
+-- 	"",
+-- 	{}
+-- )
 
 function M.find_in_focused_file(node)
 	if node.type == "directory" then

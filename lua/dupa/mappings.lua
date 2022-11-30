@@ -57,6 +57,10 @@ keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-n>", "<C-w>j", opts)
 keymap("n", "<C-e>", "<C-w>k", opts)
 keymap("n", "<C-i>", "<C-w>l", opts)
+keymap("i", "<C-h>", "<cmd>wincmd h<cr>", opts)
+keymap("i", "<C-n>", "<cmd>wincmd j<cr>", opts)
+keymap("i", "<C-e>", "<cmd>wincmd k<cr>", opts)
+keymap("i", "<C-i>", "<cmd>wincmd l<cr>", opts)
 
 -- Go back and forward
 keymap("n", "<C-l>", "<C-o>", opts)
@@ -80,9 +84,9 @@ vim.cmd([[
 ]])
 --
 -- Enter normal mode on init
-vim.cmd([[
-  augroup NormalModeInit
-    autocmd!
-    autocmd BufEnter * silent! stopinsert
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup NormalModeInit
+--     autocmd!
+--     autocmd BufEnter * silent! stopinsert
+--   augroup end
+-- ]])

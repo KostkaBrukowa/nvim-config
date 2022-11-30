@@ -100,7 +100,6 @@ return packer.startup(function(use)
 	use("goolord/alpha-nvim")
 	use("ggandor/leap.nvim")
 	use("ThePrimeagen/harpoon")
-	use("lukas-reineke/indent-blankline.nvim")
 	use("ethanholz/nvim-lastplace")
 	use("abecodes/tabout.nvim")
 	use("ellisonleao/glow.nvim")
@@ -127,6 +126,9 @@ return packer.startup(function(use)
 		"anuvyklack/windows.nvim",
 		requires = { "anuvyklack/middleclass", "anuvyklack/animation.nvim" },
 	})
+	use("anuvyklack/hydra.nvim")
+	use("mrjones2014/smart-splits.nvim")
+	use("sindrets/winshift.nvim")
 
 	-- LSP
 	use("williamboman/mason.nvim")
