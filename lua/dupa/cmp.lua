@@ -1,26 +1,11 @@
 local cmp = safe_require("cmp")
 local keymap = require("cmp.utils.keymap")
 local feedkeys = require("cmp.utils.feedkeys")
-
-if not cmp then
-	return
-end
-
 local luasnip = safe_require("luasnip")
-
-if not luasnip then
-	return
-end
-
 local lspkind = safe_require("lspkind")
-
-if not lspkind then
-	return
-end
-
 local luasnip_vscode_loader = safe_require("luasnip/loaders/from_vscode")
 
-if not luasnip_vscode_loader then
+if not cmp or not luasnip or not lspkind or not luasnip_vscode_loader then
 	return
 end
 
@@ -48,20 +33,6 @@ local function selectNextOption(fallback)
 end
 
 cmp.setup({
-	sorting = {
-		priority_weight = 2,
-		comparators = {
-			compare.score,
-			compare.recently_used,
-			compare.offset,
-			compare.exact,
-			compare.kind,
-			compare.sort_text,
-			compare.length,
-			compare.order,
-		},
-	},
-
 	snippet = {
 		expand = function(args)
 			luasnip.lsp_expand(args.body)
@@ -75,7 +46,13 @@ cmp.setup({
 				vim.cmd("stopinsert")
 			end,
 		}),
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
+		["<CR>"] = function(fallback)
+			if luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
+			elseif not cmp.confirm({ select = true }) then
+				fallback()
+			end
+		end,
 		["<Up>"] = cmp.mapping.select_prev_item(),
 		["<Down>"] = cmp.mapping(selectNextOption, { "i", "s" }),
 		["<Tab>"] = {

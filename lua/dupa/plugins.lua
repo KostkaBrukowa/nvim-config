@@ -142,6 +142,10 @@ return packer.startup(function(use)
 	use("WhoIsSethDaniel/mason-tool-installer.nvim")
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("ray-x/lsp_signature.nvim")
+	use("MrcJkb/haskell-tools.nvim")
+
+	-- Folding
+	use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
 
 	-- Testing
 	use({

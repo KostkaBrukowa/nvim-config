@@ -16,11 +16,9 @@ function M.setup()
 	M.setup_formatter({
 		{
 			command = "prettierd",
-			filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 		},
 		{
 			command = "eslint_d",
-			filetypes = { "javascript", "javascriptreact", "typescript", "typescriptreact" },
 		},
 		{
 			command = "stylua",

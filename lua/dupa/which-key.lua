@@ -68,7 +68,10 @@ local mappings = {
 	},
 	["f"] = {
 		name = "Find",
-		["f"] = { "<cmd>lua require('telescope.builtin').live_grep()<CR>", "Live grep" },
+		["f"] = {
+			"<cmd>lua require('telescope.builtin').live_grep({ glob_pattern = '!package-lock.json'})<CR>",
+			"Live grep",
+		},
 		["l"] = { "<cmd>lua require('telescope.builtin').resume()<CR>", "Last find window" },
 		["L"] = {
 			"<cmd>lua require('utils.telescope-custom-pickers').last_picker()<CR>",
@@ -112,7 +115,7 @@ local mappings = {
 		["m"] = { "<cmd>WindowsMaximize<cr>", "Maximize current buffer" },
 		["t"] = {
 			"<cmd>lua require('utils.treesitter-utils').goto_translation()<CR>",
-			"Close all buffers except active",
+			"Go to translation",
 		},
 	},
 	["i"] = {

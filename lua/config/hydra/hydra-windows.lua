@@ -11,8 +11,8 @@ local window_hint = [[
  ^^^^^^^^^^^^-------------  ^^-----------^^   ^^---------------
  ^ ^ _e_ ^ ^  ^ ^ _E_ ^ ^   ^   _<C-e>_   ^   _s_: horizontally 
  _h_ ^ ^ _i_  _H_ ^ ^ _I_   _<C-h>_ _<C-i>_   _v_: vertically
- ^ ^ _n_ ^ ^  ^ ^ _N_ ^ ^   ^   _<C-n>_   ^   _q_, _c_: close
- focus^^^^^^  window^^^^^^  ^_=_: equalize^   _z_: maximize
+ ^ ^ _n_ ^ ^  ^ ^ _N_ ^ ^   ^   _<C-n>_   ^   _q_, _x_: close
+ focus^^^^^^  window^^^^^^  ^_=_: equalize^   _m_: maximize
  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^^ ^          ^   _o_: remain only
 ]]
 
@@ -73,7 +73,7 @@ Hydra({
 		{ "w", "<C-w>w", { exit = true, desc = false } },
 		{ "<C-w>", "<C-w>w", { exit = true, desc = false } },
 
-		{ "z", cmd("WindowsMaximize"), { exit = true, desc = "maximize" } },
+		{ "m", cmd("WindowsMaximize"), { exit = true, desc = "maximize" } },
 		{ "<C-z>", cmd("WindowsMaximize"), { exit = true, desc = false } },
 
 		{ "o", "<C-w>o", { exit = true, desc = "remain only" } },
@@ -81,7 +81,7 @@ Hydra({
 
 		-- { "b", choose_buffer, { exit = true, desc = "choose buffer" } },
 
-		{ "c", pcmd("close", "E444") },
+		{ "x", pcmd("close", "E444") },
 		{ "q", pcmd("close", "E444"), { desc = "close window" } },
 		{ "<C-c>", pcmd("close", "E444"), { desc = false } },
 		{ "<C-q>", pcmd("close", "E444"), { desc = false } },

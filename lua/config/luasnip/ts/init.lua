@@ -30,7 +30,7 @@ local jsTsSnippets = {
 		)
 	),
 	snippet("fln", { utils.file_name(true) }),
-	snippet("clg", fmt("console.log('{}', {}){}", { utils.mirror(1), i(1), i(0) })),
+	snippet("clg", fmt("console.log('{}', {}){};", { utils.mirror(1), i(1), i(0) })),
 }
 
 vim.list_extend(jsTsSnippets, require("config.luasnip.ts.react"))

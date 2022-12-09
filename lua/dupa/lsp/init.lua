@@ -24,17 +24,12 @@ m.setup({
 		"jsonls",
 		"tsserver",
 		"eslint",
-		"prismals",
 		"tailwindcss",
 		"html",
 		"cssls",
-		"astro",
 		"yamlls",
-		"taplo",
 		"marksman",
-		"dockerls",
 		"volar",
-		"angularls",
 	},
 })
 
@@ -48,6 +43,10 @@ end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = cmp_nvim_lsp.default_capabilities(capabilities)
+capabilities.textDocument.foldingRange = {
+	dynamicRegistration = false,
+	lineFoldingOnly = true,
+}
 
 local opts = {
 	capabilities = capabilities,

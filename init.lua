@@ -31,6 +31,8 @@ require("config.luasnip")
 require("dupa.auto-session")
 require("dupa.null-ls")
 require("dupa.hydra")
+require("dupa.haskell")
+require("dupa.ufo")
 require("dupa.other_plugins")
 
 -- Restart nvim after lua config change
