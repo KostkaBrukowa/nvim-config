@@ -146,6 +146,7 @@ return packer.startup(function(use)
 
 	-- Folding
 	use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
+	use({ "stevearc/aerial.nvim" })
 
 	-- Testing
 	use({

@@ -135,6 +135,11 @@ local mappings = {
 		["h"] = { "<cmd>lua require('harpoon.ui').nav_prev()<CR>", "Mark prev" },
 		["i"] = { "<cmd>lua require('harpoon.ui').nav_next()<CR>", "Mark next" },
 	},
+	["a"] = {
+		name = "Aerial",
+		["o"] = { "<cmd>NvimTreeClose<cr><cmd>AerialOpen<CR>", "Open aerial" },
+		["c"] = { "<cmd>AerialClose<CR>", "Close aerial" },
+	},
 	["n"] = {
 		["name"] = "Neotest",
 		["a"] = { "<cmd>lua require('neotest').run.attach()<cr>", "Attach" },
