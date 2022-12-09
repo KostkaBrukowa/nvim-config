@@ -122,11 +122,11 @@ return packer.startup(function(use)
 	})
 	use("wellle/targets.vim")
 	use("thinca/vim-visualstar") -- Remove after 0.9 nvim
+	use("anuvyklack/hydra.nvim")
 	use({
 		"anuvyklack/windows.nvim",
 		requires = { "anuvyklack/middleclass", "anuvyklack/animation.nvim" },
 	})
-	use("anuvyklack/hydra.nvim")
 	use("mrjones2014/smart-splits.nvim")
 	use("sindrets/winshift.nvim")
 
