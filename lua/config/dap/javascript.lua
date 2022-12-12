@@ -1,12 +1,21 @@
 for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
+	local launchFileConfig = {
+		type = "pwa-node",
+		request = "launch",
+		name = "Launch file",
+		program = "${file}",
+		cwd = "${workspaceFolder}",
+		sourceMaps = true,
+		skipFiles = { "<node_internals>/**", "node_modules/**" },
+	}
+	if language == "typescript" or language == "typescriptreact" then
+		launchFileConfig.runtimeArgs = {
+			"--loader",
+			"ts-node/esm",
+		}
+	end
 	require("dap").configurations[language] = {
-		{
-			type = "pwa-node",
-			request = "launch",
-			name = "[pwa-node] Launch file",
-			program = "${file}",
-			cwd = "${workspaceFolder}",
-		},
+		launchFileConfig,
 		{
 			type = "pwa-node",
 			request = "attach",

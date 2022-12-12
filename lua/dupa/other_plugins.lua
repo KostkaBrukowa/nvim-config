@@ -5,6 +5,7 @@ require("leap").setup({})
 require("scrollbar").setup()
 require("substitute").setup({})
 require("tabout").setup({})
+require("nvim-surround").setup()
 require("aerial").setup({
 	manage_folds = true,
 	show_guides = true,
@@ -46,3 +47,4 @@ vim.cmd([[
   imap <silent><script><expr> <Right> copilot#Accept("\<CR>")
   let g:copilot_no_tab_map = v:true
 ]])
+vim.g.copilot_filetypes = { ["Dap REPL"] = false, ["DAP Watches"] = false }

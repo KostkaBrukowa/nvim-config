@@ -109,17 +109,10 @@ return packer.startup(function(use)
 	use("petertriho/nvim-scrollbar")
 	use("gen740/SmoothCursor.nvim")
 	use("gbprod/substitute.nvim")
-	use({
-		"kylechui/nvim-surround",
-		config = function()
-			require("nvim-surround").setup()
-		end,
-	})
+	use("kylechui/nvim-surround")
 	use("stevearc/dressing.nvim")
 	use("ThePrimeagen/refactoring.nvim")
-	use({
-		"AckslD/messages.nvim",
-	})
+	use("AckslD/messages.nvim")
 	use("wellle/targets.vim")
 	use("thinca/vim-visualstar") -- Remove after 0.9 nvim
 	use("anuvyklack/hydra.nvim")
@@ -129,6 +122,7 @@ return packer.startup(function(use)
 	})
 	use("mrjones2014/smart-splits.nvim")
 	use("sindrets/winshift.nvim")
+	use("stevearc/stickybuf.nvim")
 
 	-- LSP
 	use("williamboman/mason.nvim")

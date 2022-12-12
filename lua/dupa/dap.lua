@@ -83,4 +83,4 @@ end
 configure() -- Configuration
 configure_exts() -- Extensions
 configure_debuggers() -- Debugger
---[[ require("config.dap.keymaps").setup() -- Keymaps ]]
+require("config.dap.keymaps").setup() -- Keymaps

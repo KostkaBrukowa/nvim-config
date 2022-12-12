@@ -51,13 +51,6 @@ local mappings = {
 	["s"] = { "<Plug>(leap-forward-to)", "Leap forward" },
 	["S"] = { "<Plug>(leap-backward-to)", "Leap backwards" },
 	["c"] = { "<cmd>DiffviewToggle<cr>", "Toggle diffview" },
-	["r"] = {
-		name = "Find and replace",
-		["o"] = { "<cmd>lua require('spectre').open()<cr>", "Open" },
-		["w"] = { "<cmd>lua require('spectre').open_visual({select_word=true})<cr>", "Seach current word" },
-		["l"] = { "<cmd>lua require('spectre').resume_last_search()<cr>", "Resume last search" },
-		["f"] = { "<cmd>lua require('spectre').open_file_search()<cr>", "Rearch in file" },
-	},
 	["t"] = {
 		name = "File Explorer",
 		["t"] = { "<cmd>NvimTreeToggle<CR>", "Toggle" },
@@ -116,6 +109,16 @@ local mappings = {
 		["t"] = {
 			"<cmd>lua require('utils.treesitter-utils').goto_translation()<CR>",
 			"Go to translation",
+		},
+		["r"] = {
+			name = "Find and replace",
+			["o"] = { "<cmd>lua require('spectre').open()<cr>", "Find and replace - Open" },
+			["w"] = {
+				"<cmd>lua require('spectre').open_visual({select_word=true})<cr>",
+				"Find and replace - Seach current word",
+			},
+			["l"] = { "<cmd>lua require('spectre').resume_last_search()<cr>", "Find and replace - Resume last search" },
+			["f"] = { "<cmd>lua require('spectre').open_file_search()<cr>", "Find and replace - Rearch in file" },
 		},
 	},
 	["i"] = {
