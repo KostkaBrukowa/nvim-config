@@ -6,20 +6,7 @@ require("scrollbar").setup()
 require("substitute").setup({})
 require("tabout").setup({})
 require("nvim-surround").setup()
-require("aerial").setup({
-	manage_folds = true,
-	show_guides = true,
-	layout = {
-		min_width = 45,
-		default_direction = "prefer_left",
-		manage_folds = true,
-		link_folds_to_tree = false,
-		win_opts = {
-			number = true,
-			relativenumber = true,
-		},
-	},
-})
+-- require("refactoring").setup({})
 
 require("notify").setup({
 	stages = "fade",
@@ -36,6 +23,9 @@ require("smoothcursor").setup({
 })
 require("fidget").setup({
 	sources = { -- Sources to configure
+		["null-ls"] = { -- Name of source
+			ignore = true, -- Ignore notifications from this source
+		},
 		hls = { -- Name of source
 			ignore = true, -- Ignore notifications from this source
 		},
@@ -47,4 +37,4 @@ vim.cmd([[
   imap <silent><script><expr> <Right> copilot#Accept("\<CR>")
   let g:copilot_no_tab_map = v:true
 ]])
-vim.g.copilot_filetypes = { ["Dap REPL"] = false, ["DAP Watches"] = false }
+vim.g.copilot_filetypes = { ["dap-repl"] = false, ["dapui_watches"] = false }

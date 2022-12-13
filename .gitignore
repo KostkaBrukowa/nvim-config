@@ -3,4 +3,5 @@ plugin
 lua/modified-plugins
 test.ts
 test.txt
+test.lua
 pack

@@ -24,7 +24,7 @@ comment.setup({
 })
 
 vim.keymap.set("n", "<leader>/", function()
-	return vim.v.count == 0 and "<Plug>(comment_toggle_linewise_current)" or "<Plug>(comment_toggle_linewise_count)"
+	return vim.v.count == 0 and "<Plug>(comment_toggle_linewise_current)j" or "<Plug>(comment_toggle_linewise_count)"
 end, { expr = true })
 
 vim.keymap.set("v", "<leader>/", function()

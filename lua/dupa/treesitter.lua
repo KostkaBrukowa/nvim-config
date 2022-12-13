@@ -44,3 +44,5 @@ treesitter.setup({
 })
 
 vim.cmd([[hi rainbowcol1 guifg=#7f849c]])
+
+require("nvim-treesitter.configs").setup({})

@@ -1,7 +1,10 @@
 local ts = vim.treesitter
 local ts_utils = require("nvim-treesitter.ts_utils")
+local parsers = require("nvim-treesitter.parsers")
 
-local function goto_translation()
+local M = {}
+
+function M.goto_translation()
 	local ft = vim.bo.filetype
 
 	if not string.find(ft, "[java|type]script") then
@@ -45,4 +48,22 @@ local function goto_translation()
 	return false
 end
 
-return { goto_translation = goto_translation }
+function M.get_ts_node_at(buf, range)
+	local root_lang_tree = parsers.get_parser(buf)
+	local nvim_row = range.row - 1
+	local nvim_col = range.col - 1
+
+	if not root_lang_tree then
+		return
+	end
+
+	local root = ts_utils.get_root_for_position(nvim_row, nvim_col, root_lang_tree)
+
+	if not root then
+		return
+	end
+
+	return root:descendant_for_range(nvim_row, nvim_col, nvim_row, nvim_col)
+end
+
+return M

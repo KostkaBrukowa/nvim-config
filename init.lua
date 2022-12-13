@@ -34,6 +34,7 @@ require("dupa.hydra")
 require("dupa.haskell")
 require("dupa.ufo")
 require("dupa.stickybuf")
+require("dupa.aerial")
 require("dupa.other_plugins")
 
 -- Restart nvim after lua config change

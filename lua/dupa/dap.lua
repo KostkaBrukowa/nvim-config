@@ -1,7 +1,7 @@
 local function configure()
 	local dap_breakpoint = {
-		error = {
-			text = "🟥",
+		breakpoint = {
+			text = "",
 			texthl = "LspDiagnosticsSignError",
 			linehl = "",
 			numhl = "",
@@ -13,16 +13,20 @@ local function configure()
 			numhl = "",
 		},
 		stopped = {
-			text = "⭐️",
+			text = "=>",
 			texthl = "LspDiagnosticsSignInformation",
 			linehl = "DiagnosticUnderlineInfo",
 			numhl = "LspDiagnosticsSignInformation",
 		},
 	}
 
-	vim.fn.sign_define("DapBreakpoint", dap_breakpoint.error)
+	vim.fn.sign_define("DapBreakpoint", dap_breakpoint.breakpoint)
 	vim.fn.sign_define("DapStopped", dap_breakpoint.stopped)
 	vim.fn.sign_define("DapBreakpointRejected", dap_breakpoint.rejected)
+
+	local set_hl = vim.api.nvim_set_hl
+
+	set_hl(0, "LspDiagnosticsSignError", { fg = "#ff0000" })
 end
 
 local function configure_exts()
@@ -83,4 +87,4 @@ end
 configure() -- Configuration
 configure_exts() -- Extensions
 configure_debuggers() -- Debugger
-require("config.dap.keymaps").setup() -- Keymaps
+-- require("config.dap.keymaps").setup() -- Keymaps

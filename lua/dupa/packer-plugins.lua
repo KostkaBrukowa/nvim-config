@@ -55,7 +55,7 @@ return packer.startup(function(use)
 	-- Treesitter
 	use("nvim-treesitter/nvim-treesitter")
 	use("windwp/nvim-ts-autotag")
-	use("theHamsta/nvim-semantic-tokens")
+	use("nvim-treesitter/playground")
 
 	-- Keymaps
 	use("folke/which-key.nvim")

@@ -35,7 +35,7 @@ nvim_tree.setup({
 					key = "<ESC>",
 					action = "lose_focus",
 					action_cb = function()
-						vim.cmd("wincmd l")
+						vim.cmd("wincmd h")
 					end,
 				},
 			},
