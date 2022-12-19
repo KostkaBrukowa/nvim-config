@@ -23,7 +23,7 @@ telescope.setup({
 			".git/",
 			"node_modules/*",
 		},
-		path_display = { "shorten", "tail" },
+		path_display = { ["shorten"] = 3 },
 		mappings = {
 			i = {
 				["<ESC>"] = actions.close,

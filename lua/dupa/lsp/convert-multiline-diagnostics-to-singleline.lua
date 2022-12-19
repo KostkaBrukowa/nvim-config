@@ -65,10 +65,33 @@ local function get_buf_lines(bufnr)
 	return lines
 end
 
+local DUPLICATE_DIAGNOSTICS = {
+	["@typescript-eslint/no-explicit-any"] = { -- This one will be removed
+		"some_ts_code",
+	},
+}
+
 local function diagnostic_lsp_to_vim(diagnostics, bufnr, client_id)
 	local buf_lines = get_buf_lines(bufnr)
 	local client = vim.lsp.get_client_by_id(client_id)
 	local offset_encoding = client and client.offset_encoding or "utf-16"
+
+	local filtered_diagnostics = vim.tbl_filter(function(diagnostic)
+		if not DUPLICATE_DIAGNOSTICS[diagnostic.code] then
+			return true
+		end
+
+		local current_line_diagnostics = vim.tbl_filter(function(d)
+			return d.range.start.line == diagnostic.range.start.line
+		end, diagnostics)
+
+		local duplicated_diagnostics = vim.tbl_filter(function(d)
+			return d.code == DUPLICATE_DIAGNOSTICS[diagnostic.code]
+		end, current_line_diagnostics)
+
+		return #duplicated_diagnostics == 0
+	end, diagnostics)
+
 	return vim.tbl_map(function(diagnostic)
 		local start = diagnostic.range.start
 		local _end = diagnostic.range["end"]
@@ -82,7 +105,7 @@ local function diagnostic_lsp_to_vim(diagnostics, bufnr, client_id)
 					and line_byte_from_position(buf_lines, _end.line, _end.character, offset_encoding)
 				or #buf_lines[start.line + 1],
 			severity = severity_lsp_to_vim(diagnostic.severity),
-			message = diagnostic.source .. ": " .. diagnostic.message,
+			message = diagnostic.source and diagnostic.source .. ": " .. diagnostic.message or diagnostic.message,
 			source = diagnostic.source,
 			code = diagnostic.code,
 			user_data = {
@@ -96,7 +119,7 @@ local function diagnostic_lsp_to_vim(diagnostics, bufnr, client_id)
 				},
 			},
 		}
-	end, diagnostics)
+	end, filtered_diagnostics)
 end
 
 ---@private
@@ -175,27 +198,6 @@ function M.reset(client_id, buffer_client_map)
 			end
 		end
 	end)
-end
-
-function M.get_line_diagnostics(bufnr, line_nr, opts, client_id)
-	opts = opts or {}
-	if opts.severity then
-		opts.severity = severity_lsp_to_vim(opts.severity)
-	elseif opts.severity_limit then
-		opts.severity = { min = severity_lsp_to_vim(opts.severity_limit) }
-	end
-
-	if client_id then
-		opts.namespace = M.get_namespace(client_id)
-	end
-
-	if not line_nr then
-		line_nr = vim.api.nvim_win_get_cursor(0)[1] - 1
-	end
-
-	opts.lnum = line_nr
-
-	return diagnostic_vim_to_lsp(vim.diagnostic.get(bufnr, opts))
 end
 
 return M

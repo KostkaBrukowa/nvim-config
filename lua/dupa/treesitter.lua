@@ -17,6 +17,7 @@ treesitter.setup({
 		"json",
 		"svelte",
 		"scss",
+		"pcss",
 		"c",
 		"python",
 		"pug",

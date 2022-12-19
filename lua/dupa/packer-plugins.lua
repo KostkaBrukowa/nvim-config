@@ -59,7 +59,6 @@ return packer.startup(function(use)
 
 	-- Keymaps
 	use("folke/which-key.nvim")
-	use("mrjones2014/legendary.nvim")
 
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
@@ -80,6 +79,7 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-nvim-lsp")
 	use("windwp/nvim-autopairs")
 	use("onsails/lspkind.nvim")
+	use({ "git@github.com:allegro-internal/vscode-allegro-metrum", branch = "neovim" })
 
 	-- Snippets
 	use("L3MON4D3/LuaSnip")
@@ -116,10 +116,7 @@ return packer.startup(function(use)
 	use("wellle/targets.vim")
 	use("thinca/vim-visualstar") -- Remove after 0.9 nvim
 	use("anuvyklack/hydra.nvim")
-	use({
-		"anuvyklack/windows.nvim",
-		requires = { "anuvyklack/middleclass", "anuvyklack/animation.nvim" },
-	})
+	use({ "anuvyklack/windows.nvim", requires = { "anuvyklack/middleclass", "anuvyklack/animation.nvim" } })
 	use("mrjones2014/smart-splits.nvim")
 	use("sindrets/winshift.nvim")
 	use("stevearc/stickybuf.nvim")

@@ -1,7 +1,6 @@
 local which_key = safe_require("which-key")
-local legendary = safe_require("legendary")
 
-if not which_key or not legendary then
+if not which_key then
 	return
 end
 
@@ -99,6 +98,8 @@ local mappings = {
 		["d"] = { "<cmd>diffoff<CR>", "Close fugitive diff" },
 		["p"] = { "<cmd>Gitsigns preview_hunk<CR>", "Preview hunk" },
 		["r"] = { "<cmd>Gitsigns reset_hunk<CR>", "Reset hunk" },
+		["n"] = { "<cmd>Gitsigns next_hunk<CR>", "Next hunk" },
+		["e"] = { "<cmd>Gitsigns prev_hunk<CR>", "Previous hunk" },
 	},
 	["u"] = {
 		name = "Utils",
@@ -140,7 +141,7 @@ local mappings = {
 	},
 	["a"] = {
 		name = "Aerial",
-		["o"] = { "<cmd>NvimTreeClose<cr><cmd>AerialOpen<CR>", "Open aerial" },
+		["o"] = { "<cmd>AerialOpen<CR>", "Open aerial" },
 		["c"] = { "<cmd>AerialClose<CR>", "Close aerial" },
 	},
 	["n"] = {
@@ -181,7 +182,6 @@ local visual_mappings = {
 	},
 }
 
-legendary.setup({ which_key = { auto_register = true } })
 which_key.setup(setup)
 
 which_key.register(mappings, opts)

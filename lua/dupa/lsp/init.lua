@@ -48,10 +48,17 @@ capabilities.textDocument.foldingRange = {
 	lineFoldingOnly = true,
 }
 
+local on_attach = require("dupa.lsp.on_attach").on_attach
+
 local opts = {
 	capabilities = capabilities,
-	on_attach = require("dupa.lsp.on_attach").on_attach,
+	on_attach = on_attach,
 }
+
+local allegro_metrum = safe_require("allegro-metrum")
+if allegro_metrum then
+	allegro_metrum.setup({ on_attach = on_attach })
+end
 
 local typescript = safe_require("typescript")
 

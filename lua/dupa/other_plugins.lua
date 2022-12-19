@@ -6,6 +6,7 @@ require("scrollbar").setup()
 require("substitute").setup({})
 require("tabout").setup({})
 require("nvim-surround").setup()
+
 -- require("refactoring").setup({})
 
 require("notify").setup({
@@ -34,7 +35,7 @@ require("fidget").setup({
 
 -- Copilot
 vim.cmd([[
-  imap <silent><script><expr> <Right> copilot#Accept("\<CR>")
+  imap <silent><script><expr> <Right> copilot#Accept("\<Right>")
   let g:copilot_no_tab_map = v:true
 ]])
 vim.g.copilot_filetypes = { ["dap-repl"] = false, ["dapui_watches"] = false }
