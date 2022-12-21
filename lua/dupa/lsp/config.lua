@@ -38,11 +38,20 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.s
 	border = "rounded",
 })
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-	vim.lsp.with(convert_multiline_diagnostics_to_singleline.on_publish_diagnostics, {
-		update_in_insert = false,
-		severity_sort = true,
-		virtual_text = {
-			prefix = "  ",
-		},
-	})
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+	update_in_insert = false,
+	severity_sort = true,
+	virtual_text = {
+		prefix = "  ",
+	},
+})
+
+vim.diagnostic.handlers.underline = {
+	show = convert_multiline_diagnostics_to_singleline.remove_multiline_underline_handler,
+	hide = vim.diagnostic.handlers.underline.hide,
+}
+
+vim.diagnostic.handlers.virtual_text = {
+	show = convert_multiline_diagnostics_to_singleline.add_source_to_virtual_text_handler,
+	hide = vim.diagnostic.handlers.virtual_text.hide,
+}
