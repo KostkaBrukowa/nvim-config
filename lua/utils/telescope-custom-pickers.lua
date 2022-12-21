@@ -19,6 +19,7 @@ function M.merge_branch()
 	})
 end
 
+-- Checkout to searched branch and creates one if branch is remote and doesnt exist
 function M.checkout_remote_smart()
 	builtin.git_branches({
 		attach_mappings = function(prompt_bufnr, map)
@@ -37,6 +38,7 @@ function M.checkout_remote_smart()
 	})
 end
 
+-- Open project in new kitty window
 function M.open_saved_project_picker()
 	require("telescope").extensions.project.project({
 		attach_mappings = function(prompt_bufnr)
@@ -63,13 +65,8 @@ function M.open_saved_project_picker()
 	})
 end
 
--- vim.api.nvim_set_keymap(
--- 	"n",
--- 	"<leader><leader><leader>",
--- 	"",
--- 	{}
--- )
-
+-- If you are in nvimtree and you are focused on some folder this command
+-- will open live grep only in this directory
 function M.find_in_focused_file(node)
 	if node.type == "directory" then
 		builtin.live_grep({ search_dirs = { node.absolute_path }, prompt_title = "Live grep: " .. node.absolute_path })
@@ -95,5 +92,45 @@ function M.last_picker(node)
 		prompt = "Enter a numer for picker (min. 1): ",
 	}, handle_input)
 end
+
+-- Search for a file word under cursor
+function M.open_file_from_word()
+	local current_word = vim.fn.expand("<cWORD>")
+	local colon_index = current_word:find(":")
+
+	local attach_mappings = function()
+		actions.select_default:enhance({
+			post = function()
+				if not colon_index then
+					return
+				end
+
+				-- defer because when in toggleterm stickybuf takes some time to redirect
+				-- to other split so we need to wait for some time not to set cursor in toggleterm
+				vim.defer_fn(function()
+					local position = current_word:sub(colon_index + 1)
+					if position:find(":") then
+						local line, col = position:match("(%d+):(%d+)")
+						vim.api.nvim_win_set_cursor(0, { tonumber(line), tonumber(col) })
+					else
+						vim.api.nvim_win_set_cursor(0, { tonumber(position), 0 })
+					end
+				end, 100)
+			end,
+		})
+
+		return true
+	end
+
+	local filename_from_word = colon_index and current_word:sub(0, colon_index - 1) or current_word
+
+	builtin.find_files({
+		attach_mappings = attach_mappings,
+		search_file = filename_from_word,
+		prompt_title = "Searching for: " .. current_word,
+	})
+end
+
+-- lua/dupa/toggleterm.lua
 
 return M
