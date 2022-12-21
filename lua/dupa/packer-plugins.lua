@@ -163,6 +163,8 @@ return packer.startup(function(use)
 	use("jbyuki/one-small-step-for-vimkind")
 	use({ "0x100101/lab.nvim", run = "cd js && npm ci" })
 
+	use("stevearc/profile.nvim")
+
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
 	end

@@ -75,6 +75,8 @@ keymap("n", "|||", "<c-w><c-p>", opts)
 keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 
+keymap("n", "<Backspace>", "<C-^>", opts)
+
 -- Highlight on yank
 vim.cmd([[
   augroup YankHighlight

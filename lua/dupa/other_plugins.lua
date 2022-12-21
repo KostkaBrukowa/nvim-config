@@ -39,3 +39,20 @@ vim.cmd([[
   let g:copilot_no_tab_map = v:true
 ]])
 vim.g.copilot_filetypes = { ["dap-repl"] = false, ["dapui_watches"] = false }
+
+-- profiling
+local function toggle_profile()
+	local prof = require("profile")
+	if prof.is_recording() then
+		prof.stop()
+		vim.ui.input({ prompt = "Save profile to:", completion = "file", default = "profile.json" }, function(filename)
+			if filename then
+				prof.export(filename)
+				vim.notify(string.format("Wrote %s", filename))
+			end
+		end)
+	else
+		prof.start("*")
+	end
+end
+vim.keymap.set("", "<leader><leader>x", toggle_profile)

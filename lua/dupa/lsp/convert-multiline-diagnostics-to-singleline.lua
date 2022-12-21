@@ -119,7 +119,7 @@ local function diagnostic_lsp_to_vim(diagnostics, bufnr, client_id)
 				},
 			},
 		}
-	end, filtered_diagnostics)
+	end, diagnostics)
 end
 
 ---@private

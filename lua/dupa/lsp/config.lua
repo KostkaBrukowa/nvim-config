@@ -42,7 +42,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 	vim.lsp.with(convert_multiline_diagnostics_to_singleline.on_publish_diagnostics, {
 		update_in_insert = false,
 		severity_sort = true,
-
 		virtual_text = {
 			prefix = "  ",
 		},
