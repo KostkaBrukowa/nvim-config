@@ -84,11 +84,6 @@ vim.cmd([[
     autocmd TextYankPost * silent! lua vim.highlight.on_yank { timeout = 300 }
   augroup end
 ]])
---
--- Enter normal mode on init
--- vim.cmd([[
---   augroup NormalModeInit
---     autocmd!
---     autocmd BufEnter * silent! stopinsert
---   augroup end
--- ]])
+
+-- Stops contiuing comment after 'o'
+vim.cmd("autocmd FileType * setlocal formatoptions-=o")
