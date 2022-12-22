@@ -45,6 +45,7 @@ keymap("n", "c*", "*Ncgn", opts)
 -- Plugins
 keymap("n", "<leader>r", "<cmd>lua require('substitute').operator()<cr>", opts)
 keymap("n", "<leader>rr", "<cmd>lua require('substitute').line()<cr>", opts)
+keymap("n", "<leader>rI", "<leader>r$", { noremap = false })
 
 keymap("v", "*", "<Plug>(visualstar-*)", opts)
 

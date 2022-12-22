@@ -1,4 +1,5 @@
 local nvim_tree_api = safe_require("nvim-tree.api").tree
+local nvim_tree_view = safe_require("nvim-tree.view")
 
 local M = {}
 
@@ -10,8 +11,12 @@ end
 function M.focusOrToggleIfFocused()
 	local isNvimTreeFocused = M.is_buffer_nvim_tree(0)
 
-	if isNvimTreeFocused == nil then
-		nvim_tree_api.focus()
+	if nvim_tree_view.is_visible() then
+		if isNvimTreeFocused then
+			nvim_tree_api.toggle()
+		else
+			nvim_tree_api.focus()
+		end
 	else
 		nvim_tree_api.toggle()
 	end
