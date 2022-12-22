@@ -107,10 +107,14 @@ local mappings = {
 	},
 	["u"] = {
 		name = "Utils",
-		["p"] = { "<cmd>Glow<CR>", "Preview Markdown" },
+		["d"] = { "<cmd>Glow<CR>", "Preview Markdown" },
 		["z"] = { "<cmd>TZAtaraxis<CR>", "Zen mode" },
 		["c"] = { "<cmd>%bd|e#<CR><CR>", "Close all buffers except active" },
 		["m"] = { "<cmd>WindowsMaximize<cr>", "Maximize current buffer" },
+		["p"] = {
+			name = "Package json actions",
+			["s"] = { "<cmd>lua require('package-info').show()<cr>", "Show package versions" },
+		},
 		["t"] = {
 			"<cmd>lua require('utils.treesitter-utils').goto_translation()<CR>",
 			"Go to translation",

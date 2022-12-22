@@ -120,6 +120,8 @@ return packer.startup(function(use)
 	use("mrjones2014/smart-splits.nvim")
 	use("sindrets/winshift.nvim")
 	use("stevearc/stickybuf.nvim")
+	use("vuki656/package-info.nvim")
+	use("mbbill/undotree")
 
 	-- LSP
 	use("williamboman/mason.nvim")

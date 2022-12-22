@@ -32,6 +32,11 @@ nvim_tree.setup({
 					action_cb = telescope_utils.find_in_focused_file,
 				},
 				{
+					key = "<leader>fp",
+					action = "Find file in folder",
+					action_cb = telescope_utils.find_file_in_focused_file,
+				},
+				{
 					key = "<ESC>",
 					action = "lose_focus",
 					action_cb = function()

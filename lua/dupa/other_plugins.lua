@@ -55,4 +55,6 @@ local function toggle_profile()
 		prof.start("*")
 	end
 end
+
+require("package-info").setup({})
 vim.keymap.set("", "<leader><leader>x", toggle_profile)
