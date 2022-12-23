@@ -11,6 +11,10 @@ if not nvim_tree_config then
 end
 
 local telescope_utils = safe_require("utils.telescope-custom-pickers")
+local gwidth = vim.api.nvim_list_uis()[1].width
+local gheight = vim.api.nvim_list_uis()[1].height
+local width = math.floor(gwidth * 0.6)
+local height = math.floor(gheight * 0.95)
 
 nvim_tree.setup({
 	hijack_netrw = true,
@@ -19,6 +23,16 @@ nvim_tree.setup({
 		width = 45,
 		side = "right",
 		preserve_window_proportions = true,
+		float = {
+			enable = true,
+			open_win_config = {
+				relative = "editor",
+				width = width,
+				height = height,
+				row = math.floor((gheight - height) * 0.2),
+				col = math.floor(gwidth * 0.2),
+			},
+		},
 		mappings = {
 			custom_only = false,
 			list = {
@@ -26,6 +40,7 @@ nvim_tree.setup({
 				{ key = "<Left>", action = "close_node" },
 				{ key = "v", action = "vsplit" },
 				{ key = "E", action = "" },
+				{ key = "e", action = "" },
 				{
 					key = "<leader>ff",
 					action = "Find in folder",

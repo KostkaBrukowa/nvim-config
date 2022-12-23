@@ -10,7 +10,7 @@ vim.g.maplocalleader = " "
 keymap("v", "p", '"_dP', opts)
 
 -- Tree
-keymap("n", "<C-1>", "<cmd>lua require('utils.tree').focusOrToggleIfFocused()<CR>", opts)
+keymap("n", "<C-1>", "<cmd>NvimTreeToggle<CR>", opts)
 
 -- Text editing
 -- Faster movement to end and beggining of the line

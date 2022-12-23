@@ -13,12 +13,12 @@ function M.focusOrToggleIfFocused()
 
 	if nvim_tree_view.is_visible() then
 		if isNvimTreeFocused then
-			nvim_tree_api.toggle()
+			vim.cmd("silent! NvimTreeToggle")
 		else
 			nvim_tree_api.focus()
 		end
 	else
-		nvim_tree_api.toggle()
+		vim.cmd("silent! NvimTreeToggle")
 	end
 end
 
