@@ -15,6 +15,9 @@ require("neotest").setup({
 		skipped = "S",
 		unknown = "U",
 	},
+	discovery = {
+		enabled = false,
+	},
 	summary = {
 		mappings = {
 			attach = "a",

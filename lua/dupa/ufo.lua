@@ -37,6 +37,6 @@ local handler = function(virtText, lnum, endLnum, width, truncate)
 end
 
 require("ufo").setup({
-	close_fold_kinds = { "imports", "comment" },
+	close_fold_kinds = { "imports" },
 	fold_virt_text_handler = handler,
 })
