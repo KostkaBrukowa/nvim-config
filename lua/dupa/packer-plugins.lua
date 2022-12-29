@@ -44,13 +44,14 @@ return packer.startup(function(use)
 	use({ "catppuccin/nvim", as = "catppuccin" })
 	use("levouh/tint.nvim")
 
+	use({ "folke/noice.nvim", requires = { "MunifTanjim/nui.nvim" } })
+
 	-- File explorer
 	use("nvim-tree/nvim-web-devicons")
 	use("nvim-tree/nvim-tree.lua")
 
 	-- Buffer and status lines
 	use("nvim-lualine/lualine.nvim")
-	use("j-hui/fidget.nvim")
 
 	-- Treesitter
 	use("nvim-treesitter/nvim-treesitter")
@@ -101,9 +102,7 @@ return packer.startup(function(use)
 	use("ggandor/leap.nvim")
 	use("ThePrimeagen/harpoon")
 	use("ethanholz/nvim-lastplace")
-	use("abecodes/tabout.nvim")
 	use("ellisonleao/glow.nvim")
-	use("Pocco81/true-zen.nvim")
 	use("akinsho/toggleterm.nvim")
 	use("rcarriga/nvim-notify")
 	use("petertriho/nvim-scrollbar")
@@ -112,7 +111,6 @@ return packer.startup(function(use)
 	use("kylechui/nvim-surround")
 	use("stevearc/dressing.nvim")
 	use("ThePrimeagen/refactoring.nvim")
-	use("AckslD/messages.nvim")
 	use("wellle/targets.vim")
 	use("thinca/vim-visualstar") -- Remove after 0.9 nvim
 	use("anuvyklack/hydra.nvim")

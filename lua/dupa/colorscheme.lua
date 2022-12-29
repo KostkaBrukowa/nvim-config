@@ -1,5 +1,6 @@
 local set_hl = vim.api.nvim_set_hl
 require("tokyonight").setup({
+	dim_inactive = true,
 	on_colors = function(colors)
 		colors.hint = colors.dark5
 	end,

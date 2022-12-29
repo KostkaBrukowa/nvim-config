@@ -11,18 +11,8 @@ saga.init_lsp_saga({
 		exec = "<CR>",
 	},
 	code_action_lightbulb = {
-		enable = true,
-		enable_in_insert = true,
-		cache_code_action = false,
-		sign = false,
-		update_time = 150,
-		sign_priority = 20,
-		virtual_text = true,
+		enable = false,
 	},
-	-- TODO
-	--[[ symbol_in_winbar = { ]]
-	--[[ 	in_custom = true, ]]
-	--[[ }, ]]
 })
 
 local ASquareRight = vim.fn.has("macunix") == 1 and "≥" or "<A->>"
@@ -70,4 +60,4 @@ keymap(
 )
 
 -- Hover Doc
-keymap("n", "gt", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
+keymap("n", "gt", "<cmd>lua require('noice.lsp').hover()<CR>", { silent = true })

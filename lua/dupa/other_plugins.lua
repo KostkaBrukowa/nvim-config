@@ -1,10 +1,7 @@
 require("lab").setup()
-require("messages").setup()
--- require("indent_blankline").setup() -- Test if I need it
 require("leap").setup({})
 require("scrollbar").setup()
 require("substitute").setup({})
-require("tabout").setup({})
 require("nvim-surround").setup()
 
 -- require("refactoring").setup({})
@@ -21,16 +18,6 @@ require("windows").setup({
 require("smoothcursor").setup({
 	speed = 25, -- max is 100 to stick to your current position
 	intervals = 35, -- tick interval
-})
-require("fidget").setup({
-	sources = { -- Sources to configure
-		["null-ls"] = { -- Name of source
-			ignore = true, -- Ignore notifications from this source
-		},
-		hls = { -- Name of source
-			ignore = true, -- Ignore notifications from this source
-		},
-	},
 })
 
 -- Copilot
