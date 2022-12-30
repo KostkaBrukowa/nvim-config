@@ -43,12 +43,13 @@ return packer.startup(function(use)
 	use("folke/tokyonight.nvim")
 	use({ "catppuccin/nvim", as = "catppuccin" })
 	use("levouh/tint.nvim")
-
-	use({ "folke/noice.nvim", requires = { "MunifTanjim/nui.nvim" } })
+	use("MunifTanjim/nui.nvim")
+	use("folke/noice.nvim")
 
 	-- File explorer
 	use("nvim-tree/nvim-web-devicons")
 	use("nvim-tree/nvim-tree.lua")
+	use("nvim-neo-tree/neo-tree.nvim")
 
 	-- Buffer and status lines
 	use("nvim-lualine/lualine.nvim")
@@ -120,6 +121,7 @@ return packer.startup(function(use)
 	use("stevearc/stickybuf.nvim")
 	use("vuki656/package-info.nvim")
 	use("mbbill/undotree")
+	use("rareitems/printer.nvim")
 
 	-- LSP
 	use("williamboman/mason.nvim")

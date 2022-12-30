@@ -15,6 +15,7 @@ local routes = {
 	filter_entry("%d line less"),
 	filter_entry("%d fewer lines"),
 	filter_entry("%d change; before"),
+	filter_entry("search hit BOTTOM"),
 }
 
 require("noice").setup({

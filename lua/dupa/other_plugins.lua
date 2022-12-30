@@ -6,6 +6,10 @@ require("nvim-surround").setup()
 
 -- require("refactoring").setup({})
 
+require("printer").setup({
+	keymap = "gp", -- Plugin doesn't have any keymaps by default
+})
+
 require("notify").setup({
 	stages = "fade",
 	timeout = 3000,
