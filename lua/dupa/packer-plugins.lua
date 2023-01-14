@@ -122,6 +122,7 @@ return packer.startup(function(use)
 	use("vuki656/package-info.nvim")
 	use("mbbill/undotree")
 	use("rareitems/printer.nvim")
+	use("AckslD/messages.nvim")
 
 	-- LSP
 	use("williamboman/mason.nvim")
@@ -149,6 +150,7 @@ return packer.startup(function(use)
 		},
 		requires = {
 			"haydenmeade/neotest-jest",
+			"nvim-neotest/neotest-plenary",
 		},
 	})
 

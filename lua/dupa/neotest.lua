@@ -7,6 +7,7 @@ end
 require("neotest").setup({
 	adapters = {
 		require("neotest-jest"),
+		require("neotest-plenary"),
 	},
 	icons = {
 		failed = "❌",

@@ -45,7 +45,7 @@ local opts = {
 local mappings = {
 	["w"] = { "<cmd>wall<CR>", "Save" },
 	["q"] = { "<cmd>wall<CR><cmd>qall<CR>", "Save and Quit" },
-	["x"] = { "<cmd>q<CR>", "Close buffer" },
+	["x"] = { "<cmd>quit<CR>", "Close buffer" },
 	["p"] = { "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000})<CR>", "Format with prettier" },
 	["s"] = { "<Plug>(leap-forward-to)", "Leap forward" },
 	["S"] = { "<Plug>(leap-backward-to)", "Leap backwards" },
@@ -71,7 +71,7 @@ local mappings = {
 		},
 		["s"] = { "<cmd>lua require('telescope.builtin').grep_string()<CR>", "Grep string" },
 		["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
-		["h"] = { "<cmd>lua require('telescope.builtin').help_tags()<CR>", "Help tags" },
+		["h"] = { "<cmd>lua require('telescope.builtin').command_history()<CR>", "Command history" },
 		["b"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", "Buffers" },
 		["c"] = { "<cmd>Telescope keymaps<CR>", "All commands" },
 		["t"] = { "<cmd>lua require('other-nvim').open('test')<CR>", "Find test file" },
@@ -110,7 +110,7 @@ local mappings = {
 		["d"] = { "<cmd>Glow<CR>", "Preview Markdown" },
 		["z"] = { "<cmd>TZAtaraxis<CR>", "Zen mode" },
 		["c"] = { "<cmd>%bd|e#<CR><CR>", "Close all buffers except active" },
-		["m"] = { "<cmd>messages<cr>", "Open messages view" },
+		["m"] = { "<cmd>Messages<cr>", "Open messages view" },
 		["p"] = {
 			name = "Package json actions",
 			["s"] = { "<cmd>lua require('package-info').show()<cr>", "Show package versions" },

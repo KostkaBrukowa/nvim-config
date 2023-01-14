@@ -1,6 +1,7 @@
 require("lab").setup()
 require("leap").setup({})
 require("scrollbar").setup()
+require("messages").setup()
 require("substitute").setup({})
 require("nvim-surround").setup()
 
