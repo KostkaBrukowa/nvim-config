@@ -67,7 +67,7 @@ nvim_tree.setup({
 		"alpha",
 	},
 	filters = {
-		custom = { "\\.git" },
+		custom = { "\\.git$" },
 		exclude = { ".gitignore", "scenarios.private.js" },
 	},
 	renderer = {

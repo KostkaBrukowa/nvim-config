@@ -24,7 +24,6 @@ m.setup({
 		"jsonls",
 		"tsserver",
 		"eslint",
-		"tailwindcss",
 		"html",
 		"cssls",
 		"yamlls",

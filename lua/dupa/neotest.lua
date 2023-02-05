@@ -9,6 +9,10 @@ require("neotest").setup({
 		require("neotest-jest"),
 		require("neotest-plenary"),
 	},
+	quickfix = {
+		enabled = false,
+		open = false,
+	},
 	icons = {
 		failed = "❌",
 		passed = "✅",
@@ -18,6 +22,10 @@ require("neotest").setup({
 	},
 	discovery = {
 		enabled = false,
+		concurrent = 1,
+		filter_dir = function()
+			return false
+		end,
 	},
 	summary = {
 		mappings = {

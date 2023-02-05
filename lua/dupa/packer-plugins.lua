@@ -138,6 +138,12 @@ return packer.startup(function(use)
 	use("ray-x/lsp_signature.nvim")
 	use("MrcJkb/haskell-tools.nvim")
 
+	-- Github
+	use({
+		"ldelossa/gh.nvim",
+		requires = { { "ldelossa/litee.nvim" } },
+	})
+
 	-- Folding
 	use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
 	use({ "stevearc/aerial.nvim" })

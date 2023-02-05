@@ -44,5 +44,59 @@ local function ts_tests(suffix)
 end
 
 other.setup({
-	mappings = list.extend({}, ts_tests("spec"), ts_tests("test")),
+	mappings = list.extend({}, ts_tests("spec"), ts_tests("test"), {
+		{
+			pattern = "/(.*)/(.*).([tj]sx)$",
+			target = {
+				-- Component.tsx -> Component.style.ts
+				{
+					target = "/%1/%2.style.ts",
+					context = "style",
+				},
+				-- Component.tsx -> Component.module.pcss
+				{
+					target = "/%1/%2.module.pcss",
+					context = "stylesheet",
+				},
+				-- Component.tsx -> Component.module.less
+				{
+					target = "/%1/%2.module.less",
+					context = "stylesheet",
+				},
+			},
+		},
+
+		{
+			pattern = "/(.*)/(.*).module.*ss",
+			target = {
+				{ -- Component.module.less|pcss -> Component.style.ts
+					target = "/%1/%2.style.ts",
+					context = "style",
+				},
+				-- Component.module.less|pcss -> Component.tsx
+				{
+					target = "/%1/%2.tsx",
+					context = "component",
+				},
+			},
+		},
+		{
+			pattern = "/(.*)/(.*).style.ts",
+			target = {
+				{ -- Component.style.ts -> Component.module.less
+					target = "/%1/%2.module.less",
+					context = "stylesheet",
+				},
+				{ -- Component.style.ts -> Component.module.pcss
+					target = "/%1/%2.module.pcss",
+					context = "stylesheet",
+				},
+				-- Component.style.ts -> Component.tsx
+				{
+					target = "/%1/%2.tsx",
+					context = "component",
+				},
+			},
+		},
+	}),
 })

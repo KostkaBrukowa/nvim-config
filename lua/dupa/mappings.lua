@@ -50,7 +50,7 @@ keymap("n", "<leader>rI", "<leader>r$", { noremap = false })
 keymap("v", "*", "<Plug>(visualstar-*)", opts)
 
 -- Old files
-keymap("n", "<C-Tab>", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", opts)
+keymap("n", "<C-Tab>", "<cmd>lua require('telescope.builtin').oldfiles({file_ignore_patterns = {}})<CR>", opts)
 keymap("n", "<A-Tab>", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", opts)
 
 -- Window navigation

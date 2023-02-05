@@ -1,6 +1,5 @@
 require("lab").setup()
 require("leap").setup({})
-require("scrollbar").setup()
 require("messages").setup()
 require("substitute").setup({})
 require("nvim-surround").setup()
@@ -19,10 +18,6 @@ require("windows").setup({
 	autowidth = { --		       |windows.autowidth|
 		enable = false,
 	},
-})
-require("smoothcursor").setup({
-	speed = 25, -- max is 100 to stick to your current position
-	intervals = 35, -- tick interval
 })
 
 -- Copilot

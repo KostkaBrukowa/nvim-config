@@ -1,16 +1,48 @@
 local keymap = vim.keymap.set
 local saga = require("lspsaga")
 
-saga.init_lsp_saga({
+saga.setup({
 	--[[ show_diagnostic_source = true, ]]
-	finder_request_timeout = 5000,
-	move_in_saga = { prev = "e", next = "n" },
-	preview_lines_above = 3,
-	code_action_keys = {
-		quit = "<esc>",
-		exec = "<CR>",
+	ui = {
+		theme = "round",
+		border = "rounded",
+		colors = {
+			--float window normal background color
+			normal_bg = "#1d1536",
+			--title background color
+			title_bg = "#afd700",
+			red = "#e95678",
+			magenta = "#b33076",
+			orange = "#FF8700",
+			yellow = "#f7bb3b",
+			green = "#afd700",
+			cyan = "#36d0e0",
+			blue = "#61afef",
+			purple = "#CBA6F7",
+			white = "#d1d4cf",
+			black = "#1c1c19",
+		},
 	},
-	code_action_lightbulb = {
+	finder = {
+		quit = { "q", "<ESC>" },
+	},
+	diagnostic = {
+		show_source = true,
+		keys = {
+			quit = "esc",
+		},
+	},
+	request_timeout = 5000,
+	preview = {
+		lines_above = 3,
+	},
+	code_action = {
+		keys = {
+			quit = "<esc>",
+			exec = "<CR>",
+		},
+	},
+	lightbulb = {
 		enable = false,
 	},
 })
@@ -21,12 +53,7 @@ local ASquareRight = vim.fn.has("macunix") == 1 and "≥" or "<A->>"
 -- when you use action in finder like open vsplit then you can
 -- use <C-t> to jump back
 -- keymap("n", "<leader><leader>s", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
-keymap(
-	"n",
-	ASquareRight,
-	"<cmd>lua require('modified-plugins.lspsaga.lua.lspsaga.finder'):lsp_finder()<CR>",
-	{ silent = true }
-)
+keymap("n", ASquareRight, "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
 
 -- Code action
 keymap({ "n", "v" }, "<C-.>", "<cmd>Lspsaga code_action<CR>", { silent = true })
@@ -41,23 +68,13 @@ keymap("n", "<leader>2", "<cmd>Lspsaga rename<CR>", { silent = true })
 keymap("n", "gd", "<cmd>Lspsaga peek_definition<CR>", { silent = true })
 
 -- Show line diagnostics
-keymap(
-	"n",
-	"gh",
-	"<cmd>lua require('modified-plugins.lspsaga.lua.lspsaga.diagnostic'):show_line_diagnostics()<CR>",
-	{ silent = true }
-)
+keymap("n", "gh", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
 
 -- Show cursor diagnostic
 
 -- Diagnsotic jump can use `<c-o>` to jump back
---[[ keymap("n", "<C-k>", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true }) ]]
-keymap(
-	"n",
-	"<C-k>",
-	"<cmd>lua require('modified-plugins.lspsaga.lua.lspsaga.diagnostic'):goto_next()<CR>",
-	{ silent = true }
-)
+keymap("n", "<C-k>", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
 
 -- Hover Doc
-keymap("n", "gt", "<cmd>lua require('noice.lsp').hover()<CR>", { silent = true })
+keymap("n", "gt", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
+-- keymap("n", "gt", "<cmd>lua require('noice.lsp').hover()<CR>", { silent = true })

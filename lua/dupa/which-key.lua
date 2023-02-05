@@ -50,6 +50,13 @@ local mappings = {
 	["s"] = { "<Plug>(leap-forward-to)", "Leap forward" },
 	["S"] = { "<Plug>(leap-backward-to)", "Leap backwards" },
 	["c"] = { "<cmd>DiffviewToggle<cr>", "Toggle diffview" },
+	["o"] = {
+		name = "Other files",
+		["t"] = { "<cmd>lua require('other-nvim').open('test')<CR>", "Find test file" },
+		["s"] = { "<cmd>lua require('other-nvim').open('style')<CR>", "Find style file" },
+		["m"] = { "<cmd>lua require('other-nvim').open('stylesheet')<CR>", "Find module less/pcss file" },
+		["c"] = { "<cmd>lua require('other-nvim').open('component')<CR>", "Find module less/pcss file" },
+	},
 	["t"] = {
 		name = "File Explorer",
 		["t"] = { "<cmd>NvimTreeToggle<CR>", "Toggle" },
@@ -94,6 +101,51 @@ local mappings = {
 		["g"] = { "<cmd>Git<CR>", "Fugitive" },
 		["u"] = { "<cmd>lua require('gitlinker').get_buf_range_url('n')<CR>", "Get github url/link" },
 		["f"] = { "<cmd>DiffviewFileHistory %<CR>", "File history" },
+		h = {
+			name = "+Github",
+			c = {
+				name = "+Commits",
+				c = { "<cmd>GHCloseCommit<cr>", "Close" },
+				e = { "<cmd>GHExpandCommit<cr>", "Expand" },
+				o = { "<cmd>GHOpenToCommit<cr>", "Open To" },
+				p = { "<cmd>GHPopOutCommit<cr>", "Pop Out" },
+				z = { "<cmd>GHCollapseCommit<cr>", "Collapse" },
+			},
+			i = {
+				name = "+Issues",
+				p = { "<cmd>GHPreviewIssue<cr>", "Preview" },
+			},
+			l = {
+				name = "+Litee",
+				t = { "<cmd>LTPanel<cr>", "Toggle Panel" },
+			},
+			r = {
+				name = "+Review",
+				b = { "<cmd>GHStartReview<cr>", "Begin" },
+				c = { "<cmd>GHCloseReview<cr>", "Close" },
+				d = { "<cmd>GHDeleteReview<cr>", "Delete" },
+				e = { "<cmd>GHExpandReview<cr>", "Expand" },
+				s = { "<cmd>GHSubmitReview<cr>", "Submit" },
+				z = { "<cmd>GHCollapseReview<cr>", "Collapse" },
+			},
+			p = {
+				name = "+Pull Request",
+				c = { "<cmd>GHClosePR<cr>", "Close" },
+				d = { "<cmd>GHPRDetails<cr>", "Details" },
+				e = { "<cmd>GHExpandPR<cr>", "Expand" },
+				o = { "<cmd>GHOpenPR<cr>", "Open" },
+				p = { "<cmd>GHPopOutPR<cr>", "PopOut" },
+				r = { "<cmd>GHRefreshPR<cr>", "Refresh" },
+				t = { "<cmd>GHOpenToPR<cr>", "Open To" },
+				z = { "<cmd>GHCollapsePR<cr>", "Collapse" },
+			},
+			t = {
+				name = "+Threads",
+				c = { "<cmd>GHCreateThread<cr>", "Create" },
+				n = { "<cmd>GHNextThread<cr>", "Next" },
+				t = { "<cmd>GHToggleThread<cr>", "Toggle" },
+			},
+		},
 	},
 	["d"] = {
 		name = "Diff View",
@@ -111,6 +163,17 @@ local mappings = {
 		["z"] = { "<cmd>TZAtaraxis<CR>", "Zen mode" },
 		["c"] = { "<cmd>%bd|e#<CR><CR>", "Close all buffers except active" },
 		["m"] = { "<cmd>Messages<cr>", "Open messages view" },
+		["l"] = {
+			name = "LSP",
+			["r"] = {
+				"<cmd>w<cr><cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<cr>",
+				"Restart lsp server",
+			},
+			["e"] = {
+				"<cmd>silent !/Users/jaroslaw.glegola/.local/share/nvim/mason/packages/eslint_d/node_modules/.bin/eslint_d restart<cr>",
+				"Restart eslint server",
+			},
+		},
 		["p"] = {
 			name = "Package json actions",
 			["s"] = { "<cmd>lua require('package-info').show()<cr>", "Show package versions" },
@@ -163,6 +226,10 @@ local mappings = {
 		["l"] = { "<cmd>w<cr><cmd>lua require('neotest').run.run_last()<cr>", "Run Last" },
 		["L"] = { "<cmd>w<cr><cmd>lua require('neotest').run.run_last({ strategy = 'dap' })<cr>", "Debug Last" },
 		["n"] = { "<cmd>w<cr><cmd>lua require('neotest').run.run()<cr>", "Run Nearest" },
+		["w"] = {
+			"<cmd>w<cr><cmd>lua require('neotest').run.run({ jestCommand = 'jest --watch ' })<cr>",
+			"Run Nearest watch",
+		},
 		["N"] = { "<cmd>w<cr><cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>", "Debug Nearest" },
 		["O"] = { "<cmd>lua require('neotest').output.open({ enter = true })<cr>", "Full Output" },
 		["o"] = { "<cmd>lua require('neotest').output.open({ enter = true, short = true })<cr>", "Short output" },

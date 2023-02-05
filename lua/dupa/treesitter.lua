@@ -46,4 +46,13 @@ treesitter.setup({
 
 vim.cmd([[hi rainbowcol1 guifg=#7f849c]])
 
-require("nvim-treesitter.configs").setup({})
+require("nvim-treesitter.configs").setup({
+	incremental_selection = {
+		enable = true,
+		keymaps = {
+			init_selection = "<CR>",
+			node_incremental = "<CR>",
+			node_decremental = "<S-CR>",
+		},
+	},
+})

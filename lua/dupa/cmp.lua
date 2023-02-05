@@ -1,92 +1,13 @@
 local cmp = safe_require("cmp")
+local compare = safe_require("cmp.config.compare")
 local keymap = require("cmp.utils.keymap")
 local feedkeys = require("cmp.utils.feedkeys")
 local luasnip = safe_require("luasnip")
 local lspkind = safe_require("lspkind")
-local luasnip_vscode_loader = safe_require("luasnip/loaders/from_vscode")
 
-local cmp_kinds_text_only = {
-	Text = "Text ",
-	Method = "Method ",
-	Function = "Function ",
-	Constructor = "Constructor ",
-	Field = "Field ",
-	Variable = "Variable ",
-	Class = "Class ",
-	Interface = "Interface ",
-	Module = "Module ",
-	Property = "Property ",
-	Unit = "Unit ",
-	Value = "Value ",
-	Enum = "Enum ",
-	Keyword = "Keyword ",
-	Snippet = "Snippet ",
-	Color = "Color ",
-	File = "File ",
-	Reference = "Reference ",
-	Folder = "Folder ",
-	EnumMember = "EnumMember ",
-	Constant = "Constant ",
-	Struct = "Struct ",
-	Event = "Event ",
-	Operator = "Operator ",
-	TypeParameter = "TypeParameter ",
-}
-
-local cmp_kinds = {
-	Text = "  ",
-	Method = "  ",
-	Function = "  ",
-	Constructor = "  ",
-	Field = "  ",
-	Variable = "  ",
-	Class = "  ",
-	Interface = "  ",
-	Module = "  ",
-	Property = "  ",
-	Unit = "  ",
-	Value = "  ",
-	Enum = "  ",
-	Keyword = "  ",
-	Snippet = "  ",
-	Color = "  ",
-	File = "  ",
-	Reference = "  ",
-	Folder = "  ",
-	EnumMember = "  ",
-	Constant = "  ",
-	Struct = "  ",
-	Event = "  ",
-	Operator = "  ",
-	TypeParameter = "  ",
-}
-
-vim.cmd([[
-" gray
-highlight! CmpItemAbbrDeprecated guibg=NONE gui=strikethrough guifg=#808080
-" blue
-highlight! CmpItemAbbrMatch guibg=NONE guifg=#569CD6
-highlight! link CmpItemAbbrMatchFuzzy CmpItemAbbrMatch
-" light blue
-highlight! CmpItemKindVariable guibg=NONE guifg=#9CDCFE
-highlight! link CmpItemKindInterface CmpItemKindVariable
-highlight! link CmpItemKindText CmpItemKindVariable
-" pink
-highlight! CmpItemKindFunction guibg=NONE guifg=#C586C0
-highlight! link CmpItemKindMethod CmpItemKindFunction
-" front
-highlight! CmpItemKindKeyword guibg=NONE guifg=#D4D4D4
-highlight! link CmpItemKindProperty CmpItemKindKeyword
-highlight! link CmpItemKindUnit CmpItemKindKeyword
-]])
-
-if not cmp or not luasnip or not lspkind or not luasnip_vscode_loader then
+if not cmp or not luasnip then
 	return
 end
-
-local compare = require("cmp.config.compare")
-
-luasnip_vscode_loader.lazy_load()
 
 local check_backspace = function()
 	local col = vim.fn.col(".") - 1
@@ -151,45 +72,57 @@ cmp.setup({
 	},
 	formatting = {
 		fields = { "kind", "abbr", "menu" },
-		format = function(entry, vim_item)
-			-- vim_item.menu = ({
-			-- 	nvim_lsp = "[[[LSP]]]",
-			-- 	luasnip = "[Snippet]",
-			-- 	path = "[Path]",
-			-- })[entry.source.name]
-			vim_item.kind = cmp_kinds[vim_item.kind] or ""
-			vim_item.menu = cmp_kinds_text_only[vim_item.kind] or ""
-			return vim_item
-		end,
+		format = lspkind.cmp_format({
+			mode = "symbol",
+			maxwidth = 50,
+			before = function(entry, vim_item)
+				vim_item.menu = ({
+					nvim_lsp = "[LSP]",
+					luasnip = "[Snippet]",
+					buffer = "",
+					path = "[Path]",
+				})[entry.source.name]
 
-		-- format = lspkind.cmp_format({
-		-- 	mode = "symbol", -- show only symbol annotations
-		-- 	maxwidth = 50, -- prevent the popup from showing more than provided characters (e.g 50 will not show more than 50 characters)
-		--
-		-- 	-- The function below will be called before any actual modifications from lspkind
-		-- 	-- so that you can provide more controls on popup customization. (See [#30](https://github.com/onsails/lspkind-nvim/pull/30))
-		-- 	before = function(entry, vim_item)
-		-- 		vim_item.kind = (cmp_kinds[vim_item.kind] or "") .. vim_item.kind
-		--
-		-- 		-- vim_item.menu = ({
-		-- 		-- 	nvim_lsp = "[[[LSP]]]",
-		-- 		-- 	luasnip = "[Snippet]",
-		-- 		-- 	buffer = "[Buffer]",
-		-- 		-- 	path = "[Path]",
-		-- 		-- })[entry.source.name]
-		-- 		-- vim_item.menu = entry:get_completion_item().detail
-		-- 		-- print(vim.inspect(entry:get_completion_item()))
-		--
-		-- 		return vim_item
-		-- 	end,
-		-- }),
+				vim_item.kind = ({
+					nvim_lsp = vim_item.kind,
+					luasnip = vim_item.kind,
+					buffer = "",
+					path = vim_item.kind,
+				})[entry.source.name]
+
+				return vim_item
+			end,
+		}),
 	},
-	sources = {
-		{ name = "nvim_lsp" },
-		{ name = "luasnip" },
-		{ name = "buffer" },
+	sorting = {
+		priority_weight = 1.0,
+		comparators = {
+			-- compare.score_offset, -- not good at all
+			compare.locality,
+			compare.recently_used,
+			compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
+			compare.offset,
+			compare.order,
+			-- compare.scopes, -- what?
+			-- compare.sort_text,
+			-- compare.exact,
+			-- compare.kind,
+			-- compare.length, -- useless
+		},
+	},
+	sources = cmp.config.sources({
+		{ name = "nvim_lsp", priority = 8 },
+		{ name = "luasnip", priority = 7 },
+		{ name = "buffer", priority = 7 }, -- first for locality sorting?
+		{ name = "nvim_lua", priority = 5 },
 		{ name = "path" },
-	},
+		{ name = "calc", priority = 3 },
+
+		-- { name = "nvim_lsp" },
+		-- { name = "luasnip" },
+		-- { name = "buffer" },
+		-- { name = "path" },
+	}),
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
 		select = false,
@@ -197,10 +130,6 @@ cmp.setup({
 	window = {
 		completion = cmp.config.window.bordered(),
 		documentation = cmp.config.window.bordered(),
-	},
-	experimental = {
-		ghost_text = false,
-		native_menu = false,
 	},
 })
 
