@@ -177,6 +177,12 @@ local mappings = {
 		["p"] = {
 			name = "Package json actions",
 			["s"] = { "<cmd>lua require('package-info').show()<cr>", "Show package versions" },
+			["h"] = { '<cmd>lua require("package-info").hide()<cr>', "Hide package versions" },
+			["t"] = { '<cmd>lua require("package-info").toggle()<cr>', "Toggle package versions" },
+			["u"] = { '<cmd>lua require("package-info").update()<cr>', "Update package version" },
+			["d"] = { '<cmd>lua require("package-info").delete()<cr>', "Delete package" },
+			["i"] = { '<cmd>lua require("package-info").install()<cr>', "Install package" },
+			["c"] = { '<cmd>lua require("package-info").change_version()<cr>', "Change package version" },
 		},
 		["t"] = {
 			"<cmd>lua require('utils.treesitter-utils').goto_translation()<CR>",

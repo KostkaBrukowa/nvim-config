@@ -7,7 +7,12 @@ require("nvim-surround").setup()
 -- require("refactoring").setup({})
 
 require("printer").setup({
-	keymap = "gp", -- Plugin doesn't have any keymaps by default
+	keymap = "clg", -- Plugin doesn't have any keymaps by default
+	formatters = {
+		typescriptreact = function(inside, variable)
+			return string.format('console.log("%s: ",  %s)', inside, variable)
+		end,
+	},
 })
 
 require("notify").setup({

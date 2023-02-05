@@ -28,6 +28,21 @@ local function selectNextOption(fallback)
 	end
 end
 
+compare.custom_required = function(entry1, entry2)
+	if not entry1.completion_item.label or not entry2.completion_item.label then
+		return
+	end
+
+	local entry1EndsWithQuestionMark = entry1.completion_item.label:sub(-1) == "?"
+	local entry2EndsWithQuestionMark = entry2.completion_item.label:sub(-1) == "?"
+
+	if entry1EndsWithQuestionMark and not entry2EndsWithQuestionMark then
+		return false
+	elseif not entry1EndsWithQuestionMark and entry2EndsWithQuestionMark then
+		return true
+	end
+end
+
 cmp.setup({
 	snippet = {
 		expand = function(args)
@@ -77,6 +92,7 @@ cmp.setup({
 			maxwidth = 50,
 			before = function(entry, vim_item)
 				vim_item.menu = ({
+					-- nvim_lsp = entry:get_completion_item().detail or "[LSP]",
 					nvim_lsp = "[LSP]",
 					luasnip = "[Snippet]",
 					buffer = "",
@@ -90,6 +106,19 @@ cmp.setup({
 					path = vim_item.kind,
 				})[entry.source.name]
 
+				-- if entry.source.name == "nvim_lsp" then
+				-- 	vim.notify(entry.completion_item.label)
+				-- 	if entry:get_completion_item().detail then
+				-- 		vim.notify(entry:get_completion_item().detail)
+				-- 	end
+				-- 	if entry.completion_item.label.detail then
+				-- 		vim.notify(entry.completion_item.label.detail)
+				-- 	end
+				-- 	if entry.completion_item.label.description then
+				-- 		vim.notify(entry.completion_item.label.description)
+				-- 	end
+				-- end
+
 				return vim_item
 			end,
 		}),
@@ -102,6 +131,7 @@ cmp.setup({
 			compare.recently_used,
 			compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
 			compare.offset,
+			compare.custom_required,
 			compare.order,
 			-- compare.scopes, -- what?
 			-- compare.sort_text,
@@ -110,7 +140,10 @@ cmp.setup({
 			-- compare.length, -- useless
 		},
 	},
-	sources = cmp.config.sources({
+	experimental = {
+		ghost_text = true,
+	},
+	sources = {
 		{ name = "nvim_lsp", priority = 8 },
 		{ name = "luasnip", priority = 7 },
 		{ name = "buffer", priority = 7 }, -- first for locality sorting?
@@ -122,7 +155,7 @@ cmp.setup({
 		-- { name = "luasnip" },
 		-- { name = "buffer" },
 		-- { name = "path" },
-	}),
+	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
 		select = false,
