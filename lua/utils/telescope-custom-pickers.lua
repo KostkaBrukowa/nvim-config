@@ -51,6 +51,7 @@ function M.open_saved_project_picker()
 						vim.cmd("e " .. selection_value)
 					elseif picked_option == "New window" then
 						vim.cmd("silent ! kitty -d " .. selection_value .. " --single-instance --instance-group 100 &")
+						-- vim.cmd("silent ! kitty -d " .. selection_value .. " --type=tab")
 					end
 				end
 

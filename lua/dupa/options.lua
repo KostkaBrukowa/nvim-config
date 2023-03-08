@@ -9,9 +9,12 @@ vim.cmd([[set fillchars+=horizdown:┳]])
 vim.cmd([[set fillchars+=vertleft:┫]])
 vim.cmd([[set fillchars+=vertright:┣]])
 vim.cmd([[set fillchars+=verthoriz:╋]])
+vim.cmd([[set jumpoptions+=stack]])
 
 vim.opt.shortmess:append("c")
 vim.notify = require("notify")
+
+vim.o.sessionoptions = "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
 
 local options = {
 	backup = false,

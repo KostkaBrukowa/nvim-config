@@ -127,9 +127,9 @@ cmp.setup({
 		priority_weight = 1.0,
 		comparators = {
 			-- compare.score_offset, -- not good at all
+			compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
 			compare.locality,
 			compare.recently_used,
-			compare.score, -- based on :  score = score + ((#sources - (source_index - 1)) * sorting.priority_weight)
 			compare.offset,
 			compare.custom_required,
 			compare.order,
@@ -144,7 +144,7 @@ cmp.setup({
 		ghost_text = true,
 	},
 	sources = {
-		{ name = "nvim_lsp", priority = 8 },
+		{ name = "nvim_lsp", priority = 200000000 },
 		{ name = "luasnip", priority = 7 },
 		{ name = "buffer", priority = 7 }, -- first for locality sorting?
 		{ name = "nvim_lua", priority = 5 },

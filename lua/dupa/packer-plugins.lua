@@ -65,6 +65,11 @@ return packer.startup(function(use)
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
+	use({
+		"ibhagwan/fzf-lua",
+		-- optional for icon support
+		requires = { "nvim-tree/nvim-web-devicons" },
+	})
 	use("windwp/nvim-spectre")
 	use("rgroli/other.nvim")
 	use("nvim-telescope/telescope-project.nvim")
@@ -82,6 +87,7 @@ return packer.startup(function(use)
 	use("windwp/nvim-autopairs")
 	use("onsails/lspkind.nvim")
 	use({ "git@github.com:allegro-internal/vscode-allegro-metrum", branch = "neovim" })
+	use("folke/neodev.nvim")
 
 	-- Snippets
 	use("L3MON4D3/LuaSnip")
@@ -123,6 +129,8 @@ return packer.startup(function(use)
 	use("mbbill/undotree")
 	use("rareitems/printer.nvim")
 	use("AckslD/messages.nvim")
+	use("tzachar/local-highlight.nvim")
+	use({ "antosha417/nvim-lsp-file-operations" })
 
 	-- LSP
 	use("williamboman/mason.nvim")
@@ -137,12 +145,6 @@ return packer.startup(function(use)
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("ray-x/lsp_signature.nvim")
 	use("MrcJkb/haskell-tools.nvim")
-
-	-- Github
-	use({
-		"ldelossa/gh.nvim",
-		requires = { { "ldelossa/litee.nvim" } },
-	})
 
 	-- Folding
 	use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })

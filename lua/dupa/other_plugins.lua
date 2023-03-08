@@ -7,7 +7,7 @@ require("nvim-surround").setup()
 -- require("refactoring").setup({})
 
 require("printer").setup({
-	keymap = "clg", -- Plugin doesn't have any keymaps by default
+	keymap = "<leader>l", -- Plugin doesn't have any keymaps by default
 	formatters = {
 		typescriptreact = function(inside, variable)
 			return string.format('console.log("%s: ",  %s)', inside, variable)
@@ -24,6 +24,11 @@ require("windows").setup({
 		enable = false,
 	},
 })
+require("lsp-file-operations").setup({
+	debug = false,
+})
+
+require("local-highlight").setup({})
 
 -- Copilot
 vim.cmd([[

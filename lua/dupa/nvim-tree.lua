@@ -61,11 +61,6 @@ nvim_tree.setup({
 			},
 		},
 	},
-	ignore_ft_on_setup = {
-		"startify",
-		"dashboard",
-		"alpha",
-	},
 	filters = {
 		custom = { "\\.git$" },
 		exclude = { ".gitignore", "scenarios.private.js" },
@@ -125,3 +120,8 @@ nvim_tree.setup({
 	sync_root_with_cwd = true,
 	respect_buf_cwd = true,
 })
+
+local api = require("nvim-tree.api")
+api.events.subscribe(api.events.Event.FileCreated, function(file)
+	vim.cmd("edit " .. file.fname)
+end)

@@ -6,7 +6,9 @@ end
 
 require("neotest").setup({
 	adapters = {
-		require("neotest-jest"),
+		require("neotest-jest")({
+			jest_test_discovery = true,
+		}),
 		require("neotest-plenary"),
 	},
 	quickfix = {

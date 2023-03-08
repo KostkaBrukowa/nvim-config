@@ -39,8 +39,26 @@ function M.goto_translation()
 		else
 			vim.api.nvim_set_current_win(po_winid)
 		end
-		vim.cmd('/"' .. name .. '"')
+
+		local translation_found = vim.fn.search('"' .. name .. '"')
+
 		vim.cmd("nohl")
+
+		if translation_found == 0 then
+			local handle_select_choice = function(picked_option)
+				if picked_option == "Yes" then
+					vim.api.nvim_buf_set_lines(
+						0,
+						-1,
+						-1,
+						false,
+						{ " ", 'msgid "' .. name .. '"', 'msgstr "' .. name .. '"' }
+					)
+				end
+			end
+
+			vim.ui.select({ "Yes", "No" }, { prompt = "Create missing translation?" }, handle_select_choice)
+		end
 
 		return true
 	end

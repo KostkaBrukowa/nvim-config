@@ -26,6 +26,8 @@ function M.format_filter(client)
 	local method = n.methods.FORMATTING
 	local available_formatters = s.get_available(filetype, method)
 	-- print(vim.inspect(vim.tbl_map(function(it)
+	-- 	return it.name
+	-- end, available_formatters)))
 	-- print(vim.inspect(client))
 
 	if #available_formatters > 0 then

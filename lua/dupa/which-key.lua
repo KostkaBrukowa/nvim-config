@@ -173,6 +173,10 @@ local mappings = {
 				"<cmd>silent !/Users/jaroslaw.glegola/.local/share/nvim/mason/packages/eslint_d/node_modules/.bin/eslint_d restart<cr>",
 				"Restart eslint server",
 			},
+			["p"] = {
+				"<cmd>rm /Users/jaroslaw.glegola/.prettierd<cr><cmd>silent !/Users/jaroslaw.glegola/.local/share/nvim/mason/packages/prettierd/node_modules/.bin/prettierd restart<cr>",
+				"Restart prettier server",
+			},
 		},
 		["p"] = {
 			name = "Package json actions",
