@@ -41,15 +41,10 @@ return packer.startup(function(use)
 
 	-- Colorschemes
 	use("folke/tokyonight.nvim")
-	use({ "catppuccin/nvim", as = "catppuccin" })
-	use("levouh/tint.nvim")
-	use("MunifTanjim/nui.nvim")
-	use("folke/noice.nvim")
 
 	-- File explorer
 	use("nvim-tree/nvim-web-devicons")
 	use("nvim-tree/nvim-tree.lua")
-	use("nvim-neo-tree/neo-tree.nvim")
 
 	-- Buffer and status lines
 	use("nvim-lualine/lualine.nvim")
@@ -65,11 +60,7 @@ return packer.startup(function(use)
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-	use({
-		"ibhagwan/fzf-lua",
-		-- optional for icon support
-		requires = { "nvim-tree/nvim-web-devicons" },
-	})
+	use("ibhagwan/fzf-lua")
 	use("windwp/nvim-spectre")
 	use("rgroli/other.nvim")
 	use("nvim-telescope/telescope-project.nvim")
@@ -86,8 +77,6 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-nvim-lsp")
 	use("windwp/nvim-autopairs")
 	use("onsails/lspkind.nvim")
-	use({ "git@github.com:allegro-internal/vscode-allegro-metrum", branch = "neovim" })
-	use("folke/neodev.nvim")
 
 	-- Snippets
 	use("L3MON4D3/LuaSnip")
@@ -105,15 +94,12 @@ return packer.startup(function(use)
 
 	-- Utils
 	use("lewis6991/impatient.nvim")
-	use("goolord/alpha-nvim")
 	use("ggandor/leap.nvim")
 	use("ThePrimeagen/harpoon")
 	use("ethanholz/nvim-lastplace")
 	use("ellisonleao/glow.nvim")
 	use("akinsho/toggleterm.nvim")
 	use("rcarriga/nvim-notify")
-	use("petertriho/nvim-scrollbar")
-	use("gen740/SmoothCursor.nvim")
 	use("gbprod/substitute.nvim")
 	use("kylechui/nvim-surround")
 	use("stevearc/dressing.nvim")
@@ -130,23 +116,23 @@ return packer.startup(function(use)
 	use("rareitems/printer.nvim")
 	use("AckslD/messages.nvim")
 	use("tzachar/local-highlight.nvim")
-	use({ "antosha417/nvim-lsp-file-operations" })
 	use("jinh0/eyeliner.nvim")
+	use("anuvyklack/keymap-amend.nvim")
 
 	-- LSP
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
 	use("neovim/nvim-lspconfig")
-	use("lukas-reineke/lsp-format.nvim")
 	use({ "glepnir/lspsaga.nvim", branch = "main" })
 	use("b0o/schemastore.nvim")
-	use("jose-elias-alvarez/typescript.nvim")
 	use("jayp0521/mason-null-ls.nvim")
 	use("WhoIsSethDaniel/mason-tool-installer.nvim")
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("ray-x/lsp_signature.nvim")
-	use("MrcJkb/haskell-tools.nvim")
 	use("~/Documents/Praca/typescript-tools.nvim")
+	use("folke/neodev.nvim")
+	use({ "antosha417/nvim-lsp-file-operations" })
+	use({ "git@github.com:allegro-internal/vscode-allegro-metrum", branch = "neovim" })
 
 	-- Folding
 	use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
@@ -175,9 +161,6 @@ return packer.startup(function(use)
 	})
 	use("mxsdev/nvim-dap-vscode-js")
 	use("jbyuki/one-small-step-for-vimkind")
-	use({ "0x100101/lab.nvim", run = "cd js && npm ci" })
-
-	use("stevearc/profile.nvim")
 
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()

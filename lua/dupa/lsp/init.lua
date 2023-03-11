@@ -20,7 +20,6 @@ end
 
 m.setup({
 	ensure_installed = {
-		"sumneko_lua",
 		"jsonls",
 		"eslint",
 		"html",
@@ -58,12 +57,6 @@ if allegro_metrum then
 	allegro_metrum.setup({ on_attach = on_attach })
 end
 
-local typescript = safe_require("typescript")
-
-if not typescript then
-	return
-end
-
 m.setup_handlers({
 	function(server_name)
 		local has_custom_opts, custom_opts = pcall(require, "dupa.lsp.settings." .. server_name)
@@ -74,13 +67,8 @@ m.setup_handlers({
 
 		lspconfig[server_name].setup(opts)
 	end,
-	["tsserver"] = function()
-		typescript.setup({
-			server = opts,
-		})
-	end,
 })
 
--- require("lsp_signature").setup({
--- 	hint_enable = false,
--- })
+require("lsp_signature").setup({
+	hint_enable = false,
+})

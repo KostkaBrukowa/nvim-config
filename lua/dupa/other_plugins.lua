@@ -1,4 +1,3 @@
-require("lab").setup()
 require("leap").setup({})
 require("messages").setup()
 require("substitute").setup({})
