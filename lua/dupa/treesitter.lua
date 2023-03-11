@@ -33,6 +33,9 @@ treesitter.setup({
 	},
 	highlight = {
 		enable = true,
+		disable = function(lang, bufnr) -- Disable in large C++ buffers
+			return vim.api.nvim_buf_line_count(bufnr) > 50000
+		end,
 	},
 	rainbow = {
 		enable = true,

@@ -31,6 +31,21 @@ local jsTsSnippets = {
 	),
 	snippet("fln", { utils.file_name(true) }),
 	snippet("clg", fmt("console.log('{}', {}){};", { utils.mirror(1), i(1), i(0) })),
+	luasnip.parser.parse_snippet(
+		"testfile",
+		[[
+describe('<${TM_FILENAME}$2 />', () => {
+  it('should', () => {
+      // given
+      const wrapper = $0render(<$TM_FILENAME_BASE$3 />());
+      
+      // when
+
+      // then
+  });
+});
+    ]]
+	),
 }
 
 vim.list_extend(jsTsSnippets, require("config.luasnip.ts.react"))

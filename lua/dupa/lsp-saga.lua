@@ -76,5 +76,5 @@ keymap("n", "gh", "<cmd>Lspsaga show_line_diagnostics<CR>", { silent = true })
 keymap("n", "<C-k>", "<cmd>Lspsaga diagnostic_jump_next<CR>", { silent = true })
 
 -- Hover Doc
-keymap("n", "gt", "<cmd>Lspsaga hover_doc<CR>", { silent = true })
+keymap("n", "gt", "<cmd>lua vim.lsp.buf.hover()<CR>", { silent = true })
 -- keymap("n", "gt", "<cmd>lua require('noice.lsp').hover()<CR>", { silent = true })

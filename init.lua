@@ -38,6 +38,8 @@ require("dupa.aerial")
 -- reload("dupa.noice")
 require("dupa.other_plugins")
 require("dupa.lsp-saga")
+require("dupa.typescript-tools")
+require("dupa.my_jumplist")
 
 vim.api.nvim_create_user_command("ReloadConfig", function()
 	reload("init")

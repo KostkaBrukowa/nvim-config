@@ -93,6 +93,7 @@ local mappings = {
 		["s"] = { "<cmd>lua require('telescope.builtin').git_status()<CR>", "Status" },
 		["c"] = { "<cmd>Git commit<CR>", "Commit files" },
 		["n"] = { "<cmd>Git commit --amend<CR>", "Commit ammend" },
+		["v"] = { "<cmd>Git commit --no-verify<CR>", "Commit no verify" },
 		["a"] = { "<cmd>Git add .<CR>", "Add everything" },
 		["b"] = { "<cmd>lua require('utils.telescope-custom-pickers').checkout_remote_smart()<CR>", "Branches" },
 		["m"] = { "<cmd>lua require('utils.telescope-custom-pickers').merge_branch()<CR>", "Git merge" },

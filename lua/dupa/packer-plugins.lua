@@ -131,6 +131,7 @@ return packer.startup(function(use)
 	use("AckslD/messages.nvim")
 	use("tzachar/local-highlight.nvim")
 	use({ "antosha417/nvim-lsp-file-operations" })
+	use("jinh0/eyeliner.nvim")
 
 	-- LSP
 	use("williamboman/mason.nvim")
@@ -145,6 +146,7 @@ return packer.startup(function(use)
 	use("jose-elias-alvarez/null-ls.nvim")
 	use("ray-x/lsp_signature.nvim")
 	use("MrcJkb/haskell-tools.nvim")
+	use("~/Documents/Praca/typescript-tools.nvim")
 
 	-- Folding
 	use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
