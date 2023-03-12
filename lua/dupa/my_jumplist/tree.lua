@@ -1,5 +1,8 @@
 local log = require("dupa.log")
 
+-- TODO add session save
+-- check what happens afte file rename
+
 --- @class Tree
 --- @field jumptree table
 --- @field entry_comparator function
@@ -32,6 +35,7 @@ function Tree:change_current_entry_to(entry, index)
 	self.current_entry_with_index = { entry = entry, index = index }
 end
 
+-- TODO remove cycles
 function Tree:should_push_entry(entry)
 	if not entry then
 		log.trace("should_push_entry: entry is nil")

@@ -6,8 +6,8 @@ local function setup_keymaps()
 	local opts = { noremap = true, silent = true }
 	local keymap = vim.api.nvim_set_keymap
 
-	keymap("n", "<leader><leader>l", "<cmd>lua require('dupa.my_jumplist').go_back()<cr>", opts)
-	keymap("n", "<leader><leader>u", "<cmd>lua require('dupa.my_jumplist').go_forward()<cr>", opts)
+	keymap("n", "<C-l>", "<cmd>lua require('dupa.my_jumplist').go_back()<cr>", opts)
+	keymap("n", "<C-u>", "<cmd>lua require('dupa.my_jumplist').go_forward()<cr>", opts)
 	keymap("n", "<leader><leader>d", "<cmd>lua require('dupa.my_jumplist').debug()<cr>", opts)
 end
 

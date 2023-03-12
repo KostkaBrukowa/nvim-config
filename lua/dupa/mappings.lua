@@ -63,9 +63,9 @@ keymap("i", "<C-n>", "<cmd>wincmd j<cr>", opts)
 keymap("i", "<C-e>", "<cmd>wincmd k<cr>", opts)
 keymap("i", "<C-i>", "<cmd>wincmd l<cr>", opts)
 
--- Go back and forward
-keymap("n", "<C-l>", "<C-o>", opts)
-keymap("n", "<C-u>", "<C-i>", opts)
+-- Go back and forward defined in setup_listeners.lua
+-- keymap("n", "<C-l>", "<C-o>", opts)
+-- keymap("n", "<C-u>", "<C-i>", opts)
 
 keymap("n", "``", "``zz", opts)
 
