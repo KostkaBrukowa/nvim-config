@@ -1,4 +1,4 @@
-local log = require("dupa.log")
+local log = require("dupa.log-mock")
 local M = {}
 
 --- @param a table
@@ -18,7 +18,13 @@ function M.make_current_position_entry()
 end
 
 function M.should_skip_file(file)
-	if file == "" or string.find(file, "NvimTree_") then
+	if
+		file == ""
+		or string.find(file, "NvimTree_")
+		or string.find(file, "nvim/runtime/doc")
+		or string.find(file, "fugitive:")
+		or string.find(file, "spectre")
+	then
 		log.trace("should_skip_file: file name is empty")
 		return true
 	end

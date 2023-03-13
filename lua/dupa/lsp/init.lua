@@ -68,7 +68,3 @@ m.setup_handlers({
 		lspconfig[server_name].setup(opts)
 	end,
 })
-
-require("lsp_signature").setup({
-	hint_enable = false,
-})

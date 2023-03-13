@@ -1,5 +1,4 @@
-local log = require("dupa.log")
-
+local log = require("dupa.log-mock")
 -- TODO add session save
 -- check what happens afte file rename
 

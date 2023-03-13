@@ -1,4 +1,4 @@
-local log = require("dupa.log")
+local log = require("dupa.log-mock")
 local util = require("dupa.my_jumplist.util")
 local setup = require("dupa.my_jumplist.setup_listeners")
 local Tree = require("dupa.my_jumplist.tree")
@@ -18,6 +18,10 @@ local function push_new_entry(args)
 end
 
 function M.go_back()
+	if not jump_tree.current_entry_with_index then
+		return
+	end
+
 	local current_jump_tree_entry = jump_tree.current_entry_with_index.entry
 	local current_user_entry = util.make_current_position_entry()
 

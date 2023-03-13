@@ -144,7 +144,7 @@ cmp.setup({
 		ghost_text = true,
 	},
 	sources = {
-		{ name = "nvim_lsp", priority = 200000000 },
+		{ name = "nvim_lsp", priority = 20 },
 		{ name = "luasnip", priority = 7 },
 		{ name = "buffer", priority = 7 }, -- first for locality sorting?
 		{ name = "nvim_lua", priority = 5 },

@@ -43,6 +43,10 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
 	silent = true,
 })
 
+vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+	border = "rounded",
+})
+
 vim.diagnostic.handlers.underline = {
 	show = convert_multiline_diagnostics_to_singleline.remove_multiline_underline_handler,
 	hide = vim.diagnostic.handlers.underline.hide,
