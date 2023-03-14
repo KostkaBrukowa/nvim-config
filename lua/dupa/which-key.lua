@@ -77,6 +77,10 @@ local mappings = {
 			"Last find window with index",
 		},
 		["s"] = { "<cmd>lua require('telescope.builtin').grep_string()<CR>", "Grep string" },
+		["r"] = {
+			"<cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+			"Telescope refactorings",
+		},
 		["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
 		["h"] = { "<cmd>lua require('telescope.builtin').command_history()<CR>", "Command history" },
 		["b"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", "Buffers" },
@@ -265,6 +269,13 @@ local visual_mappings = {
 	["g"] = {
 		name = "Git",
 		["u"] = { "<cmd>lua require('gitlinker').get_buf_range_url('v')<CR>", "Fugitive" },
+	},
+	["f"] = {
+		name = "Find",
+		["r"] = {
+			"<cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+			"Telescope refactorings",
+		},
 	},
 }
 

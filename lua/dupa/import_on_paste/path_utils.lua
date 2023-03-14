@@ -1,19 +1,20 @@
 local M = {}
 -- chat-gpt wrote it
-function M.relative_path(a, b)
+-- finds relative string between two paths pathA and pathB
+function M.relative_path(pathA, pathB)
 	local sep = "/"
 	local i = 1
 
 	-- split paths into segments
 	local a_segments = {}
-	for seg in string.gmatch(a, "[^" .. sep .. "]+") do
+	for seg in string.gmatch(pathA, "[^" .. sep .. "]+") do
 		a_segments[i] = seg
 		i = i + 1
 	end
 
 	local b_segments = {}
 	i = 1
-	for seg in string.gmatch(b, "[^" .. sep .. "]+") do
+	for seg in string.gmatch(pathB, "[^" .. sep .. "]+") do
 		b_segments[i] = seg
 		i = i + 1
 	end
@@ -26,7 +27,8 @@ function M.relative_path(a, b)
 
 	-- build relative path
 	local rel_path = ""
-	-- in the future add to if j == #a_segments
+	-- in the future add to if j == #a_segments to prevent situation like
+	-- /home/user/Downloads/ and /home/notUser/Downloads/Downloads
 	if #a_segments <= #b_segments and a_segments[#a_segments - 1] == b_segments[#a_segments - 1] then
 		rel_path = "./"
 	end
@@ -42,6 +44,8 @@ function M.relative_path(a, b)
 	return rel_path
 end
 
+-- given the filename full path return directory
+-- e.g. /home/user/Downloads/file.txt -> /home/user/Downloads
 function M.get_directory(file_path)
 	local sep = "/"
 	local segments = {}

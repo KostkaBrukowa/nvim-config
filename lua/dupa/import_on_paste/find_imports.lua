@@ -15,7 +15,7 @@ local IMPORTS_QUERY = [[
     (import_statement (import_clause (namespace_import (identifier) @import_name)))
 ]]
 
-local function find_import_statement(node)
+local function find_full_import_statement(node)
 	local parent = node:parent()
 
 	while parent ~= nil do
@@ -29,7 +29,10 @@ local function find_import_statement(node)
 	return nil
 end
 
-local function find_all_import_nodes(lang, root, source_bufnr)
+local function find_all_import_specifiers_nodes(source_bufnr)
+	local lang = parsers.get_buf_lang(source_bufnr)
+	local root = ts_utils.get_root_for_position(1, 1, parsers.get_parser(source_bufnr, lang))
+
 	local all_import_names_query = vim.treesitter.parse_query(lang, IMPORTS_QUERY)
 
 	local import_name_nodes = {}
@@ -40,15 +43,34 @@ local function find_all_import_nodes(lang, root, source_bufnr)
 	return import_name_nodes
 end
 
+local function find_full_import_for_name(missing_import_name, all_import_specifiers_nodes, source_bufnr)
+	log.trace("missing_import_name", missing_import_name)
+
+	if not missing_import_name then
+		return nil
+	end
+
+	for _, import_specifier_node in pairs(all_import_specifiers_nodes) do
+		local import_specifier_text = vim.treesitter.get_node_text(import_specifier_node, source_bufnr)
+
+		if missing_import_name == import_specifier_text then
+			log.trace("Found import for: ", missing_import_name)
+			local import_statement_node = find_full_import_statement(import_specifier_node)
+			if import_statement_node then
+				return import_statement_node
+			end
+		end
+	end
+
+	return nil
+end
+
 --- @return table
 function M.find_missing_import_nodes(source_bufnr, missing_import_diagnostics)
-	local lang = parsers.get_buf_lang(source_bufnr)
-	local root = ts_utils.get_root_for_position(1, 1, parsers.get_parser(source_bufnr, lang))
+	local all_import_specifiers_nodes = find_all_import_specifiers_nodes(source_bufnr)
 
-	local import_name_nodes = find_all_import_nodes(lang, root, source_bufnr)
-
-	if #import_name_nodes == 0 then
-		log.error("No import nodes found")
+	if #all_import_specifiers_nodes == 0 then
+		log.error("No import nodes found in source file")
 		return {}
 	end
 
@@ -57,20 +79,11 @@ function M.find_missing_import_nodes(source_bufnr, missing_import_diagnostics)
 	for _, diagnostic in ipairs(missing_import_diagnostics) do
 		local missing_import_name = string.match(diagnostic.message, utils.constants.MISSING_IMPORT_DIAGNOSTIC_MESSAGE)
 
-		if missing_import_name then
-			log.trace("missing_import_name", missing_import_name)
+		local import_for_missing_name =
+			find_full_import_for_name(missing_import_name, all_import_specifiers_nodes, source_bufnr)
 
-			for _, import_name_node in pairs(import_name_nodes) do
-				local import_name_text = vim.treesitter.get_node_text(import_name_node, source_bufnr)
-
-				if import_name_text == missing_import_name then
-					log.trace("import is equal to missing import name")
-					local import_statement_node = find_import_statement(import_name_node)
-					if import_statement_node then
-						table.insert(import_nodes_to_add, import_statement_node)
-					end
-				end
-			end
+		if import_for_missing_name then
+			table.insert(import_nodes_to_add, import_for_missing_name)
 		end
 	end
 

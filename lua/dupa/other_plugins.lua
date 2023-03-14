@@ -3,7 +3,7 @@ require("messages").setup()
 require("substitute").setup({})
 require("nvim-surround").setup()
 
--- require("refactoring").setup({})
+require("refactoring").setup({})
 
 require("printer").setup({
 	keymap = "<leader>l", -- Plugin doesn't have any keymaps by default

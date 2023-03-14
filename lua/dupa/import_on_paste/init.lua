@@ -1,3 +1,5 @@
+-- Possible improvements: instead of using OrganizeImports build imports yourself
+-- if you've imported react components and react is not in scope import react
 local keymap_amend = require("keymap-amend")
 
 local log = require("dupa.log")
@@ -6,8 +8,6 @@ local diagnostic = require("dupa.import_on_paste.diagnostics")
 local utils = require("dupa.import_on_paste.utils")
 local find_imports = require("dupa.import_on_paste.find_imports")
 local correct_import_path = require("dupa.import_on_paste.correct_import_path")
-
-local import_on_paste_group = vim.api.nvim_create_augroup("import_on_paste_group", {})
 
 local last_yank_filename = nil
 
@@ -50,13 +50,17 @@ local on_paste = function()
 	-- add all corrected imports at the top of the file
 	vim.api.nvim_buf_set_lines(0, 0, 0, true, corrected_imports)
 
-	-- run typescript organize imports to remove duplicates
-	vim.api.nvim_command("TSToolsOrganizeImports")
+	-- run typescript organize imports to remove duplicates only if something changed
+	if #corrected_imports > 0 then
+		vim.api.nvim_command("TSToolsOrganizeImports")
+	end
 end
+
+local import_on_paste_group = vim.api.nvim_create_augroup("import_on_paste_group", {})
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 	group = import_on_paste_group,
-	pattern = "*",
+	pattern = { "*.ts", "*.tsx" },
 	callback = on_yank_post,
 })
 
