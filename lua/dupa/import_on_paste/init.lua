@@ -239,6 +239,7 @@ local on_paste = function()
 	vim.api.nvim_buf_set_lines(0, 0, 0, true, corrected_imports)
 
 	-- run typescript organize imports to remove duplicates
+	vim.api.nvim_command("TSToolsOrganizeImports")
 end
 
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {

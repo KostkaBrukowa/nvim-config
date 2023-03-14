@@ -10,7 +10,7 @@ local log = require("dupa.log-mock")
 --- @field debounce_timer table
 --- @field Debounce_Time number
 local Tree = {
-	Debounce_Time = 50,
+	Debounce_Time = 200,
 }
 
 --- @param entry_comparator function
