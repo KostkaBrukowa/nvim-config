@@ -13,7 +13,7 @@ function M.jumps_equal(a, b)
 end
 
 function M.make_current_position_entry()
-	local jump = { cursor_position = vim.api.nvim_win_get_cursor(0), file_name = vim.fn.expand("%") }
+	local jump = { cursor_position = vim.api.nvim_win_get_cursor(0), file_name = vim.fn.expand("%p") }
 	return jump
 end
 

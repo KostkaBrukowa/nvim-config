@@ -10,13 +10,15 @@ local find_imports = require("dupa.import_on_paste.find_imports")
 local correct_import_path = require("dupa.import_on_paste.correct_import_path")
 
 local last_yank_filename = nil
+local cursor_position_before_paste = nil
+local cursor_position_after_paste = nil
 
-local on_yank_post = function()
+local save_last_yank_filename = function()
 	-- TODO some more sophisticated yank storage
 	last_yank_filename = vim.fn.expand("%:p")
 end
 
-local on_paste = function()
+local add_missing_imports = function()
 	log.trace("Starting on paste with: " .. vim.inspect(last_yank_filename))
 
 	if not last_yank_filename then
@@ -25,8 +27,10 @@ local on_paste = function()
 	end
 
 	-- get all diagnostics in file after paste
-	local range = nil -- TODO range of paste
-	local missing_import_diagnostics = diagnostic.get_all_missing_import_diagnostics_from_range(range)
+	local missing_import_diagnostics = diagnostic.get_all_missing_import_diagnostics_from_range(
+		cursor_position_before_paste,
+		cursor_position_after_paste
+	)
 
 	if not missing_import_diagnostics then
 		return
@@ -61,19 +65,18 @@ local import_on_paste_group = vim.api.nvim_create_augroup("import_on_paste_group
 vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 	group = import_on_paste_group,
 	pattern = { "*.ts", "*.tsx" },
-	callback = on_yank_post,
-})
-
-vim.api.nvim_create_autocmd("User", {
-	group = import_on_paste_group,
-	pattern = "import_on_paste",
-	callback = on_paste,
+	callback = save_last_yank_filename,
 })
 
 keymap_amend("n", "p", function(original)
-	original()
+	cursor_position_before_paste = vim.api.nvim_win_get_cursor(0)
+
+	vim.cmd("normal! gp")
+
+	cursor_position_after_paste = vim.api.nvim_win_get_cursor(0)
+
 	-- TODO change defer to waiting for diagnostics to show up
 	vim.defer_fn(function()
-		vim.cmd("doautocmd User import_on_paste")
+		add_missing_imports()
 	end, 1000)
 end)
