@@ -1,6 +1,8 @@
-local log = require("dupa.log-mock")
+local util = require("dupa.my_jumplist.util")
+local log = require("dupa.log")
 -- TODO add session save
 -- check what happens afte file rename
+-- Problem: after file changes (adding a line) the cursor position is not correct
 
 --- @class Tree
 --- @field jumptree table
@@ -46,6 +48,15 @@ function Tree:should_push_entry(entry)
 		return false
 	end
 
+	if util.should_skip_file(entry.file_name) then
+		log.trace("should_push_entry: skipped based on name")
+		return false
+	end
+
+	if self.current_entry_with_index and self.entry_comparator(entry, self.current_entry_with_index.entry) then
+		log.trace("should_push_entry: entry is equal to current entry")
+		return false
+	end
 	if self.current_entry_with_index and self.entry_comparator(entry, self.current_entry_with_index.entry) then
 		log.trace("should_push_entry: entry is equal to current entry")
 		return false
@@ -54,6 +65,13 @@ function Tree:should_push_entry(entry)
 	if self.amount_to_skip > 0 then
 		log.trace("should_push_entry: skipping entry due to amount_to_skip")
 		self.amount_to_skip = self.amount_to_skip - 1
+		return false
+	end
+
+	-- if cursor is on { 1, 0 } then its probably a mistake because ofter editor opens
+	-- files on this position and then moves to correct one so we skip it
+	if entry.cursor_position[1] == 1 and entry.cursor_position[2] == 0 then
+		log.trace("should_push_entry: skipping entry due to start of the file")
 		return false
 	end
 
@@ -67,6 +85,8 @@ function Tree:start_debounce(function_to_debounce)
 		log.trace("start_debounce: closing previous debounce")
 		self.debounce_timer:close()
 	end
+
+	log.trace("start_debounce: starting new debounce")
 
 	self.debounce_timer = vim.defer_fn(function()
 		function_to_debounce()
@@ -96,7 +116,8 @@ function Tree:push_entry(entry)
 	-- debouncing the push, because sometimes (e.g. after vim.lsp.buf.definition())
 	-- nvim opens the file at { line: 1, column: 1 } and then immediately jumps to the
 	-- location of the definition. This causes two entries to be pushed to the jumplist
-	self:start_debounce(push)
+	-- self:start_debounce(push)
+	push()
 end
 
 --- @return table | nil

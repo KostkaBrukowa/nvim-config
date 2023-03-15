@@ -36,7 +36,7 @@ function M.setup_listeners(push_new_entry)
 	local save_jump_group = vim.api.nvim_create_augroup("save_jump_group", {})
 	vim.api.nvim_create_autocmd({ "BufLeave", "BufEnter" }, {
 		group = save_jump_group,
-		pattern = "*",
+		pattern = { "*.lua", "*.ts", "*.tsx" },
 		callback = push_new_entry,
 	})
 
