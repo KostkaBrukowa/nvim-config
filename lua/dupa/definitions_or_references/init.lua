@@ -224,11 +224,12 @@ local function definition_or_references()
 		end
 
 		-- simple fallback when more that 1 reference. Should not happen often
-		if #result ~= 1 then
-			log.trace("Found more than 1 reference")
-			vim.cmd([[Telescope lsp_definitions]])
-			return
-		end
+		-- Skipping for now - go only to to first definition
+		-- if #result ~= 1 then
+		-- 	log.trace("Found more than 1 reference", vim.inspect(result))
+		-- 	vim.cmd([[Telescope lsp_definitions]])
+		-- 	return
+		-- end
 
 		local only_reference = result[1]
 
