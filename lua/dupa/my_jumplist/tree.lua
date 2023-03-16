@@ -1,5 +1,5 @@
 local util = require("dupa.my_jumplist.util")
-local log = require("dupa.log")
+local log = require("dupa.log-mock")
 -- TODO add session save
 -- check what happens afte file rename
 -- Problem: after file changes (adding a line) the cursor position is not correct

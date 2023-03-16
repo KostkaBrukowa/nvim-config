@@ -1,4 +1,4 @@
-local log = require("dupa.log")
+local log = require("dupa.log-mock")
 local M = {}
 
 --- @param a table

@@ -5,7 +5,7 @@ local path_utils = require("dupa.import_on_paste.path_utils")
 local M = {}
 
 local function is_global_import(import_text)
-	return string.find(import_text, "^@/")
+	return string.find(import_text, "^@/") or string.find(import_text, "^@test")
 end
 
 local function find_import_string_fragment(import_node)

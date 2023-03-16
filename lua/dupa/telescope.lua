@@ -35,6 +35,10 @@ telescope.setup({
 				["<C-e>"] = actions.preview_scrolling_up,
 				["<C-n>"] = actions.preview_scrolling_down,
 			},
+			n = {
+				["e"] = actions.move_selection_previous,
+				["n"] = actions.move_selection_next,
+			},
 		},
 	},
 	extensions = {

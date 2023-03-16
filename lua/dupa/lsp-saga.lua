@@ -53,7 +53,7 @@ local ASquareRight = vim.fn.has("macunix") == 1 and "≥" or "<A->>"
 -- when you use action in finder like open vsplit then you can
 -- use <C-t> to jump back
 -- keymap("n", "<leader><leader>s", "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
-keymap("n", ASquareRight, "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
+-- keymap("n", ASquareRight, "<cmd>Lspsaga lsp_finder<CR>", { silent = true })
 
 -- Code action
 keymap({ "n", "v" }, "<C-.>", "<cmd>Lspsaga code_action<CR>", { silent = true })

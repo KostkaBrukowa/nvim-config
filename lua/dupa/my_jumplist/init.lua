@@ -1,4 +1,4 @@
-local log = require("dupa.log")
+local log = require("dupa.log-mock")
 local util = require("dupa.my_jumplist.util")
 local setup = require("dupa.my_jumplist.setup_listeners")
 local Tree = require("dupa.my_jumplist.tree")
