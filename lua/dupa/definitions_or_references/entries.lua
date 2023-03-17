@@ -3,44 +3,31 @@ local utils = require("dupa.definitions_or_references.utils")
 local entry_display = require("telescope.pickers.entry_display")
 local make_entry = require("telescope.make_entry")
 
-local function make_telescope_entries_from(opts)
-	opts = opts or {}
+local function make_entry_filename(entry)
+	local filename_split = vim.split(entry.filename, "/", { trimempty = true })
+	local two_last_path_parts = (filename_split[#filename_split - 1] .. "/" .. filename_split[#filename_split])
 
-	local hidden = telescope_utils.is_path_hidden(opts)
-	local items = {
-		{ width = vim.F.if_nil(opts.fname_width, 30) },
+	local filename = (entry.value.is_inside_import and "-Import- " or "")
+		.. (entry.value.is_test_file and "-Test- " or "")
+		.. two_last_path_parts
+
+	return filename
+end
+
+local function make_telescope_entries_from()
+	local configuration = {
+		{ width = 30 },
 		{ remaining = true },
 	}
-	if hidden then
-		items[1] = { width = 8 }
-	end
 
-	local displayer = entry_display.create({ separator = " ▏", items = items })
+	local displayer = entry_display.create({ separator = " ▏", items = configuration })
 
 	local make_display = function(entry)
-		local input = {}
-		if not hidden then
-			local filename_split = vim.split(entry.filename, "/", { trimempty = true })
-			local last_two_paths = (filename_split[#filename_split - 1] .. "/" .. filename_split[#filename_split])
-
-			local result = (entry.value.is_inside_import and "-Import- " or "")
-				.. (entry.value.is_test_file and "-Test- " or "")
-				.. last_two_paths
-
-			table.insert(input, string.format("%s", result))
-		else
-			table.insert(input, string.format("%4d:%2d", entry.lnum, entry.col))
-		end
-
-		local text = entry.text
-
-		--trim text
-		text = text:gsub("^%s*(.-)%s*$", "%1")
-
-		text = text:gsub(".* | ", "")
-		table.insert(input, text)
-
-		return displayer(input)
+		return displayer({
+			string.format("%s", make_entry_filename(entry)),
+			-- trim text from both sides
+			entry.text:gsub("^%s*(.-)%s*$", "%1"):gsub(".* | ", ""),
+		})
 	end
 
 	local get_filename = utils.get_filename_fn()
@@ -50,7 +37,7 @@ local function make_telescope_entries_from(opts)
 
 		return make_entry.set_default_entry_mt({
 			value = entry,
-			ordinal = (not hidden and filename or "") .. " " .. entry.text,
+			ordinal = filename .. " " .. entry.text,
 			display = make_display,
 
 			bufnr = entry.bufnr,
@@ -60,7 +47,7 @@ local function make_telescope_entries_from(opts)
 			text = entry.text,
 			start = entry.start,
 			finish = entry.finish,
-		}, opts)
+		}, {})
 	end
 end
 
