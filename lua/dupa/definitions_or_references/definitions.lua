@@ -1,19 +1,20 @@
 local log = require("dupa.log")
-local methods = require("dupa.definitions_or_references.consts").methods
+local methods = require("dupa.definitions_or_references.methods_state")
 local util = require("dupa.definitions_or_references.utils")
+local references = require("dupa.definitions_or_references.references")
 
-local function definitions(references_callback)
-	local params = vim.lsp.util.make_position_params(0)
-
-	vim.lsp.buf_request(0, methods.definitions.name, params, function(err, result, _, _)
+local function definitions()
+	vim.lsp.buf_request(0, methods.definitions.name, util.make_params(), function(err, result, _, _)
+		methods.definitions.is_pending = false
 		-- send buf_request for references
 		if err then
 			vim.notify(err.message, vim.log.levels.ERROR)
 			return
 		end
 
-		if #result == 0 then
-			log.trace("No references found")
+		if not result or #result == 0 then
+			vim.notify("No definitions found")
+			methods.clear_references()
 			return
 		end
 
@@ -28,15 +29,20 @@ local function definitions(references_callback)
 		local only_definition = result[1]
 
 		if util.current_cursor_not_on_result(only_definition) then
-			log.trace("Current cursor not on result", vim.inspect(only_definition))
+			methods.clear_references()
+			log.trace("Current cursor not on result")
 			util.open_result_in_current_window(only_definition)
 			return
 		end
 
 		log.trace("Current cursor on only definition")
 
-		references_callback()
+		if not methods.references.is_pending then
+			references.handle_references_response()
+		end
 	end)
+
+	methods.definitions.is_pending = true
 end
 
 return definitions
