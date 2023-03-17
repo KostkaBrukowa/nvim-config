@@ -28,10 +28,6 @@ local config = {
 	},
 }
 
-vim.diagnostic.config(config)
-
-vim.lsp.handlers["typescriptTools/organizeImports"] = function() end
-
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 	update_in_insert = false,
 	severity_sort = true,

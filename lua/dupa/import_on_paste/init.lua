@@ -4,6 +4,8 @@
 -- handle message `Cannot find a name (.*). Did you mean (.*).?`
 -- fix for copying from /Home/a/file.tsx -> /Home/b/file.tsx file that is /Home/fileToImport.tsx
 local keymap_amend = require("keymap-amend")
+local typescript_tools = require("typescript-tools.api")
+local typescript_tools_consts = require("typescript-tools.protocol.constants")
 
 local log = require("dupa.log")
 local path_utils = require("dupa.import_on_paste.path_utils")
@@ -59,7 +61,7 @@ local add_missing_imports = function()
 
 	-- run typescript organize imports to remove duplicates only if something changed
 	if #corrected_imports > 0 then
-		vim.api.nvim_command("TSToolsOrganizeImports")
+		typescript_tools.organize_imports(typescript_tools_consts.OrganizeImportsMode.All)
 	end
 end
 
