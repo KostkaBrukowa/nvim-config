@@ -57,7 +57,11 @@ function M.goto_translation()
 				end
 			end
 
-			vim.ui.select({ "Yes", "No" }, { prompt = "Create missing translation?" }, handle_select_choice)
+			vim.ui.select(
+				{ "Yes", "No" },
+				{ prompt = "Create missing translation?", telescope = { initial_mode = "normal" } },
+				handle_select_choice
+			)
 		end
 
 		return true
