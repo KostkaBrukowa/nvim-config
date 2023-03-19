@@ -4,7 +4,7 @@ local methods = require("dupa.definitions_or_references.methods_state")
 local sorter = require("dupa.definitions_or_references.sorter")
 local entries = require("dupa.definitions_or_references.entries")
 local utils = require("dupa.definitions_or_references.utils")
-local log = require("dupa.log-mock")
+local log = require("dupa.log")
 
 local function filter_entries(results)
 	local current_file = vim.api.nvim_buf_get_name(0)
@@ -36,6 +36,7 @@ local function open_location_in_current_window(location)
 
 	vim.api.nvim_win_set_buf(0, bufnr)
 	vim.api.nvim_win_set_cursor(0, { location.lnum, location.col - 1 })
+	require("dupa.my_jumplist.setup_listeners").emit_jump_tree_event()
 end
 
 --- @return table
@@ -54,6 +55,7 @@ local function add_metadata_to_locations(locations)
 end
 
 local function handle_references_response()
+	log.trace("handle_references_response")
 	local result = methods.references.result
 
 	methods.clear_references()
@@ -100,6 +102,12 @@ local function send_references_request()
 		methods.references.name,
 		utils.make_params(),
 		function(err, result, _, _)
+			-- sometimes when calcel function was called after request has been fulfilled this would be called
+			-- if cancel_function is nil that means that references was cancelled
+			if methods.references.cancel_function == nil then
+				return
+			end
+
 			methods.references.is_pending = false
 
 			if err then
@@ -110,6 +118,7 @@ local function send_references_request()
 			methods.references.result = result
 
 			if not methods.definitions.is_pending then
+				log.trace("handle_references_response from send_references_request")
 				handle_references_response()
 			end
 		end

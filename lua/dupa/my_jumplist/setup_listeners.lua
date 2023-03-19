@@ -11,19 +11,19 @@ local function setup_keymaps()
 	keymap("n", "<leader><leader>d", "<cmd>lua require('dupa.my_jumplist').debug()<cr>", opts)
 end
 
-local function setup_events_on_keys()
-	local function emit_jump_tree_event()
-		vim.cmd("doautocmd User " .. CONSTANTS.CUSTOM_TRIGGER_EVENT)
-	end
+function M.emit_jump_tree_event()
+	vim.cmd("doautocmd User " .. CONSTANTS.CUSTOM_TRIGGER_EVENT)
+end
 
+local function setup_events_on_keys()
 	local function keymap_amend_event_before(original)
-		emit_jump_tree_event()
+		M.emit_jump_tree_event()
 		original()
 	end
 
 	local function keymap_amend_event_after(original)
 		original()
-		emit_jump_tree_event()
+		M.emit_jump_tree_event()
 	end
 
 	keymap_amend("n", "gg", keymap_amend_event_before)

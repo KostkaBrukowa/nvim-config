@@ -42,6 +42,7 @@ function M.open_result_in_current_window(result)
 	local range = result.range or result.targetRange
 	vim.api.nvim_win_set_buf(0, vim.uri_to_bufnr(uri))
 	vim.api.nvim_win_set_cursor(0, { range.start.line + 1, range.start.character })
+	require("dupa.my_jumplist.setup_listeners").emit_jump_tree_event()
 end
 
 function M.make_params()

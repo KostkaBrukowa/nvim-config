@@ -1,5 +1,5 @@
 local util = require("dupa.my_jumplist.util")
-local log = require("dupa.log-mock")
+local log = require("dupa.log")
 -- TODO add session save
 -- check what happens afte file rename
 -- Problem: after file changes (adding a line) the cursor position is not correct
@@ -117,7 +117,12 @@ function Tree:push_entry(entry)
 	-- nvim opens the file at { line: 1, column: 1 } and then immediately jumps to the
 	-- location of the definition. This causes two entries to be pushed to the jumplist
 	-- self:start_debounce(push)
-	push()
+	if entry.cursor_position[1] == 1 and entry.cursor_position[2] == 0 then
+		log.trace("deferring entry due to start of the file")
+		vim.defer_fn(push, 15)
+	else
+		push()
+	end
 end
 
 --- @return table | nil

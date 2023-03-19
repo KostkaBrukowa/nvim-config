@@ -2,6 +2,7 @@ local definitions = require("dupa.definitions_or_references.definitions")
 local references = require("dupa.definitions_or_references.references")
 
 local function definition_or_references()
+	require("dupa.my_jumplist.setup_listeners").emit_jump_tree_event()
 	references.send_references_request()
 	definitions()
 end

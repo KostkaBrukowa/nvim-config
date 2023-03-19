@@ -4,7 +4,6 @@ local keymap = require("cmp.utils.keymap")
 local feedkeys = require("cmp.utils.feedkeys")
 local luasnip = safe_require("luasnip")
 local lspkind = safe_require("lspkind")
-local log = require("dupa.log")
 
 if not cmp or not luasnip then
 	return

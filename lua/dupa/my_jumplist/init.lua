@@ -1,4 +1,4 @@
-local log = require("dupa.log-mock")
+local log = require("dupa.log")
 local util = require("dupa.my_jumplist.util")
 local setup = require("dupa.my_jumplist.setup_listeners")
 local Tree = require("dupa.my_jumplist.tree")
@@ -24,12 +24,6 @@ function M.go_back()
 
 	local current_user_entry = util.make_current_position_entry()
 
-	-- when cursor is not on last jump position jump to that jump - webstorm does not do that
-	-- local current_jump_tree_entry = jump_tree.current_entry_with_index.entry
-	-- if not util.jumps_equal(current_user_entry, current_jump_tree_entry) then
-	-- 	vim.api.nvim_win_set_cursor(0, current_jump_tree_entry.cursor_position)
-	-- 	return
-	-- end
 	local previous_jump = jump_tree:go_back()
 
 	-- local previous_jump

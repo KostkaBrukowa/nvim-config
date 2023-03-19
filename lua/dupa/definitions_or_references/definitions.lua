@@ -1,4 +1,4 @@
-local log = require("dupa.log-mock")
+local log = require("dupa.log")
 local methods = require("dupa.definitions_or_references.methods_state")
 local util = require("dupa.definitions_or_references.utils")
 local references = require("dupa.definitions_or_references.references")
@@ -26,18 +26,19 @@ local function definitions()
 		-- 	return
 		-- end
 
-		local only_definition = result[1]
+		local first_definition = result[1]
 
-		if util.current_cursor_not_on_result(only_definition) then
+		if util.current_cursor_not_on_result(first_definition) then
 			methods.clear_references()
 			log.trace("Current cursor not on result")
-			util.open_result_in_current_window(only_definition)
+			util.open_result_in_current_window(first_definition)
 			return
 		end
 
 		log.trace("Current cursor on only definition")
 
 		if not methods.references.is_pending then
+			log.trace("handle_references_response from definitions")
 			references.handle_references_response()
 		end
 	end)
