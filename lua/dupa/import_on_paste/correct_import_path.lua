@@ -1,5 +1,5 @@
 local path = require("plenary.path")
-local log = require("dupa.log")
+local log = require("dupa.log-mock")
 local path_utils = require("dupa.import_on_paste.path_utils")
 
 local M = {}

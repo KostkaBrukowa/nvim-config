@@ -4,7 +4,7 @@ local methods = require("dupa.definitions_or_references.methods_state")
 local sorter = require("dupa.definitions_or_references.sorter")
 local entries = require("dupa.definitions_or_references.entries")
 local utils = require("dupa.definitions_or_references.utils")
-local log = require("dupa.log")
+local log = require("dupa.log-mock")
 
 local function filter_entries(results)
 	local current_file = vim.api.nvim_buf_get_name(0)

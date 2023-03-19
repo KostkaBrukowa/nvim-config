@@ -1,4 +1,4 @@
-local log = require("dupa.log")
+local log = require("dupa.log-mock")
 local methods = require("dupa.definitions_or_references.methods_state")
 local util = require("dupa.definitions_or_references.utils")
 local references = require("dupa.definitions_or_references.references")

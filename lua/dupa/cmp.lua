@@ -1,9 +1,10 @@
-local cmp = safe_require("cmp")
+local cmp = require("cmp")
 local compare = safe_require("cmp.config.compare")
 local keymap = require("cmp.utils.keymap")
 local feedkeys = require("cmp.utils.feedkeys")
 local luasnip = safe_require("luasnip")
 local lspkind = safe_require("lspkind")
+local log = require("dupa.log")
 
 if not cmp or not luasnip then
 	return
@@ -50,6 +51,8 @@ cmp.setup({
 		end,
 	},
 	mapping = {
+		["<C-e>"] = cmp.mapping.scroll_docs(-4),
+		["<C-n>"] = cmp.mapping.scroll_docs(4),
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<Esc>"] = cmp.mapping({
 			i = function()
@@ -106,18 +109,29 @@ cmp.setup({
 					path = vim_item.kind,
 				})[entry.source.name]
 
-				-- if entry.source.name == "nvim_lsp" then
-				-- 	vim.notify(entry.completion_item.label)
-				-- 	if entry:get_completion_item().detail then
-				-- 		vim.notify(entry:get_completion_item().detail)
-				-- 	end
-				-- 	if entry.completion_item.label.detail then
-				-- 		vim.notify(entry.completion_item.label.detail)
-				-- 	end
-				-- 	if entry.completion_item.label.description then
-				-- 		vim.notify(entry.completion_item.label.description)
-				-- 	end
-				-- end
+				if entry.source.name == "nvim_lsp" then
+					local menu
+					if entry:get_completion_item().detail then
+						menu = entry:get_completion_item().detail
+					elseif entry.completion_item.label.detail then
+						menu = entry.completion_item.label.detail
+					elseif entry.completion_item.label.description then
+						menu = entry.completion_item.label.description
+					end
+
+					if menu then
+						if menu:find("Auto import from") then
+							menu = menu:gsub("Auto import from (.*)\n", "")
+						end
+
+						--think about increasing it
+						if menu:len() > 40 then
+							menu = menu:sub(1, 40) .. "..."
+						end
+
+						vim_item.menu = menu
+					end
+				end
 
 				return vim_item
 			end,

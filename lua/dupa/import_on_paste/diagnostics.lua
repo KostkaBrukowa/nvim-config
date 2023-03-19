@@ -1,4 +1,4 @@
-local log = require("dupa.log")
+local log = require("dupa.log-mock")
 local utils = require("dupa.import_on_paste.utils")
 local M = {}
 
