@@ -1,6 +1,5 @@
 local M = {}
 local keymap_amend = require("keymap-amend")
-local CONSTANTS = require("dupa.my_jumplist.consts")
 
 local function setup_keymaps()
 	local opts = { noremap = true, silent = true }
@@ -11,23 +10,19 @@ local function setup_keymaps()
 	keymap("n", "<leader><leader>d", "<cmd>lua require('dupa.my_jumplist').debug()<cr>", opts)
 end
 
-function M.emit_jump_tree_event()
-	vim.cmd("doautocmd User " .. CONSTANTS.CUSTOM_TRIGGER_EVENT)
-end
-
-local function setup_events_on_keys()
+local function setup_events_on_keys(push_new_entry)
 	local function keymap_amend_event_before(original)
-		M.emit_jump_tree_event()
+		push_new_entry()
 		original()
 	end
 
 	local function keymap_amend_event_after(original)
 		original()
-		M.emit_jump_tree_event()
+		push_new_entry()
 	end
 
-	keymap_amend("n", "gg", keymap_amend_event_before)
-	keymap_amend("n", "G", keymap_amend_event_before)
+	keymap_amend("n", "gg", keymap_amend_event_before, { expr = true })
+	keymap_amend("n", "G", keymap_amend_event_before, { expr = true })
 	keymap_amend("n", "m", keymap_amend_event_after)
 end
 
@@ -40,14 +35,8 @@ function M.setup_listeners(push_new_entry)
 		callback = push_new_entry,
 	})
 
-	vim.api.nvim_create_autocmd("User", {
-		group = save_jump_group,
-		pattern = CONSTANTS.CUSTOM_TRIGGER_EVENT,
-		callback = push_new_entry,
-	})
-
 	setup_keymaps()
-	setup_events_on_keys()
+	setup_events_on_keys(push_new_entry)
 end
 
 return M

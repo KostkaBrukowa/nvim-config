@@ -53,18 +53,14 @@ function Tree:should_push_entry(entry)
 		return false
 	end
 
-	if self.current_entry_with_index and self.entry_comparator(entry, self.current_entry_with_index.entry) then
-		log.trace("should_push_entry: entry is equal to current entry")
-		return false
-	end
-	if self.current_entry_with_index and self.entry_comparator(entry, self.current_entry_with_index.entry) then
-		log.trace("should_push_entry: entry is equal to current entry")
-		return false
-	end
-
 	if self.amount_to_skip > 0 then
 		log.trace("should_push_entry: skipping entry due to amount_to_skip")
 		self.amount_to_skip = self.amount_to_skip - 1
+		return false
+	end
+
+	if self.current_entry_with_index and self.entry_comparator(entry, self.current_entry_with_index.entry) then
+		log.trace("should_push_entry: entry is equal to current entry")
 		return false
 	end
 
@@ -119,7 +115,10 @@ function Tree:push_entry(entry)
 	-- self:start_debounce(push)
 	if entry.cursor_position[1] == 1 and entry.cursor_position[2] == 0 then
 		log.trace("deferring entry due to start of the file")
-		vim.defer_fn(push, 15)
+		vim.defer_fn(function()
+			entry = util.make_current_position_entry()
+			push()
+		end, 15)
 	else
 		push()
 	end

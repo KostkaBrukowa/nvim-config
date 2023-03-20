@@ -36,7 +36,7 @@ local function open_location_in_current_window(location)
 
 	vim.api.nvim_win_set_buf(0, bufnr)
 	vim.api.nvim_win_set_cursor(0, { location.lnum, location.col - 1 })
-	require("dupa.my_jumplist.setup_listeners").emit_jump_tree_event()
+	require("dupa.my_jumplist").push_new_entry_to_jumplist()
 end
 
 --- @return table

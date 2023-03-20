@@ -7,10 +7,7 @@ local M = {}
 
 local jump_tree = Tree:new(util.jumps_equal)
 
-local function push_new_entry(args)
-	if util.should_skip_file(args.file) then
-		return
-	end
+function M.push_new_entry_to_jumplist(args)
 	log.debug(vim.inspect(args))
 	local jump_entry = util.make_current_position_entry()
 
@@ -24,12 +21,14 @@ function M.go_back()
 
 	local current_user_entry = util.make_current_position_entry()
 
-	local previous_jump = jump_tree:go_back()
+	-- when cursor is not on last jump position jump to that jump - webstorm does not do that
+	local current_jump_tree_entry = jump_tree.current_entry_with_index.entry
+	if not util.jumps_equal(current_user_entry, current_jump_tree_entry) then
+		vim.api.nvim_win_set_cursor(0, current_jump_tree_entry.cursor_position)
+		return
+	end
 
-	-- local previous_jump
-	-- repeat
-	-- 	previous_jump = jump_tree:go_back()
-	-- until not previous_jump or not util.jumps_equal(previous_jump, current_user_entry)
+	local previous_jump = jump_tree:go_back()
 
 	-- if no previous jumps are available stay in current spot
 	if not previous_jump then
@@ -70,6 +69,6 @@ function M.debug()
 end
 
 -- TODO do a setup function and export
-setup.setup_listeners(push_new_entry)
+setup.setup_listeners(M.push_new_entry_to_jumplist)
 
 return M
