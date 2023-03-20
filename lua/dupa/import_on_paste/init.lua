@@ -1,5 +1,4 @@
 -- Possible improvements: instead of using OrganizeImports build imports yourself
--- if you've imported react components and react is not in scope import react
 -- add support for imports that import variable that are in global scope like 'screen'
 -- handle message `Cannot find a name (.*). Did you mean (.*).?`
 -- fix for copying from /Home/a/file.tsx -> /Home/b/file.tsx file that is /Home/fileToImport.tsx
@@ -83,7 +82,7 @@ keymap_amend("n", "p", function(original)
 	-- TODO change defer to waiting for diagnostics to show up
 	vim.defer_fn(function()
 		add_missing_imports()
-	end, 1000)
+	end, 3000)
 
 	vim.api.nvim_win_set_cursor(0, cursor_position_before_paste)
 end)

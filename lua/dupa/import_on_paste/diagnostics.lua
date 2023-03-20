@@ -32,8 +32,7 @@ function M.get_all_missing_import_diagnostics_from_range(start_position, end_pos
 			return false
 		end
 
-		return string.find(diagnostic.message, utils.constants.MISSING_IMPORT_DIAGNOSTIC_MESSAGE)
-			or string.find(diagnostic.message, utils.constants.REACT_IMPORT_MISSING)
+		return utils.is_missing_import_diagnostic(diagnostic)
 	end, diagnostics)
 
 	if #missing_import_diagnostics == 0 then

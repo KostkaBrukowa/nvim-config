@@ -65,6 +65,19 @@ local function find_full_import_for_name(missing_import_name, all_import_specifi
 	return nil
 end
 
+local function dedupe_import_nodes(nodes)
+	local seen = {}
+	local result = {}
+	for _, node in ipairs(nodes) do
+		local node_id = node:id()
+		if not seen[node_id] then
+			table.insert(result, node)
+			seen[node_id] = true
+		end
+	end
+	return result
+end
+
 --- @return table
 function M.find_missing_import_nodes(source_bufnr, missing_import_diagnostics)
 	local all_import_specifiers_nodes = find_all_import_specifiers_nodes(source_bufnr)
@@ -77,10 +90,7 @@ function M.find_missing_import_nodes(source_bufnr, missing_import_diagnostics)
 	-- for each name in found diagnostics find this name in import list
 	local import_nodes_to_add = {}
 	for _, diagnostic in ipairs(missing_import_diagnostics) do
-		for _, missing_import_message in ipairs({
-			utils.constants.MISSING_IMPORT_DIAGNOSTIC_MESSAGE,
-			utils.constants.REACT_IMPORT_MISSING,
-		}) do
+		for _, missing_import_message in ipairs(utils.constants.missing_import_messages) do
 			local missing_import_name = string.match(diagnostic.message, missing_import_message)
 
 			local import_for_missing_name =
@@ -92,7 +102,9 @@ function M.find_missing_import_nodes(source_bufnr, missing_import_diagnostics)
 		end
 	end
 
-	return import_nodes_to_add
+	local deduped_import_nodes_to_add = dedupe_import_nodes(import_nodes_to_add)
+
+	return deduped_import_nodes_to_add
 end
 
 return M
