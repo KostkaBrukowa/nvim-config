@@ -77,13 +77,18 @@ function M.find_missing_import_nodes(source_bufnr, missing_import_diagnostics)
 	-- for each name in found diagnostics find this name in import list
 	local import_nodes_to_add = {}
 	for _, diagnostic in ipairs(missing_import_diagnostics) do
-		local missing_import_name = string.match(diagnostic.message, utils.constants.MISSING_IMPORT_DIAGNOSTIC_MESSAGE)
+		for _, missing_import_message in ipairs({
+			utils.constants.MISSING_IMPORT_DIAGNOSTIC_MESSAGE,
+			utils.constants.REACT_IMPORT_MISSING,
+		}) do
+			local missing_import_name = string.match(diagnostic.message, missing_import_message)
 
-		local import_for_missing_name =
-			find_full_import_for_name(missing_import_name, all_import_specifiers_nodes, source_bufnr)
+			local import_for_missing_name =
+				find_full_import_for_name(missing_import_name, all_import_specifiers_nodes, source_bufnr)
 
-		if import_for_missing_name then
-			table.insert(import_nodes_to_add, import_for_missing_name)
+			if import_for_missing_name then
+				table.insert(import_nodes_to_add, import_for_missing_name)
+			end
 		end
 	end
 

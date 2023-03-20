@@ -2,6 +2,7 @@ local M = {}
 
 M.constants = {
 	MISSING_IMPORT_DIAGNOSTIC_MESSAGE = "Cannot find name '(.*)'",
+	REACT_IMPORT_MISSING = "'(.*)' refers to a UMD global, but the current file is a module. Consider adding an import instead.",
 }
 
 function M.get_bufnr_from_filename(filename)
