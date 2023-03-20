@@ -42,7 +42,7 @@ function M.correct_import_path(bufnr, import_node, source_file_directory, target
 		return full_import_text
 	end
 
-	local import_full_path = "/" .. path:new(source_file_directory .. import_path):normalize()
+	local import_full_path = path:new(source_file_directory .. import_path):normalize()
 	local relative_path_to_import = path_utils.relative_path(target_file_directory, import_full_path)
 
 	-- replace import path with new relative path

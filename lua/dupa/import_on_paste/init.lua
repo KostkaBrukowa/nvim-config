@@ -1,7 +1,5 @@
 -- Possible improvements: instead of using OrganizeImports build imports yourself
--- add support for imports that import variable that are in global scope like 'screen'
--- handle message `Cannot find a name (.*). Did you mean (.*).?`
--- fix for copying from /Home/a/file.tsx -> /Home/b/file.tsx file that is /Home/fileToImport.tsx
+-- add support for imports that import variable that are in global scope like 'screen' - no idea how
 local keymap_amend = require("keymap-amend")
 local typescript_tools = require("typescript-tools.api")
 local typescript_tools_consts = require("typescript-tools.protocol.constants")

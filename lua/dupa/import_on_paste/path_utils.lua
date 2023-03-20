@@ -2,6 +2,8 @@ local M = {}
 -- chat-gpt wrote it
 -- finds relative string between two paths pathA and pathB
 function M.relative_path(pathA, pathB)
+	-- adding filename to pathA to ensure that pathA does not end with '/'
+	pathA = pathA .. "test.tsx"
 	local sep = "/"
 	local i = 1
 
