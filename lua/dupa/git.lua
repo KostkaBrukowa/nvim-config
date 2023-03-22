@@ -31,7 +31,8 @@ utils.create_onetime_autocmd("FileType", {
 		local branch = vim.fn.system("git branch --show-current"):match("/?([%u%d]+-%d+)-?")
 
 		if branch then
-			vim.api.nvim_buf_set_lines(0, 0, -1, false, { branch .. " |  " })
+			vim.api.nvim_buf_set_lines(0, 0, 0, false, { branch .. " |  " })
+			vim.api.nvim_win_set_cursor(0, { 1, branch:len() + 1 })
 			vim.cmd(":startinsert!")
 		end
 	end,

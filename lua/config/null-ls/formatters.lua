@@ -54,21 +54,17 @@ function M.has_prettier_config()
 	end
 
 	local package_json = util.root_pattern(PACKAGE_JSON)(file_path)
-	-- vim.notify(vim.inspect(package_json))
 	if package_json ~= nil then
 		local content = table.concat(vim.fn.readfile(package_json .. "/" .. PACKAGE_JSON, "\n"))
 		local err, json_content = pcall(vim.json.decode, content)
 
 		if err and json_content.prettier ~= nil then
-			vim.notify("has prettier")
 			return true
 		end
 	end
 
 	for _, c in pairs(PRETTIER_CONFIG) do
 		if util.root_pattern(c)(file_path) ~= nil then
-			vim.notify(vim.inspect(c))
-			vim.notify(vim.inspect(file_path))
 			return true
 		end
 	end

@@ -23,8 +23,16 @@ function M.go_back()
 
 	-- when cursor is not on last jump position jump to that jump - webstorm does not do that
 	local current_jump_tree_entry = jump_tree.current_entry_with_index.entry
-	if not util.jumps_equal(current_user_entry, current_jump_tree_entry) then
-		vim.api.nvim_win_set_cursor(0, current_jump_tree_entry.cursor_position)
+	if not util.jumps_equal_lines_only(current_user_entry, current_jump_tree_entry) then
+		if current_jump_tree_entry.file_name ~= current_user_entry.file_name then
+			-- skipping two entries to omit BufEnter and BufLeave after edit
+			jump_tree:skip(2)
+			vim.cmd("e " .. current_jump_tree_entry.file_name)
+			vim.api.nvim_win_set_cursor(0, current_jump_tree_entry.cursor_position)
+		else
+			vim.api.nvim_win_set_cursor(0, current_jump_tree_entry.cursor_position)
+		end
+
 		return
 	end
 

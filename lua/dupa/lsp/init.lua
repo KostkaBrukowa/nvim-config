@@ -1,22 +1,7 @@
 local mason = safe_require("mason")
-
-if not mason then
-	return
-end
-
 mason.setup()
-
 local m = safe_require("mason-lspconfig")
-
-if not m then
-	return
-end
-
 local lspconfig = safe_require("lspconfig")
-
-if not lspconfig then
-	return
-end
 
 m.setup({
 	ensure_installed = {

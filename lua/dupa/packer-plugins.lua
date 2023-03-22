@@ -60,9 +60,7 @@ return packer.startup(function(use)
 	-- Telescope
 	use("nvim-telescope/telescope.nvim")
 	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-	use("ibhagwan/fzf-lua")
 	use("windwp/nvim-spectre")
-	use("rgroli/other.nvim")
 	use("nvim-telescope/telescope-project.nvim")
 
 	-- Session management
@@ -77,7 +75,6 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-nvim-lsp")
 	use("windwp/nvim-autopairs")
 	use("onsails/lspkind.nvim")
-	use("hrsh7th/cmp-nvim-lsp-signature-help")
 
 	-- Snippets
 	use("L3MON4D3/LuaSnip")
@@ -96,7 +93,6 @@ return packer.startup(function(use)
 	-- Utils
 	use("lewis6991/impatient.nvim")
 	use("ggandor/leap.nvim")
-	use("ThePrimeagen/harpoon")
 	use("ethanholz/nvim-lastplace")
 	use("ellisonleao/glow.nvim")
 	use("akinsho/toggleterm.nvim")
@@ -108,7 +104,6 @@ return packer.startup(function(use)
 	use("wellle/targets.vim")
 	use("thinca/vim-visualstar") -- Remove after 0.9 nvim
 	use("anuvyklack/hydra.nvim")
-	use({ "anuvyklack/windows.nvim", requires = { "anuvyklack/middleclass", "anuvyklack/animation.nvim" } })
 	use("mrjones2014/smart-splits.nvim")
 	use("sindrets/winshift.nvim")
 	use("stevearc/stickybuf.nvim")
@@ -119,12 +114,12 @@ return packer.startup(function(use)
 	use("tzachar/local-highlight.nvim")
 	use("jinh0/eyeliner.nvim")
 	use("anuvyklack/keymap-amend.nvim")
+	use("rgroli/other.nvim")
 
 	-- LSP
 	use("williamboman/mason.nvim")
 	use("williamboman/mason-lspconfig.nvim")
 	use("neovim/nvim-lspconfig")
-	use({ "glepnir/lspsaga.nvim", branch = "main" })
 	use("b0o/schemastore.nvim")
 	use("jayp0521/mason-null-ls.nvim")
 	use("WhoIsSethDaniel/mason-tool-installer.nvim")

@@ -197,6 +197,10 @@ local mappings = {
 			"<cmd>lua require('utils.treesitter-utils').goto_translation()<CR>",
 			"Go to translation",
 		},
+		["e"] = {
+			"<cmd>lua require('utils.treesitter-utils').goto_main_export()<CR>",
+			"Go to translation",
+		},
 		["r"] = {
 			name = "Find and replace",
 			["o"] = { "<cmd>lua require('spectre').open()<cr>", "Find and replace - Open" },
@@ -213,17 +217,6 @@ local mappings = {
 		["a"] = { "<cmd>TypescriptAddMissingImports<CR>", "Add missing imports" },
 		["o"] = { "<cmd>TypescriptOrganizeImports<CR>", "Organize imports" },
 		["u"] = { "<cmd>TypescriptRemoveUnused<CR>", "Remove unused" },
-	},
-	["h"] = {
-		name = "Harpoon",
-		["m"] = { "<cmd>lua require('harpoon.mark').toggle_file()<CR>", "Add mark" },
-		["q"] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<CR>", "Quick menu" },
-		["a"] = { "<cmd>lua require('harpoon.ui').nav_file(1)<CR>", "Nav file 1" },
-		["r"] = { "<cmd>lua require('harpoon.ui').nav_file(2)<CR>", "Nav file 2" },
-		["s"] = { "<cmd>lua require('harpoon.ui').nav_file(3)<CR>", "Nav file 3" },
-		["t"] = { "<cmd>lua require('harpoon.ui').nav_file(4)<CR>", "Nav file 4" },
-		["h"] = { "<cmd>lua require('harpoon.ui').nav_prev()<CR>", "Mark prev" },
-		["i"] = { "<cmd>lua require('harpoon.ui').nav_next()<CR>", "Mark next" },
 	},
 	["a"] = {
 		name = "Aerial",
@@ -270,14 +263,14 @@ local visual_mappings = {
 		name = "Git",
 		["u"] = { "<cmd>lua require('gitlinker').get_buf_range_url('v')<CR>", "Fugitive" },
 	},
-	["f"] = {
-		name = "Find",
-		["r"] = {
-			"<cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
-			"Telescope refactorings",
-		},
-	},
 }
+
+vim.api.nvim_set_keymap(
+	"v",
+	"<leader>rf",
+	":lua require('refactoring').select_refactor()<CR>",
+	{ noremap = true, silent = true, expr = false }
+)
 
 which_key.setup(setup)
 

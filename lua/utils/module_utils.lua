@@ -43,13 +43,6 @@ local function _replace(old, new, repeat_tbl)
 	end
 end
 
-M.require_clean = function(m)
-	package.loaded[m] = nil
-	_G[m] = nil
-	local _, module = pcall(require, m)
-	return module
-end
-
 _G.safe_require = function(module_name)
 	local package_exists, module = pcall(require, module_name)
 	if not package_exists then

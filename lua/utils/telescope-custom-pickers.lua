@@ -45,18 +45,21 @@ function M.open_saved_project_picker()
 			actions.select_default:replace(function()
 				actions.close(prompt_bufnr)
 				local selection_value = action_state.get_selected_entry().value
+				local selection_title = action_state.get_selected_entry().title
 
 				local handle_select_choice = function(picked_option)
 					if picked_option == "This window" then
 						vim.cmd("e " .. selection_value)
 					elseif picked_option == "New window" then
+						print(vim.inspect(selection_value))
 						vim.cmd("silent ! kitty -d " .. selection_value .. " --single-instance --instance-group 100 &")
-						-- vim.cmd("silent ! kitty -d " .. selection_value .. " --type=tab")
+					elseif picked_option == "New tab" then
+						vim.cmd("! kitty @ --to=$KITTY_LISTEN_ON launch --type=tab --cwd=" .. selection_value)
 					end
 				end
 
 				vim.ui.select(
-					{ "New window", "This window" },
+					{ "New tab", "New window", "This window" },
 					{ prompt = "Open " .. selection_value .. " in: " },
 					handle_select_choice
 				)
@@ -104,27 +107,5 @@ function M.last_picker(node)
 		prompt = "Enter a numer for picker (min. 1): ",
 	}, handle_input)
 end
-
-function M.open_file_from_word()
-	local current_word = vim.fn.expand("<cWORD>")
-	local colon_index = current_word:find(":")
-
-	local filename_from_word = colon_index and current_word:sub(0, colon_index - 1) or current_word
-
-	vim.cmd("e " .. filename_from_word)
-	if not colon_index then
-		return
-	end
-
-	local position = current_word:sub(colon_index + 1)
-	if position:find(":") then
-		local line, col = position:match("(%d+):(%d+)")
-		vim.api.nvim_win_set_cursor(0, { tonumber(line), tonumber(col) })
-	else
-		vim.api.nvim_win_set_cursor(0, { tonumber(position), 0 })
-	end
-end
-
--- lua/dupa/toggleterm.lua:12
 
 return M
