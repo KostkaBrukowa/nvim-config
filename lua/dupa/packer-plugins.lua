@@ -115,6 +115,10 @@ return packer.startup(function(use)
 	use("jinh0/eyeliner.nvim")
 	use("anuvyklack/keymap-amend.nvim")
 	use("rgroli/other.nvim")
+	use({
+		"utilyre/barbecue.nvim",
+		requires = { "SmiteshP/nvim-navic" },
+	})
 
 	-- LSP
 	use("williamboman/mason.nvim")

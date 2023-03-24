@@ -6,6 +6,12 @@ require("refactoring").setup({})
 require("eyeliner").setup({})
 require("local-highlight").setup({})
 require("package-info").setup({})
+require("barbecue").setup({
+	show_dirname = false,
+	symbols = {
+		separator = "->",
+	},
+})
 require("notify").setup({
 	stages = "fade",
 	timeout = 3000,

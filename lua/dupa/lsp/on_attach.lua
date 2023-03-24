@@ -1,3 +1,4 @@
+local navic = require("nvim-navic")
 local M = {}
 
 M.on_attach = function(client, bufnr)
@@ -12,6 +13,10 @@ M.on_attach = function(client, bufnr)
 
 	if client.name == "sumneko_lua" then
 		client.server_capabilities.document_formatting = false
+	end
+
+	if client.server_capabilities.documentSymbolProvider then
+		navic.attach(client, bufnr)
 	end
 end
 
