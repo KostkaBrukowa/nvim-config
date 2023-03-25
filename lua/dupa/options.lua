@@ -56,11 +56,6 @@ for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 
-vim.cmd([[
-  autocmd User targets#mappings#user call targets#mappings#extend({
-      \ 'a': {'argument': [{'o': '(', 'c': ')', 's': ','}, {'o': '[', 'c': ']', 's': ','}, {'o': '{', 'c': '}', 's': ','}]},
-      \ 't': {},
-      \ 'b': {},
-      \ 'q': {},
-      \ })
-]])
+vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#3c3836" })
+vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
+vim.api.nvim_set_hl(0, "CmpPmenu", { bg = "#000000" })

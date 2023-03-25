@@ -124,8 +124,9 @@ cmp.setup({
 						end
 
 						--think about increasing it
-						if menu:len() > 40 then
-							menu = menu:sub(1, 40) .. "..."
+						local max_detail_width = 40
+						if menu:len() > max_detail_width then
+							menu = menu:sub(1, max_detail_width) .. "..."
 						end
 
 						vim_item.menu = menu
@@ -174,8 +175,10 @@ cmp.setup({
 		select = false,
 	},
 	window = {
-		completion = cmp.config.window.bordered(),
-		documentation = cmp.config.window.bordered(),
+		completion = {
+			winhighlight = "Normal:CmpPmenu,FloatBorder:CmpPmenuBorder",
+		},
+		-- documentation = cmp.config.window.bordered(),
 	},
 })
 

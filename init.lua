@@ -36,6 +36,7 @@ require("dupa.other_plugins")
 require("dupa.lsp-saga")
 require("dupa.printer")
 require("dupa.copilot")
+require("dupa.targets")
 
 require("dupa.typescript-tools")
 
