@@ -6,14 +6,14 @@ local function goto_next_diagnostic()
 	for _, severity in ipairs(vim.diagnostic.severity) do
 		local diagnostics = vim.diagnostic.get(0, { severity = severity })
 		if #diagnostics > 0 then
-			vim.diagnostic.goto_next({ severity = severity, float = { source = true } })
+			vim.diagnostic.goto_next({ severity = severity, float = { border = "rounded", source = true } })
 			return
 		end
 	end
 end
 
 local function open_float()
-	vim.diagnostic.open_float({ source = true })
+	vim.diagnostic.open_float({ border = "rounded", source = true })
 end
 
 vim.keymap.set({ "n", "v" }, "<C-.>", vim.lsp.buf.code_action, { silent = true })
