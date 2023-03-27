@@ -37,6 +37,7 @@ require("dupa.lsp-saga")
 require("dupa.printer")
 require("dupa.copilot")
 require("dupa.targets")
+require("dupa.no-neck-pain")
 
 require("dupa.typescript-tools")
 

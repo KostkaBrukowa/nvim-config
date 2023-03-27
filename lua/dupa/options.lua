@@ -55,7 +55,3 @@ local options = {
 for k, v in pairs(options) do
 	vim.opt[k] = v
 end
-
-vim.api.nvim_set_hl(0, "FloatBorder", { bg = "#3c3836" })
-vim.api.nvim_set_hl(0, "NormalFloat", { bg = "#000000" })
-vim.api.nvim_set_hl(0, "CmpPmenu", { bg = "#000000" })

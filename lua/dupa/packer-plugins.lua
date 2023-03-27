@@ -115,6 +115,8 @@ return packer.startup(function(use)
 	use("jinh0/eyeliner.nvim")
 	use("anuvyklack/keymap-amend.nvim")
 	use("rgroli/other.nvim")
+	use({ "shortcuts/no-neck-pain.nvim", tag = "*" })
+
 	use({
 		"utilyre/barbecue.nvim",
 		requires = { "SmiteshP/nvim-navic" },
