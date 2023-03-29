@@ -12,7 +12,7 @@ local sorter = sorters.Sorter:new({
 		end
 
 		if entry.value.is_inside_import then
-			base_score = base_score + 100
+			base_score = base_score + 200
 		end
 
 		return base_score

@@ -6,16 +6,20 @@ local references = require("dupa.definitions_or_references.references")
 local function definitions()
 	vim.lsp.buf_request(0, methods.definitions.name, util.make_params(), function(err, result, _, _)
 		methods.definitions.is_pending = false
-		-- send buf_request for references
 		if err then
 			vim.notify(err.message, vim.log.levels.ERROR)
 			return
 		end
 
-		if not result or #result == 0 then
-			vim.notify("No definitions found")
-			methods.clear_references()
-			return
+		if result and #result > 0 then
+			local first_definition = result[1]
+
+			if util.current_cursor_not_on_result(first_definition) then
+				methods.clear_references()
+				log.trace("Current cursor not on result")
+				util.open_result_in_current_window(first_definition)
+				return
+			end
 		end
 
 		-- simple fallback when more that 1 reference. Should not happen often
@@ -26,15 +30,8 @@ local function definitions()
 		-- 	return
 		-- end
 
-		local first_definition = result[1]
-
-		if util.current_cursor_not_on_result(first_definition) then
-			methods.clear_references()
-			log.trace("Current cursor not on result")
-			util.open_result_in_current_window(first_definition)
-			return
-		end
-
+		-- I've found a case when there is no definition and there are references
+		-- in such case fallback to references
 		log.trace("Current cursor on only definition")
 
 		if not methods.references.is_pending then
