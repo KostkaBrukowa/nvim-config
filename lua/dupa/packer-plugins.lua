@@ -134,6 +134,7 @@ return packer.startup(function(use)
 	use("~/Documents/Praca/typescript-tools.nvim")
 	use("folke/neodev.nvim")
 	use({ "antosha417/nvim-lsp-file-operations" })
+	use("j-hui/fidget.nvim")
 	use({ "git@github.com:allegro-internal/vscode-allegro-metrum", branch = "neovim" })
 
 	-- Folding

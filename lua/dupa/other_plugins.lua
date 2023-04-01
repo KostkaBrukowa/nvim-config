@@ -6,6 +6,7 @@ require("refactoring").setup({})
 require("eyeliner").setup({})
 require("local-highlight").setup({})
 require("package-info").setup({})
+require("fidget").setup({})
 require("barbecue").setup({
 	show_dirname = false,
 	symbols = {
