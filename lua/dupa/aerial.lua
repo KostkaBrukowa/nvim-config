@@ -3,7 +3,7 @@ require("aerial").setup({
 	show_guides = true,
 	layout = {
 		min_width = 45,
-		default_direction = "prefer_left",
+		default_direction = "left",
 		manage_folds = true,
 		link_folds_to_tree = false,
 		win_opts = {

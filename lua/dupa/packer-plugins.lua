@@ -53,6 +53,7 @@ return packer.startup(function(use)
 	use("nvim-treesitter/nvim-treesitter")
 	use("windwp/nvim-ts-autotag")
 	use("nvim-treesitter/playground")
+	use("nvim-treesitter/nvim-treesitter-context")
 
 	-- Keymaps
 	use("folke/which-key.nvim")
