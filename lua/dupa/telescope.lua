@@ -1,6 +1,8 @@
 local telescope = safe_require("telescope")
+local telescope_utils = require("utils.telescope-utils")
 local actions = safe_require("telescope.actions")
 local actions_set = safe_require("telescope.actions.set")
+local entry_display = require("telescope.pickers.entry_display")
 
 if not telescope then
 	return
@@ -14,8 +16,37 @@ if not actions_set then
 	return
 end
 
+local grep_entry_maker = function(entry)
+	local res = require("telescope.make_entry").gen_from_vimgrep()(entry)
+	local configuration = {
+		{ width = 80 },
+		{},
+		{},
+		{},
+		{},
+		{},
+	}
+
+	local displayer = entry_display.create({ separator = "", items = configuration })
+
+	res.display = function(entry_tbl)
+		local _, _, filename, pos, text = string.find(entry_tbl[1], "^(.*):(%d+:%d+):(.*)$")
+		local icon, dir, name = telescope_utils.refine_filename(filename)
+
+		return displayer({ { text }, icon, dir, name, { " " .. pos, "TelescopeResultsLineNr" } })
+	end
+	return res
+end
+
 telescope.setup({
+	pickers = {
+		live_grep = {
+			entry_maker = grep_entry_maker,
+			additional_args = { "--trim" },
+		},
+	},
 	defaults = {
+		layout_strategy = "vertical",
 		cache_picker = {
 			num_pickers = 3,
 		},

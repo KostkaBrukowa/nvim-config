@@ -1,32 +1,42 @@
-local telescope_utils = require("telescope.utils")
+local telescope_utils = require("utils.telescope-utils")
 local utils = require("dupa.definitions_or_references.utils")
 local entry_display = require("telescope.pickers.entry_display")
 local make_entry = require("telescope.make_entry")
 
-local function make_entry_filename(entry)
-	local filename_split = vim.split(entry.filename, "/", { trimempty = true })
-	local two_last_path_parts = (filename_split[#filename_split - 1] .. "/" .. filename_split[#filename_split])
+local function get_specifiers(entry)
+	local specifiers = (entry.value.is_inside_import and "[I] " or "") .. (entry.value.is_test_file and "[T] " or "")
 
-	local filename = (entry.value.is_inside_import and "-Import- " or "")
-		.. (entry.value.is_test_file and "-Test- " or "")
-		.. two_last_path_parts
-
-	return filename
+	return specifiers
 end
 
 local function make_telescope_entries_from()
 	local configuration = {
-		{ width = 30 },
-		{ remaining = true },
+		{ width = 3 },
+		{ width = 45 },
+		{ width = 15 },
+		{},
+		{},
+		{},
+		{},
 	}
 
-	local displayer = entry_display.create({ separator = " ▏", items = configuration })
+	local displayer = entry_display.create({ separator = "", items = configuration })
 
 	local make_display = function(entry)
+		local icon, dir, name = telescope_utils.refine_filename(entry.filename)
+		local pos = " " .. entry.lnum .. ":" .. entry.col
+
 		return displayer({
-			string.format("%s", make_entry_filename(entry)),
-			-- trim text from both sides
-			entry.text:gsub("^%s*(.-)%s*$", "%1"):gsub(".* | ", ""),
+			icon,
+			{ get_specifiers(entry) .. name[1], entry.value.is_inside_import and "TelescopeResultsLineNr" or nil },
+			{ dir[1], entry.value.is_inside_import and "TelescopeResultsLineNr" or dir[2] },
+			"  ",
+			{
+				-- trim text from both sides
+				entry.text:gsub("^%s*(.-)%s*$", "%1"):gsub(".* | ", ""),
+				entry.value.is_inside_import and "TelescopeResultsLineNr" or nil,
+			},
+			{ " " .. pos, "TelescopeResultsLineNr" },
 		})
 	end
 
