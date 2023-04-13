@@ -17,9 +17,9 @@ function M.setup()
 	local configs = {}
 
 	if file_utils.file_exists_in_project_root(".luacheckrc") then
-		configs[#configs + 1] = {
-			command = "luacheck",
-		}
+		-- configs[#configs + 1] = {
+		-- 	command = "luacheck",
+		-- }
 	end
 
 	M.setup_linters(configs)

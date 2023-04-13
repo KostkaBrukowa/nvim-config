@@ -12,6 +12,7 @@ m.setup({
 		"yamlls",
 		"marksman",
 		"volar",
+		-- "tsserver",
 	},
 })
 

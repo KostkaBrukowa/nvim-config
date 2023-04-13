@@ -33,7 +33,7 @@ local function find_all_import_specifiers_nodes(source_bufnr)
 	local lang = parsers.get_buf_lang(source_bufnr)
 	local root = ts_utils.get_root_for_position(1, 1, parsers.get_parser(source_bufnr, lang))
 
-	local all_import_names_query = vim.treesitter.parse_query(lang, IMPORTS_QUERY)
+	local all_import_names_query = vim.treesitter.query.parse(lang, IMPORTS_QUERY)
 
 	local import_name_nodes = {}
 	for _, import_name, _ in all_import_names_query:iter_captures(root, source_bufnr, root:start(), root:end_()) do

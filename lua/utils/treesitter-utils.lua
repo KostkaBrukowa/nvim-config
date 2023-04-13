@@ -96,7 +96,7 @@ function M.goto_main_export()
 	local lang = parsers.get_buf_lang(0)
 	local root = ts_utils.get_root_for_position(1, 1, parsers.get_parser(0, lang))
 
-	local exports_query = vim.treesitter.parse_query(lang, EXPORT_QUERY)
+	local exports_query = vim.treesitter.query.parse(lang, EXPORT_QUERY)
 
 	for _, export_name, _ in exports_query:iter_captures(root, 0, root:start(), root:end_()) do
 		local start_row, start_column = export_name:range()
