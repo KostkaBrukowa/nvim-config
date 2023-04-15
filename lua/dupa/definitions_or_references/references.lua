@@ -1,10 +1,27 @@
 local pickers = require("telescope.pickers")
 local finders = require("telescope.finders")
-local methods = require("dupa.definitions_or_references.methods_state")
-local sorter = require("dupa.definitions_or_references.sorter")
 local entries = require("dupa.definitions_or_references.entries")
-local utils = require("dupa.definitions_or_references.utils")
-local log = require("dupa.log")
+local sorters = require("telescope.sorters")
+
+local fuzzy_sorter = sorters.get_generic_fuzzy_sorter()
+
+-- sorter that moves less important entries to the bottom
+local sorter = sorters.Sorter:new({
+	scoring_function = function(_, prompt, line, entry, cb_add, cb_filter)
+		local base_score = fuzzy_sorter:scoring_function(prompt, line, cb_add, cb_filter)
+
+		if entry.value.is_test_file then
+			base_score = base_score + 100
+		end
+
+		if entry.value.is_inside_import then
+			base_score = base_score + 200
+		end
+
+		return base_score
+	end,
+	highlighter = fuzzy_sorter.highlighter,
+})
 
 local function filter_entries(results)
 	local current_file = vim.api.nvim_buf_get_name(0)
@@ -27,18 +44,6 @@ local function filter_entries(results)
 	return vim.tbl_filter(should_include_entry, vim.F.if_nil(results, {}))
 end
 
-local function open_location_in_current_window(location)
-	local bufnr = 0
-
-	if location.filename then
-		bufnr = vim.uri_to_bufnr(vim.uri_from_fname(location.filename))
-	end
-
-	vim.api.nvim_win_set_buf(0, bufnr)
-	vim.api.nvim_win_set_cursor(0, { location.lnum, location.col - 1 })
-	require("dupa.my_jumplist").push_new_entry_to_jumplist()
-end
-
 --- @return table
 local function add_metadata_to_locations(locations)
 	return vim.tbl_map(function(location)
@@ -54,37 +59,14 @@ local function add_metadata_to_locations(locations)
 	end, locations)
 end
 
-local function handle_references_response()
-	log.trace("handle_references_response")
-	local result = methods.references.result
-
-	methods.clear_references()
-
-	if not result then
-		vim.api.nvim_err_writeln("No references found")
-		return
-	end
-
-	-- local qf_list_items =
-	-- 	vim.lsp.util.locations_to_items(result, vim.lsp.get_client_by_id(ctx.client_id).offset_encoding)
-	local qf_list_items = vim.lsp.util.locations_to_items(result, "utf-8")
-	local locations = filter_entries(qf_list_items)
-
-	if vim.tbl_isempty(locations) then
-		vim.notify("No references found")
-		return
-	end
-
-	if #locations == 1 then
-		open_location_in_current_window(locations[1])
-		return
-	end
-
+local function handle_references_response(result)
+	local locations = vim.lsp.util.locations_to_items(result, "utf-8")
+	local filtered_entries = filter_entries(locations)
 	pickers
 		.new({}, {
 			prompt_title = "LSP References",
 			finder = finders.new_table({
-				results = add_metadata_to_locations(locations),
+				results = add_metadata_to_locations(filtered_entries),
 				entry_maker = entries.make_telescope_entries_from(),
 			}),
 			previewer = require("telescope.config").values.qflist_previewer({}),
@@ -96,38 +78,6 @@ local function handle_references_response()
 		:find()
 end
 
-local function send_references_request()
-	_, methods.references.cancel_function = vim.lsp.buf_request(
-		0,
-		methods.references.name,
-		utils.make_params(),
-		function(err, result, _, _)
-			-- sometimes when calcel function was called after request has been fulfilled this would be called
-			-- if cancel_function is nil that means that references was cancelled
-			if methods.references.cancel_function == nil then
-				return
-			end
-
-			methods.references.is_pending = false
-
-			if err then
-				vim.notify(err.message, vim.log.levels.ERROR)
-				return
-			end
-
-			methods.references.result = result
-
-			if not methods.definitions.is_pending then
-				log.trace("handle_references_response from send_references_request")
-				handle_references_response()
-			end
-		end
-	)
-
-	methods.references.is_pending = true
-end
-
 return {
-	send_references_request = send_references_request,
 	handle_references_response = handle_references_response,
 }

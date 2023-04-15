@@ -1,12 +1,8 @@
-local definitions = require("dupa.definitions_or_references.definitions")
-local references = require("dupa.definitions_or_references.references")
+local references_handler = require("dupa.definitions_or_references.references")
+local definion_or_references = require("definition-or-references")
 
-local function definition_or_references()
-	require("dupa.my_jumplist").push_new_entry_to_jumplist()
-	references.send_references_request()
-	definitions()
-end
-
-return {
-	definitions_or_references = definition_or_references,
-}
+definion_or_references.setup({
+	before_start_callback = require("dupa.my_jumplist").push_new_entry_to_jumplist,
+	after_jump_callback = require("dupa.my_jumplist").push_new_entry_to_jumplist,
+	on_references_result = references_handler.handle_references_response,
+})

@@ -1,6 +1,6 @@
 local ASquareRight = vim.fn.has("macunix") == 1 and "≥" or "<A->>"
 
-local definitions_or_references = require("dupa.definitions_or_references").definitions_or_references
+local definition_or_references = require("definition-or-references").definition_or_references
 
 local function goto_next_diagnostic()
 	for _, severity in ipairs(vim.diagnostic.severity) do
@@ -21,5 +21,5 @@ vim.keymap.set("n", "<leader>2", vim.lsp.buf.rename, { silent = true })
 vim.keymap.set("n", "gt", vim.lsp.buf.hover, { silent = true })
 vim.keymap.set("i", "<c-i>", vim.lsp.buf.signature_help, { silent = true })
 vim.keymap.set("n", "gh", open_float, { silent = true })
-vim.keymap.set("n", ASquareRight, definitions_or_references, { silent = true })
+vim.keymap.set("n", ASquareRight, definition_or_references, { silent = true })
 vim.keymap.set("n", "<C-k>", goto_next_diagnostic, { silent = true })
