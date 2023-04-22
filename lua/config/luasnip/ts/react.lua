@@ -6,10 +6,10 @@ local i = luasnip.insert_node
 local fmt = require("luasnip.extras.fmt").fmt
 
 return {
-	snippet(
-		"fc",
-		fmt(
-			[[
+  snippet(
+    "fc",
+    fmt(
+      [[
       import React from 'react';
 
       export interface {}Props {{}}
@@ -20,27 +20,30 @@ return {
         );
       }};
       ]],
-			{ utils.file_name(), utils.file_name(), utils.file_name(), i(0) }
-		)
-	),
-	snippet(
-		"ue",
-		fmt(
-			[[
+      { utils.file_name(), utils.file_name(), utils.file_name(), i(0) }
+    )
+  ),
+  snippet(
+    "ue",
+    fmt(
+      [[
       useEffect(() => {{
         {}
       }}, [{}])
       ]],
-			{ i(1), i(0) }
-		)
-	),
-	snippet(
-		"us",
-		fmt(
-			"const [{}, set{}] = useState()",
-			{ i(1), utils.mirror(1, function(args)
-				return args[1][1]:gsub("^%l", string.upper)
-			end) }
-		)
-	),
+      { i(1), i(0) }
+    )
+  ),
+  snippet(
+    "us",
+    fmt(
+      "const [{}, set{}] = useState()",
+      {
+        i(1),
+        utils.mirror(1, function(args)
+          return args[1][1]:gsub("^%l", string.upper)
+        end),
+      }
+    )
+  ),
 }

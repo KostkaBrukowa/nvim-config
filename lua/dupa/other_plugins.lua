@@ -7,17 +7,18 @@ require("refactoring").setup({})
 require("local-highlight").setup({})
 require("package-info").setup({})
 require("fidget").setup({})
+require("glow").setup({})
 require("barbecue").setup({
-	show_dirname = false,
-	theme = "tokyonight-moon",
-	symbols = {
-		separator = "->",
-	},
+  show_dirname = false,
+  theme = "tokyonight-moon",
+  symbols = {
+    separator = "->",
+  },
 })
 require("notify").setup({
-	stages = "fade",
-	timeout = 3000,
+  stages = "fade",
+  timeout = 3000,
 })
 require("lsp-file-operations").setup({
-	debug = false,
+  debug = false,
 })

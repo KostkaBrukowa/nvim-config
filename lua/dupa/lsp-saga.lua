@@ -3,17 +3,20 @@ local ASquareRight = vim.fn.has("macunix") == 1 and "≥" or "<A->>"
 local definition_or_references = require("definition-or-references").definition_or_references
 
 local function goto_next_diagnostic()
-	for _, severity in ipairs(vim.diagnostic.severity) do
-		local diagnostics = vim.diagnostic.get(0, { severity = severity })
-		if #diagnostics > 0 then
-			vim.diagnostic.goto_next({ severity = severity, float = { border = "rounded", source = true } })
-			return
-		end
-	end
+  for _, severity in ipairs(vim.diagnostic.severity) do
+    local diagnostics = vim.diagnostic.get(0, { severity = severity })
+    if #diagnostics > 0 then
+      vim.diagnostic.goto_next({
+        severity = severity,
+        float = { border = "rounded", source = true },
+      })
+      return
+    end
+  end
 end
 
 local function open_float()
-	vim.diagnostic.open_float({ border = "rounded", source = true })
+  vim.diagnostic.open_float({ border = "rounded", source = true })
 end
 
 vim.keymap.set({ "n", "v" }, "<C-.>", vim.lsp.buf.code_action, { silent = true })

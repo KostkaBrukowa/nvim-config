@@ -16,95 +16,101 @@ local IMPORTS_QUERY = [[
 ]]
 
 local function find_full_import_statement(node)
-	local parent = node:parent()
+  local parent = node:parent()
 
-	while parent ~= nil do
-		if parent:type() == "import_statement" then
-			return parent
-		end
+  while parent ~= nil do
+    if parent:type() == "import_statement" then
+      return parent
+    end
 
-		parent = parent:parent()
-	end
+    parent = parent:parent()
+  end
 
-	return nil
+  return nil
 end
 
 local function find_all_import_specifiers_nodes(source_bufnr)
-	local lang = parsers.get_buf_lang(source_bufnr)
-	local root = ts_utils.get_root_for_position(1, 1, parsers.get_parser(source_bufnr, lang))
+  local lang = parsers.get_buf_lang(source_bufnr)
+  local root = ts_utils.get_root_for_position(1, 1, parsers.get_parser(source_bufnr, lang))
 
-	local all_import_names_query = vim.treesitter.query.parse(lang, IMPORTS_QUERY)
+  local all_import_names_query = vim.treesitter.query.parse(lang, IMPORTS_QUERY)
 
-	local import_name_nodes = {}
-	for _, import_name, _ in all_import_names_query:iter_captures(root, source_bufnr, root:start(), root:end_()) do
-		table.insert(import_name_nodes, import_name)
-	end
+  local import_name_nodes = {}
+  for _, import_name, _ in
+    all_import_names_query:iter_captures(root, source_bufnr, root:start(), root:end_())
+  do
+    table.insert(import_name_nodes, import_name)
+  end
 
-	return import_name_nodes
+  return import_name_nodes
 end
 
-local function find_full_import_for_name(missing_import_name, all_import_specifiers_nodes, source_bufnr)
-	log.trace("missing_import_name", missing_import_name)
+local function find_full_import_for_name(
+  missing_import_name,
+  all_import_specifiers_nodes,
+  source_bufnr
+)
+  log.trace("missing_import_name", missing_import_name)
 
-	if not missing_import_name then
-		return nil
-	end
+  if not missing_import_name then
+    return nil
+  end
 
-	for _, import_specifier_node in pairs(all_import_specifiers_nodes) do
-		local import_specifier_text = vim.treesitter.get_node_text(import_specifier_node, source_bufnr)
+  for _, import_specifier_node in pairs(all_import_specifiers_nodes) do
+    local import_specifier_text = vim.treesitter.get_node_text(import_specifier_node, source_bufnr)
 
-		if missing_import_name == import_specifier_text then
-			log.trace("Found import for: ", missing_import_name)
-			local import_statement_node = find_full_import_statement(import_specifier_node)
-			if import_statement_node then
-				return import_statement_node
-			end
-		end
-	end
+    if missing_import_name == import_specifier_text then
+      log.trace("Found import for: ", missing_import_name)
+      local import_statement_node = find_full_import_statement(import_specifier_node)
+      if import_statement_node then
+        return import_statement_node
+      end
+    end
+  end
 
-	return nil
+  return nil
 end
 
 local function dedupe_import_nodes(nodes)
-	local seen = {}
-	local result = {}
-	for _, node in ipairs(nodes) do
-		local node_id = node:id()
-		if not seen[node_id] then
-			table.insert(result, node)
-			seen[node_id] = true
-		end
-	end
-	return result
+  local seen = {}
+  local result = {}
+  for _, node in ipairs(nodes) do
+    local node_id = node:id()
+    if not seen[node_id] then
+      table.insert(result, node)
+      seen[node_id] = true
+    end
+  end
+  return result
 end
 
 --- @return table
 function M.find_missing_import_nodes(source_bufnr, missing_import_diagnostics)
-	local all_import_specifiers_nodes = find_all_import_specifiers_nodes(source_bufnr)
+  local all_import_specifiers_nodes = find_all_import_specifiers_nodes(source_bufnr)
 
-	if #all_import_specifiers_nodes == 0 then
-		log.error("No import nodes found in source file")
-		return {}
-	end
+  if #all_import_specifiers_nodes == 0 then
+    log.error("No import nodes found in source file")
+    return {}
+  end
 
-	-- for each name in found diagnostics find this name in import list
-	local import_nodes_to_add = {}
-	for _, diagnostic in ipairs(missing_import_diagnostics) do
-		for _, missing_import_message in ipairs(utils.constants.missing_import_messages) do
-			local missing_import_name = string.match(diagnostic.message, missing_import_message)
+  -- for each name in found diagnostics find this name in import list
+  local import_nodes_to_add = {}
+  for _, diagnostic in ipairs(missing_import_diagnostics) do
+    for _, missing_import_message in ipairs(utils.constants.missing_import_messages) do
+      local missing_import_name = string.match(diagnostic.message, missing_import_message)
 
-			local import_for_missing_name =
-				find_full_import_for_name(missing_import_name, all_import_specifiers_nodes, source_bufnr)
+      local import_for_missing_name =
+        find_full_import_for_name(missing_import_name, all_import_specifiers_nodes, source_bufnr)
 
-			if import_for_missing_name then
-				table.insert(import_nodes_to_add, import_for_missing_name)
-			end
-		end
-	end
+      if import_for_missing_name then
+        table.insert(import_nodes_to_add, import_for_missing_name)
+      end
+    end
+  end
 
-	local deduped_import_nodes_to_add = dedupe_import_nodes(import_nodes_to_add)
+  local deduped_import_nodes_to_add = dedupe_import_nodes(import_nodes_to_add)
 
-	return deduped_import_nodes_to_add
+  return deduped_import_nodes_to_add
 end
 
 return M

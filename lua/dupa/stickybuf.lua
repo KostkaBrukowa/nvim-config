@@ -1,6 +1,6 @@
 require("stickybuf").setup({
-	filetype = {
-		-- NvimTree = "filetype",
-		toggleterm = "filetype",
-	},
+  filetype = {
+    -- NvimTree = "filetype",
+    toggleterm = "filetype",
+  },
 })

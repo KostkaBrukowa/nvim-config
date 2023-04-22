@@ -4,29 +4,30 @@ local commentstring_utils = safe_require("ts_context_commentstring.utils")
 local commentstring_internal = safe_require("ts_context_commentstring.internal")
 
 if not comment then
-	return
+  return
 end
 
 if not comment_utils then
-	return
+  return
 end
 
 if not commentstring_utils then
-	return
+  return
 end
 
 if not commentstring_internal then
-	return
+  return
 end
 
 comment.setup({
-	pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+  pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
 })
 
 vim.keymap.set("n", "<leader>/", function()
-	return vim.v.count == 0 and "<Plug>(comment_toggle_linewise_current)j" or "<Plug>(comment_toggle_linewise_count)"
+  return vim.v.count == 0 and "<Plug>(comment_toggle_linewise_current)j"
+    or "<Plug>(comment_toggle_linewise_count)"
 end, { expr = true })
 
 vim.keymap.set("v", "<leader>/", function()
-	return "<Plug>(comment_toggle_linewise_visual)"
+  return "<Plug>(comment_toggle_linewise_visual)"
 end, { expr = true })

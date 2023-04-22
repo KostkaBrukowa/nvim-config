@@ -1,13 +1,13 @@
 local set_hl = vim.api.nvim_set_hl
 require("tokyonight").setup({
-	styles = {
-		floats = "transparent",
-	},
+  styles = {
+    floats = "transparent",
+  },
 
-	dim_inactive = true,
-	on_colors = function(colors)
-		colors.hint = colors.dark5
-	end,
+  dim_inactive = true,
+  on_colors = function(colors)
+    colors.hint = colors.dark5
+  end,
 })
 
 vim.o.background = "dark"

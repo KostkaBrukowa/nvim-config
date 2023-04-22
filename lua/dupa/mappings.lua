@@ -50,7 +50,12 @@ keymap("n", "<leader>rI", "<leader>r$", { noremap = false })
 keymap("v", "*", "<Plug>(visualstar-*)", opts)
 
 -- Old files
-keymap("n", "<C-Tab>", "<cmd>lua require('telescope.builtin').oldfiles({file_ignore_patterns = {}})<CR>", opts)
+keymap(
+  "n",
+  "<C-Tab>",
+  "<cmd>lua require('telescope.builtin').oldfiles({file_ignore_patterns = {}})<CR>",
+  opts
+)
 keymap("n", "<A-Tab>", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", opts)
 
 -- Window navigation
@@ -64,8 +69,8 @@ keymap("i", "<C-e>", "<cmd>wincmd k<cr>", opts)
 keymap("i", "<C-i>", "<cmd>wincmd l<cr>", opts)
 
 -- Go back and forward defined in setup_listeners.lua
--- keymap("n", "<C-l>", "<C-o>", opts)
--- keymap("n", "<C-u>", "<C-i>", opts)
+keymap("n", "<C-l>", "<C-o>", opts)
+keymap("n", "<C-u>", "<C-i>", opts)
 
 keymap("n", "``", "``zz", opts)
 
@@ -88,3 +93,9 @@ vim.cmd([[
 
 -- Stops contiuing comment after 'o'
 vim.cmd("autocmd FileType * setlocal formatoptions-=o")
+vim.keymap.set(
+  "n",
+  "gd",
+  require("definition-or-references").definition_or_references,
+  { silent = true }
+)
