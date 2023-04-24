@@ -3,10 +3,9 @@ require("messages").setup()
 require("substitute").setup({})
 require("nvim-surround").setup({})
 require("refactoring").setup({})
--- require("eyeliner").setup({})
 require("local-highlight").setup({})
 require("package-info").setup({})
-require("fidget").setup({})
+-- require("fidget").setup({})
 require("glow").setup({})
 require("barbecue").setup({
   show_dirname = false,

@@ -81,7 +81,7 @@ keymap_amend("n", "p", function(original)
   -- TODO change defer to waiting for diagnostics to show up
   vim.defer_fn(function()
     add_missing_imports()
-  end, 3000)
+  end, 2000)
 
   vim.api.nvim_win_set_cursor(0, cursor_position_before_paste)
 end)

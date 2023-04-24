@@ -116,13 +116,15 @@ return packer.startup(function(use)
   use("anuvyklack/keymap-amend.nvim")
   use("rgroli/other.nvim")
   use({ "shortcuts/no-neck-pain.nvim", tag = "*" })
-
+  use("folke/noice.nvim")
+  use("MunifTanjim/nui.nvim")
   use({
     "utilyre/barbecue.nvim",
     requires = { "SmiteshP/nvim-navic" },
   })
 
   -- LSP
+  use({ "VonHeikemen/lsp-zero.nvim", tag = "v2.*" })
   use("williamboman/mason.nvim")
   use("williamboman/mason-lspconfig.nvim")
   use("neovim/nvim-lspconfig")
@@ -130,12 +132,12 @@ return packer.startup(function(use)
   use("jayp0521/mason-null-ls.nvim")
   use("WhoIsSethDaniel/mason-tool-installer.nvim")
   use("jose-elias-alvarez/null-ls.nvim")
+  use("MunifTanjim/prettier.nvim")
   use("ray-x/lsp_signature.nvim")
   use("~/Documents/Praca/typescript-tools.nvim")
   use("~/Documents/Praca/definition-or-references.nvim")
   use("folke/neodev.nvim")
   use({ "antosha417/nvim-lsp-file-operations" })
-  use("j-hui/fidget.nvim")
   use({ "git@github.com:allegro-internal/vscode-allegro-metrum", branch = "neovim" })
 
   -- Folding

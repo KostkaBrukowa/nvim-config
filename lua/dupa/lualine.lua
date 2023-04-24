@@ -43,7 +43,7 @@ local config = {
     -- Disable sections and component separators
     component_separators = "",
     section_separators = "",
-    --[[ theme = "tokyonight", ]]
+    theme = "tokyonight",
     disabled_filetypes = { "NvimTree", "alpha" },
   },
   sections = {
@@ -94,16 +94,16 @@ ins_left({
 
 ins_left({ "location" })
 
-ins_left({
-  "diagnostics",
-  sources = { "nvim_diagnostic" },
-  symbols = { error = " ", warn = " ", info = " " },
-  diagnostics_color = {
-    color_error = { fg = colors.red },
-    color_warn = { fg = colors.yellow },
-    color_info = { fg = colors.cyan },
-  },
-})
+-- ins_left({
+--   "diagnostics",
+--   sources = { "nvim_diagnostic" },
+--   symbols = { error = " ", warn = " ", info = " " },
+--   diagnostics_color = {
+--     color_error = { fg = colors.red },
+--     color_warn = { fg = colors.yellow },
+--     color_info = { fg = colors.cyan },
+--   },
+-- })
 
 -- Insert mid section. You can make any number of sections in neovim :)
 -- for lualine it's any number greater then 2

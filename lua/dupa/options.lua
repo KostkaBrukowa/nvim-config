@@ -11,7 +11,7 @@ vim.cmd([[set fillchars+=vertright:┣]])
 vim.cmd([[set fillchars+=verthoriz:╋]])
 vim.cmd([[set jumpoptions+=stack]])
 
-vim.opt.shortmess:append("c")
+vim.opt.shortmess:append("nocI")
 vim.notify = require("notify")
 
 vim.o.sessionoptions =
@@ -19,7 +19,7 @@ vim.o.sessionoptions =
 
 local options = {
   backup = false,
-  cmdheight = 0,
+  cmdheight = 1,
   laststatus = 3,
   completeopt = { "menuone", "noselect" },
   conceallevel = 0,
@@ -47,6 +47,7 @@ local options = {
   relativenumber = true,
   numberwidth = 4,
   signcolumn = "yes",
+  showcmd = false,
   wrap = false,
   scrolloff = 8,
   switchbuf = "useopen,usetab",
