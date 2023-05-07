@@ -17,7 +17,7 @@ local width = math.floor(gwidth * 0.6)
 local height = math.floor(gheight * 0.95)
 
 nvim_tree.setup({
-  hijack_netrw = true,
+  hijack_netrw = false,
   view = {
     hide_root_folder = true,
     width = 45,

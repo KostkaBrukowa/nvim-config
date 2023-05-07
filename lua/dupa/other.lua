@@ -58,6 +58,11 @@ other.setup({
           target = "/%1/%2.module.pcss",
           context = "stylesheet",
         },
+        -- Component.tsx -> Component.module.pcss
+        {
+          target = "/%1/%2.pcss",
+          context = "stylesheet",
+        },
         -- Component.tsx -> Component.module.less
         {
           target = "/%1/%2.module.less",
@@ -67,7 +72,21 @@ other.setup({
     },
 
     {
-      pattern = "/(.*)/(.*).module.*ss",
+      pattern = "/(.*)/(.*).module.less",
+      target = {
+        { -- Component.module.less|pcss -> Component.style.ts
+          target = "/%1/%2.style.ts",
+          context = "style",
+        },
+        -- Component.module.less|pcss -> Component.tsx
+        {
+          target = "/%1/%2.tsx",
+          context = "component",
+        },
+      },
+    },
+    {
+      pattern = "/(.*)/(.*).pcss",
       target = {
         { -- Component.module.less|pcss -> Component.style.ts
           target = "/%1/%2.style.ts",
@@ -89,6 +108,10 @@ other.setup({
         },
         { -- Component.style.ts -> Component.module.pcss
           target = "/%1/%2.module.pcss",
+          context = "stylesheet",
+        },
+        { -- Component.style.ts -> Component.pcss
+          target = "/%1/%2.pcss",
           context = "stylesheet",
         },
         -- Component.style.ts -> Component.tsx

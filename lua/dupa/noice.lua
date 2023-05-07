@@ -1,4 +1,12 @@
 require("noice").setup({
+  views = {
+    mini = {
+      position = {
+        col = "100%",
+        row = -2,
+      },
+    },
+  },
   lsp = {
     signature = {
       auto_open = {

@@ -24,15 +24,7 @@ local sorter = sorters.Sorter:new({
 })
 
 local function filter_entries(results)
-  local current_file = vim.api.nvim_buf_get_name(0)
-  local current_line = vim.api.nvim_win_get_cursor(0)[1]
-
   local function should_include_entry(entry)
-    -- if entry is on the same line
-    if entry.filename == current_file and entry.lnum == current_line then
-      return false
-    end
-
     -- if entry is closing tag - just before it there is a closing tag syntax '</'
     if entry.col > 2 and entry.text:sub(entry.col - 2, entry.col - 1) == "</" then
       return false
@@ -62,7 +54,7 @@ local function add_metadata_to_locations(locations)
 end
 
 local function handle_references_response(result)
-  local locations = vim.lsp.util.locations_to_items(result, "utf-8")
+  local locations = vim.lsp.util.locations_to_items(result, "utf-16")
   local filtered_entries = filter_entries(locations)
   pickers
     .new({}, {

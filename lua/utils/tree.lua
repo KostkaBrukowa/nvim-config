@@ -1,4 +1,4 @@
-local nvim_tree_api = safe_require("nvim-tree.api").tree
+local nvim_tree_api = require("nvim-tree.api").tree
 local nvim_tree_view = safe_require("nvim-tree.view")
 
 local M = {}

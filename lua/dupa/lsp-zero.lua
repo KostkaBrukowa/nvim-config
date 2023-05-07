@@ -1,5 +1,4 @@
 local cmp_action = require("lsp-zero").cmp_action()
-local lspkind = require("lspkind")
 local lsp = require("lsp-zero").preset({
   name = "recommended",
   set_lsp_keymaps = false,
@@ -12,6 +11,7 @@ lsp.on_attach(function(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
     require("nvim-navic").attach(client, bufnr)
   end
+  require("lsp-inlayhints").on_attach(client, bufnr)
 end)
 
 lsp.set_server_config({
@@ -39,7 +39,14 @@ lsp.format_on_save({
     timeout_ms = 10000,
   },
   servers = {
-    ["null-ls"] = { "javascript", "typescript", "lua", "javascriptreact", "typescriptreact" },
+    ["null-ls"] = {
+      "javascript",
+      "typescript",
+      "lua",
+      "javascriptreact",
+      "typescriptreact",
+      "postcss",
+    },
   },
 })
 
@@ -60,6 +67,11 @@ require("mason-null-ls").setup({
   handlers = {
     prettierd = function()
       null_ls.register(null_ls.builtins.formatting.prettierd.with({
+        filetypes = vim.tbl_extend(
+          "force",
+          null_ls.builtins.formatting.prettierd.filetypes,
+          { "postcss" }
+        ),
         condition = function()
           return require("prettier").config_exists({
             check_package_json = true,
@@ -101,10 +113,8 @@ cmp.setup({
   mapping = {
     ["<C-e>"] = cmp.mapping.scroll_docs(-4),
     ["<C-n>"] = cmp.mapping.scroll_docs(4),
-
     ["<Up>"] = cmp.mapping.select_prev_item(),
     ["<Down>"] = cmp.mapping.select_next_item(),
-
     ["<Tab>"] = {
       i = function()
         if cmp.visible() then
@@ -115,7 +125,6 @@ cmp.setup({
       end,
     },
     ["<S-Tab>"] = cmp_action.select_prev_or_fallback(),
-
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<CR>"] = cmp.mapping.confirm({ select = false }),
     ["<Esc>"] = cmp.mapping({
@@ -140,54 +149,6 @@ cmp.setup({
       compare.order,
     },
   },
-  -- formatting = {
-  --   fields = { "kind", "abbr", "menu" },
-  --   format = lspkind.cmp_format({
-  --     mode = "symbol",
-  --     maxwidth = 50,
-  --     before = function(entry, vim_item)
-  --       vim_item.menu = ({
-  --         nvim_lsp = "[LSP]",
-  --         luasnip = "[Snippet]",
-  --         buffer = "",
-  --         path = "[Path]",
-  --       })[entry.source.name]
-  --
-  --       vim_item.kind = ({
-  --         nvim_lsp = vim_item.kind,
-  --         luasnip = vim_item.kind,
-  --         buffer = "",
-  --         path = vim_item.kind,
-  --       })[entry.source.name]
-  --
-  --       if entry.source.name == "nvim_lsp" then
-  --         local menu
-  --         if entry:get_completion_item().detail then
-  --           menu = entry:get_completion_item().detail
-  --         elseif entry.completion_item.label.detail then
-  --           menu = entry.completion_item.label.detail
-  --         elseif entry.completion_item.label.description then
-  --           menu = entry.completion_item.label.description
-  --         end
-  --
-  --         if menu then
-  --           if menu:find("Auto import from") then
-  --             menu = menu:gsub("Auto import from (.*)\n", "")
-  --           end
-  --
-  --           --think about increasing it
-  --           if menu:len() > 40 then
-  --             menu = menu:sub(1, 40) .. "..."
-  --           end
-  --
-  --           vim_item.menu = menu
-  --         end
-  --       end
-  --
-  --       return vim_item
-  --     end,
-  --   }),
-  -- },
 })
 
 cmp.setup.cmdline("/", {
@@ -205,3 +166,5 @@ cmp.setup.cmdline(":", {
     { name = "cmdline" },
   }),
 })
+
+require("lsp-inlayhints").setup()

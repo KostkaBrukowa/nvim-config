@@ -184,7 +184,7 @@ local mappings = {
         "Restart lsp server",
       },
       ["e"] = {
-        "<cmd>silent !/Users/jaroslaw.glegola/.local/share/nvim/mason/packages/eslint_d/node_modules/.bin/eslint_d restart<cr>",
+        "<cmd>!/Users/jaroslaw.glegola/.local/share/nvim/mason/packages/eslint_d/node_modules/.bin/eslint_d restart<cr>",
         "Restart eslint server",
       },
       ["p"] = {

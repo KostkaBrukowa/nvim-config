@@ -47,8 +47,6 @@ keymap("n", "<leader>r", "<cmd>lua require('substitute').operator()<cr>", opts)
 keymap("n", "<leader>rr", "<cmd>lua require('substitute').line()<cr>", opts)
 keymap("n", "<leader>rI", "<leader>r$", { noremap = false })
 
-keymap("v", "*", "<Plug>(visualstar-*)", opts)
-
 -- Old files
 keymap(
   "n",
@@ -93,12 +91,12 @@ vim.cmd([[
 
 -- Stops contiuing comment after 'o'
 vim.cmd("autocmd FileType * setlocal formatoptions-=o")
-vim.cmd([[
-  augroup ClearCommandLine
-    autocmd!
-    autocmd CursorHold * silent! lua vim.defer_fn(function() vim.api.nvim_echo({}, false, {}) end, 1000)
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup ClearCommandLine
+--     autocmd!
+--     autocmd CursorHold * silent! lua vim.defer_fn(function() vim.api.nvim_echo({}, false, {}) end, 1000)
+--   augroup end
+-- ]])
 
 vim.keymap.set(
   "n",

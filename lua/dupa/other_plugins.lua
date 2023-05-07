@@ -5,7 +5,8 @@ require("nvim-surround").setup({})
 require("refactoring").setup({})
 require("local-highlight").setup({})
 require("package-info").setup({})
--- require("fidget").setup({})
+require("allegro-metrum").setup({})
+require("fidget").setup({})
 require("glow").setup({})
 require("barbecue").setup({
   show_dirname = false,

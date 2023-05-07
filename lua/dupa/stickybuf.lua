@@ -1,6 +1,5 @@
 require("stickybuf").setup({
-  filetype = {
-    -- NvimTree = "filetype",
-    toggleterm = "filetype",
-  },
+  get_auto_pin = function(bufnr)
+    return require("stickybuf").should_auto_pin(bufnr)
+  end,
 })

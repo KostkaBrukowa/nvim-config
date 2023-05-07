@@ -66,7 +66,7 @@ return packer.startup(function(use)
 
   -- Session management
   use("rmagatti/auto-session")
-  use("pocco81/auto-save.nvim")
+  -- use("pocco81/auto-save.nvim")
 
   -- CMP
   use("hrsh7th/nvim-cmp")
@@ -103,7 +103,6 @@ return packer.startup(function(use)
   use("stevearc/dressing.nvim")
   use("ThePrimeagen/refactoring.nvim")
   use("wellle/targets.vim")
-  use("thinca/vim-visualstar") -- Remove after 0.9 nvim
   use("anuvyklack/hydra.nvim")
   use("mrjones2014/smart-splits.nvim")
   use("sindrets/winshift.nvim")
@@ -116,12 +115,12 @@ return packer.startup(function(use)
   use("anuvyklack/keymap-amend.nvim")
   use("rgroli/other.nvim")
   use({ "shortcuts/no-neck-pain.nvim", tag = "*" })
-  use("folke/noice.nvim")
   use("MunifTanjim/nui.nvim")
   use({
     "utilyre/barbecue.nvim",
     requires = { "SmiteshP/nvim-navic" },
   })
+  use("runiq/neovim-throttle-debounce")
 
   -- LSP
   use({ "VonHeikemen/lsp-zero.nvim", tag = "v2.*" })
@@ -138,7 +137,9 @@ return packer.startup(function(use)
   use("~/Documents/Praca/definition-or-references.nvim")
   use("folke/neodev.nvim")
   use({ "antosha417/nvim-lsp-file-operations" })
+  use({ "j-hui/fidget.nvim" })
   use({ "git@github.com:allegro-internal/vscode-allegro-metrum", branch = "neovim" })
+  use({ "lvimuser/lsp-inlayhints.nvim" })
 
   -- Folding
   use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })

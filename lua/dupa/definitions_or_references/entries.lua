@@ -57,7 +57,7 @@ local function make_telescope_entries_from()
       bufnr = entry.bufnr,
       filename = filename,
       lnum = entry.lnum,
-      col = entry.col,
+      col = entry.col - 1,
       text = entry.text,
       start = entry.start,
       finish = entry.finish,
