@@ -49,6 +49,68 @@ treesitter.setup({
 vim.cmd([[hi rainbowcol1 guifg=#7f849c]])
 
 require("nvim-treesitter.configs").setup({
+  textobjects = {
+    select = {
+      enable = true,
+      keymaps = {
+        -- Your custom capture.
+        ["ia"] = "@parameter.inner",
+        ["aa"] = "@parameter.outer",
+        -- Custom @parameter.inner and @parameter.outer
+        --[[
+            (formal_parameters
+              "," @_start .
+              (_) @parameter.inner
+             (#make-range! "parameter.outer" @_start @parameter.inner))
+            (formal_parameters
+              . (_) @parameter.inner
+              . ","? @_end
+             (#make-range! "parameter.outer" @parameter.inner @_end))
+
+            ;; arguments
+            (arguments
+              "," @_start .
+              (_) @parameter.inner
+             (#make-range! "parameter.outer" @_start @parameter.inner))
+            (arguments
+              . (_) @parameter.inner
+              . ","? @_end
+             (#make-range! "parameter.outer" @parameter.inner @_end))
+
+            ;; object
+            (object
+              "," @_start .
+              (_) @parameter.inner
+             (#make-range! "parameter.outer" @_start @parameter.inner))
+            (object
+              . (_) @parameter.inner
+              . ","? @_end
+             (#make-range! "parameter.outer" @parameter.inner @_end))
+
+            ;; array
+            (array
+              "," @_start .
+              (_) @parameter.inner
+             (#make-range! "parameter.outer" @_start @parameter.inner))
+            (array
+              . (_) @parameter.inner
+              . ","? @_end
+             (#make-range! "parameter.outer" @parameter.inner @_end))
+
+            ;; object pattern
+            (object_pattern
+              "," @_start .
+              (_) @parameter.inner
+             (#make-range! "parameter.outer" @_start @parameter.inner))
+            (object_pattern
+              . (_) @parameter.inner
+              . ","? @_end
+             (#make-range! "parameter.outer" @parameter.inner @_end))
+        --]]
+      },
+    },
+  },
+
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -58,3 +120,6 @@ require("nvim-treesitter.configs").setup({
     },
   },
 })
+
+-- q: how to do multiline comments in lua?
+-- a: like this :D (or with --[[ ]])

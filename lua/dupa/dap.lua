@@ -27,7 +27,6 @@ local function configure()
   local set_hl = vim.api.nvim_set_hl
 
   set_hl(0, "LspDiagnosticsSignError", { fg = "#ff0000" })
-  -- 'Diagnostic' .. severities[diagnostic.severity] or severities[1]
 end
 
 local function configure_exts()
@@ -71,21 +70,13 @@ local function configure_exts()
   dap.listeners.after.event_initialized["dapui_config"] = function()
     dapui.open()
   end
-  --[[ dap.listeners.before.event_terminated["dapui_config"] = function() ]]
-  --[[ 	dapui.close() ]]
-  --[[ end ]]
-  --[[ dap.listeners.before.event_exited["dapui_config"] = function() ]]
-  --[[ 	dapui.close() ]]
-  --[[ end ]]
 end
 
 local function configure_debuggers()
   require("config.dap.javascript")
   require("config.dap.lua")
-  -- require("config.dap.keymaps").setup() -- Done it hydra-dap
 end
 
 configure() -- Configuration
 configure_exts() -- Extensions
 configure_debuggers() -- Debugger
--- require("config.dap.keymaps").setup() -- Keymaps

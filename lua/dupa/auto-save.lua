@@ -1,5 +1,4 @@
 local debounced_save = require("throttle-debounce").debounce_trailing(function()
-  vim.notify("here")
   vim.cmd("wall")
 end, 150)
 
@@ -14,5 +13,5 @@ vim.api.nvim_create_autocmd({ "FocusLost" }, {
 
 vim.api.nvim_create_autocmd({ "BufEnter" }, {
   callback = save,
-  pattern = "term://*",
+  pattern = { "term://*", "fugitive://*" },
 })

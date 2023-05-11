@@ -91,12 +91,6 @@ vim.cmd([[
 
 -- Stops contiuing comment after 'o'
 vim.cmd("autocmd FileType * setlocal formatoptions-=o")
--- vim.cmd([[
---   augroup ClearCommandLine
---     autocmd!
---     autocmd CursorHold * silent! lua vim.defer_fn(function() vim.api.nvim_echo({}, false, {}) end, 1000)
---   augroup end
--- ]])
 
 vim.keymap.set(
   "n",

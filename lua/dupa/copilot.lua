@@ -1,7 +1,36 @@
--- Copilot
-vim.cmd([[
-  imap <silent><script><expr> <Right> copilot#Accept("\<Right>")
-  let g:copilot_no_tab_map = v:true
-]])
+local copilot = require("copilot")
+local copilot_suggestion = require("copilot.suggestion")
 
-vim.g.copilot_filetypes = { ["dap-repl"] = false, ["dapui_watches"] = false }
+copilot.setup({
+  suggestion = {
+    enabled = true,
+    auto_trigger = true,
+    debounce = 500,
+    keymap = {
+      accept = nil,
+      accept_word = false,
+      accept_line = false,
+      next = nil,
+      prev = nil,
+      dismiss = "<C-]>",
+    },
+  },
+})
+
+local keymap_amend = require("keymap-amend")
+
+keymap_amend("i", "<Right>", function(original)
+  if copilot_suggestion.is_visible() then
+    copilot_suggestion.accept()
+  else
+    original()
+  end
+end)
+
+keymap_amend("i", "<C-,>", function(original)
+  if copilot_suggestion.is_visible() then
+    copilot_suggestion.next()
+  else
+    original()
+  end
+end)

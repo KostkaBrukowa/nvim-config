@@ -1,3 +1,7 @@
+function P(arg)
+  -- print(vim.inspect(arg))
+end
+
 require("utils.module_utils")
 
 reload("dupa.colorscheme")
@@ -34,8 +38,6 @@ require("dupa.other_plugins")
 require("dupa.lsp-saga")
 require("dupa.printer")
 require("dupa.copilot")
-require("dupa.targets")
--- require("dupa.noice")
 require("dupa.no-neck-pain")
 
 require("dupa.typescript-tools")

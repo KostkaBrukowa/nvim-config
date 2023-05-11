@@ -52,8 +52,9 @@ return packer.startup(function(use)
   -- Treesitter
   use("nvim-treesitter/nvim-treesitter")
   use("windwp/nvim-ts-autotag")
-  use("nvim-treesitter/playground")
+  -- use("nvim-treesitter/playground")
   use("nvim-treesitter/nvim-treesitter-context")
+  use("nvim-treesitter/nvim-treesitter-textobjects")
 
   -- Keymaps
   use("folke/which-key.nvim")
@@ -102,7 +103,8 @@ return packer.startup(function(use)
   use("kylechui/nvim-surround")
   use("stevearc/dressing.nvim")
   use("ThePrimeagen/refactoring.nvim")
-  use("wellle/targets.vim")
+  use("chrisgrieser/nvim-various-textobjs")
+
   use("anuvyklack/hydra.nvim")
   use("mrjones2014/smart-splits.nvim")
   use("sindrets/winshift.nvim")
@@ -121,6 +123,7 @@ return packer.startup(function(use)
     requires = { "SmiteshP/nvim-navic" },
   })
   use("runiq/neovim-throttle-debounce")
+  use("zbirenbaum/copilot.lua")
 
   -- LSP
   use({ "VonHeikemen/lsp-zero.nvim", tag = "v2.*" })
