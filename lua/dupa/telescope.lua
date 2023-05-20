@@ -44,6 +44,9 @@ telescope.setup({
       entry_maker = grep_entry_maker,
       additional_args = { "--trim" },
     },
+    oldfiles = {
+      cwd_only = true,
+    },
   },
   defaults = {
     layout_strategy = "vertical",

@@ -20,6 +20,16 @@ function M.merge_branch()
 end
 
 -- Checkout to searched branch and creates one if branch is remote and doesnt exist
+--[[
+  This was modified in telescope.nvim to 
+  local output = utils.get_os_command_output(
+    { "git", "for-each-ref", "--perl", "--format", format, "--sort", "-authordate", opts.pattern },
+    opts.cwd
+  )
+    if entry.name == last_checkedout_brach_name then
+      index = 1
+    end
+-]]
 function M.checkout_remote_smart()
   builtin.git_branches({
     attach_mappings = function(prompt_bufnr, map)

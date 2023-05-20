@@ -94,12 +94,12 @@ vim.diagnostic.config({
 })
 
 vim.diagnostic.handlers.underline = {
-  show = require("dupa.lsp.convert-multiline-diagnostics-to-singleline").remove_multiline_underline_handler,
+  show = require("dupa.lsp.custom-lsp-handlers").remove_multiline_underline_handler,
   hide = vim.diagnostic.handlers.underline.hide,
 }
 
 vim.diagnostic.handlers.virtual_text = {
-  show = require("dupa.lsp.convert-multiline-diagnostics-to-singleline").add_source_to_virtual_text_handler,
+  show = require("dupa.lsp.custom-lsp-handlers").add_source_to_virtual_text_handler,
   hide = vim.diagnostic.handlers.virtual_text.hide,
 }
 
@@ -168,3 +168,32 @@ cmp.setup.cmdline(":", {
 })
 
 require("lsp-inlayhints").setup()
+
+-- require("lspconfig").tsserver.setup({
+--   settings = {
+--     typescript = {
+--       inlayHints = {
+--         includeInlayParameterNameHints = "all",
+--         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+--         includeInlayFunctionParameterTypeHints = true,
+--         includeInlayVariableTypeHints = true,
+--         includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+--         includeInlayPropertyDeclarationTypeHints = true,
+--         includeInlayFunctionLikeReturnTypeHints = true,
+--         includeInlayEnumMemberValueHints = true,
+--       },
+--     },
+--     javascript = {
+--       inlayHints = {
+--         includeInlayParameterNameHints = "all",
+--         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+--         includeInlayFunctionParameterTypeHints = true,
+--         includeInlayVariableTypeHints = true,
+--         includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+--         includeInlayPropertyDeclarationTypeHints = true,
+--         includeInlayFunctionLikeReturnTypeHints = true,
+--         includeInlayEnumMemberValueHints = true,
+--       },
+--     },
+--   },
+-- })

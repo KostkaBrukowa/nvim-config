@@ -48,6 +48,12 @@ keymap("n", "<leader>rr", "<cmd>lua require('substitute').line()<cr>", opts)
 keymap("n", "<leader>rI", "<leader>r$", { noremap = false })
 
 -- Old files
+--[[
+      local match = tonumber(string.match(buffer, "%s*(%d+)"))
+      local time_opened_match = string.match(buffer, "%s*(%d+) seconds?") or string.match(buffer, "%d%d?:%d%d?:%d%d?")
+      local open_by_lsp = string.match(buffer, "line 0$")
+      if match and not open_by_lsp and time_opened_match then
+--]]
 keymap(
   "n",
   "<C-Tab>",
@@ -91,10 +97,3 @@ vim.cmd([[
 
 -- Stops contiuing comment after 'o'
 vim.cmd("autocmd FileType * setlocal formatoptions-=o")
-
-vim.keymap.set(
-  "n",
-  "gd",
-  require("definition-or-references").definition_or_references,
-  { silent = true }
-)

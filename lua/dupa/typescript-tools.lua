@@ -9,5 +9,15 @@ tst.setup({
     -- tsserver_logs = { file_basename = "/Users/jaroslaw.glegola/.config/nvim/", verbosity = "verbose" },
     composite_mode = "separate_diagnostic",
     publish_diagnostic_on = "insert_leave",
+    preferences = {
+      includeInlayParameterNameHints = "all",
+      includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+      includeInlayFunctionParameterTypeHints = true,
+      includeInlayVariableTypeHints = true,
+      includeInlayVariableTypeHintsWhenTypeMatchesName = false,
+      includeInlayPropertyDeclarationTypeHints = true,
+      includeInlayFunctionLikeReturnTypeHints = true,
+      includeInlayEnumMemberValueHints = true,
+    },
   },
 })

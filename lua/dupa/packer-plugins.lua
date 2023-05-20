@@ -52,7 +52,6 @@ return packer.startup(function(use)
   -- Treesitter
   use("nvim-treesitter/nvim-treesitter")
   use("windwp/nvim-ts-autotag")
-  -- use("nvim-treesitter/playground")
   use("nvim-treesitter/nvim-treesitter-context")
   use("nvim-treesitter/nvim-treesitter-textobjects")
 
@@ -103,7 +102,7 @@ return packer.startup(function(use)
   use("kylechui/nvim-surround")
   use("stevearc/dressing.nvim")
   use("ThePrimeagen/refactoring.nvim")
-  use("chrisgrieser/nvim-various-textobjs")
+  use("jinh0/eyeliner.nvim")
 
   use("anuvyklack/hydra.nvim")
   use("mrjones2014/smart-splits.nvim")
