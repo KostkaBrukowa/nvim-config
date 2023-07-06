@@ -6,18 +6,26 @@ end
 
 tst.setup({
   settings = {
-    -- tsserver_logs = { file_basename = "/Users/jaroslaw.glegola/.config/nvim/", verbosity = "verbose" },
-    composite_mode = "separate_diagnostic",
+    -- tsserver_logs = "verbose",
+    tsserver_plugins = { "@styled/typescript-styled-plugin" },
+    separate_diagnostic_server = true,
     publish_diagnostic_on = "insert_leave",
-    preferences = {
-      includeInlayParameterNameHints = "all",
+    tsserver_file_preferences = {
+      includeInlayParameterNameHints = "none",
       includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-      includeInlayFunctionParameterTypeHints = true,
-      includeInlayVariableTypeHints = true,
+      includeInlayFunctionParameterTypeHints = false,
+      includeInlayVariableTypeHints = false,
       includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-      includeInlayPropertyDeclarationTypeHints = true,
-      includeInlayFunctionLikeReturnTypeHints = true,
+      includeInlayPropertyDeclarationTypeHints = false,
+      includeInlayFunctionLikeReturnTypeHints = false,
       includeInlayEnumMemberValueHints = true,
     },
   },
 })
+-- require("typescript-tools").setup({})
+
+-- require("typescript-tools").setup({
+--   settings = {
+--     tsserver_logs = "verbose",
+--   },
+-- })

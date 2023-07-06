@@ -21,8 +21,18 @@ require("barbecue").setup({
 })
 require("notify").setup({
   stages = "fade",
-  timeout = 3000,
+  timeout = 1000,
 })
-require("lsp-file-operations").setup({
-  debug = false,
-})
+-- require("lsp-file-operations").setup({
+--   debug = false,
+-- })
+
+-- local otter = require("otter")
+-- otter.dev_setup()
+
+vim.keymap.set(
+  "n",
+  "<space>fff",
+  "<cmd>FzfxFiles<cr>",
+  { silent = true, noremap = true, desc = "Search files" }
+)

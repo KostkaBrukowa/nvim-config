@@ -72,6 +72,11 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 })
 
 keymap_amend("n", "p", function(original)
+  local current_buffer_filetype = vim.bo.filetype
+  if current_buffer_filetype ~= "typescript" and current_buffer_filetype ~= "typescriptreact" then
+    return original()
+  end
+
   cursor_position_before_paste = vim.api.nvim_win_get_cursor(0)
 
   vim.cmd("normal! gp")

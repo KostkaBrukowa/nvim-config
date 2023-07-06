@@ -1,3 +1,7 @@
+if vim.g.goneovim then
+  return
+end
+
 require("no-neck-pain").setup({
   -- debug = true,
   width = 115,

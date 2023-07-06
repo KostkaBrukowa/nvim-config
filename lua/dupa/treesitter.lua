@@ -120,6 +120,3 @@ require("nvim-treesitter.configs").setup({
     },
   },
 })
-
--- q: how to do multiline comments in lua?
--- a: like this :D (or with --[[ ]])

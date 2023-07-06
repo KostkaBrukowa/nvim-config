@@ -58,9 +58,9 @@ keymap(
   "n",
   "<C-Tab>",
   "<cmd>lua require('telescope.builtin').oldfiles({file_ignore_patterns = {}})<CR>",
-  opts
+  {}
 )
-keymap("n", "<A-Tab>", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", opts)
+keymap("n", "<A-Tab>", "<cmd>lua require('telescope.builtin').oldfiles()<CR>", {})
 
 -- Window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
@@ -86,6 +86,8 @@ keymap("v", "<", "<gv", opts)
 keymap("v", ">", ">gv", opts)
 
 keymap("n", "<Backspace>", "<C-^>", opts)
+
+keymap("!", "<F20>", "<Nop>", { silent = true })
 
 -- Highlight on yank
 vim.cmd([[

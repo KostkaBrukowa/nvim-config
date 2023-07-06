@@ -93,6 +93,7 @@ ins_left({
 })
 
 ins_left({ "location" })
+ins_left({ "mode" })
 
 -- ins_left({
 --   "diagnostics",

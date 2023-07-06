@@ -45,7 +45,7 @@ telescope.setup({
       additional_args = { "--trim" },
     },
     oldfiles = {
-      cwd_only = true,
+      cwd_only = false,
     },
   },
   defaults = {
@@ -66,8 +66,10 @@ telescope.setup({
         end,
         ["<C-Tab>"] = actions.move_selection_previous,
         ["<A-Tab>"] = actions.move_selection_previous,
+        ["<Tab>"] = actions.select_default,
         ["<C-e>"] = actions.preview_scrolling_up,
         ["<C-n>"] = actions.preview_scrolling_down,
+        ["<F20>"] = actions.select_default,
       },
       n = {
         ["e"] = actions.move_selection_previous,

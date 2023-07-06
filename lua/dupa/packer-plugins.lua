@@ -64,6 +64,16 @@ return packer.startup(function(use)
   use("windwp/nvim-spectre")
   use("nvim-telescope/telescope-project.nvim")
 
+  use({ "junegunn/fzf", run = ":call fzf#install()" })
+  use({ "junegunn/fzf.vim", requires = { "junegunn/fzf" } })
+  use({
+    "linrongbin16/fzfx.vim",
+    requires = {
+      "junegunn/fzf",
+      "junegunn/fzf.vim",
+    },
+  })
+
   -- Session management
   use("rmagatti/auto-session")
   -- use("pocco81/auto-save.nvim")
@@ -103,7 +113,6 @@ return packer.startup(function(use)
   use("stevearc/dressing.nvim")
   use("ThePrimeagen/refactoring.nvim")
   use("jinh0/eyeliner.nvim")
-
   use("anuvyklack/hydra.nvim")
   use("mrjones2014/smart-splits.nvim")
   use("sindrets/winshift.nvim")
@@ -123,6 +132,8 @@ return packer.startup(function(use)
   })
   use("runiq/neovim-throttle-debounce")
   use("zbirenbaum/copilot.lua")
+  use({ "anuvyklack/pretty-fold.nvim" })
+  use({ "davidmh/cspell.nvim" })
 
   -- LSP
   use({ "VonHeikemen/lsp-zero.nvim", tag = "v2.*" })
@@ -142,6 +153,8 @@ return packer.startup(function(use)
   use({ "j-hui/fidget.nvim" })
   use({ "git@github.com:allegro-internal/vscode-allegro-metrum", branch = "neovim" })
   use({ "lvimuser/lsp-inlayhints.nvim" })
+  use("folke/lazy.nvim")
+  -- use("jmbuhr/otter.nvim")
 
   -- Folding
   use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })

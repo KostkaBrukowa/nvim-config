@@ -11,6 +11,7 @@ lsp.on_attach(function(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
     require("nvim-navic").attach(client, bufnr)
   end
+
   require("lsp-inlayhints").on_attach(client, bufnr)
 end)
 
@@ -28,7 +29,7 @@ lsp.set_server_config({
 lsp.ensure_installed({
   -- Replace these with whatever servers you want to install
   "jsonls",
-  "html",
+  -- "html",
   "cssls",
   "yamlls",
   "marksman",
@@ -54,10 +55,34 @@ lsp.nvim_workspace()
 
 local null_ls = require("null-ls")
 local null_opts = lsp.build_options("null-ls", {})
+local cspell = require("cspell")
+local cspell_config = {
+  config = {
+    find_json = function()
+      return vim.fn.stdpath("config") .. "/cspell.json"
+    end,
+  },
+  diagnostics_postprocess = function(diagnostic)
+    diagnostic.severity = vim.diagnostic.severity["HINT"]
+  end,
+}
+local sources = {
+  cspell.diagnostics.with(cspell_config),
+  cspell.code_actions.with(cspell_config),
+}
 
 null_ls.setup({
+  sources = sources,
+  should_attach = function(bufnr)
+    return not vim.api.nvim_buf_get_name(bufnr):match("^git://")
+      and not vim.api.nvim_buf_get_name(bufnr):match("NvimTree_")
+  end,
   on_attach = function(client, bufnr)
     null_opts.on_attach(client, bufnr)
+  end,
+  diagnostics_postprocess = function(diagnostic)
+    print([[[lsp-zero.lua:63] -- diagnostic: ]] .. vim.inspect(diagnostic))
+    diagnostic.severity = vim.diagnostic.severity["HINT"]
   end,
 })
 
@@ -70,7 +95,7 @@ require("mason-null-ls").setup({
         filetypes = vim.tbl_extend(
           "force",
           null_ls.builtins.formatting.prettierd.filetypes,
-          { "postcss" }
+          { [#null_ls.builtins.formatting.prettierd.filetypes + 1] = "postcss" }
         ),
         condition = function()
           return require("prettier").config_exists({

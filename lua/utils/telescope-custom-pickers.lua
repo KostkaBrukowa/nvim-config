@@ -60,6 +60,7 @@ function M.open_saved_project_picker()
         local handle_select_choice = function(picked_option)
           if picked_option == "This window" then
             vim.cmd("e " .. selection_value)
+            vim.cmd("cd " .. selection_value)
           elseif picked_option == "New window" then
             print(vim.inspect(selection_value))
             vim.cmd(

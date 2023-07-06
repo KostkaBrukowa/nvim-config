@@ -1,6 +1,7 @@
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 vim.cmd([[set fillchars+=diff:╱]])
+vim.opt.fillchars:append("fold:•")
 
 vim.cmd([[set fillchars+=vert:┃]])
 vim.cmd([[set fillchars+=horiz:━]])
@@ -14,8 +15,7 @@ vim.cmd([[set jumpoptions+=stack]])
 vim.opt.shortmess:append("nocI")
 vim.notify = require("notify")
 
-vim.o.sessionoptions =
-  "blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions"
+vim.o.sessionoptions = "blank,buffers,curdir,help,tabpages,winsize,winpos,terminal,localoptions"
 
 local options = {
   backup = false,
@@ -37,7 +37,7 @@ local options = {
   swapfile = false,
   termguicolors = true,
   undofile = true,
-  updatetime = 300,
+  updatetime = 700,
   writebackup = false,
   expandtab = true,
   shiftwidth = 2,

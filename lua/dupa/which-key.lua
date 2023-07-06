@@ -188,7 +188,7 @@ local mappings = {
         "Restart eslint server",
       },
       ["p"] = {
-        "<cmd>rm /Users/jaroslaw.glegola/.prettierd<cr><cmd>silent !/Users/jaroslaw.glegola/.local/share/nvim/mason/packages/prettierd/node_modules/.bin/prettierd restart<cr>",
+        "<cmd>!rm /Users/jaroslaw.glegola/.prettierd<cr><cmd>silent !/Users/jaroslaw.glegola/.local/share/nvim/mason/packages/prettierd/node_modules/.bin/prettierd restart<cr>",
         "Restart prettier server",
       },
     },
@@ -229,9 +229,9 @@ local mappings = {
   },
   ["i"] = {
     name = "Imports",
-    -- ["a"] = { "<cmd>TypescriptAddMissingImports<CR>", "Add missing imports" },
+    ["a"] = { "<cmd>TSToolsAddMissingImports<CR>", "Add missing imports" },
     ["o"] = { "<cmd>TSToolsOrganizeImports<CR>", "Organize imports" },
-    ["u"] = { "<cmd>TSToolsOrganizeImports<CR>", "Remove unused" },
+    ["u"] = { "<cmd>TSToolsRemoveUnusedImports<CR>", "Remove unused" },
   },
   ["a"] = {
     name = "Aerial",
