@@ -77,28 +77,15 @@ nvim_tree.setup({
     root_folder_label = false,
     add_trailing = false,
     group_empty = false,
-    highlight_git = true,
     highlight_opened_files = "none",
     root_folder_modifier = ":t",
     icons = {
       webdev_colors = true,
-      git_placement = "before",
       show = {
         file = true,
         folder = true,
         folder_arrow = true,
         git = false,
-      },
-      glyphs = {
-        git = {
-          unstaged = "",
-          staged = "S",
-          unmerged = "",
-          renamed = "➜",
-          untracked = "",
-          deleted = "",
-          ignored = "◌",
-        },
       },
     },
   },

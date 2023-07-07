@@ -63,20 +63,10 @@ return packer.startup(function(use)
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
   use("windwp/nvim-spectre")
   use("nvim-telescope/telescope-project.nvim")
-
-  use({ "junegunn/fzf", run = ":call fzf#install()" })
-  use({ "junegunn/fzf.vim", requires = { "junegunn/fzf" } })
-  use({
-    "linrongbin16/fzfx.vim",
-    requires = {
-      "junegunn/fzf",
-      "junegunn/fzf.vim",
-    },
-  })
+  use({ "ibhagwan/fzf-lua" }) -- for faster find files
 
   -- Session management
   use("rmagatti/auto-session")
-  -- use("pocco81/auto-save.nvim")
 
   -- CMP
   use("hrsh7th/nvim-cmp")
@@ -103,7 +93,6 @@ return packer.startup(function(use)
 
   -- Utils
   use("lewis6991/impatient.nvim")
-  use("ggandor/leap.nvim")
   use("ethanholz/nvim-lastplace")
   use("ellisonleao/glow.nvim")
   use("akinsho/toggleterm.nvim")
@@ -111,7 +100,6 @@ return packer.startup(function(use)
   use("gbprod/substitute.nvim")
   use("kylechui/nvim-surround")
   use("stevearc/dressing.nvim")
-  use("ThePrimeagen/refactoring.nvim")
   use("jinh0/eyeliner.nvim")
   use("anuvyklack/hydra.nvim")
   use("mrjones2014/smart-splits.nvim")
@@ -132,8 +120,8 @@ return packer.startup(function(use)
   })
   use("runiq/neovim-throttle-debounce")
   use("zbirenbaum/copilot.lua")
-  use({ "anuvyklack/pretty-fold.nvim" })
   use({ "davidmh/cspell.nvim" })
+  use("mg979/vim-visual-multi")
 
   -- LSP
   use({ "VonHeikemen/lsp-zero.nvim", tag = "v2.*" })
@@ -152,9 +140,7 @@ return packer.startup(function(use)
   use({ "antosha417/nvim-lsp-file-operations" })
   use({ "j-hui/fidget.nvim" })
   use({ "git@github.com:allegro-internal/vscode-allegro-metrum", branch = "neovim" })
-  use({ "lvimuser/lsp-inlayhints.nvim" })
   use("folke/lazy.nvim")
-  -- use("jmbuhr/otter.nvim")
 
   -- Folding
   use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })

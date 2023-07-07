@@ -39,6 +39,7 @@ require("dupa.lsp-saga")
 require("dupa.printer")
 -- require("dupa.copilot")
 require("dupa.no-neck-pain")
+require("dupa.multicursors")
 
 require("dupa.typescript-tools")
 
@@ -49,3 +50,8 @@ vim.api.nvim_create_user_command("ReloadConfig", function()
   reload("init")
   vim.notify("Reloaded whole config")
 end, {})
+
+-- todo
+-- 1. fix diffview highlights
+-- 2. Remove annotation from buffer cmp
+-- 3. fix other.nvim

@@ -1,8 +1,6 @@
-require("leap").setup({})
 require("messages").setup()
 require("substitute").setup({})
 require("nvim-surround").setup({})
-require("refactoring").setup({})
 require("local-highlight").setup({})
 require("package-info").setup({})
 require("allegro-metrum").setup({})
@@ -23,16 +21,6 @@ require("notify").setup({
   stages = "fade",
   timeout = 1000,
 })
--- require("lsp-file-operations").setup({
---   debug = false,
--- })
-
--- local otter = require("otter")
--- otter.dev_setup()
-
-vim.keymap.set(
-  "n",
-  "<space>fff",
-  "<cmd>FzfxFiles<cr>",
-  { silent = true, noremap = true, desc = "Search files" }
-)
+require("lsp-file-operations").setup({
+  debug = false,
+})
