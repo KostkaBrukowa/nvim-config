@@ -79,4 +79,31 @@ git_linker.setup({
 
 require("diffview").setup({
   enhanced_diff_hl = true,
+  keymaps = {
+    view = {
+      ["<leader>co"] = false,
+      ["<leader>ct"] = false,
+      ["<leader>cb"] = false,
+      ["<leader>ca"] = false,
+      ["<leader>cO"] = false,
+      ["<leader>cT"] = false,
+      ["<leader>cB"] = false,
+      ["<leader>cA"] = false,
+    },
+    file_panel = {
+      ["<leader>cO"] = false,
+      ["<leader>cT"] = false,
+      ["<leader>cB"] = false,
+      ["<leader>cA"] = false,
+    },
+  },
+  hooks = {
+    diff_buf_read = function(bufnr) end,
+    view_opened = function()
+      vim.cmd("UfoDisable")
+    end,
+    view_closed = function()
+      vim.cmd("UfoEnable")
+    end,
+  },
 })

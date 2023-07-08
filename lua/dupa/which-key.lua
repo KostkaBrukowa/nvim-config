@@ -164,8 +164,6 @@ local mappings = {
   },
   ["d"] = {
     name = "Diff View",
-    ["o"] = { "<cmd>DiffviewOpen<CR>", "Open" },
-    ["c"] = { "<cmd>DiffviewClose<CR>", "Close" },
     ["d"] = { "<cmd>diffoff<CR>", "Close fugitive diff" },
     ["p"] = { "<cmd>Gitsigns preview_hunk<CR>", "Preview hunk" },
     ["r"] = { "<cmd>Gitsigns reset_hunk<CR>", "Reset hunk" },

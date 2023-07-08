@@ -11,8 +11,6 @@ lsp.on_attach(function(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
     require("nvim-navic").attach(client, bufnr)
   end
-
-  require("lsp-inlayhints").on_attach(client, bufnr)
 end)
 
 lsp.set_server_config({
@@ -170,7 +168,6 @@ cmp.setup({
       compare.locality,
       compare.recently_used,
       compare.offset,
-      compare.custom_required,
       compare.order,
     },
   },
@@ -191,8 +188,6 @@ cmp.setup.cmdline(":", {
     { name = "cmdline" },
   }),
 })
-
-require("lsp-inlayhints").setup()
 
 -- require("lspconfig").tsserver.setup({
 --   settings = {

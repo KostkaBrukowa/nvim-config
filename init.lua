@@ -52,6 +52,5 @@ vim.api.nvim_create_user_command("ReloadConfig", function()
 end, {})
 
 -- todo
--- 1. fix diffview highlights
 -- 2. Remove annotation from buffer cmp
 -- 3. fix other.nvim
