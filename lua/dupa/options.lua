@@ -13,7 +13,6 @@ vim.cmd([[set fillchars+=verthoriz:╋]])
 vim.cmd([[set jumpoptions+=stack]])
 
 vim.opt.shortmess:append("nocI")
-vim.notify = require("notify")
 
 vim.o.sessionoptions = "blank,buffers,curdir,help,tabpages,winsize,winpos,terminal"
 

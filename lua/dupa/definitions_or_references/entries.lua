@@ -1,4 +1,4 @@
-local telescope_utils = require("utils.telescope-utils")
+local telescope_utils = require("dupa.utils.telescope-utils")
 local utils = require("dupa.definitions_or_references.utils")
 local entry_display = require("telescope.pickers.entry_display")
 local make_entry = require("telescope.make_entry")

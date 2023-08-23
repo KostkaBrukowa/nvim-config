@@ -1,4 +1,3 @@
-plugin
 .DS_Store
 lua/modified-plugins
 test.ts

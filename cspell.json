@@ -1,1 +1,1 @@
-{"flagWords":[],"version":"0.2","words":["Middlewares","freemarker","stdpath","nvim","termcodes","feedkeys","opbox","testid","zindex","autocmd","pcss","immer","bufnr","lnum","diffview"],"language":"en","dictionaries":["python","typescript","pl-pl"]}
+{"dictionaries":["python","typescript","pl-pl"],"language":"en","flagWords":[],"words":["Middlewares","freemarker","stdpath","nvim","termcodes","feedkeys","opbox","testid","zindex","autocmd","pcss","immer","bufnr","lnum","diffview","bufadd","bufload"],"version":"0.2"}

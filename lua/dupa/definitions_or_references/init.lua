@@ -27,3 +27,5 @@ vim.keymap.set("n", "<4-LeftMouse>", function() end)
 
 vim.keymap.set("n", "<C-LeftMouse>", move_mouse_and_definition_or_references)
 vim.keymap.set("n", "<2-LeftMouse>", move_mouse_and_definition_or_references)
+
+

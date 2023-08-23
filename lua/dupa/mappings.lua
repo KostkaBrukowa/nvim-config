@@ -3,10 +3,6 @@ local keymap = vim.api.nvim_set_keymap
 local fn = vim.fn
 
 -- Leader key
-keymap("", "<Space>", "<Nop>", opts)
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 keymap("v", "p", '"_dP', opts)
 
 -- Tree
