@@ -1,4 +1,4 @@
-local log = require("dupa.utils.log-mock")
+local log = require("dupa.log-mock")
 local utils = require("dupa.import_on_paste.utils")
 local parsers = require("nvim-treesitter.parsers")
 local ts_utils = require("nvim-treesitter.ts_utils")
@@ -90,7 +90,7 @@ function M.find_missing_import_nodes(source_bufnr, missing_import_diagnostics)
 
   if #all_import_specifiers_nodes == 0 then
     log.error("No import nodes found in source file")
-    
+    return {}
   end
 
   -- for each name in found diagnostics find this name in import list

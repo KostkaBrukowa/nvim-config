@@ -4,7 +4,7 @@ local keymap_amend = require("keymap-amend")
 local typescript_tools = require("typescript-tools.api")
 local typescript_tools_consts = require("typescript-tools.protocol.constants")
 
-local log = require("dupa.utils.log-mock")
+local log = require("dupa.log-mock")
 local path_utils = require("dupa.import_on_paste.path_utils")
 local diagnostic = require("dupa.import_on_paste.diagnostics")
 local utils = require("dupa.import_on_paste.utils")
@@ -90,5 +90,3 @@ keymap_amend("n", "p", function(original)
 
   vim.api.nvim_win_set_cursor(0, cursor_position_before_paste)
 end)
-
-

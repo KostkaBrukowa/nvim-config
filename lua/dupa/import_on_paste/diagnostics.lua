@@ -1,4 +1,4 @@
-local log = require("dupa.utils.log-mock")
+local log = require("dupa.log-mock")
 local utils = require("dupa.import_on_paste.utils")
 local M = {}
 
@@ -37,7 +37,7 @@ function M.get_all_missing_import_diagnostics_from_range(start_position, end_pos
 
   if #missing_import_diagnostics == 0 then
     log.trace("missing_import_diagnostics not found")
-    
+    return {}
   end
 
   log.trace("found missing_import_diagnostics", vim.inspect(missing_import_diagnostics))
