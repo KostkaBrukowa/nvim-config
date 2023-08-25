@@ -52,40 +52,38 @@ lsp.format_on_save({
 lsp.nvim_workspace()
 
 local null_ls = require("null-ls")
-local null_opts = lsp.build_options("null-ls", {})
-local cspell = require("cspell")
-local cspell_config = {
-  config = {
-    find_json = function()
-      return vim.fn.stdpath("config") .. "/cspell.json"
-    end,
-  },
-  diagnostics_postprocess = function(diagnostic)
-    diagnostic.severity = vim.diagnostic.severity["HINT"]
-  end,
-}
-local sources = {
-  cspell.diagnostics.with(cspell_config),
-  cspell.code_actions.with(cspell_config),
-}
-
-null_ls.setup({
-  sources = sources,
-  should_attach = function(bufnr)
-    return not vim.api.nvim_buf_get_name(bufnr):match("^git://")
-      and not vim.api.nvim_buf_get_name(bufnr):match("NvimTree_")
-  end,
-  on_attach = function(client, bufnr)
-    null_opts.on_attach(client, bufnr)
-  end,
-  diagnostics_postprocess = function(diagnostic)
-    print([[[lsp-zero.lua:63] -- diagnostic: ]] .. vim.inspect(diagnostic))
-    diagnostic.severity = vim.diagnostic.severity["HINT"]
-  end,
-})
+-- local null_opts = lsp.build_options("null-ls", {})
+-- local cspell = require("cspell")
+-- local cspell_config = {
+--   config = {
+--     find_json = function()
+--       return vim.fn.stdpath("config") .. "/cspell.json"
+--     end,
+--   },
+--   diagnostics_postprocess = function(diagnostic)
+--     diagnostic.severity = vim.diagnostic.severity["HINT"]
+--   end,
+-- }
+-- local sources = {
+--   null_ls.builtins.diagnostics.stylelint,
+-- }
+--
+-- null_ls.setup({
+--   sources = sources,
+--   should_attach = function(bufnr)
+--     return not vim.api.nvim_buf_get_name(bufnr):match("^git://")
+--       and not vim.api.nvim_buf_get_name(bufnr):match("NvimTree_")
+--   end,
+--   on_attach = function(client, bufnr)
+--     null_opts.on_attach(client, bufnr)
+--   end,
+--   diagnostics_postprocess = function(diagnostic)
+--     diagnostic.severity = vim.diagnostic.severity["HINT"]
+--   end,
+-- })
 
 require("mason-null-ls").setup({
-  ensure_installed = nil,
+  ensure_installed = {},
   automatic_installation = false, -- You can still set this to `true`
   handlers = {
     prettierd = function()
@@ -96,10 +94,26 @@ require("mason-null-ls").setup({
           { [#null_ls.builtins.formatting.prettierd.filetypes + 1] = "postcss" }
         ),
         condition = function()
-          return require("prettier").config_exists({
+          return require("utils.file.config_exists").config_exists({
             check_package_json = true,
           })
         end,
+      }))
+    end,
+    stylelint = function()
+      null_ls.register(null_ls.builtins.formatting.stylelint.with({
+        filetypes = vim.tbl_extend(
+          "force",
+          null_ls.builtins.formatting.stylelint.filetypes,
+          { [#null_ls.builtins.formatting.stylelint.filetypes + 1] = "postcss" }
+        ),
+      }))
+      null_ls.register(null_ls.builtins.diagnostics.stylelint.with({
+        filetypes = vim.tbl_extend(
+          "force",
+          null_ls.builtins.formatting.stylelint.filetypes,
+          { [#null_ls.builtins.formatting.stylelint.filetypes + 1] = "postcss" }
+        ),
       }))
     end,
   },
@@ -157,6 +171,30 @@ cmp.setup({
       end,
     }),
   },
+  formatting = {
+    format = function(entry, vim_item)
+      vim_item.menu = ({
+        nvim_lsp = "[LSP]",
+        luasnip = "[Snippet]",
+        buffer = "",
+        path = "[Path]",
+      })[entry.source.name]
+
+      if vim_item.kind == "Text" then
+        vim_item.kind = ""
+      end
+
+      return vim_item
+    end,
+  },
+  window = {
+    completion = { -- rounded border; thin-style scrollbar
+      border = "rounded",
+    },
+    documentation = { -- no border; native-style scrollbar
+      border = "rounded",
+    },
+  },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
@@ -189,30 +227,20 @@ cmp.setup.cmdline(":", {
   }),
 })
 
+require("lspconfig").jsonls.setup({
+  settings = {
+    json = {
+      schemas = require("schemastore").json.schemas(),
+      validate = { enable = true },
+    },
+  },
+})
+
 -- require("lspconfig").tsserver.setup({
 --   settings = {
 --     typescript = {
---       inlayHints = {
---         includeInlayParameterNameHints = "all",
---         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
---         includeInlayFunctionParameterTypeHints = true,
---         includeInlayVariableTypeHints = true,
---         includeInlayVariableTypeHintsWhenTypeMatchesName = false,
---         includeInlayPropertyDeclarationTypeHints = true,
---         includeInlayFunctionLikeReturnTypeHints = true,
---         includeInlayEnumMemberValueHints = true,
---       },
---     },
---     javascript = {
---       inlayHints = {
---         includeInlayParameterNameHints = "all",
---         includeInlayParameterNameHintsWhenArgumentMatchesName = false,
---         includeInlayFunctionParameterTypeHints = true,
---         includeInlayVariableTypeHints = true,
---         includeInlayVariableTypeHintsWhenTypeMatchesName = false,
---         includeInlayPropertyDeclarationTypeHints = true,
---         includeInlayFunctionLikeReturnTypeHints = true,
---         includeInlayEnumMemberValueHints = true,
+--       preferences = {
+--         includeCompletionsWithSnippetText = true,
 --       },
 --     },
 --   },

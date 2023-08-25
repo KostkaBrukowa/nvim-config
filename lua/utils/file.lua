@@ -28,4 +28,40 @@ M.file_exists_in_project_root = function(filename)
   return false
 end
 
+local find_git_ancestor = require("lspconfig.util").find_git_ancestor
+local find_package_json_ancestor = require("lspconfig.util").find_package_json_ancestor
+local path_join = require("lspconfig.util").path.join
+
+local function get_working_directory()
+  local startpath = vim.fn.getcwd()
+  return find_git_ancestor(startpath) or find_package_json_ancestor(startpath)
+end
+
+---@param opts? { check_package_json?: boolean }
+---@return boolean
+function M.config_exists(opts)
+  local project_root = get_working_directory()
+  if not project_root then
+    return false
+  end
+
+  opts = opts or {}
+
+  local exists = vim.tbl_count(vim.fn.glob(".prettierrc*", true, true)) > 0
+    or vim.tbl_count(vim.fn.glob("prettier.config.*", true, true)) > 0
+
+  if not exists and opts.check_package_json then
+    local ok, has_prettier_key = pcall(function()
+      local package_json_blob = table.concat(vim.fn.readfile(path_join(project_root, "/package.json")))
+      local package_json = vim.json.decode(package_json_blob)
+      return not not package_json["prettier"]
+    end)
+
+    exists = ok and has_prettier_key
+  end
+
+  return exists
+end
+
+
 return M

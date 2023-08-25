@@ -1,7 +1,7 @@
-local telescope = safe_require("telescope")
+local telescope = require("telescope")
 local telescope_utils = require("utils.telescope-utils")
-local actions = safe_require("telescope.actions")
-local actions_set = safe_require("telescope.actions.set")
+local actions = require("telescope.actions")
+local actions_set = require("telescope.actions.set")
 local entry_display = require("telescope.pickers.entry_display")
 
 if not telescope then
@@ -56,8 +56,8 @@ telescope.setup({
     file_ignore_patterns = {
       ".git/",
       "node_modules/*",
+      "lazy-lock.json",
     },
-    path_display = { ["shorten"] = 3 },
     mappings = {
       i = {
         ["<ESC>"] = actions.close,
@@ -89,18 +89,3 @@ telescope.setup({
 
 telescope.load_extension("fzf")
 telescope.load_extension("project")
-
-require("fzf-lua").setup({
-  "telescope",
-  fzf_opts = {
-    ["--layout"] = "default",
-  },
-  winopts = {
-    preview = {
-      layout = "vertical",
-    },
-  },
-  files = {
-    git_icons = false,
-  },
-})

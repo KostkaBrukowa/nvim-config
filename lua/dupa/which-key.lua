@@ -1,4 +1,4 @@
-local which_key = safe_require("which-key")
+local which_key = require("which-key")
 
 if not which_key then
   return
@@ -84,8 +84,8 @@ local mappings = {
       "<cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
       "Telescope refactorings",
     },
-    -- ["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
-    ["p"] = { "<cmd>lua require('fzf-lua').files()<CR>", "Files" },
+    ["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
+    -- ["p"] = { "<cmd>lua require('fzf-lua').files()<CR>", "Files" },
     ["h"] = { "<cmd>lua require('telescope.builtin').command_history()<CR>", "Command history" },
     ["b"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", "Buffers" },
     ["c"] = { "<cmd>Telescope keymaps<CR>", "All commands" },
@@ -110,7 +110,10 @@ local mappings = {
       "<cmd>lua require('utils.telescope-custom-pickers').checkout_remote_smart()<CR>",
       "Branches",
     },
-    ["m"] = { "<cmd>lua require('utils.telescope-custom-pickers').merge_branch()<CR>", "Git merge" },
+    ["m"] = {
+      "<cmd>lua require('utils.telescope-custom-pickers').merge_branch()<CR>",
+      "Git merge",
+    },
     ["p"] = { "<cmd>Git push<CR>", "Git push" },
     ["l"] = { "<cmd>Git pull<CR>", "Git pull" },
     ["g"] = { "<cmd>Git<CR>", "Fugitive" },
@@ -287,13 +290,6 @@ local visual_mappings = {
     ["u"] = { "<cmd>lua require('gitlinker').get_buf_range_url('v')<CR>", "Fugitive" },
   },
 }
-
-vim.api.nvim_set_keymap(
-  "v",
-  "<leader>rf",
-  ":lua require('refactoring').select_refactor()<CR>",
-  { noremap = true, silent = true, expr = false }
-)
 
 which_key.setup(setup)
 

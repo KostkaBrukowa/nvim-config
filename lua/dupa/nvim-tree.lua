@@ -1,16 +1,3 @@
-local nvim_tree = safe_require("nvim-tree")
-
-if not nvim_tree then
-  return
-end
-
-local nvim_tree_config = safe_require("nvim-tree.config")
-
-if not nvim_tree_config then
-  return
-end
-
-local telescope_utils = require("utils.telescope-custom-pickers")
 local gwidth = vim.api.nvim_list_uis()[1].width
 local gheight = vim.api.nvim_list_uis()[1].height
 local width = math.floor(gwidth * 0.6)
@@ -18,6 +5,7 @@ local height = math.floor(gheight * 0.95)
 
 local function on_attach(bufnr)
   local api = require("nvim-tree.api")
+  local telescope_utils = require("utils.telescope-custom-pickers")
 
   local function opts(desc)
     return {
@@ -51,13 +39,10 @@ local function on_attach(bufnr)
   end, opts("Find file in folder"))
 end
 
-nvim_tree.setup({
+local opts = {
   on_attach = on_attach,
   hijack_netrw = false,
   view = {
-    width = 45,
-    side = "right",
-    preserve_window_proportions = true,
     float = {
       enable = true,
       open_win_config = {
@@ -77,17 +62,6 @@ nvim_tree.setup({
     root_folder_label = false,
     add_trailing = false,
     group_empty = false,
-    highlight_opened_files = "none",
-    root_folder_modifier = ":t",
-    icons = {
-      webdev_colors = true,
-      show = {
-        file = true,
-        folder = true,
-        folder_arrow = true,
-        git = false,
-      },
-    },
   },
 
   git = { enable = false },
@@ -97,9 +71,11 @@ nvim_tree.setup({
   },
   sync_root_with_cwd = true,
   respect_buf_cwd = true,
-})
+}
 
 local api = require("nvim-tree.api")
 api.events.subscribe(api.events.Event.FileCreated, function(file)
   vim.cmd("edit " .. file.fname)
 end)
+
+require("nvim-tree").setup(opts)
