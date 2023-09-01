@@ -80,7 +80,7 @@ local EXPORT_QUERY = [[
     (export_statement (declaration (variable_declarator (identifier) @export_name)))
 
     ; export class Name ...
-    (export_statement (declaration (identifier) @export_name))
+    (export_statement (declaration (type_identifier) @export_name))
 
     ; export default Name;
     (export_statement (identifier) @export_name)
@@ -117,10 +117,24 @@ function M.change_relative_absolute()
     return
   end
   local path = vim.treesitter.get_node_text(current_node, 0)
+  local current_buffer_path = Path:new(path)
 
-  local current_buffer_path = Path:new(vim.api.nvim_buf_get_name(0)):parent().filename .. "/"
-  local absolute_path =
-    string.gsub(Path:new(current_buffer_path .. path):normalize(), "src/client/", "@/")
+  local absolute_path
+  if current_buffer_path:is_absolute() then
+    absolute_path = string
+      .gsub(
+        current_buffer_path.filename,
+        "/Users/jaroslaw%.glegola/Documents/Praca/opbox%-ads%-panel/src/client/",
+        "@/"
+      )
+      :gsub("%.tsx", "")
+  else
+    local current_parent_folder_path = Path:new(vim.api.nvim_buf_get_name(0)):parent().filename
+      .. "/"
+    absolute_path =
+      string.gsub(Path:new(current_parent_folder_path .. path):normalize(), "src/client/", "@/")
+  end
+
   local start_row, start_col, end_row, end_col = current_node:range()
 
   vim.api.nvim_buf_set_text(0, start_row, start_col, end_row, end_col, { absolute_path })

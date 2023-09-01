@@ -85,18 +85,14 @@ local mappings = {
       "Telescope refactorings",
     },
     ["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
-    -- ["p"] = { "<cmd>lua require('fzf-lua').files()<CR>", "Files" },
     ["h"] = { "<cmd>lua require('telescope.builtin').command_history()<CR>", "Command history" },
-    ["b"] = { "<cmd>lua require('telescope.builtin').buffers()<CR>", "Buffers" },
-    ["c"] = { "<cmd>Telescope keymaps<CR>", "All commands" },
-    ["t"] = { "<cmd>lua require('other-nvim').open('test')<CR>", "Find test file" },
     ["o"] = {
       "<cmd>lua require('utils.telescope-custom-pickers').open_saved_project_picker()<CR>",
       "Projects",
     },
-    ["w"] = {
-      "<cmd>lua require('utils.telescope-custom-pickers').open_file_from_word()<CR>",
-      "Find file under cursor",
+    ["y"] = {
+      "<cmd>lua require('telescope').extensions.yank_history.yank_history()<cr>",
+      "Open yank history",
     },
   },
   ["g"] = {

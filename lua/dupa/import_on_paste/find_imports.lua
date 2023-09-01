@@ -15,6 +15,17 @@ local IMPORTS_QUERY = [[
     (import_statement (import_clause (namespace_import (identifier) @import_name)))
 ]]
 
+local EXPORT_QUERY = [[
+    ; export const Name ...
+    (export_statement (declaration (variable_declarator (identifier) @export_name)))
+
+    ; export class Name ...
+    (export_statement (declaration (type_identifier) @export_name))
+
+    ; export default Name;
+    (export_statement (identifier) @export_name)
+]]
+
 local function find_full_import_statement(node)
   local parent = node:parent()
 
@@ -29,7 +40,7 @@ local function find_full_import_statement(node)
   return nil
 end
 
-local function find_all_import_specifiers_nodes(source_bufnr)
+local function find_all_import_export_specifiers_nodes(source_bufnr)
   local lang = parsers.get_buf_lang(source_bufnr)
   local root = ts_utils.get_root_for_position(1, 1, parsers.get_parser(source_bufnr, lang))
 
@@ -42,7 +53,16 @@ local function find_all_import_specifiers_nodes(source_bufnr)
     table.insert(import_name_nodes, import_name)
   end
 
-  return import_name_nodes
+  local all_export_names_query = vim.treesitter.query.parse(lang, EXPORT_QUERY)
+
+  local export_name_nodes = {}
+  for _, export_name, _ in
+    all_export_names_query:iter_captures(root, source_bufnr, root:start(), root:end_())
+  do
+    table.insert(export_name_nodes, export_name)
+  end
+
+  return import_name_nodes, export_name_nodes
 end
 
 local function find_full_import_for_name(
@@ -71,13 +91,13 @@ local function find_full_import_for_name(
   return nil
 end
 
-local function dedupe_import_nodes(nodes)
+local function dedupe_imports(nodes)
   local seen = {}
   local result = {}
-  for _, node in ipairs(nodes) do
-    local node_id = node:id()
+  for _, node_or_string in ipairs(nodes) do
+    local node_id = type(node_or_string) == "string" and node_or_string or node_or_string:id()
     if not seen[node_id] then
-      table.insert(result, node)
+      table.insert(result, node_or_string)
       seen[node_id] = true
     end
   end
@@ -85,8 +105,9 @@ local function dedupe_import_nodes(nodes)
 end
 
 --- @return table
-function M.find_missing_import_nodes(source_bufnr, missing_import_diagnostics)
-  local all_import_specifiers_nodes = find_all_import_specifiers_nodes(source_bufnr)
+function M.find_missing_imports(source_bufnr, missing_import_diagnostics)
+  local all_import_specifiers_nodes, all_export_specifiers_nodes =
+    find_all_import_export_specifiers_nodes(source_bufnr)
 
   if #all_import_specifiers_nodes == 0 then
     log.error("No import nodes found in source file")
@@ -94,7 +115,7 @@ function M.find_missing_import_nodes(source_bufnr, missing_import_diagnostics)
   end
 
   -- for each name in found diagnostics find this name in import list
-  local import_nodes_to_add = {}
+  local import_nodes_or_strings_to_add = {}
   for _, diagnostic in ipairs(missing_import_diagnostics) do
     for _, missing_import_message in ipairs(utils.constants.missing_import_messages) do
       local missing_import_name = string.match(diagnostic.message, missing_import_message)
@@ -103,12 +124,28 @@ function M.find_missing_import_nodes(source_bufnr, missing_import_diagnostics)
         find_full_import_for_name(missing_import_name, all_import_specifiers_nodes, source_bufnr)
 
       if import_for_missing_name then
-        table.insert(import_nodes_to_add, import_for_missing_name)
+        table.insert(import_nodes_or_strings_to_add, import_for_missing_name)
+      else
+        for _, export_specifier_node in pairs(all_export_specifiers_nodes) do
+          local export_specifier_text =
+            vim.treesitter.get_node_text(export_specifier_node, source_bufnr)
+
+          if missing_import_name == export_specifier_text then
+            table.insert(
+              import_nodes_or_strings_to_add,
+              "import { "
+                .. export_specifier_text
+                .. ' } from "'
+                .. vim.api.nvim_buf_get_name(source_bufnr) -- TODO change to normalized import
+                .. '"'
+            )
+          end
+        end
       end
     end
   end
 
-  local deduped_import_nodes_to_add = dedupe_import_nodes(import_nodes_to_add)
+  local deduped_import_nodes_to_add = dedupe_imports(import_nodes_or_strings_to_add)
 
   return deduped_import_nodes_to_add
 end

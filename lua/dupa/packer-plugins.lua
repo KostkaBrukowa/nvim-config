@@ -120,6 +120,8 @@ return packer.startup(function(use)
   use("kevinhwang91/nvim-bqf")
   use({ "dmmulroy/tsc.nvim" })
   use("echasnovski/mini.ai")
+  use("gbprod/yanky.nvim")
+  use("gabrielpoca/replacer.nvim")
 
   -- LSP
   use("neovim/nvim-lspconfig")

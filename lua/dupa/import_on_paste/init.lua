@@ -40,26 +40,30 @@ local add_missing_imports = function()
 
   -- read last_yank_filename file and parse with tree-sitter to find all imports
   local source_bufnr = utils.get_bufnr_from_filename(last_yank_filename)
-  local import_nodes_to_add =
-    find_imports.find_missing_import_nodes(source_bufnr, missing_import_diagnostics)
+  local imports_to_add = find_imports.find_missing_imports(source_bufnr, missing_import_diagnostics)
 
   local source_file_directory = path_utils.get_directory(last_yank_filename)
   local target_file_directory = path_utils.get_directory(vim.api.nvim_buf_get_name(0))
 
   -- correct relative paths in respect to current buffer
-  local corrected_imports = vim.tbl_map(function(import_node)
+  local corrected_imports = vim.tbl_map(function(import)
+    if type(import) == "string" then
+      return import
+    end
     -- removing \n because nvim_buf_set_lines does not accept endlines
     return correct_import_path
-      .correct_import_path(source_bufnr, import_node, source_file_directory, target_file_directory)
+      .correct_import_path(source_bufnr, import, source_file_directory, target_file_directory)
       :gsub("\n", "")
-  end, import_nodes_to_add)
+  end, imports_to_add)
 
   -- add all corrected imports at the top of the file
   vim.api.nvim_buf_set_lines(0, 0, 0, true, corrected_imports)
 
   -- run typescript organize imports to remove duplicates only if something changed
   if #corrected_imports > 0 then
-    typescript_tools.organize_imports(typescript_tools_consts.OrganizeImportsMode.All, false)
+    typescript_tools.organize_imports(typescript_tools_consts.OrganizeImportsMode.All, true)
+    -- save to run linters
+    vim.cmd("w")
   end
 end
 

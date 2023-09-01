@@ -8,6 +8,10 @@ require("fidget").setup({})
 require("tsc").setup({})
 require("bqf").setup({})
 require("mini.ai").setup()
+require("replacer").setup({
+  save_on_write = true,
+  rename_files = false,
+})
 require("barbecue").setup({
   show_dirname = false,
   theme = "tokyonight-moon",
