@@ -105,7 +105,7 @@ local mappings = {
     ["c"] = { "<cmd>Git commit<CR>", "Commit files" },
     ["n"] = { "<cmd>Git commit --amend<CR>", "Commit ammend" },
     ["v"] = { "<cmd>Git commit --no-verify<CR>", "Commit no verify" },
-    ["a"] = { "<cmd>Git add .<CR>", "Add everything" },
+    ["a"] = { "<cmd>Git fetch --all<CR>", "Fetch all" },
     ["b"] = {
       "<cmd>lua require('utils.telescope-custom-pickers').checkout_remote_smart()<CR>",
       "Branches",
@@ -182,7 +182,7 @@ local mappings = {
     ["l"] = {
       name = "LSP",
       ["r"] = {
-        "<cmd>w<cr><cmd>lua vim.lsp.stop_client(vim.lsp.get_active_clients())<cr>",
+        "<cmd>LspRestart<cr>",
         "Restart lsp server",
       },
       ["e"] = {
@@ -234,6 +234,10 @@ local mappings = {
     ["a"] = { "<cmd>TSToolsAddMissingImports<CR>", "Add missing imports" },
     ["o"] = { "<cmd>TSToolsOrganizeImports<CR>", "Organize imports" },
     ["u"] = { "<cmd>TSToolsRemoveUnusedImports<CR>", "Remove unused" },
+    ["r"] = {
+      "<cmd>lua require('utils.treesitter-utils').change_relative_absolute()<cr>",
+      "Convert relative to absolute",
+    },
   },
   ["a"] = {
     name = "Aerial",

@@ -89,6 +89,12 @@ keymap("n", "<Backspace>", "<C-^>", opts)
 
 keymap("!", "<F20>", "<Nop>", { silent = true })
 
+vim.keymap.set("n", "<leader>ux", require('substitute.exchange').operator, { noremap = true })
+vim.keymap.set("n", "<leader>uxx", require('substitute.exchange').line, { noremap = true })
+vim.keymap.set("x", "<leader>ux", require('substitute.exchange').visual, { noremap = true })
+vim.keymap.set("n", "<leader>uxc", require('substitute.exchange').cancel, { noremap = true })
+
+
 -- Highlight on yank
 vim.cmd([[
   augroup YankHighlight

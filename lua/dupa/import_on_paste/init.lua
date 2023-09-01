@@ -17,7 +17,7 @@ local cursor_position_after_paste = nil
 
 local save_last_yank_filename = function()
   -- TODO some more sophisticated yank storage
-  last_yank_filename = vim.fn.expand("%:p")
+  last_yank_filename = vim.api.nvim_buf_get_name(0)
 end
 
 local add_missing_imports = function()
@@ -44,7 +44,7 @@ local add_missing_imports = function()
     find_imports.find_missing_import_nodes(source_bufnr, missing_import_diagnostics)
 
   local source_file_directory = path_utils.get_directory(last_yank_filename)
-  local target_file_directory = path_utils.get_directory(vim.fn.expand("%:p"))
+  local target_file_directory = path_utils.get_directory(vim.api.nvim_buf_get_name(0))
 
   -- correct relative paths in respect to current buffer
   local corrected_imports = vim.tbl_map(function(import_node)
@@ -59,7 +59,7 @@ local add_missing_imports = function()
 
   -- run typescript organize imports to remove duplicates only if something changed
   if #corrected_imports > 0 then
-    typescript_tools.organize_imports(typescript_tools_consts.OrganizeImportsMode.All)
+    typescript_tools.organize_imports(typescript_tools_consts.OrganizeImportsMode.All, false)
   end
 end
 
@@ -84,8 +84,13 @@ keymap_amend("n", "p", function(original)
   cursor_position_after_paste = vim.api.nvim_win_get_cursor(0)
 
   -- TODO change defer to waiting for diagnostics to show up
+  local pasted_filename = vim.api.nvim_buf_get_name(0)
   vim.defer_fn(function()
-    add_missing_imports()
+    if vim.api.nvim_buf_get_name(0) == pasted_filename then
+      add_missing_imports()
+    else
+      vim.notify("You changed file before diagnoostics showed up. Importing aborted")
+    end
   end, 2000)
 
   vim.api.nvim_win_set_cursor(0, cursor_position_before_paste)

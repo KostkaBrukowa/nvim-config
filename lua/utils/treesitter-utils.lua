@@ -1,6 +1,7 @@
 local ts = vim.treesitter
 local ts_utils = require("nvim-treesitter.ts_utils")
 local parsers = require("nvim-treesitter.parsers")
+local Path = require("plenary.path")
 
 local M = {}
 
@@ -79,7 +80,6 @@ local EXPORT_QUERY = [[
     (export_statement (declaration (variable_declarator (identifier) @export_name)))
 
     ; export class Name ...
-
     (export_statement (declaration (identifier) @export_name))
 
     ; export default Name;
@@ -90,6 +90,7 @@ function M.goto_main_export()
   local ft = vim.bo.filetype
 
   if not string.find(ft, "[java|type]script") then
+    vim.notify("Wrong filetype")
     return false
   end
 
@@ -104,6 +105,25 @@ function M.goto_main_export()
     require("definition-or-references").definition_or_references()
     return
   end
+
+  vim.notify("Main export not found")
+end
+
+function M.change_relative_absolute()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local current_node = M.get_ts_node_at(0, { col = cursor[2], row = cursor[1] })
+  if not current_node or current_node:type() ~= "string_fragment" then
+    vim.notify("Not on string fragment")
+    return
+  end
+  local path = vim.treesitter.get_node_text(current_node, 0)
+
+  local current_buffer_path = Path:new(vim.api.nvim_buf_get_name(0)):parent().filename .. "/"
+  local absolute_path =
+    string.gsub(Path:new(current_buffer_path .. path):normalize(), "src/client/", "@/")
+  local start_row, start_col, end_row, end_col = current_node:range()
+
+  vim.api.nvim_buf_set_text(0, start_row, start_col, end_row, end_col, { absolute_path })
 end
 
 function M.get_ts_node_at(buf, range)

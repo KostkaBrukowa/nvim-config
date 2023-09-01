@@ -8,7 +8,6 @@ require("fidget").setup({})
 require("tsc").setup({})
 require("bqf").setup({})
 require("mini.ai").setup()
-require("mini.pairs").setup()
 require("barbecue").setup({
   show_dirname = false,
   theme = "tokyonight-moon",

@@ -44,6 +44,7 @@ local function ts_tests(suffix)
 end
 
 other.setup({
+  showMissingFiles = false,
   mappings = list.extend({}, ts_tests("spec"), ts_tests("test"), {
     {
       pattern = "/(.*)/(.*).([tj]sx)$",
@@ -55,12 +56,12 @@ other.setup({
         },
         -- Component.tsx -> Component.module.pcss
         {
-          target = "/%1/%2.module.pcss",
+          target = "/%1/*.module.pcss",
           context = "stylesheet",
         },
         -- Component.tsx -> Component.module.pcss
         {
-          target = "/%1/%2.pcss",
+          target = "/%1/*.pcss",
           context = "stylesheet",
         },
         -- Component.tsx -> Component.module.less

@@ -35,7 +35,7 @@ return {
     )
   ),
   snippet(
-    "us",
+    "ustate",
     fmt(
       "const [{}, set{}] = useState()",
       {

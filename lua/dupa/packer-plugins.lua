@@ -72,9 +72,7 @@ return packer.startup(function(use)
   use("hrsh7th/cmp-path")
   use("hrsh7th/cmp-cmdline")
   use("hrsh7th/cmp-nvim-lsp")
-  -- use("windwp/nvim-autopairs")
-  use 'echasnovski/mini.pairs'
-  use("onsails/lspkind.nvim")
+  use("windwp/nvim-autopairs")
 
   -- Snippets
   use("L3MON4D3/LuaSnip")
@@ -109,6 +107,7 @@ return packer.startup(function(use)
   use("tzachar/local-highlight.nvim")
   use("anuvyklack/keymap-amend.nvim")
   use("rgroli/other.nvim")
+  use("bronson/vim-visual-star-search")
   use({ "shortcuts/no-neck-pain.nvim", tag = "*" })
   use("MunifTanjim/nui.nvim")
   use({
@@ -166,7 +165,6 @@ return packer.startup(function(use)
 
   use("mxsdev/nvim-dap-vscode-js")
   use("jbyuki/one-small-step-for-vimkind")
-
 
   if PACKER_BOOTSTRAP then
     require("packer").sync()

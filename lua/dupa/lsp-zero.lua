@@ -52,35 +52,16 @@ lsp.format_on_save({
 lsp.nvim_workspace()
 
 local null_ls = require("null-ls")
--- local null_opts = lsp.build_options("null-ls", {})
--- local cspell = require("cspell")
--- local cspell_config = {
---   config = {
---     find_json = function()
---       return vim.fn.stdpath("config") .. "/cspell.json"
---     end,
---   },
---   diagnostics_postprocess = function(diagnostic)
---     diagnostic.severity = vim.diagnostic.severity["HINT"]
---   end,
--- }
--- local sources = {
---   null_ls.builtins.diagnostics.stylelint,
--- }
---
--- null_ls.setup({
---   sources = sources,
---   should_attach = function(bufnr)
---     return not vim.api.nvim_buf_get_name(bufnr):match("^git://")
---       and not vim.api.nvim_buf_get_name(bufnr):match("NvimTree_")
---   end,
---   on_attach = function(client, bufnr)
---     null_opts.on_attach(client, bufnr)
---   end,
---   diagnostics_postprocess = function(diagnostic)
---     diagnostic.severity = vim.diagnostic.severity["HINT"]
---   end,
--- })
+local null_opts = lsp.build_options("null-ls", {})
+null_ls.setup({
+  should_attach = function(bufnr)
+    return not vim.api.nvim_buf_get_name(bufnr):match("^git://")
+      and not vim.api.nvim_buf_get_name(bufnr):match("NvimTree_")
+  end,
+  on_attach = function(client, bufnr)
+    null_opts.on_attach(client, bufnr)
+  end,
+})
 
 require("mason-null-ls").setup({
   ensure_installed = {},
@@ -94,7 +75,7 @@ require("mason-null-ls").setup({
           { [#null_ls.builtins.formatting.prettierd.filetypes + 1] = "postcss" }
         ),
         condition = function()
-          return require("utils.file.config_exists").config_exists({
+          return require("utils.file").config_exists({
             check_package_json = true,
           })
         end,
