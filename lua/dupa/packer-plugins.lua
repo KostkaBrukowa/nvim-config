@@ -51,7 +51,6 @@ return packer.startup(function(use)
 
   -- Treesitter
   use("nvim-treesitter/nvim-treesitter")
-  use("windwp/nvim-ts-autotag")
   use("nvim-treesitter/nvim-treesitter-context")
 
   -- Keymaps
@@ -73,6 +72,7 @@ return packer.startup(function(use)
   use("hrsh7th/cmp-cmdline")
   use("hrsh7th/cmp-nvim-lsp")
   use("windwp/nvim-autopairs")
+  use("windwp/nvim-ts-autotag")
 
   -- Snippets
   use("L3MON4D3/LuaSnip")
@@ -95,10 +95,7 @@ return packer.startup(function(use)
   use("rcarriga/nvim-notify")
   use("gbprod/substitute.nvim")
   use("kylechui/nvim-surround")
-  use("stevearc/dressing.nvim")
   use("anuvyklack/hydra.nvim")
-  use("mrjones2014/smart-splits.nvim")
-  use("sindrets/winshift.nvim")
   use("stevearc/stickybuf.nvim")
   use("vuki656/package-info.nvim")
   use("mbbill/undotree")
@@ -108,20 +105,18 @@ return packer.startup(function(use)
   use("anuvyklack/keymap-amend.nvim")
   use("rgroli/other.nvim")
   use("bronson/vim-visual-star-search")
-  use({ "shortcuts/no-neck-pain.nvim", tag = "*" })
-  use("MunifTanjim/nui.nvim")
-  use({
-    "utilyre/barbecue.nvim",
-    requires = { "SmiteshP/nvim-navic" },
-  })
   use("runiq/neovim-throttle-debounce")
   use("zbirenbaum/copilot.lua")
-  use({ "davidmh/cspell.nvim" })
   use("kevinhwang91/nvim-bqf")
-  use({ "dmmulroy/tsc.nvim" })
+  use("dmmulroy/tsc.nvim")
   use("echasnovski/mini.ai")
   use("gbprod/yanky.nvim")
   use("gabrielpoca/replacer.nvim")
+  use("~/Documents/Praca/definition-or-references.nvim")
+
+  -- UI
+  use("stevearc/dressing.nvim")
+  use("MunifTanjim/nui.nvim")
 
   -- LSP
   use("neovim/nvim-lspconfig")
@@ -129,15 +124,14 @@ return packer.startup(function(use)
   use("williamboman/mason.nvim")
   use("williamboman/mason-lspconfig.nvim")
   use("WhoIsSethDaniel/mason-tool-installer.nvim")
-  use("b0o/schemastore.nvim")
   use("jayp0521/mason-null-ls.nvim")
   use("jose-elias-alvarez/null-ls.nvim")
-  use("~/Documents/Praca/typescript-tools.nvim")
-  use("~/Documents/Praca/definition-or-references.nvim")
   use("folke/neodev.nvim")
-  use({ "antosha417/nvim-lsp-file-operations" })
-  use({ "j-hui/fidget.nvim" })
+  use("antosha417/nvim-lsp-file-operations")
+  use("j-hui/fidget.nvim")
+  use("b0o/schemastore.nvim")
   use({ "git@github.com:allegro-internal/vscode-allegro-metrum", branch = "neovim" })
+  use("~/Documents/Praca/typescript-tools.nvim")
 
   -- Folding
   use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
@@ -156,17 +150,20 @@ return packer.startup(function(use)
   })
 
   -- Debugging
-  use({ "Pocco81/dap-buddy.nvim" })
-  use("theHamsta/nvim-dap-virtual-text")
-  use("rcarriga/nvim-dap-ui")
-  use("mfussenegger/nvim-dap")
   use({
-    "microsoft/vscode-js-debug",
-    run = "npm install --legacy-peer-deps && npm run compile",
+    "mfussenegger/nvim-dap",
+    requires = {
+      "Pocco81/dap-buddy.nvim",
+      "theHamsta/nvim-dap-virtual-text",
+      "rcarriga/nvim-dap-ui",
+      {
+        "microsoft/vscode-js-debug",
+        run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+      },
+      "mxsdev/nvim-dap-vscode-js",
+      "jbyuki/one-small-step-for-vimkind",
+    },
   })
-
-  use("mxsdev/nvim-dap-vscode-js")
-  use("jbyuki/one-small-step-for-vimkind")
 
   if PACKER_BOOTSTRAP then
     require("packer").sync()

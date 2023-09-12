@@ -9,7 +9,7 @@ local lsp = require("lsp-zero").preset({
 
 lsp.on_attach(function(client, bufnr)
   if client.server_capabilities.documentSymbolProvider then
-    require("nvim-navic").attach(client, bufnr)
+    -- require("nvim-navic").attach(client, bufnr)
   end
 end)
 
@@ -27,7 +27,7 @@ lsp.set_server_config({
 lsp.ensure_installed({
   -- Replace these with whatever servers you want to install
   "jsonls",
-  -- "html",
+  "html",
   "cssls",
   "yamlls",
   "marksman",

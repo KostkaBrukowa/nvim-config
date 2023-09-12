@@ -1,10 +1,6 @@
 local Hydra = require("hydra")
-local splits = require("smart-splits")
 
-local cmd = require("hydra.keymap-util").cmd
 local pcmd = require("hydra.keymap-util").pcmd
-
--- vim.keymap.set("n", "gb", choose_buffer)
 
 local window_hint = [[
  ^^^^^^^^^^^^     Move      ^^    Size   ^^   ^^     Split
@@ -12,8 +8,8 @@ local window_hint = [[
  ^ ^ _e_ ^ ^  ^ ^ _E_ ^ ^   ^   _<C-e>_   ^   _s_: horizontally 
  _h_ ^ ^ _i_  _H_ ^ ^ _I_   _<C-h>_ _<C-i>_   _v_: vertically
  ^ ^ _n_ ^ ^  ^ ^ _N_ ^ ^   ^   _<C-n>_   ^   _q_, _x_: close
- focus^^^^^^  window^^^^^^  ^_=_: equalize^   _m_: maximize
- ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^^ ^          ^   _o_: remain only
+ focus^^^^^^  window^^^^^^  ^_=_: equalize^   _o_: remain only
+ ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^^ ^          ^   
 ]]
 
 Hydra({
@@ -34,35 +30,15 @@ Hydra({
     { "e", pcmd("wincmd k", "E11", "close") },
     { "i", "<C-w>l" },
 
-    { "H", cmd("WinShift left") },
-    { "N", cmd("WinShift down") },
-    { "E", cmd("WinShift up") },
-    { "I", cmd("WinShift right") },
+    { "H", "<c-w>H" },
+    { "N", "<c-w>J" },
+    { "E", "<c-w>K" },
+    { "I", "<c-w>L" },
 
-    {
-      "<C-h>",
-      function()
-        splits.resize_left(2)
-      end,
-    },
-    {
-      "<C-n>",
-      function()
-        splits.resize_down(2)
-      end,
-    },
-    {
-      "<C-e>",
-      function()
-        splits.resize_up(2)
-      end,
-    },
-    {
-      "<C-i>",
-      function()
-        splits.resize_right(2)
-      end,
-    },
+    { "<C-h>", "<C-w>><C-w>>" },
+    { "<C-n>", "<C-w>-<C-w>-" },
+    { "<C-e>", "<C-w>+<C-w>+" },
+    { "<C-i>", "<C-w><<C-w><" },
     { "=", "<C-w>=", { desc = "equalize" } },
 
     { "s", pcmd("split", "E36") },
@@ -72,9 +48,6 @@ Hydra({
 
     { "w", "<C-w>w", { exit = true, desc = false } },
     { "<C-w>", "<C-w>w", { exit = true, desc = false } },
-
-    { "m", cmd("WindowsMaximize"), { exit = true, desc = "maximize" } },
-    { "<C-z>", cmd("WindowsMaximize"), { exit = true, desc = false } },
 
     { "o", "<C-w>o", { exit = true, desc = "remain only" } },
     { "<C-o>", "<C-w>o", { exit = true, desc = false } },

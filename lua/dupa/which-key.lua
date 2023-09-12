@@ -42,11 +42,13 @@ local opts = {
   noremap = true,
 }
 
+local format_command = "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000})<CR>"
+
 local mappings = {
   ["w"] = { "<cmd>wall<CR>", "Save" },
   ["q"] = { "<cmd>wall<CR><cmd>qall<CR>", "Save and Quit" },
   ["x"] = { "<cmd>quit<CR>", "Close buffer" },
-  ["p"] = { "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000})<CR>", "Format with prettier" },
+  ["p"] = { format_command, "Format with prettier" },
   ["s"] = { "<Plug>(leap-forward-to)", "Leap forward" },
   ["S"] = { "<Plug>(leap-backward-to)", "Leap backwards" },
   ["c"] = { "<cmd>DiffviewToggle<cr>", "Toggle diffview" },
@@ -226,10 +228,11 @@ local mappings = {
     },
   },
   ["i"] = {
-    name = "Imports",
-    ["a"] = { "<cmd>TSToolsAddMissingImports<CR>", "Add missing imports" },
-    ["o"] = { "<cmd>TSToolsOrganizeImports<CR>", "Organize imports" },
-    ["u"] = { "<cmd>TSToolsRemoveUnusedImports<CR>", "Remove unused" },
+    name = "TSTools",
+    ["a"] = { "<cmd>TSToolsAddMissingImports sync<CR>" .. format_command, "Add missing imports" },
+    ["o"] = { "<cmd>TSToolsOrganizeImports sync<CR>" .. format_command, "Organize imports" },
+    ["u"] = { "<cmd>TSToolsRemoveUnusedImports sync<CR>" .. format_command, "Remove unused" },
+    ["f"] = { "<cmd>TSToolsFixAll sync<CR>" .. format_command, "Fix all problems" },
     ["r"] = {
       "<cmd>lua require('utils.treesitter-utils').change_relative_absolute()<cr>",
       "Convert relative to absolute",

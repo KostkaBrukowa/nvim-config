@@ -28,6 +28,7 @@ end
   if #import_tuples == 1 then
     on_user_choice(import_tuples[1])
     vim.notify(import_tuples[1][2].title)
+    vim.lsp.buf.format({ timeout_ms = 60000 })
     return
   end
 

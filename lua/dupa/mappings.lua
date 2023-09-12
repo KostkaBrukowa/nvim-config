@@ -87,7 +87,7 @@ keymap("v", ">", ">gv", opts)
 
 keymap("n", "<Backspace>", "<C-^>", opts)
 
-keymap("!", "<F20>", "<Nop>", { silent = true })
+keymap("n", "U", "<c-r>", opts)
 
 vim.keymap.set("n", "<leader>ux", require("substitute.exchange").operator, { noremap = true })
 vim.keymap.set("n", "<leader>uxx", require("substitute.exchange").line, { noremap = true })

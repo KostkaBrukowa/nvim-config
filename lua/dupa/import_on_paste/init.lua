@@ -62,8 +62,8 @@ local add_missing_imports = function()
   -- run typescript organize imports to remove duplicates only if something changed
   if #corrected_imports > 0 then
     typescript_tools.organize_imports(typescript_tools_consts.OrganizeImportsMode.All, true)
-    -- save to run linters
-    vim.cmd("w")
+    -- run linters
+    vim.lsp.buf.format({ timeout_ms = 60000 })
   end
 end
 
