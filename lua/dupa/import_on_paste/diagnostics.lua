@@ -1,4 +1,4 @@
-local log = require("dupa.log-mock")
+local log = require("dupa.log")
 local utils = require("dupa.import_on_paste.utils")
 local M = {}
 
@@ -10,12 +10,12 @@ local function is_between_positions(position, start_position, end_position)
 end
 
 local function convert_diagnostic_start_position(diagnostic)
-  return { diagnostic.lnum + 1, diagnostic.col }
+  return { diagnostic.range.start.line + 1, diagnostic.range.start.character }
 end
 
-function M.get_all_missing_import_diagnostics_from_range(start_position, end_position)
+function M.get_all_missing_import_diagnostics_from_range(start_position, end_position, diagnostics)
+  local buffer_diagnostics = diagnostics.relatedDocuments[vim.uri_from_bufnr(0)].items
   -- get all diagnostics in file after paste
-  local diagnostics = vim.diagnostic.get()
   log.trace("initial: ", start_position, end_position)
 
   -- find all diagnostics that contains 'Cannot find name' error messagse
@@ -33,7 +33,7 @@ function M.get_all_missing_import_diagnostics_from_range(start_position, end_pos
     end
 
     return utils.is_missing_import_diagnostic(diagnostic)
-  end, diagnostics)
+  end, buffer_diagnostics)
 
   if #missing_import_diagnostics == 0 then
     log.trace("missing_import_diagnostics not found")

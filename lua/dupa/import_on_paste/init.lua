@@ -2,9 +2,9 @@
 -- add support for imports that import variable that are in global scope like 'screen' - no idea how
 local keymap_amend = require("keymap-amend")
 local typescript_tools = require("typescript-tools.api")
-local typescript_tools_consts = require("typescript-tools.protocol.constants")
+local typescript_tools_constants = require("typescript-tools.protocol.constants")
 
-local log = require("dupa.log-mock")
+local log = require("dupa.log")
 local path_utils = require("dupa.import_on_paste.path_utils")
 local diagnostic = require("dupa.import_on_paste.diagnostics")
 local utils = require("dupa.import_on_paste.utils")
@@ -20,7 +20,7 @@ local save_last_yank_filename = function()
   last_yank_filename = vim.api.nvim_buf_get_name(0)
 end
 
-local add_missing_imports = function()
+local add_missing_imports = function(diagnostics)
   log.trace("Starting on paste with: " .. vim.inspect(last_yank_filename))
 
   if not last_yank_filename then
@@ -31,7 +31,8 @@ local add_missing_imports = function()
   -- get all diagnostics in file after paste
   local missing_import_diagnostics = diagnostic.get_all_missing_import_diagnostics_from_range(
     cursor_position_before_paste,
-    cursor_position_after_paste
+    cursor_position_after_paste,
+    diagnostics
   )
 
   if not missing_import_diagnostics then
@@ -47,6 +48,7 @@ local add_missing_imports = function()
 
   -- correct relative paths in respect to current buffer
   local corrected_imports = vim.tbl_map(function(import)
+    -- some imports are strings because some of them we construct manually
     if type(import) == "string" then
       return import
     end
@@ -61,7 +63,7 @@ local add_missing_imports = function()
 
   -- run typescript organize imports to remove duplicates only if something changed
   if #corrected_imports > 0 then
-    typescript_tools.organize_imports(typescript_tools_consts.OrganizeImportsMode.All, true)
+    typescript_tools.organize_imports(true) -- sync true
     -- run linters
     vim.lsp.buf.format({ timeout_ms = 60000 })
   end
@@ -76,6 +78,8 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
 })
 
 keymap_amend("n", "p", function(original)
+  log.trace("Starting paste")
+
   local current_buffer_filetype = vim.bo.filetype
   if current_buffer_filetype ~= "typescript" and current_buffer_filetype ~= "typescriptreact" then
     return original()
@@ -87,15 +91,20 @@ keymap_amend("n", "p", function(original)
 
   cursor_position_after_paste = vim.api.nvim_win_get_cursor(0)
 
-  -- TODO change defer to waiting for diagnostics to show up
   local pasted_filename = vim.api.nvim_buf_get_name(0)
-  vim.defer_fn(function()
-    if vim.api.nvim_buf_get_name(0) == pasted_filename then
-      add_missing_imports()
-    else
-      vim.notify("You changed file before diagnoostics showed up. Importing aborted")
+
+  typescript_tools.request_diagnostics(function(err, diagnostics)
+    log.trace("starting processing import on paste with diagnostics")
+    if err then
+      vim.notify("diagnostics request failed")
     end
-  end, 2000)
+
+    if vim.api.nvim_buf_get_name(0) == pasted_filename then
+      add_missing_imports(diagnostics)
+    else
+      vim.notify("You've changed file before diagnoostics showed up. importing aborted")
+    end
+  end, typescript_tools_constants.LspMethods.Diagnostic)
 
   vim.api.nvim_win_set_cursor(0, cursor_position_before_paste)
 end)

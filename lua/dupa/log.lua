@@ -12,13 +12,13 @@ local default_config = {
   plugin = "test_jumplist",
 
   -- Should print the output to neovim while running
-  use_console = false,
+  use_console = true,
 
   -- Should highlighting be used in console (using echohl)
   highlights = true,
 
   -- Should write to a file
-  use_file = true,
+  use_file = false,
 
   -- Any messages above this level will be logged.
   level = "trace",

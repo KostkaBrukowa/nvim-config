@@ -7,12 +7,6 @@ local lsp = require("lsp-zero").preset({
   },
 })
 
-lsp.on_attach(function(client, bufnr)
-  if client.server_capabilities.documentSymbolProvider then
-    -- require("nvim-navic").attach(client, bufnr)
-  end
-end)
-
 lsp.set_server_config({
   capabilities = {
     textDocument = {
@@ -22,15 +16,6 @@ lsp.set_server_config({
       },
     },
   },
-})
-
-lsp.ensure_installed({
-  -- Replace these with whatever servers you want to install
-  "jsonls",
-  "html",
-  "cssls",
-  "yamlls",
-  "marksman",
 })
 
 lsp.format_on_save({
@@ -49,7 +34,13 @@ lsp.format_on_save({
   },
 })
 
-lsp.nvim_workspace()
+require("mason").setup({})
+require("mason-lspconfig").setup({
+  ensure_installed = { "jsonls", "html", "cssls", "yamlls", "marksman", "lua_ls" },
+  handlers = {
+    lsp.default_setup,
+  },
+})
 
 local null_ls = require("null-ls")
 local null_opts = lsp.build_options("null-ls", {})
@@ -58,8 +49,8 @@ null_ls.setup({
     return not vim.api.nvim_buf_get_name(bufnr):match("^git://")
       and not vim.api.nvim_buf_get_name(bufnr):match("NvimTree_")
   end,
-  on_attach = function(client, bufnr)
-    null_opts.on_attach(client, bufnr)
+  on_attach = function()
+    null_opts.on_attach()
   end,
 })
 
@@ -218,11 +209,10 @@ require("lspconfig").jsonls.setup({
 })
 
 -- require("lspconfig").tsserver.setup({
---   settings = {
---     typescript = {
---       preferences = {
---         includeCompletionsWithSnippetText = true,
---       },
+--   init_options = {
+--     tsserver = {
+--       logDirectory = "/Users/jaroslaw.glegola/.config/nvim/",
+--       logVerbosity = "requestTime",
 --     },
 --   },
 -- })

@@ -42,7 +42,7 @@ local opts = {
   noremap = true,
 }
 
-local format_command = "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000})<CR>"
+local format_command = "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000 })<CR>"
 
 local mappings = {
   ["w"] = { "<cmd>wall<CR>", "Save" },

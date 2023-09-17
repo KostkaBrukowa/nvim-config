@@ -5,20 +5,17 @@ if not ok then
 end
 
 tst.setup({
+  on_attach = function(client)
+    client.server_capabilities.semanticTokensProvider = false
+  end,
   settings = {
     -- tsserver_logs = "verbose",
+    -- tsserver_logs = {
+    --   verbosity = "verbose",
+    --   file_basename = "/Users/jaroslaw.glegola/.config/nvim/tsserver.log",
+    -- },
     -- tsserver_plugins = { "@styled/typescript-styled-plugin" },
     separate_diagnostic_server = true,
     publish_diagnostic_on = "insert_leave",
-    tsserver_file_preferences = {
-      includeInlayParameterNameHints = "none",
-      includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-      includeInlayFunctionParameterTypeHints = false,
-      includeInlayVariableTypeHints = false,
-      includeInlayVariableTypeHintsWhenTypeMatchesName = false,
-      includeInlayPropertyDeclarationTypeHints = false,
-      includeInlayFunctionLikeReturnTypeHints = false,
-      includeInlayEnumMemberValueHints = true,
-    },
   },
 })
