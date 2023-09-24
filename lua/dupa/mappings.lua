@@ -96,3 +96,4 @@ vim.keymap.set("n", "<leader>uxc", require("substitute.exchange").cancel, { nore
 
 -- Stops contiuing comment after 'o'
 vim.cmd("autocmd FileType * setlocal formatoptions-=o")
+vim.cmd("autocmd FileType toggleterm,NvimTree,fugitive setlocal nospell")

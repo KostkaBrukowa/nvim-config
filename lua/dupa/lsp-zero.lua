@@ -44,6 +44,7 @@ require("mason-lspconfig").setup({
 
 local null_ls = require("null-ls")
 local null_opts = lsp.build_options("null-ls", {})
+
 null_ls.setup({
   should_attach = function(bufnr)
     return not vim.api.nvim_buf_get_name(bufnr):match("^git://")
@@ -208,6 +209,7 @@ require("lspconfig").jsonls.setup({
   },
 })
 
+-- https://www.allegro.pl/404
 -- require("lspconfig").tsserver.setup({
 --   init_options = {
 --     tsserver = {

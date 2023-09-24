@@ -74,8 +74,20 @@ local opts = {
 }
 
 local api = require("nvim-tree.api")
+
+-- open file after creating
 api.events.subscribe(api.events.Event.FileCreated, function(file)
   vim.cmd("edit " .. file.fname)
+end)
+
+-- remove old buffers to prevent alternate file
+api.events.subscribe(api.events.Event.NodeRenamed, function(data)
+  for _, buf in pairs(vim.api.nvim_list_bufs()) do
+    local buf_name = vim.api.nvim_buf_get_name(buf)
+    if buf_name == data.old_path then
+      vim.api.nvim_buf_delete(buf, { force = true })
+    end
+  end
 end)
 
 require("nvim-tree").setup(opts)

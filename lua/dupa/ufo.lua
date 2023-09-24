@@ -7,6 +7,6 @@ vim.o.foldenable = true
 vim.api.nvim_set_keymap("n", "zR", '<cmd>lua require("ufo").openAllFolds()<cr>', {})
 vim.api.nvim_set_keymap("n", "zM", '<cmd>lua require("ufo").closeAllFolds()<cr>', {})
 
--- require("ufo").setup({
---   close_fold_kinds = {},
--- })
+require("ufo").setup({
+  close_fold_kinds = {},
+})

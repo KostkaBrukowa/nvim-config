@@ -284,6 +284,12 @@ local visual_opts = {
 
 local visual_mappings = {
   ["y"] = { '"+y', "Yank to global register" },
+  ["f"] = {
+    ["y"] = {
+      "<cmd>lua require('telescope').extensions.yank_history.yank_history()<cr>",
+      "Open yank history",
+    },
+  },
   ["r"] = {
     name = "Find and replace",
     ["o"] = { "<esc>:lua require('spectre').open_visual()<cr>", "Find under cursor" },

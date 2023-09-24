@@ -63,15 +63,15 @@ utils.create_onetime_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_user_command("DiffviewToggle", function(e)
+vim.api.nvim_create_user_command("DiffviewToggle", function()
   local view = require("diffview.lib").get_current_view()
 
   if view then
     vim.cmd("DiffviewClose")
   else
-    vim.cmd("DiffviewOpen " .. e.args)
+    vim.cmd("DiffviewOpen")
   end
-end, { nargs = "*" })
+end, {})
 
 git_linker.setup({
   mappings = nil,

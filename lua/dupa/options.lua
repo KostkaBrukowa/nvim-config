@@ -52,6 +52,10 @@ local options = {
   scrolloff = 8,
   switchbuf = "useopen,usetab",
   sidescrolloff = 8,
+  spelllang = "en_us,pl",
+  spell = true,
+  spelloptions = "camel,noplainbuffer",
+  spellcapcheck = "",
 }
 
 for k, v in pairs(options) do
