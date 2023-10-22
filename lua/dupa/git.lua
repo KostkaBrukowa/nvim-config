@@ -73,6 +73,18 @@ vim.api.nvim_create_user_command("DiffviewToggle", function()
   end
 end, {})
 
+vim.api.nvim_create_user_command("GitNewBranch", function()
+  vim.ui.input({
+    prompt = "New branch name",
+    default = "ADS-",
+  }, function(input)
+    if not input then
+      return
+    end
+    vim.cmd("Git checkout -b " .. input)
+  end)
+end, {})
+
 git_linker.setup({
   mappings = nil,
 })
@@ -100,10 +112,10 @@ require("diffview").setup({
   hooks = {
     diff_buf_read = function(bufnr) end,
     view_opened = function()
-      -- vim.cmd("UfoDisable")
+      vim.cmd("UfoDisable")
     end,
     view_closed = function()
-      -- vim.cmd("UfoEnable")
+      vim.cmd("UfoEnable")
     end,
   },
 })

@@ -15,7 +15,9 @@ tst.setup({
     --   file_basename = "/Users/jaroslaw.glegola/.config/nvim/tsserver.log",
     -- },
     -- tsserver_plugins = { "@styled/typescript-styled-plugin" },
-    separate_diagnostic_server = true,
+    separate_diagnostic_server = false,
     publish_diagnostic_on = "insert_leave",
+    -- code_lens = "all",
+    -- disable_member_code_lens = true,
   },
 })

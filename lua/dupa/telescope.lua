@@ -46,6 +46,10 @@ telescope.setup({
     },
     oldfiles = {
       cwd_only = false,
+      initial_mode = "normal",
+    },
+    find_files = {
+      hidden = true,
     },
   },
   defaults = {
@@ -82,7 +86,7 @@ telescope.setup({
       fuzzy = true,
       override_generic_sorter = true,
       override_file_sorter = true,
-      case_mode = "smart_case",
+      case_mode = "ignore_case",
     },
   },
 })

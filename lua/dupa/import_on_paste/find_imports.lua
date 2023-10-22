@@ -2,6 +2,7 @@ local log = require("dupa.log-mock")
 local utils = require("dupa.import_on_paste.utils")
 local parsers = require("nvim-treesitter.parsers")
 local ts_utils = require("nvim-treesitter.ts_utils")
+local my_ts_utils = require("utils.treesitter-utils")
 local M = {}
 
 local IMPORTS_QUERY = [[
@@ -136,7 +137,9 @@ function M.find_missing_imports(source_bufnr, missing_import_diagnostics)
               "import { "
                 .. export_specifier_text
                 .. ' } from "'
-                .. vim.api.nvim_buf_get_name(source_bufnr) -- TODO change to normalized import
+                .. my_ts_utils.change_relative_absolute_string(
+                  vim.api.nvim_buf_get_name(source_bufnr)
+                )
                 .. '"'
             )
           end

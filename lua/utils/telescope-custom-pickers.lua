@@ -41,6 +41,17 @@ function M.checkout_remote_smart()
         else
           vim.cmd("Git checkout " .. selection_value)
         end
+
+        -- remove buffers that doesn't have corresponding file after switch
+        local bufremove = require("mini.bufremove")
+        for _, buf in pairs(vim.api.nvim_list_bufs()) do
+          local buf_name = vim.api.nvim_buf_get_name(buf)
+          if vim.fn.filereadable(buf_name) == 0 then
+            bufremove.delete(buf, true)
+          end
+        end
+
+        vim.cmd("LspRestart")
       end)
 
       return true

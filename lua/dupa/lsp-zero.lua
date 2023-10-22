@@ -113,6 +113,8 @@ vim.diagnostic.handlers.virtual_text = {
   hide = vim.diagnostic.handlers.virtual_text.hide,
 }
 
+-- vim.fn.executable()
+
 -- TODO move to separate file
 local cmp = require("cmp")
 local keymap = require("cmp.utils.keymap")
@@ -205,6 +207,25 @@ require("lspconfig").jsonls.setup({
     json = {
       schemas = require("schemastore").json.schemas(),
       validate = { enable = true },
+    },
+  },
+})
+
+require("lspconfig").yamlls.setup({
+  settings = {
+    yaml = {
+      schemaStore = { enable = false, url = "" },
+      schemas = require("schemastore").yaml.schemas(),
+    },
+  },
+})
+
+require("lspconfig").lua_ls.setup({
+  settings = {
+    Lua = {
+      workspace = {
+        checkThirdParty = false,
+      },
     },
   },
 })

@@ -56,16 +56,22 @@ local add_missing_imports = function(diagnostics)
     return correct_import_path
       .correct_import_path(source_bufnr, import, source_file_directory, target_file_directory)
       :gsub("\n", "")
+      :gsub(" React, ", "")
   end, imports_to_add)
+
+  table.insert(imports_to_add, "\n")
 
   -- add all corrected imports at the top of the file
   vim.api.nvim_buf_set_lines(0, 0, 0, true, corrected_imports)
 
   -- run typescript organize imports to remove duplicates only if something changed
   if #corrected_imports > 0 then
-    typescript_tools.organize_imports(true) -- sync true
     -- run linters
-    vim.lsp.buf.format({ timeout_ms = 60000 })
+    vim.defer_fn(function()
+      typescript_tools.organize_imports(true) -- sync true
+
+      vim.lsp.buf.format({ timeout_ms = 60000 })
+    end, 100)
   end
 end
 
@@ -104,7 +110,7 @@ keymap_amend("n", "p", function(original)
     else
       vim.notify("You've changed file before diagnoostics showed up. importing aborted")
     end
-  end, typescript_tools_constants.LspMethods.Diagnostic)
+  end, typescript_tools_constants.CustomMethods.CustomDiagnostic)
 
   vim.api.nvim_win_set_cursor(0, cursor_position_before_paste)
 end)

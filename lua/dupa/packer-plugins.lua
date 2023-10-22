@@ -92,7 +92,6 @@ return packer.startup(function(use)
   use("lewis6991/impatient.nvim")
   use("ethanholz/nvim-lastplace")
   use("akinsho/toggleterm.nvim")
-  use("rcarriga/nvim-notify")
   use("gbprod/substitute.nvim")
   use("kylechui/nvim-surround")
   use("anuvyklack/hydra.nvim")
@@ -110,10 +109,12 @@ return packer.startup(function(use)
   use("dmmulroy/tsc.nvim")
   use("gbprod/yanky.nvim")
   use("gabrielpoca/replacer.nvim")
+  use("KostkaBrukowa/nvim-cursorword") -- fork of xiyaowong/nvim-cursorword with treesitter support
   use("~/Documents/Praca/definition-or-references.nvim")
 
   use("echasnovski/mini.ai")
-  use("echasnovski/mini.cursorword")
+  use("echasnovski/mini.bufremove")
+
   -- UI
   use("stevearc/dressing.nvim")
   use("MunifTanjim/nui.nvim")
@@ -132,7 +133,8 @@ return packer.startup(function(use)
   use("b0o/schemastore.nvim")
   use({ "git@github.com:allegro-internal/vscode-allegro-metrum", branch = "neovim" })
   use("~/Documents/Praca/typescript-tools.nvim")
-
+  use("luckasRanarison/clear-action.nvim")
+  use("echasnovski/mini.pick")
   -- Folding
   use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
   use({ "stevearc/aerial.nvim" })

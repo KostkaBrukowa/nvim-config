@@ -2,12 +2,24 @@ require("tokyonight").setup({
   dim_inactive = true,
   on_colors = function(colors)
     colors.hint = colors.dark5
-    vim.api.nvim_set_hl(0, "MsgArea", { bg = colors.bg_dark })
-    vim.api.nvim_set_hl(0, "NvimTreeGitUntracked", { fg = colors.bg_dark })
-    vim.api.nvim_set_hl(0, "SpellBad", { sp = colors.hint, undercurl = true })
-    vim.api.nvim_set_hl(0, "SpellCap", { sp = colors.hint, undercurl = true })
-    vim.api.nvim_set_hl(0, "SpellLocal", { sp = colors.hint, undercurl = true })
-    vim.api.nvim_set_hl(0, "SpellRare", { sp = colors.hint, undercurl = true })
+  end,
+  on_highlights = function(highlights, colors)
+    highlights["CursorWord"] = { bg = highlights.MiniCursorword.bg }
+
+    highlights["MsgArea"] = { bg = colors.bg_dark }
+    highlights["NvimTreeGitUntracked"] = { fg = colors.bg_dark }
+    highlights["CurSearch"] = { bg = colors.bg_dark }
+    highlights["Search"] = { bg = colors.fg_gutter }
+
+    highlights["SpellBad"] = { sp = colors.hint, undercurl = true }
+    highlights["SpellCap"] = { sp = colors.hint, undercurl = true }
+    highlights["SpellLocal"] = { sp = colors.hint, undercurl = true }
+    highlights["SpellRare"] = { sp = colors.hint, undercurl = true }
+
+    highlights["DiagnosticUnderlineError"] = { sp = "#c53b53", undercurl = true }
+    highlights["DiagnosticUnderlineHint"] = { sp = "#4fd6be", undercurl = true }
+    highlights["DiagnosticUnderlineInfo"] = { sp = "#0db9d7", undercurl = true }
+    highlights["DiagnosticUnderlineWarn"] = { sp = "#ffc777", undercurl = true }
   end,
 })
 

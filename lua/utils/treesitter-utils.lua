@@ -109,21 +109,14 @@ function M.goto_main_export()
   vim.notify("Main export not found")
 end
 
-function M.change_relative_absolute()
-  local cursor = vim.api.nvim_win_get_cursor(0)
-  local current_node = M.get_ts_node_at(0, { col = cursor[2], row = cursor[1] })
-  if not current_node or current_node:type() ~= "string_fragment" then
-    vim.notify("Not on string fragment")
-    return
-  end
-  local path = vim.treesitter.get_node_text(current_node, 0)
-  local current_buffer_path = Path:new(path)
+function M.change_relative_absolute_string(pathname)
+  local path = Path:new(pathname)
 
   local absolute_path
-  if current_buffer_path:is_absolute() then
+  if path:is_absolute() then
     absolute_path = string
       .gsub(
-        current_buffer_path.filename,
+        path.filename,
         "/Users/jaroslaw%.glegola/Documents/Praca/opbox%-ads%-panel/src/client/",
         "@/"
       )
@@ -134,6 +127,20 @@ function M.change_relative_absolute()
     absolute_path =
       string.gsub(Path:new(current_parent_folder_path .. path):normalize(), "src/client/", "@/")
   end
+
+  return absolute_path
+end
+
+function M.change_relative_absolute()
+  local cursor = vim.api.nvim_win_get_cursor(0)
+  local current_node = M.get_ts_node_at(0, { col = cursor[2], row = cursor[1] })
+  if not current_node or current_node:type() ~= "string_fragment" then
+    vim.notify("Not on string fragment")
+    return
+  end
+  local path = vim.treesitter.get_node_text(current_node, 0)
+
+  local absolute_path = M.change_relative_absolute_string(path)
 
   local start_row, start_col, end_row, end_col = current_node:range()
 
