@@ -59,8 +59,8 @@ return packer.startup(function(use)
   -- Telescope
   use("nvim-telescope/telescope.nvim")
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-  use("windwp/nvim-spectre")
   use("nvim-telescope/telescope-project.nvim")
+  use("windwp/nvim-spectre")
 
   -- Session management
   use("rmagatti/auto-session")
@@ -87,6 +87,7 @@ return packer.startup(function(use)
   use("tpope/vim-fugitive")
   use("ruifm/gitlinker.nvim")
   use("lewis6991/gitsigns.nvim")
+  use("akinsho/git-conflict.nvim")
 
   -- Utils
   use("lewis6991/impatient.nvim")
@@ -108,7 +109,6 @@ return packer.startup(function(use)
   use("kevinhwang91/nvim-bqf")
   use("dmmulroy/tsc.nvim")
   use("gbprod/yanky.nvim")
-  use("gabrielpoca/replacer.nvim")
   use("KostkaBrukowa/nvim-cursorword") -- fork of xiyaowong/nvim-cursorword with treesitter support
   use("~/Documents/Praca/definition-or-references.nvim")
 
@@ -134,7 +134,7 @@ return packer.startup(function(use)
   use({ "git@github.com:allegro-internal/vscode-allegro-metrum", branch = "neovim" })
   use("~/Documents/Praca/typescript-tools.nvim")
   use("luckasRanarison/clear-action.nvim")
-  use("echasnovski/mini.pick")
+  use("David-Kunz/gen.nvim")
   -- Folding
   use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
   use({ "stevearc/aerial.nvim" })

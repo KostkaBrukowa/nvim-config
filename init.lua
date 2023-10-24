@@ -35,6 +35,7 @@ require("dupa.lsp-saga")
 require("dupa.printer")
 -- require("dupa.copilot")
 require("dupa.yanky")
+require("dupa.llms")
 
 require("dupa.typescript-tools")
 
