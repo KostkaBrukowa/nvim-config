@@ -29,9 +29,9 @@ keymap("", "E", "9k", opts)
 keymap("", "n", "j", opts)
 keymap("", "e", "k", opts)
 keymap("", "j", "e", opts)
-keymap("", "k", "n", opts)
 keymap("", "J", "E", opts)
-keymap("", "K", "N", opts)
+vim.keymap.set({ "n", "x", "o" }, "k", require("improved-search").stable_next) -- keymap("", "k", "n", opts)
+vim.keymap.set({ "n", "x", "o" }, "K", require("improved-search").stable_previous) -- keymap("", "K", "N", opts)
 
 keymap("n", "Y", "y$", opts)
 
@@ -114,6 +114,9 @@ vim.keymap.set("n", "<leader>uxx", require("substitute.exchange").line, { norema
 vim.keymap.set("x", "<leader>ux", require("substitute.exchange").visual, { noremap = true })
 vim.keymap.set("n", "<leader>uxc", require("substitute.exchange").cancel, { noremap = true })
 
+vim.keymap.set({ "n", "x", "o" }, "k", require("improved-search").stable_next)
+vim.keymap.set({ "n", "x", "o" }, "K", require("improved-search").stable_previous)
+
 vim.keymap.set("n", "<LeftMouse>", function() end)
 
 -- Stops contiuing comment after 'o'
@@ -121,16 +124,3 @@ vim.cmd("autocmd FileType * setlocal formatoptions-=o")
 vim.cmd("autocmd FileType toggleterm,NvimTree,fugitive,qf setlocal nospell")
 vim.cmd("autocmd InsertEnter * CursorWordDisable")
 vim.cmd("autocmd InsertLeave * CursorWordEnable")
-
--- https://stackoverflow.com/questions/8845400/vim-wiping-out-buffers-editing-nonexistent-files
-vim.cmd([[
-function s:WipeBuffersWithoutFiles()
-    let bufs=filter(range(1, bufnr('$')), 'bufexists(v:val) && '.
-                                          \'empty(getbufvar(v:val, "&buftype")) && '.
-                                          \'!filereadable(bufname(v:val))')
-    if !empty(bufs)
-        execute 'bwipeout' join(bufs)
-    endif
-endfunction
-command DeleteBuffersWithoutFile call s:WipeBuffersWithoutFiles()
-]])
