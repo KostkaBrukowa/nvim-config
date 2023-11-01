@@ -66,19 +66,15 @@ function M.open_saved_project_picker()
       actions.select_default:replace(function()
         actions.close(prompt_bufnr)
         local selection_value = action_state.get_selected_entry().value
-        local selection_title = action_state.get_selected_entry().title
 
         local handle_select_choice = function(picked_option)
           if picked_option == "This window" then
             vim.cmd("e " .. selection_value)
             vim.cmd("cd " .. selection_value)
-          elseif picked_option == "New window" then
-            print(vim.inspect(selection_value))
-            vim.cmd(
-              "silent ! kitty -d " .. selection_value .. " --single-instance --instance-group 100 &"
-            )
           elseif picked_option == "New tab" then
-            vim.cmd("! kitty @ --to=$KITTY_LISTEN_ON launch --type=tab --cwd=" .. selection_value)
+            vim.cmd(
+              "silent! kitty @ --to=$KITTY_LISTEN_ON launch --type=tab --cwd=" .. selection_value
+            )
           end
         end
 

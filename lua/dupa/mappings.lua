@@ -53,6 +53,8 @@ keymap("n", "<leader>rI", "<leader>r$", { noremap = false })
       local time_opened_match = string.match(buffer, "%s*(%d+) seconds?") or string.match(buffer, "%d%d?:%d%d?:%d%d?")
       local open_by_lsp = string.match(buffer, "line 0$")
       if match and not open_by_lsp and time_opened_match then
+        table.remove(results, 1)
+
 --]]
 keymap(
   "n",
@@ -124,3 +126,9 @@ vim.cmd("autocmd FileType * setlocal formatoptions-=o")
 vim.cmd("autocmd FileType toggleterm,NvimTree,fugitive,qf setlocal nospell")
 vim.cmd("autocmd InsertEnter * CursorWordDisable")
 vim.cmd("autocmd InsertLeave * CursorWordEnable")
+
+vim.api.nvim_create_autocmd({ "VimEnter" }, {
+  callback = function()
+    vim.api.nvim_command("silent! kitty @ set-tab-title nvim " .. vim.fn.getcwd())
+  end,
+})

@@ -1,12 +1,12 @@
 require("utils.module_utils")
 
+require("dupa.packer-plugins")
 require("dupa.colorscheme")
 require("dupa.options")
 require("dupa.mappings")
 require("dupa.which-key")
 require("dupa.lualine")
 
-require("dupa.packer-plugins")
 require("dupa.treesitter")
 require("dupa.nvim-tree")
 require("dupa.telescope")
@@ -35,7 +35,6 @@ require("dupa.lsp-saga")
 require("dupa.printer")
 -- require("dupa.copilot")
 require("dupa.yanky")
-require("dupa.llms")
 
 require("dupa.typescript-tools")
 

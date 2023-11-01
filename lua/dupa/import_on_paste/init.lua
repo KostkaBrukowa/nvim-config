@@ -28,6 +28,11 @@ local add_missing_imports = function(diagnostics)
     return
   end
 
+  if not diagnostics then
+    log.trace("No diagnostics provided")
+    return
+  end
+
   -- get all diagnostics in file after paste
   local missing_import_diagnostics = diagnostic.get_all_missing_import_diagnostics_from_range(
     cursor_position_before_paste,

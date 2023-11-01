@@ -1,5 +1,5 @@
 local cmp = require("cmp")
-local ASquareRight = vim.fn.has("macunix") == 1 and "≥" or "<A->>"
+local ASquareRight = vim.fn.has("macunix") == 1 and "ä" or "<A->>"
 
 local definition_or_references = require("definition-or-references").definition_or_references
 
