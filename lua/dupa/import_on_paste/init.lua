@@ -30,6 +30,7 @@ local add_missing_imports = function(diagnostics)
 
   if not diagnostics then
     log.trace("No diagnostics provided")
+    vim.notify('No diagnostics returned')
     return
   end
 
@@ -75,7 +76,7 @@ local add_missing_imports = function(diagnostics)
     vim.defer_fn(function()
       typescript_tools.organize_imports(true) -- sync true
 
-      vim.lsp.buf.format({ timeout_ms = 60000 })
+      -- vim.lsp.buf.format({ timeout_ms = 60000 })
     end, 100)
   end
 end

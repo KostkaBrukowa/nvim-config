@@ -33,8 +33,10 @@ require("dupa.aerial")
 require("dupa.other_plugins")
 require("dupa.lsp-saga")
 require("dupa.printer")
--- require("dupa.copilot")
+require("dupa.copilot")
 require("dupa.yanky")
+-- require("dupa.no-neck-pain")
+require("dupa.autocommands")
 
 require("dupa.typescript-tools")
 

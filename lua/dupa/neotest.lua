@@ -4,12 +4,15 @@ if not neotest then
   return
 end
 
+require("neotest.logging")
+
 require("neotest").setup({
   adapters = {
     require("neotest-jest")({
-      jest_test_discovery = true,
+      jest_test_discovery = false,
     }),
     require("neotest-plenary"),
+    -- require("neotest-playwright").adapter(),
   },
   quickfix = {
     enabled = false,
@@ -24,10 +27,10 @@ require("neotest").setup({
   },
   discovery = {
     enabled = false,
-    concurrent = 1,
-    filter_dir = function()
-      return false
-    end,
+    -- concurrent = 1,
+    -- filter_dir = function()
+    --   return false
+    -- end,
   },
   summary = {
     mappings = {

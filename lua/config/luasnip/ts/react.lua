@@ -36,14 +36,11 @@ return {
   ),
   snippet(
     "ustate",
-    fmt(
-      "const [{}, set{}] = useState()",
-      {
-        i(1),
-        utils.mirror(1, function(args)
-          return args[1][1]:gsub("^%l", string.upper)
-        end),
-      }
-    )
+    fmt("const [{}, set{}] = useState()", {
+      i(1),
+      utils.mirror(1, function(args)
+        return args[1][1]:gsub("^%l", string.upper)
+      end),
+    })
   ),
 }

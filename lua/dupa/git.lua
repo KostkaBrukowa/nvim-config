@@ -1,8 +1,7 @@
 local signs = safe_require("gitsigns")
 local git_linker = safe_require("gitlinker")
-local utils = safe_require("utils")
 
-if not signs or not utils or not git_linker then
+if not signs or not git_linker then
   return
 end
 
@@ -44,8 +43,9 @@ signs.setup({
 })
 
 -- Add jira task to commit message
-utils.create_onetime_autocmd("FileType", {
+vim.api.nvim_create_autocmd("FileType", {
   pattern = "gitcommit",
+  group = vim.api.nvim_create_augroup("git-commit-jira", { clear = true }),
   callback = function()
     local content = vim.api.nvim_buf_get_lines(0, 0, -1, false)[1]
 

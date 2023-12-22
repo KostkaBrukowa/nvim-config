@@ -82,11 +82,10 @@ end)
 
 -- remove old buffers to prevent alternate file
 api.events.subscribe(api.events.Event.NodeRenamed, function(data)
-  local bufremove = require("mini.bufremove")
   for _, buf in pairs(vim.api.nvim_list_bufs()) do
     local buf_name = vim.api.nvim_buf_get_name(buf)
-    if buf_name == data.old_path then
-      bufremove.delete(buf, true)
+    if buf_name == data.old_name then
+      vim.api.nvim_buf_delete(buf, { force = true })
     end
   end
 end)

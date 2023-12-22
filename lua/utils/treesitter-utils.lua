@@ -55,13 +55,14 @@ function M.goto_translation()
   if translation_found == 0 then
     local handle_select_choice = function(picked_option)
       if picked_option == "Yes" then
-        vim.api.nvim_buf_set_lines(
-          0,
-          -1,
-          -1,
-          false,
-          { " ", 'msgid "' .. name .. '"', 'msgstr "' .. name .. '"' }
-        )
+        vim.api.nvim_command('! npx @allegro/i18n-tools add "' .. name .. '" "' .. name .. '"')
+        -- vim.api.nvim_buf_set_lines(
+        --   0,
+        --   -1,
+        --   -1,
+        --   false,
+        --   { " ", 'msgid "' .. name .. '"', 'msgstr "' .. name .. '"' }
+        -- )
       end
     end
 
@@ -80,7 +81,7 @@ local EXPORT_QUERY = [[
     (export_statement (declaration (variable_declarator (identifier) @export_name)))
 
     ; export class Name ...
-    (export_statement (declaration (type_identifier) @export_name))
+    (export_statement (class_declaration (type_identifier) @export_name))
 
     ; export default Name;
     (export_statement (identifier) @export_name)

@@ -29,6 +29,7 @@ local jsTsSnippets = {
       { i(1), i(0) }
     )
   ),
+  snippet("dob", fmt("const {} = {};", { i(0), i(1) })),
   snippet("fln", { utils.file_name(true) }),
   snippet("clg", fmt("console.log('{}', {}){};", { utils.mirror(1), i(1), i(0) })),
   luasnip.parser.parse_snippet(

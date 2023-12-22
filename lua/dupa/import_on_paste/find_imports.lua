@@ -45,6 +45,10 @@ local function find_all_import_export_specifiers_nodes(source_bufnr)
   local lang = parsers.get_buf_lang(source_bufnr)
   local root = ts_utils.get_root_for_position(1, 1, parsers.get_parser(source_bufnr, lang))
 
+  if not root then
+    return {}, {}
+  end
+
   local all_import_names_query = vim.treesitter.query.parse(lang, IMPORTS_QUERY)
 
   local import_name_nodes = {}

@@ -51,12 +51,16 @@ local mappings = {
   ["p"] = { format_command, "Format with prettier" },
   ["s"] = { "<Plug>(leap-forward-to)", "Leap forward" },
   ["S"] = { "<Plug>(leap-backward-to)", "Leap backwards" },
-  ["c"] = { "<cmd>DiffviewToggle<cr>", "Toggle diffview" },
+  ["c"] = {
+    name = "Changes in project",
+    ["o"] = { "<cmd>DiffviewOpen<cr>", "Open diffview" },
+    ["c"] = { "<cmd>DiffviewClose<cr>", "Close diffview" },
+  },
   ["o"] = {
     name = "Other files",
     ["t"] = { "<cmd>lua require('other-nvim').open('test')<CR>", "Find test file" },
     ["s"] = { "<cmd>lua require('other-nvim').open('style')<CR>", "Find style file" },
-    ["m"] = {
+    ["p"] = {
       "<cmd>lua require('other-nvim').open('stylesheet')<CR>",
       "Find module less/pcss file",
     },
@@ -74,6 +78,10 @@ local mappings = {
     name = "Find",
     ["f"] = {
       "<cmd>lua require('telescope.builtin').live_grep({ glob_pattern = '!package-lock.json'})<CR>",
+      "Live grep",
+    },
+    ["t"] = {
+      "<cmd>lua require('telescope.builtin').live_grep({ glob_pattern = '!*.spec.*' })<CR>",
       "Live grep",
     },
     ["l"] = { "<cmd>lua require('telescope.builtin').resume()<CR>", "Last find window" },
@@ -240,6 +248,10 @@ local visual_opts = {
 local visual_mappings = {
   ["y"] = { '"+y', "Yank to global register" },
   ["f"] = {
+    ["f"] = {
+      "<cmd>lua require('utils.telescope-custom-pickers').find_visual()<CR>",
+      "Find word under cursor",
+    },
     ["y"] = {
       "<cmd>lua require('telescope').extensions.yank_history.yank_history()<cr>",
       "Open yank history",

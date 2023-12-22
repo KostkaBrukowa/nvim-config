@@ -51,7 +51,7 @@ return packer.startup(function(use)
 
   -- Treesitter
   use("nvim-treesitter/nvim-treesitter")
-  use("nvim-treesitter/nvim-treesitter-context")
+  -- use("nvim-treesitter/nvim-treesitter-context")
 
   -- Keymaps
   use("folke/which-key.nvim")
@@ -105,15 +105,16 @@ return packer.startup(function(use)
   use("bronson/vim-visual-star-search")
   use("runiq/neovim-throttle-debounce")
   use("zbirenbaum/copilot.lua")
+  use("sourcegraph/sg.nvim")
   use("kevinhwang91/nvim-bqf")
   use("dmmulroy/tsc.nvim")
   use("gbprod/yanky.nvim")
-  use("KostkaBrukowa/nvim-cursorword") -- fork of xiyaowong/nvim-cursorword with treesitter support
-  use("David-Kunz/gen.nvim")
+  -- use("KostkaBrukowa/nvim-cursorword") -- fork of xiyaowong/nvim-cursorword with treesitter support
   use("backdround/improved-search.nvim")
+  use("shortcuts/no-neck-pain.nvim")
   use("KostkaBrukowa/definition-or-references.nvim")
 
-  use("echasnovski/mini.ai")
+  use("KostkaBrukowa/mini.ai")
   use("echasnovski/mini.bufremove")
 
   -- UI
@@ -132,7 +133,8 @@ return packer.startup(function(use)
   use("antosha417/nvim-lsp-file-operations")
   use("j-hui/fidget.nvim")
   use("b0o/schemastore.nvim")
-  use({ "git@github.com:allegro-internal/vscode-allegro-metrum" })
+  use("zeioth/garbage-day.nvim")
+  use("git@github.com:allegro-internal/vscode-allegro-metrum")
   use("pmizio/typescript-tools.nvim")
   use("KostkaBrukowa/clear-action.nvim")
 
@@ -148,6 +150,7 @@ return packer.startup(function(use)
     },
     requires = {
       "haydenmeade/neotest-jest",
+      "thenbe/neotest-playwright",
       "nvim-neotest/neotest-plenary",
     },
   })

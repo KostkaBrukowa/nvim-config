@@ -170,6 +170,12 @@ cmp.setup({
       border = "rounded",
     },
   },
+  sources = {
+    { name = "cody" },
+    { name = "nvim_lsp" },
+    { name = "buffer" },
+    { name = "path" },
+  },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,

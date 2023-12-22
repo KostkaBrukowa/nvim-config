@@ -34,11 +34,11 @@ local function ts_tests(suffix)
     },
     {
       pattern = "/(.*)/__tests__/(.*)." .. suffix .. ".([tj]sx?)$",
-      target = add_all_extensions({ target = "/%1/%2", context = "test" }),
+      target = add_all_extensions({ target = "/%1/%2", context = "component" }),
     },
     {
       pattern = "/(.*)/(.*)." .. test_ext .. ".([tj]sx?)$",
-      target = add_all_extensions({ target = "/%1/%2", context = "test" }),
+      target = add_all_extensions({ target = "/%1/%2", context = "component" }),
     },
   }
 end
@@ -54,12 +54,7 @@ other.setup({
           target = "/%1/%2.style.ts",
           context = "style",
         },
-        -- Component.tsx -> Component.module.pcss
-        {
-          target = "/%1/*.module.pcss",
-          context = "stylesheet",
-        },
-        -- Component.tsx -> Component.module.pcss
+        -- Component.tsx -> Component.pcss
         {
           target = "/%1/*.pcss",
           context = "stylesheet",
@@ -105,10 +100,6 @@ other.setup({
       target = {
         { -- Component.style.ts -> Component.module.less
           target = "/%1/%2.module.less",
-          context = "stylesheet",
-        },
-        { -- Component.style.ts -> Component.module.pcss
-          target = "/%1/%2.module.pcss",
           context = "stylesheet",
         },
         { -- Component.style.ts -> Component.pcss

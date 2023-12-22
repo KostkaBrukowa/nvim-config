@@ -22,11 +22,11 @@ end
 -- Checkout to searched branch and creates one if branch is remote and doesnt exist
 --[[
   This was modified in telescope.nvim to 
-  local output = utils.get_os_command_output(
-    { "git", "for-each-ref", "--perl", "--format", format, "--sort", "-authordate", opts.pattern },
-    opts.cwd
-  )
-    if entry.name == last_checkedout_brach_name then
+    .. "%(objectname)"
+
+  local last_branch_hash = get_git_command_output({ "rev-parse", "@{-1}" }, {})[1]
+  ...
+    if entry.objectname == last_branch_hash and #entry.upstream > 0 then
       index = 1
     end
 -]]
@@ -132,6 +132,16 @@ function M.last_picker(node)
   vim.ui.input({
     prompt = "Enter a numer for picker (min. 1): ",
   }, handle_input)
+end
+
+function M.find_visual()
+  vim.cmd('noau normal! "vy"')
+  local text = vim.fn.getreg("v")
+  vim.fn.setreg("v", {})
+
+  text = string.gsub(text, "\n", "")
+
+  builtin.live_grep({ default_text = text })
 end
 
 return M

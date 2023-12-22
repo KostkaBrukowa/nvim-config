@@ -1,7 +1,3 @@
-if vim.g.goneovim then
-  return
-end
-
 require("no-neck-pain").setup({
   -- debug = true,
   width = 115,
@@ -11,6 +7,6 @@ require("no-neck-pain").setup({
     },
   },
   autocmds = {
-    enableOnVimEnter = false,
+    enableOnVimEnter = true,
   },
 })

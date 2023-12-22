@@ -5,9 +5,15 @@ local original_underline_function_show = vim.diagnostic.handlers.underline.show
 M.remove_multiline_underline_handler = function(namespace, bufnr, diagnostics, opts)
   local buf_lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
 
+  if not buf_lines then
+    original_underline_function_show(namespace, bufnr, diagnostics, opts)
+
+    return
+  end
+
   local diagnostics_without_multiline = vim.tbl_map(function(diagnostic)
     diagnostic.end_col = diagnostic.lnum == diagnostic.end_lnum and diagnostic.end_col
-      or #buf_lines[diagnostic.lnum + 1]
+      or (buf_lines[diagnostic.lnum + 1] and #buf_lines[diagnostic.lnum + 1] or 0)
     diagnostic.end_lnum = diagnostic.lnum
 
     return diagnostic

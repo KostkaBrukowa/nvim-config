@@ -1,16 +1,24 @@
 require("messages").setup()
 require("substitute").setup({})
 require("nvim-surround").setup({})
-require("package-info").setup({})
+require("package-info").setup({ autostart = false })
 require("allegro-metrum").setup({})
-require("fidget").setup()
+require("fidget").setup({
+  progress = {
+    ignore = {
+      "null-ls",
+    },
+    display = {
+      render_limit = 1, -- How many LSP messages to show at once
+    },
+  },
+})
 require("tsc").setup({})
 require("bqf").setup({})
 require("lsp-file-operations").setup({})
 vim.cmd("let g:cursorword_disable_filetypes = ['fugitive', 'NvimTree']")
+vim.cmd("let g:cursorword_disable_at_startup = v:true")
+
 require("mini.ai").setup()
-require("clear-action").setup({
-  signs = {
-    enable = false,
-  },
-})
+require("clear-action").setup({ signs = { enable = false } })
+require("sg").setup({})

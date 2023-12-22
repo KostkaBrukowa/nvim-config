@@ -3,7 +3,8 @@ local debounced_save = require("throttle-debounce").debounce_trailing(function()
 end, 150)
 
 local function save()
-  debounced_save()
+  -- debounced_save()
+  vim.cmd("wall")
 end
 
 vim.api.nvim_create_autocmd({ "FocusLost" }, {
