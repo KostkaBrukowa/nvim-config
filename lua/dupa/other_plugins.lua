@@ -17,8 +17,16 @@ require("tsc").setup({})
 require("bqf").setup({})
 require("lsp-file-operations").setup({})
 vim.cmd("let g:cursorword_disable_filetypes = ['fugitive', 'NvimTree']")
-vim.cmd("let g:cursorword_disable_at_startup = v:true")
+vim.cmd("let g:cursorword_disable_at_startup = v:false")
 
 require("mini.ai").setup()
 require("clear-action").setup({ signs = { enable = false } })
-require("sg").setup({})
+require("diagflow").setup({
+  scope = "line",
+  placement = "inline",
+  toggle_event = { "InsertEnter", "InsertLeave" }, -- if InsertEnter, can toggle the diagnostics on inserts
+  format = function(diagnostic)
+    return diagnostic.source and diagnostic.source .. ": " .. diagnostic.message
+      or diagnostic.message
+  end,
+})

@@ -46,7 +46,11 @@ local format_command = "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000 })<CR>"
 
 local mappings = {
   ["w"] = { "<cmd>wall<CR>", "Save" },
-  ["q"] = { "<cmd>wall<CR><cmd>qall<CR>", "Save and Quit" },
+  ["e"] = { "<cmd>e<CR>", "Reopen file" },
+  ["q"] = {
+    "<cmd>wall<CR><cmd>lua vim.defer_fn(function() vim.cmd('qall') end, 100)<CR>",
+    "Save and Quit",
+  },
   ["x"] = { "<cmd>quit<CR>", "Close buffer" },
   ["p"] = { format_command, "Format with prettier" },
   ["s"] = { "<Plug>(leap-forward-to)", "Leap forward" },

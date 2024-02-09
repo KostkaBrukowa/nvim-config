@@ -12,9 +12,21 @@ M.remove_multiline_underline_handler = function(namespace, bufnr, diagnostics, o
   end
 
   local diagnostics_without_multiline = vim.tbl_map(function(diagnostic)
+    if diagnostic._tags and diagnostic._tags.unnecessary == true then
+      return diagnostic
+    end
+
+    -- only highlight first line of multiline diagnostics
     diagnostic.end_col = diagnostic.lnum == diagnostic.end_lnum and diagnostic.end_col
       or (buf_lines[diagnostic.lnum + 1] and #buf_lines[diagnostic.lnum + 1] or 0)
     diagnostic.end_lnum = diagnostic.lnum
+
+    -- only hightlight first word of diagnostic
+    local line = vim.api.nvim_buf_get_lines(bufnr, diagnostic.lnum, diagnostic.lnum + 1, false)[1]
+    local diagnostic_range = string.sub(line, diagnostic.col + 1, diagnostic.end_col)
+    local first_word = vim.split(diagnostic_range, "[ %(),]", {})[1]
+    diagnostic.end_col = diagnostic.col + #first_word
+    -- print([[[custom-lsp-handlers.lua:24] -- diagnostic: ]] .. vim.inspect(diagnostic))
 
     return diagnostic
   end, vim.deepcopy(diagnostics))
@@ -26,6 +38,7 @@ local original_virtual_text_function_show = vim.diagnostic.handlers.virtual_text
 
 M.add_source_to_virtual_text_handler = function(namespace, bufnr, diagnostics, opts)
   local diagnostics_with_source = vim.tbl_map(function(diagnostic)
+    diagnostic.message = string.sub(diagnostic.message, 0, 30)
     diagnostic.message = diagnostic.source and diagnostic.source .. ": " .. diagnostic.message
       or diagnostic.message
 

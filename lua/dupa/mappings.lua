@@ -96,6 +96,9 @@ keymap("n", "<Backspace>", "<C-^>", opts)
 
 keymap("n", "U", "<c-r>", opts)
 
+keymap("i", "<A-Backspace>", "<ESC>lcb", opts)
+keymap("n", "<A-Backspace>", "lcb<ESC>", opts)
+
 keymap("n", "m", "mm", opts)
 vim.keymap.set("n", "<leader>m", function()
   local m_mark = vim.api.nvim_buf_get_mark(0, "m")

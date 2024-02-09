@@ -30,6 +30,7 @@ lsp.format_on_save({
       "javascriptreact",
       "typescriptreact",
       "postcss",
+      "json",
     },
   },
 })
@@ -98,9 +99,7 @@ vim.diagnostic.config({
   update_in_insert = false,
   severity_sort = true,
   signs = false,
-  virtual_text = {
-    prefix = "  ",
-  },
+  virtual_text = false,
 })
 
 vim.diagnostic.handlers.underline = {
@@ -169,12 +168,6 @@ cmp.setup({
     documentation = { -- no border; native-style scrollbar
       border = "rounded",
     },
-  },
-  sources = {
-    { name = "cody" },
-    { name = "nvim_lsp" },
-    { name = "buffer" },
-    { name = "path" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,

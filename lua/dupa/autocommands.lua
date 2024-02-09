@@ -7,11 +7,11 @@ vim.cmd("autocmd FileType toggleterm,NvimTree,fugitive,qf setlocal nospell")
 -- vim.cmd("autocmd InsertEnter * CursorWordDisable")
 -- vim.cmd("autocmd InsertLeave * CursorWordEnable")
 
-vim.api.nvim_create_autocmd({ "VimEnter" }, {
-  callback = function()
-    vim.api.nvim_command("silent! kitty @ set-tab-title nvim " .. vim.fn.getcwd())
-  end,
-})
+-- vim.api.nvim_create_autocmd({ "VimEnter" }, {
+--   callback = function()
+--     vim.api.nvim_command("silent! kitty @ set-tab-title nvim " .. vim.fn.getcwd())
+--   end,
+-- })
 
 local IMPORTS_QUERY = [[
     ; import
