@@ -44,7 +44,7 @@ return packer.startup(function(use)
 
   -- File explorer
   use("nvim-tree/nvim-web-devicons")
-  use("nvim-tree/nvim-tree.lua")
+  use("nvim-neo-tree/neo-tree.nvim")
 
   -- Buffer and status lines
   use("nvim-lualine/lualine.nvim")
@@ -106,7 +106,6 @@ return packer.startup(function(use)
   use("runiq/neovim-throttle-debounce")
   use("zbirenbaum/copilot.lua")
   use("github/copilot.vim")
-  use("sourcegraph/sg.nvim")
   use("kevinhwang91/nvim-bqf")
   use("dmmulroy/tsc.nvim")
   use("gbprod/yanky.nvim")
@@ -114,6 +113,7 @@ return packer.startup(function(use)
   use("backdround/improved-search.nvim")
   use("shortcuts/no-neck-pain.nvim")
   use("KostkaBrukowa/definition-or-references.nvim")
+  use("johmsalas/text-case.nvim")
 
   use("KostkaBrukowa/mini.ai")
   use("echasnovski/mini.bufremove")

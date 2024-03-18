@@ -6,6 +6,15 @@ if not signs or not git_linker then
 end
 
 signs.setup({
+  on_attach = function(bufnr)
+    -- do not attach the fugitive buffers
+    if
+      vim.startswith(vim.api.nvim_buf_get_name(bufnr), "fugitive://")
+      or vim.startswith(vim.api.nvim_buf_get_name(bufnr), "term://")
+    then
+      return false
+    end
+  end,
   attach_to_untracked = true,
   signs = {
     add = { hl = "GitSignsAdd", text = "█", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
@@ -63,16 +72,6 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_user_command("DiffviewToggle", function()
-  local view = require("diffview.lib").get_current_view()
-
-  if view then
-    vim.cmd("DiffviewClose")
-  else
-    vim.cmd("DiffviewOpen")
-  end
-end, {})
-
 vim.api.nvim_create_user_command("GitNewBranch", function()
   vim.ui.input({
     prompt = "New branch name",
@@ -89,33 +88,54 @@ git_linker.setup({
   mappings = nil,
 })
 
-require("diffview").setup({
-  enhanced_diff_hl = true,
-  keymaps = {
-    view = {
-      ["<leader>co"] = false,
-      ["<leader>ct"] = false,
-      ["<leader>cb"] = false,
-      ["<leader>ca"] = false,
-      ["<leader>cO"] = false,
-      ["<leader>cT"] = false,
-      ["<leader>cB"] = false,
-      ["<leader>cA"] = false,
-    },
-    file_panel = {
-      ["<leader>cO"] = false,
-      ["<leader>cT"] = false,
-      ["<leader>cB"] = false,
-      ["<leader>cA"] = false,
-    },
-  },
-  hooks = {
-    diff_buf_read = function(bufnr) end,
-    view_opened = function()
-      vim.cmd("UfoDisable")
-    end,
-    view_closed = function()
-      vim.cmd("UfoEnable")
-    end,
-  },
-})
+-- local keymap_amend = require("keymap-amend")
+--
+-- keymap_amend("n", "<TAB>", function(original)
+--   if vim.api.nvim_buf_get_name(0):find("^fugitive") then
+--     -- send <CR> to open the file under the cursor
+--     vim.api.nvim_input("<c-w><c-n>jdv")
+--   else
+--     original()
+--   end
+-- end)
+
+-- vim.api.nvim_create_user_command("DiffviewToggle", function()
+--   local view = require("diffview.lib").get_current_view()
+--
+--   if view then
+--     vim.cmd("DiffviewClose")
+--   else
+--     vim.cmd("DiffviewOpen")
+--   end
+-- end, {})
+--
+-- require("diffview").setup({
+--   enhanced_diff_hl = true,
+--   keymaps = {
+--     view = {
+--       ["<leader>co"] = false,
+--       ["<leader>ct"] = false,
+--       ["<leader>cb"] = false,
+--       ["<leader>ca"] = false,
+--       ["<leader>cO"] = false,
+--       ["<leader>cT"] = false,
+--       ["<leader>cB"] = false,
+--       ["<leader>cA"] = false,
+--     },
+--     file_panel = {
+--       ["<leader>cO"] = false,
+--       ["<leader>cT"] = false,
+--       ["<leader>cB"] = false,
+--       ["<leader>cA"] = false,
+--     },
+--   },
+--   hooks = {
+--     diff_buf_read = function(bufnr) end,
+--     view_opened = function()
+--       vim.cmd("UfoDisable")
+--     end,
+--     view_closed = function()
+--       vim.cmd("UfoEnable")
+--     end,
+--   },
+-- })

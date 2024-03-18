@@ -20,6 +20,10 @@ require("tokyonight").setup({
     highlights["DiagnosticUnderlineHint"] = { sp = "#4fd6be", undercurl = true }
     highlights["DiagnosticUnderlineInfo"] = { sp = "#0db9d7", undercurl = true }
     highlights["DiagnosticUnderlineWarn"] = { sp = "#ffc777", undercurl = true }
+
+    highlights["GitGutterChange"] = { fg = "" }
+    highlights["NeoTreeGitModified"] = { fg = "#7f88b4" }
+    highlights["NeoTreeDotFile"] = { fg = "#7f88b4" }
   end,
 })
 

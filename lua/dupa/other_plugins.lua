@@ -3,16 +3,6 @@ require("substitute").setup({})
 require("nvim-surround").setup({})
 require("package-info").setup({ autostart = false })
 require("allegro-metrum").setup({})
-require("fidget").setup({
-  progress = {
-    ignore = {
-      "null-ls",
-    },
-    display = {
-      render_limit = 1, -- How many LSP messages to show at once
-    },
-  },
-})
 require("tsc").setup({})
 require("bqf").setup({})
 require("lsp-file-operations").setup({})
@@ -21,12 +11,5 @@ vim.cmd("let g:cursorword_disable_at_startup = v:false")
 
 require("mini.ai").setup()
 require("clear-action").setup({ signs = { enable = false } })
-require("diagflow").setup({
-  scope = "line",
-  placement = "inline",
-  toggle_event = { "InsertEnter", "InsertLeave" }, -- if InsertEnter, can toggle the diagnostics on inserts
-  format = function(diagnostic)
-    return diagnostic.source and diagnostic.source .. ": " .. diagnostic.message
-      or diagnostic.message
-  end,
-})
+require('textcase').setup {}
+

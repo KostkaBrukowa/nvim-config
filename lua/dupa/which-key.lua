@@ -52,14 +52,10 @@ local mappings = {
     "Save and Quit",
   },
   ["x"] = { "<cmd>quit<CR>", "Close buffer" },
+  ["X"] = { "<cmd>%bd|e#<CR>", "Close all buffers except current one" },
   ["p"] = { format_command, "Format with prettier" },
   ["s"] = { "<Plug>(leap-forward-to)", "Leap forward" },
   ["S"] = { "<Plug>(leap-backward-to)", "Leap backwards" },
-  ["c"] = {
-    name = "Changes in project",
-    ["o"] = { "<cmd>DiffviewOpen<cr>", "Open diffview" },
-    ["c"] = { "<cmd>DiffviewClose<cr>", "Close diffview" },
-  },
   ["o"] = {
     name = "Other files",
     ["t"] = { "<cmd>lua require('other-nvim').open('test')<CR>", "Find test file" },
@@ -68,7 +64,7 @@ local mappings = {
       "<cmd>lua require('other-nvim').open('stylesheet')<CR>",
       "Find module less/pcss file",
     },
-    ["c"] = { "<cmd>lua require('other-nvim').open('component')<CR>", "Find module less/pcss file" },
+    ["c"] = { "<cmd>lua require('other-nvim').open('component')<CR>", "Find component" },
   },
   ["t"] = {
     name = "File Explorer",
@@ -140,10 +136,8 @@ local mappings = {
   },
   ["u"] = {
     name = "Utils",
-    ["d"] = { "<cmd>Glow<CR>", "Preview Markdown" },
-    ["z"] = { "<cmd>TZAtaraxis<CR>", "Zen mode" },
-    ["c"] = { "<cmd>%bd|e#<CR><CR>", "Close all buffers except active" },
     ["m"] = { "<cmd>Messages<cr>", "Open messages view" },
+    ["c"] = { "<cmd>TextCaseOpenTelescope<cr>", "Open telescope with text case changer" },
     ["l"] = {
       name = "LSP",
       ["r"] = {
@@ -251,6 +245,9 @@ local visual_opts = {
 
 local visual_mappings = {
   ["y"] = { '"+y', "Yank to global register" },
+  ["u"] = {
+    ["c"] = { "<cmd>TextCaseOpenTelescope<cr>", "Open telescope with text case changer" },
+  },
   ["f"] = {
     ["f"] = {
       "<cmd>lua require('utils.telescope-custom-pickers').find_visual()<CR>",

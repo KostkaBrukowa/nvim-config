@@ -42,7 +42,7 @@ telescope.setup({
   pickers = {
     live_grep = {
       entry_maker = grep_entry_maker,
-      additional_args = { "--trim" },
+      additional_args = { "--trim", "--hidden" },
     },
     oldfiles = {
       cwd_only = false,
@@ -50,6 +50,7 @@ telescope.setup({
     },
     find_files = {
       hidden = true,
+      previewer = false,
     },
   },
   defaults = {
@@ -94,3 +95,4 @@ telescope.setup({
 telescope.load_extension("fzf")
 telescope.load_extension("project")
 telescope.load_extension("yank_history")
+telescope.load_extension("textcase")

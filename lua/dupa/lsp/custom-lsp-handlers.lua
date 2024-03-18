@@ -21,12 +21,12 @@ M.remove_multiline_underline_handler = function(namespace, bufnr, diagnostics, o
       or (buf_lines[diagnostic.lnum + 1] and #buf_lines[diagnostic.lnum + 1] or 0)
     diagnostic.end_lnum = diagnostic.lnum
 
-    -- only hightlight first word of diagnostic
+    -- only highlight first word of diagnostic
     local line = vim.api.nvim_buf_get_lines(bufnr, diagnostic.lnum, diagnostic.lnum + 1, false)[1]
-    local diagnostic_range = string.sub(line, diagnostic.col + 1, diagnostic.end_col)
-    local first_word = vim.split(diagnostic_range, "[ %(),]", {})[1]
-    diagnostic.end_col = diagnostic.col + #first_word
-    -- print([[[custom-lsp-handlers.lua:24] -- diagnostic: ]] .. vim.inspect(diagnostic))
+    local diagnostic_range_string = string.sub(line, diagnostic.col + 1, diagnostic.end_col)
+    local first_word = vim.split(diagnostic_range_string, "[ %(),:]", {})[1]
+    -- sometimes there are diagnostic that has 1 letter and are ignored by split above and we want to highlight them
+    diagnostic.end_col = diagnostic.col + math.max(#first_word, 1)
 
     return diagnostic
   end, vim.deepcopy(diagnostics))

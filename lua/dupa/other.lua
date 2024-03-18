@@ -56,7 +56,7 @@ other.setup({
         },
         -- Component.tsx -> Component.pcss
         {
-          target = "/%1/*.pcss",
+          target = "/%1/%2.pcss",
           context = "stylesheet",
         },
         -- Component.tsx -> Component.module.less

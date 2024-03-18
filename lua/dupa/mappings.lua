@@ -9,9 +9,6 @@ vim.g.maplocalleader = " "
 
 keymap("v", "p", '"_dP', opts)
 
--- Tree
-keymap("n", "<C-1>", "<cmd>NvimTreeToggle<CR>", opts)
-
 -- Text editing
 -- Faster movement to end and beggining of the line
 keymap("n", "I", "$", opts)
@@ -35,9 +32,6 @@ vim.keymap.set({ "n", "x", "o" }, "K", require("improved-search").stable_previou
 
 keymap("n", "Y", "y$", opts)
 
--- make enter below and go back to original position
-keymap("n", "<Enter>", "o<ESC>k", opts)
-keymap("n", "<S-Enter>", "O<ESC>j", opts)
 
 -- change current word and allow to use . for changing next words
 keymap("n", "c*", "*Ncgn", opts)
