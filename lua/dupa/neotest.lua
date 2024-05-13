@@ -4,12 +4,13 @@ if not neotest then
   return
 end
 
-require("neotest.logging")
+local configurationJestCommand = require("neoconf").get("jestRunCommand")
 
 require("neotest").setup({
   adapters = {
     require("neotest-jest")({
       jest_test_discovery = false,
+      jestCommand = configurationJestCommand,
     }),
     require("neotest-plenary"),
     -- require("neotest-playwright").adapter(),

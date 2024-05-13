@@ -32,7 +32,6 @@ vim.keymap.set({ "n", "x", "o" }, "K", require("improved-search").stable_previou
 
 keymap("n", "Y", "y$", opts)
 
-
 -- change current word and allow to use . for changing next words
 keymap("n", "c*", "*Ncgn", opts)
 
@@ -52,13 +51,7 @@ keymap("n", "<leader>rI", "<leader>r$", { noremap = false })
 --]]
 keymap(
   "n",
-  "<C-Tab>",
-  "<cmd>lua require('telescope.builtin').oldfiles({file_ignore_patterns = {}})<CR>",
-  {}
-)
-keymap(
-  "n",
-  "<A-Tab>",
+  "<Tab>",
   "<cmd>lua require('telescope.builtin').oldfiles({file_ignore_patterns = {}})<CR>",
   {}
 )

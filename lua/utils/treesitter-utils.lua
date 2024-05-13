@@ -55,7 +55,7 @@ function M.goto_translation()
   if translation_found == 0 then
     local handle_select_choice = function(picked_option)
       if picked_option == "Yes" then
-        vim.api.nvim_command('! npx @allegro/i18n-tools add "' .. name .. '" "' .. name .. '"')
+        vim.api.nvim_command('! npx @allegro/i18n-tools add "' .. name .. '" "' .. name .. '" -t')
         -- vim.api.nvim_buf_set_lines(
         --   0,
         --   -1,

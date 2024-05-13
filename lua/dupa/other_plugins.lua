@@ -11,5 +11,4 @@ vim.cmd("let g:cursorword_disable_at_startup = v:false")
 
 require("mini.ai").setup()
 require("clear-action").setup({ signs = { enable = false } })
-require('textcase').setup {}
-
+require("textcase").setup({})

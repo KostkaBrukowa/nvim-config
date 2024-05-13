@@ -33,7 +33,7 @@ treesitter.setup({
   highlight = {
     enable = true,
     disable = function(lang, bufnr) -- Disable in large C++ buffers
-      return vim.api.nvim_buf_line_count(bufnr) > 50000
+      return vim.api.nvim_buf_line_count(bufnr) > 10000
     end,
   },
   rainbow = {
@@ -53,9 +53,9 @@ require("nvim-treesitter.configs").setup({
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = "<CR>",
-      node_incremental = "<CR>",
-      node_decremental = "<S-CR>",
+      init_selection = "<C-1>",
+      node_incremental = "<C-1>",
+      node_decremental = "<S-C-1>",
     },
   },
 })

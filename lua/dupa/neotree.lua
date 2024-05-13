@@ -1,6 +1,6 @@
 local builtin = require("telescope.builtin")
 
-vim.api.nvim_set_keymap("n", "<C-1>", "<cmd>Neotree toggle reveal<CR>", {})
+vim.api.nvim_set_keymap("n", "<CR>", "<cmd>Neotree toggle reveal<CR>", {})
 
 local M = {}
 

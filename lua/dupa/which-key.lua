@@ -126,6 +126,11 @@ local mappings = {
     ["u"] = { "<cmd>lua require('gitlinker').get_buf_range_url('n')<CR>", "Get github url/link" },
     ["f"] = { "<cmd>DiffviewFileHistory %<CR>", "File history" },
   },
+  ["c"] = {
+    name = "Changes in project",
+    ["o"] = { "<cmd>DiffviewOpen<cr>", "Open diffview" },
+    ["c"] = { "<cmd>DiffviewClose<cr>", "Close diffview" },
+  },
   ["d"] = {
     name = "Diff View",
     ["d"] = { "<cmd>diffoff<CR>", "Close fugitive diff" },

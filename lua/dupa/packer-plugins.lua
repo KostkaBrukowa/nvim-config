@@ -138,7 +138,8 @@ return packer.startup(function(use)
   use("git@github.com:allegro-internal/vscode-allegro-metrum")
   use("pmizio/typescript-tools.nvim")
   use("KostkaBrukowa/clear-action.nvim")
-  use({ "dgagn/diagflow.nvim" })
+  use("dgagn/diagflow.nvim")
+  use("folke/neoconf.nvim")
 
   -- Folding
   use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
