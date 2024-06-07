@@ -41,6 +41,7 @@ return packer.startup(function(use)
 
   -- Colorschemes
   use("folke/tokyonight.nvim")
+  use({ "briones-gabriel/darcula-solid.nvim", requires = "rktjmp/lush.nvim" })
 
   -- File explorer
   use("nvim-tree/nvim-web-devicons")
@@ -60,10 +61,16 @@ return packer.startup(function(use)
   use("nvim-telescope/telescope.nvim")
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
   use("nvim-telescope/telescope-project.nvim")
+  use({
+    "danielfalk/smart-open.nvim",
+    requires = { "kkharji/sqlite.lua", "nvim-telescope/telescope-fzy-native.nvim" },
+  })
+
   use("windwp/nvim-spectre")
 
   -- Session management
-  use("rmagatti/auto-session")
+  -- use("rmagatti/auto-session")
+  use("folke/persistence.nvim")
 
   -- CMP
   use("hrsh7th/nvim-cmp")
@@ -95,7 +102,6 @@ return packer.startup(function(use)
   use("gbprod/substitute.nvim")
   use("kylechui/nvim-surround")
   use("anuvyklack/hydra.nvim")
-  use("stevearc/stickybuf.nvim")
   use("vuki656/package-info.nvim")
   use("mbbill/undotree")
   use("rareitems/printer.nvim")
@@ -104,8 +110,8 @@ return packer.startup(function(use)
   use("rgroli/other.nvim")
   use("bronson/vim-visual-star-search")
   use("runiq/neovim-throttle-debounce")
-  use("zbirenbaum/copilot.lua")
-  use("github/copilot.vim")
+  -- use("zbirenbaum/copilot.lua")
+  -- use("github/copilot.vim")
   use("kevinhwang91/nvim-bqf")
   use("dmmulroy/tsc.nvim")
   use("gbprod/yanky.nvim")
@@ -134,16 +140,14 @@ return packer.startup(function(use)
   use("antosha417/nvim-lsp-file-operations")
   use("j-hui/fidget.nvim")
   use("b0o/schemastore.nvim")
-  use("zeioth/garbage-day.nvim")
   use("git@github.com:allegro-internal/vscode-allegro-metrum")
   use("pmizio/typescript-tools.nvim")
-  use("KostkaBrukowa/clear-action.nvim")
+  use({ "KostkaBrukowa/clear-action.nvim", branch = "feat-visual-selection-actions" })
   use("dgagn/diagflow.nvim")
   use("folke/neoconf.nvim")
 
   -- Folding
   use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
-  use({ "stevearc/aerial.nvim" })
 
   -- Testing
   use({
@@ -165,6 +169,7 @@ return packer.startup(function(use)
       "Pocco81/dap-buddy.nvim",
       "theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
+      "nvim-neotest/nvim-nio",
       {
         "microsoft/vscode-js-debug",
         run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",

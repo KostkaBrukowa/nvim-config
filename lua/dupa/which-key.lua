@@ -94,8 +94,15 @@ local mappings = {
       "<cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
       "Telescope refactorings",
     },
-    ["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
-    ["h"] = { "<cmd>lua require('telescope.builtin').command_history()<CR>", "Command history" },
+    -- ["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
+    ["p"] = {
+      "<cmd>lua require('telescope').extensions.smart_open.smart_open({cwd_only = true})<CR>",
+      "Files",
+    },
+    ["h"] = {
+      "<cmd>lua require('telescope.builtin').command_history()<CR>",
+      "Command history",
+    },
     ["o"] = {
       "<cmd>lua require('utils.telescope-custom-pickers').open_saved_project_picker()<CR>",
       "Projects",
@@ -143,6 +150,13 @@ local mappings = {
     name = "Utils",
     ["m"] = { "<cmd>Messages<cr>", "Open messages view" },
     ["c"] = { "<cmd>TextCaseOpenTelescope<cr>", "Open telescope with text case changer" },
+    ["f"] = {
+      name = "Find",
+      ["t"] = {
+        "<cmd>lua require('telescope.builtin').live_grep({ glob_pattern = '!*.spec.{ts,tsx,js,jsx}'})<CR>",
+        "Live grep without tests",
+      },
+    },
     ["l"] = {
       name = "LSP",
       ["r"] = {

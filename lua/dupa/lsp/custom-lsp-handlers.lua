@@ -23,6 +23,11 @@ M.remove_multiline_underline_handler = function(namespace, bufnr, diagnostics, o
 
     -- only highlight first word of diagnostic
     local line = vim.api.nvim_buf_get_lines(bufnr, diagnostic.lnum, diagnostic.lnum + 1, false)[1]
+
+    if not line then
+      return diagnostic
+    end
+
     local diagnostic_range_string = string.sub(line, diagnostic.col + 1, diagnostic.end_col)
     local first_word = vim.split(diagnostic_range_string, "[ %(),:]", {})[1]
     -- sometimes there are diagnostic that has 1 letter and are ignored by split above and we want to highlight them

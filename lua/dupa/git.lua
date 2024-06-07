@@ -88,54 +88,43 @@ git_linker.setup({
   mappings = nil,
 })
 
--- local keymap_amend = require("keymap-amend")
---
--- keymap_amend("n", "<TAB>", function(original)
---   if vim.api.nvim_buf_get_name(0):find("^fugitive") then
---     -- send <CR> to open the file under the cursor
---     vim.api.nvim_input("<c-w><c-n>jdv")
---   else
---     original()
---   end
--- end)
+vim.api.nvim_create_user_command("DiffviewToggle", function()
+  local view = require("diffview.lib").get_current_view()
 
--- vim.api.nvim_create_user_command("DiffviewToggle", function()
---   local view = require("diffview.lib").get_current_view()
---
---   if view then
---     vim.cmd("DiffviewClose")
---   else
---     vim.cmd("DiffviewOpen")
---   end
--- end, {})
---
--- require("diffview").setup({
---   enhanced_diff_hl = true,
---   keymaps = {
---     view = {
---       ["<leader>co"] = false,
---       ["<leader>ct"] = false,
---       ["<leader>cb"] = false,
---       ["<leader>ca"] = false,
---       ["<leader>cO"] = false,
---       ["<leader>cT"] = false,
---       ["<leader>cB"] = false,
---       ["<leader>cA"] = false,
---     },
---     file_panel = {
---       ["<leader>cO"] = false,
---       ["<leader>cT"] = false,
---       ["<leader>cB"] = false,
---       ["<leader>cA"] = false,
---     },
---   },
---   hooks = {
---     diff_buf_read = function(bufnr) end,
---     view_opened = function()
---       vim.cmd("UfoDisable")
---     end,
---     view_closed = function()
---       vim.cmd("UfoEnable")
---     end,
---   },
--- })
+  if view then
+    vim.cmd("DiffviewClose")
+  else
+    vim.cmd("DiffviewOpen")
+  end
+end, {})
+
+require("diffview").setup({
+  enhanced_diff_hl = true,
+  keymaps = {
+    view = {
+      ["<leader>co"] = false,
+      ["<leader>ct"] = false,
+      ["<leader>cb"] = false,
+      ["<leader>ca"] = false,
+      ["<leader>cO"] = false,
+      ["<leader>cT"] = false,
+      ["<leader>cB"] = false,
+      ["<leader>cA"] = false,
+    },
+    file_panel = {
+      ["<leader>cO"] = false,
+      ["<leader>cT"] = false,
+      ["<leader>cB"] = false,
+      ["<leader>cA"] = false,
+    },
+  },
+  hooks = {
+    diff_buf_read = function(bufnr) end,
+    view_opened = function()
+      vim.cmd("UfoDisable")
+    end,
+    view_closed = function()
+      vim.cmd("UfoEnable")
+    end,
+  },
+})

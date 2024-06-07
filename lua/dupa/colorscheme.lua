@@ -24,6 +24,15 @@ require("tokyonight").setup({
     highlights["GitGutterChange"] = { fg = "" }
     highlights["NeoTreeGitModified"] = { fg = "#7f88b4" }
     highlights["NeoTreeDotFile"] = { fg = "#7f88b4" }
+    highlights["WinSeparator"] = { fg = "#444444" }
+
+    highlights.Include = { fg = colors.purple, }
+    highlights.Label = { fg = colors.red, }
+    highlights["@tag.tsx"] = { fg = colors.blue1, }
+    highlights["@tag.delimiter.tsx"] = { fg = colors.dark3, }
+    highlights["Function"] = { fg = colors.blue, }
+    highlights["CmpItemKindVariable"] = { fg = colors.orange, }
+    highlights["LspKindFile"] = { fg = colors.magenta2, }
   end,
 })
 

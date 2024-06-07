@@ -12,7 +12,7 @@ local find_imports = require("dupa.import_on_paste.find_imports")
 local correct_import_path = require("dupa.import_on_paste.correct_import_path")
 
 local last_yank_filename = nil
-local cursor_position_before_paste = nil
+local pasted_text_end_position = nil
 local cursor_position_after_paste = nil
 
 local save_last_yank_filename = function()
@@ -30,13 +30,13 @@ local add_missing_imports = function(diagnostics)
 
   if not diagnostics then
     log.trace("No diagnostics provided")
-    vim.notify('No diagnostics returned')
+    vim.notify("No diagnostics returned")
     return
   end
 
   -- get all diagnostics in file after paste
   local missing_import_diagnostics = diagnostic.get_all_missing_import_diagnostics_from_range(
-    cursor_position_before_paste,
+    pasted_text_end_position,
     cursor_position_after_paste,
     diagnostics
   )
@@ -89,34 +89,46 @@ vim.api.nvim_create_autocmd({ "TextYankPost" }, {
   callback = save_last_yank_filename,
 })
 
-keymap_amend("n", "p", function(original)
-  log.trace("Starting paste")
+vim.api.nvim_create_autocmd({ "User" }, {
+  group = import_on_paste_group,
+  pattern = { "PastePre" },
+  callback = function()
+    log.trace("Starting paste")
 
-  local current_buffer_filetype = vim.bo.filetype
-  if current_buffer_filetype ~= "typescript" and current_buffer_filetype ~= "typescriptreact" then
-    return original()
-  end
+    pasted_text_end_position = vim.api.nvim_win_get_cursor(0)
+  end,
+})
 
-  cursor_position_before_paste = vim.api.nvim_win_get_cursor(0)
+vim.api.nvim_create_autocmd({ "User" }, {
+  group = import_on_paste_group,
+  pattern = { "PastePost" },
+  callback = function()
+    local current_buffer_filetype = vim.bo.filetype
 
-  vim.cmd("normal! gp")
-
-  cursor_position_after_paste = vim.api.nvim_win_get_cursor(0)
-
-  local pasted_filename = vim.api.nvim_buf_get_name(0)
-
-  typescript_tools.request_diagnostics(function(err, diagnostics)
-    log.trace("starting processing import on paste with diagnostics")
-    if err then
-      vim.notify("diagnostics request failed")
+    if current_buffer_filetype ~= "typescript" and current_buffer_filetype ~= "typescriptreact" then
+      return
     end
 
-    if vim.api.nvim_buf_get_name(0) == pasted_filename then
-      add_missing_imports(diagnostics)
-    else
-      vim.notify("You've changed file before diagnoostics showed up. importing aborted")
-    end
-  end, typescript_tools_constants.CustomMethods.CustomDiagnostic)
+    local _, register_lines_count = vim.fn.getreg('"'):gsub("\n", "\n")
 
-  vim.api.nvim_win_set_cursor(0, cursor_position_before_paste)
-end)
+    cursor_position_after_paste = {
+      pasted_text_end_position[1] + register_lines_count,
+      pasted_text_end_position[2],
+    }
+
+    local pasted_filename = vim.api.nvim_buf_get_name(0)
+
+    typescript_tools.request_diagnostics(function(err, diagnostics)
+      log.trace("starting processing import on paste with diagnostics")
+      if err then
+        vim.notify("diagnostics request failed")
+      end
+
+      if vim.api.nvim_buf_get_name(0) == pasted_filename then
+        add_missing_imports(diagnostics)
+      else
+        vim.notify("You've changed file before diagnoostics showed up. importing aborted")
+      end
+    end, typescript_tools_constants.CustomMethods.CustomDiagnostic)
+  end,
+})

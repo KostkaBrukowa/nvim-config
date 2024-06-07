@@ -36,18 +36,7 @@ treesitter.setup({
       return vim.api.nvim_buf_line_count(bufnr) > 10000
     end,
   },
-  rainbow = {
-    enable = true,
-    extended_mode = false,
-  },
-  autotag = {
-    enable = true,
-    enable_close_on_slash = false,
-  },
-  indent = { enable = true },
 })
-
-vim.cmd([[hi rainbowcol1 guifg=#7f849c]])
 
 require("nvim-treesitter.configs").setup({
   incremental_selection = {
@@ -58,4 +47,24 @@ require("nvim-treesitter.configs").setup({
       node_decremental = "<S-C-1>",
     },
   },
+})
+
+require("nvim-ts-autotag").setup({
+  opts = {
+    -- Defaults
+    enable_close_on_slash = true,
+  },
+})
+
+local autotag_group = vim.api.nvim_create_augroup("autotag_group_custom", {})
+
+-- rename tags on paste also
+vim.api.nvim_create_autocmd({ "User" }, {
+  group = autotag_group,
+  pattern = { "PastePost" },
+  callback = function()
+    if require("nvim-ts-autotag.config.plugin").get_opts(vim.bo.filetype).enable_rename then
+      require("nvim-ts-autotag.internal").rename_tag()
+    end
+  end,
 })

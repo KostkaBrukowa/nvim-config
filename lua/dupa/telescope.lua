@@ -96,3 +96,5 @@ telescope.load_extension("fzf")
 telescope.load_extension("project")
 telescope.load_extension("yank_history")
 telescope.load_extension("textcase")
+telescope.load_extension("smart_open")
+
