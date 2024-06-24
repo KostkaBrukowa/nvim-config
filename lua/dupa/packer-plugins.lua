@@ -57,7 +57,7 @@ return packer.startup(function(use)
   use("folke/which-key.nvim")
 
   -- Telescope
-  use("nvim-telescope/telescope.nvim")
+  use("KostkaBrukowa/telescope.nvim")
   use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
   use("nvim-telescope/telescope-project.nvim")
   use({
@@ -139,7 +139,7 @@ return packer.startup(function(use)
   use("b0o/schemastore.nvim")
   use("git@github.com:allegro-internal/vscode-allegro-metrum")
   use("pmizio/typescript-tools.nvim")
-  use({ "KostkaBrukowa/clear-action.nvim", branch = "feat-visual-selection-actions" })
+  use("KostkaBrukowa/clear-action.nvim")
   use("dgagn/diagflow.nvim")
   use("folke/neoconf.nvim")
 
