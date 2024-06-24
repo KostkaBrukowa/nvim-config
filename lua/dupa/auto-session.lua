@@ -36,14 +36,18 @@
 --   auto_session_use_git_branch = false,
 -- })
 
-require("persistence").setup({})
-
-vim.api.nvim_create_autocmd({ "UIEnter" }, {
-  -- pattern = "global",
-  group = vim.api.nvim_create_augroup("session", { clear = true }),
-  callback = function()
-    vim.schedule(function()
-      require("persistence").load({ last = true })
-    end)
-  end,
+require("persisted").setup({
+  use_git_branch = true,
+  default_branch = "master",
+  autoload = true,
 })
+
+-- vim.api.nvim_create_autocmd({ "UIEnter" }, {
+--   -- pattern = "global",
+--   group = vim.api.nvim_create_augroup("session", { clear = true }),
+--   callback = function()
+--     vim.schedule(function()
+--       require("persistence").load({ last = true })
+--     end)
+--   end,
+-- })

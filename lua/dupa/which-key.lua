@@ -265,6 +265,7 @@ local visual_opts = {
 local visual_mappings = {
   ["y"] = { '"+y', "Yank to global register" },
   ["u"] = {
+    ["name"] = "Utils",
     ["c"] = { "<cmd>TextCaseOpenTelescope<cr>", "Open telescope with text case changer" },
   },
   ["f"] = {
@@ -287,7 +288,23 @@ local visual_mappings = {
   },
 }
 
+local movement_opts = {
+  mode = "n",
+  prefix = "[",
+  silent = true,
+  noremap = true,
+}
+
+local movement_mappings = {
+  ["name"] = "Move back",
+  ["c"] = {
+    "<cmd>lua require('treesitter-context').go_to_context(-1)<cr>",
+    "Go to most upper context",
+  },
+}
+
 which_key.setup(setup)
 
 which_key.register(mappings, opts)
 which_key.register(visual_mappings, visual_opts)
+which_key.register(movement_mappings, movement_opts)

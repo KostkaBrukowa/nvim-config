@@ -5,16 +5,21 @@ if not ok then
 end
 
 tst.setup({
+  filetypes = {
+    "javascript",
+    "javascriptreact",
+    "javascript.jsx",
+    "typescript",
+    "typescriptreact",
+    "typescript.tsx",
+    "vue",
+  },
   settings = {
-    -- tsserver_logs = "verbose",
-    -- tsserver_logs = {
-    --   verbosity = "verbose",
-    --   file_basename = "/Users/jaroslaw.glegola/.config/nvim/tsserver.log",
-    -- },
+    tsserver_file_preferences = {
+      importModuleSpecifierPreference = "non-relative",
+    },
     tsserver_plugins = { "typescript-plugin-css-modules" },
     separate_diagnostic_server = true,
     publish_diagnostic_on = "insert_leave",
-    -- code_lens = "all",
-    -- disable_member_code_lens = true,
   },
 })

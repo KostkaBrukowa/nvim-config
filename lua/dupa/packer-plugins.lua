@@ -41,7 +41,6 @@ return packer.startup(function(use)
 
   -- Colorschemes
   use("folke/tokyonight.nvim")
-  use({ "briones-gabriel/darcula-solid.nvim", requires = "rktjmp/lush.nvim" })
 
   -- File explorer
   use("nvim-tree/nvim-web-devicons")
@@ -52,7 +51,7 @@ return packer.startup(function(use)
 
   -- Treesitter
   use("nvim-treesitter/nvim-treesitter")
-  -- use("nvim-treesitter/nvim-treesitter-context")
+  use("nvim-treesitter/nvim-treesitter-context")
 
   -- Keymaps
   use("folke/which-key.nvim")
@@ -69,8 +68,7 @@ return packer.startup(function(use)
   use("windwp/nvim-spectre")
 
   -- Session management
-  -- use("rmagatti/auto-session")
-  use("folke/persistence.nvim")
+  use("olimorris/persisted.nvim")
 
   -- CMP
   use("hrsh7th/nvim-cmp")
@@ -111,13 +109,12 @@ return packer.startup(function(use)
   use("bronson/vim-visual-star-search")
   use("runiq/neovim-throttle-debounce")
   -- use("zbirenbaum/copilot.lua")
-  -- use("github/copilot.vim")
+  use("github/copilot.vim")
   use("kevinhwang91/nvim-bqf")
   use("dmmulroy/tsc.nvim")
   use("gbprod/yanky.nvim")
   use("KostkaBrukowa/nvim-cursorword") -- fork of xiyaowong/nvim-cursorword with treesitter support
   use("backdround/improved-search.nvim")
-  use("shortcuts/no-neck-pain.nvim")
   use("KostkaBrukowa/definition-or-references.nvim")
   use("johmsalas/text-case.nvim")
 

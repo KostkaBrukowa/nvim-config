@@ -48,6 +48,10 @@ require("nvim-treesitter.configs").setup({
     },
   },
 })
+require("treesitter-context").setup({
+  max_lines = 2,
+  trim_scope = "inner",
+})
 
 require("nvim-ts-autotag").setup({
   opts = {
