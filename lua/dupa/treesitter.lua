@@ -29,6 +29,7 @@ treesitter.setup({
     "haskell",
     "yaml",
     "toml",
+    "vimdoc",
   },
   highlight = {
     enable = true,

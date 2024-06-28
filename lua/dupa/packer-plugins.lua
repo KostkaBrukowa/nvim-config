@@ -1,182 +1,160 @@
-local fn = vim.fn
-
--- Automatically install packer
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-  PACKER_BOOTSTRAP = fn.system({
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system({
     "git",
     "clone",
-    "--depth",
-    "1",
-    "https://github.com/wbthomason/packer.nvim",
-    install_path,
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
   })
-  print("Installing packer close and reopen Neovim...")
-  vim.cmd([[packadd packer.nvim]])
 end
 
--- Autocommand that reloads neovim whenever you save the plugins.lua file
-local packer = require("packer")
+vim.opt.rtp:prepend(lazypath)
 
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> 
-  augroup end
-]])
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
 
--- Have packer use a popup window
-packer.init({
-  display = {
-    open_fn = function()
-      return require("packer.util").float({ border = "rounded" })
-    end,
-  },
-})
-
-return packer.startup(function(use)
+require("lazy").setup({
   -- Essentials
-  use("wbthomason/packer.nvim")
-  use("nvim-lua/plenary.nvim")
+  "wbthomason/packer.nvim",
+  "nvim-lua/plenary.nvim",
 
   -- Colorschemes
-  use("folke/tokyonight.nvim")
+  "folke/tokyonight.nvim",
 
   -- File explorer
-  use("nvim-tree/nvim-web-devicons")
-  use("nvim-neo-tree/neo-tree.nvim")
+  "nvim-tree/nvim-web-devicons",
+  "nvim-neo-tree/neo-tree.nvim",
 
   -- Buffer and status lines
-  use("nvim-lualine/lualine.nvim")
+  "nvim-lualine/lualine.nvim",
 
   -- Treesitter
-  use("nvim-treesitter/nvim-treesitter")
-  use("nvim-treesitter/nvim-treesitter-context")
+  "nvim-treesitter/nvim-treesitter",
+  "nvim-treesitter/nvim-treesitter-context",
 
   -- Keymaps
-  use("folke/which-key.nvim")
+  "folke/which-key.nvim",
 
   -- Telescope
-  use("KostkaBrukowa/telescope.nvim")
-  use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" })
-  use("nvim-telescope/telescope-project.nvim")
-  use({
+  "KostkaBrukowa/telescope.nvim",
+  { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  "nvim-telescope/telescope-project.nvim",
+  {
     "danielfalk/smart-open.nvim",
-    requires = { "kkharji/sqlite.lua", "nvim-telescope/telescope-fzy-native.nvim" },
-  })
+    dependencies = { "kkharji/sqlite.lua", "nvim-telescope/telescope-fzy-native.nvim" },
+  },
 
-  use("windwp/nvim-spectre")
+  "windwp/nvim-spectre",
 
   -- Session management
-  use("olimorris/persisted.nvim")
+  "olimorris/persisted.nvim",
 
   -- CMP
-  use("hrsh7th/nvim-cmp")
-  use("hrsh7th/cmp-buffer")
-  use("hrsh7th/cmp-path")
-  use("hrsh7th/cmp-cmdline")
-  use("hrsh7th/cmp-nvim-lsp")
-  use("windwp/nvim-autopairs")
-  use("windwp/nvim-ts-autotag")
+  "hrsh7th/nvim-cmp",
+  "hrsh7th/cmp-buffer",
+  "hrsh7th/cmp-path",
+  "hrsh7th/cmp-cmdline",
+  "hrsh7th/cmp-nvim-lsp",
+  "windwp/nvim-autopairs",
+  "windwp/nvim-ts-autotag",
 
   -- Snippets
-  use("L3MON4D3/LuaSnip")
-  use("saadparwaiz1/cmp_luasnip")
+  "L3MON4D3/LuaSnip",
+  "saadparwaiz1/cmp_luasnip",
 
   -- Comments
-  use("numToStr/Comment.nvim")
-  use("JoosepAlviste/nvim-ts-context-commentstring")
+  "numToStr/Comment.nvim",
+  "JoosepAlviste/nvim-ts-context-commentstring",
 
   -- Git
-  use("sindrets/diffview.nvim")
-  use("tpope/vim-fugitive")
-  use("ruifm/gitlinker.nvim")
-  use("lewis6991/gitsigns.nvim")
+  "sindrets/diffview.nvim",
+  "tpope/vim-fugitive",
+  "ruifm/gitlinker.nvim",
+  "lewis6991/gitsigns.nvim",
 
   -- Utils
-  use("lewis6991/impatient.nvim")
-  use("ethanholz/nvim-lastplace")
-  use("akinsho/toggleterm.nvim")
-  use("gbprod/substitute.nvim")
-  use("kylechui/nvim-surround")
-  use("anuvyklack/hydra.nvim")
-  use("vuki656/package-info.nvim")
-  use("mbbill/undotree")
-  use("rareitems/printer.nvim")
-  use("AckslD/messages.nvim")
-  use("anuvyklack/keymap-amend.nvim")
-  use("rgroli/other.nvim")
-  use("bronson/vim-visual-star-search")
-  use("runiq/neovim-throttle-debounce")
-  -- use("zbirenbaum/copilot.lua")
-  use("github/copilot.vim")
-  use("kevinhwang91/nvim-bqf")
-  use("dmmulroy/tsc.nvim")
-  use("gbprod/yanky.nvim")
-  use("KostkaBrukowa/nvim-cursorword") -- fork of xiyaowong/nvim-cursorword with treesitter support
-  use("backdround/improved-search.nvim")
-  use("KostkaBrukowa/definition-or-references.nvim")
-  use("johmsalas/text-case.nvim")
+  "lewis6991/impatient.nvim",
+  "ethanholz/nvim-lastplace",
+  "akinsho/toggleterm.nvim",
+  "gbprod/substitute.nvim",
+  "kylechui/nvim-surround",
+  "anuvyklack/hydra.nvim",
+  "vuki656/package-info.nvim",
+  "mbbill/undotree",
+  "rareitems/printer.nvim",
+  "AckslD/messages.nvim",
+  "anuvyklack/keymap-amend.nvim",
+  "rgroli/other.nvim",
+  "bronson/vim-visual-star-search",
+  "runiq/neovim-throttle-debounce",
+  -- "zbirenbaum/copilot.lua",
+  "github/copilot.vim",
+  "kevinhwang91/nvim-bqf",
+  "dmmulroy/tsc.nvim",
+  "gbprod/yanky.nvim",
+  "KostkaBrukowa/nvim-cursorword", -- fork of xiyaowong/nvim-cursorword with treesitter support
+  "backdround/improved-search.nvim",
+  "KostkaBrukowa/definition-or-references.nvim",
+  "johmsalas/text-case.nvim",
 
-  use("KostkaBrukowa/mini.ai")
-  use("echasnovski/mini.bufremove")
+  "KostkaBrukowa/mini.ai",
+  "echasnovski/mini.bufremove",
 
   -- UI
-  use("stevearc/dressing.nvim")
-  use("MunifTanjim/nui.nvim")
+  "stevearc/dressing.nvim",
+  "MunifTanjim/nui.nvim",
 
   -- LSP
-  use("neovim/nvim-lspconfig")
-  use({ "VonHeikemen/lsp-zero.nvim", tag = "v2.*" })
-  use("williamboman/mason.nvim")
-  use("williamboman/mason-lspconfig.nvim")
-  use("WhoIsSethDaniel/mason-tool-installer.nvim")
-  use("jayp0521/mason-null-ls.nvim")
-  use("jose-elias-alvarez/null-ls.nvim")
-  use("folke/neodev.nvim")
-  use("antosha417/nvim-lsp-file-operations")
-  use("j-hui/fidget.nvim")
-  use("b0o/schemastore.nvim")
-  use("git@github.com:allegro-internal/vscode-allegro-metrum")
-  use("pmizio/typescript-tools.nvim")
-  use("KostkaBrukowa/clear-action.nvim")
-  use("dgagn/diagflow.nvim")
-  use("folke/neoconf.nvim")
+  "neovim/nvim-lspconfig",
+  { "VonHeikemen/lsp-zero.nvim", version = "v2.x" },
+  "williamboman/mason.nvim",
+  "williamboman/mason-lspconfig.nvim",
+  "WhoIsSethDaniel/mason-tool-installer.nvim",
+  "jayp0521/mason-null-ls.nvim",
+  "jose-elias-alvarez/null-ls.nvim",
+  "folke/neodev.nvim",
+  "antosha417/nvim-lsp-file-operations",
+  "j-hui/fidget.nvim",
+  "b0o/schemastore.nvim",
+  {
+    "git@github.com:allegro-internal/vscode-allegro-metrum",
+    build = "npm ci --quiet && npm ci --prefix ./server --quiet && npm run build",
+  },
+  "pmizio/typescript-tools.nvim",
+  "KostkaBrukowa/clear-action.nvim",
+  "dgagn/diagflow.nvim",
+  "folke/neoconf.nvim",
 
   -- Folding
-  use({ "kevinhwang91/nvim-ufo", requires = "kevinhwang91/promise-async" })
+  { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },
 
   -- Testing
-  use({
+  {
     "nvim-neotest/neotest",
-    wants = {
+    dependencies = {
       "neotest-jest",
-    },
-    requires = {
       "haydenmeade/neotest-jest",
       "thenbe/neotest-playwright",
       "nvim-neotest/neotest-plenary",
     },
-  })
+  },
 
   -- Debugging
-  use({
+  {
     "mfussenegger/nvim-dap",
-    requires = {
+    dependencies = {
       "Pocco81/dap-buddy.nvim",
       "theHamsta/nvim-dap-virtual-text",
       "rcarriga/nvim-dap-ui",
       "nvim-neotest/nvim-nio",
       {
         "microsoft/vscode-js-debug",
-        run = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
+        build = "npm install --legacy-peer-deps && npx gulp vsDebugServerBundle && mv dist out",
       },
       "mxsdev/nvim-dap-vscode-js",
       "jbyuki/one-small-step-for-vimkind",
     },
-  })
-
-  if PACKER_BOOTSTRAP then
-    require("packer").sync()
-  end
-end)
+  },
+})

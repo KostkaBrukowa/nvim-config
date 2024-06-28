@@ -1,9 +1,10 @@
+require("dupa.keymaps")
+
 require("utils.module_utils")
 
 require("dupa.packer-plugins")
 require("dupa.colorscheme")
 require("dupa.options")
-require("dupa.mappings")
 require("dupa.which-key")
 require("dupa.lualine")
 
@@ -43,3 +44,4 @@ require("dupa.typescript-tools")
 
 require("dupa.import_on_paste")
 require("dupa.definitions_or_references")
+require("dupa.other-mappings")
