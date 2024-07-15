@@ -29,18 +29,19 @@ return {
       [[
       useEffect(() => {{
         {}
-      }}, [{}])
+      }}, [{}]);{}
       ]],
-      { i(1), i(0) }
+      { i(1), i(2), i(0) }
     )
   ),
   snippet(
     "ustate",
-    fmt("const [{}, set{}] = useState()", {
+    fmt("const [{}, set{}] = useState({});", {
       i(1),
       utils.mirror(1, function(args)
         return args[1][1]:gsub("^%l", string.upper)
       end),
+      i(0),
     })
   ),
 }

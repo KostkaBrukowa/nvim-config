@@ -46,16 +46,9 @@ local format_command = "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000 })<CR>"
 
 local mappings = {
   ["w"] = { "<cmd>wall<CR>", "Save" },
-  ["e"] = { "<cmd>e<CR>", "Reopen file" },
-  ["q"] = {
-    "<cmd>wall<CR><cmd>lua vim.defer_fn(function() vim.cmd('qall') end, 100)<CR>",
-    "Save and Quit",
-  },
   ["x"] = { "<cmd>quit<CR>", "Close buffer" },
   ["X"] = { "<cmd>%bd|e#<CR>", "Close all buffers except current one" },
   ["p"] = { format_command, "Format with prettier" },
-  ["s"] = { "<Plug>(leap-forward-to)", "Leap forward" },
-  ["S"] = { "<Plug>(leap-backward-to)", "Leap backwards" },
   ["o"] = {
     name = "Other files",
     ["t"] = { "<cmd>lua require('other-nvim').open('test')<CR>", "Find test file" },
@@ -114,9 +107,9 @@ local mappings = {
   },
   ["g"] = {
     name = "Git",
-    ["c"] = { "<cmd>Git commit<CR>", "Commit files" },
-    ["n"] = { "<cmd>Git commit --amend<CR>", "Commit ammend" },
-    ["v"] = { "<cmd>Git commit --no-verify<CR>", "Commit no verify" },
+    ["c"] = { "<cmd>Redir Git commit<CR>", "Commit files" },
+    ["n"] = { "<cmd>Redir Git commit --amend<CR>", "Commit ammend" },
+    ["v"] = { "<cmd>Redir Git commit --no-verify<CR>", "Commit no verify" },
     ["a"] = { "<cmd>Git fetch --all<CR>", "Fetch all" },
     ["s"] = { "<cmd>GitNewBranch<CR>", "Switch to new branch" },
     ["b"] = {

@@ -37,7 +37,7 @@ local function get_working_directory()
   return find_git_ancestor(startpath) or find_package_json_ancestor(startpath)
 end
 
----@param opts? { check_package_json?: boolean }
+---@param opts? { check_package_json?: boolean, config_names: string[] }
 ---@return boolean
 function M.config_exists(opts)
   local project_root = get_working_directory()
@@ -47,12 +47,16 @@ function M.config_exists(opts)
 
   opts = opts or {}
 
-  local exists = vim.tbl_count(vim.fn.glob(".prettierrc*", true, true)) > 0
-    or vim.tbl_count(vim.fn.glob("prettier.config.*", true, true)) > 0
+  local exists = false
+
+  for _, config_name in ipairs(opts.config_names) do
+    exists = exists or vim.tbl_count(vim.fn.glob(config_name, true, true)) > 0
+  end
 
   if not exists and opts.check_package_json then
     local ok, has_prettier_key = pcall(function()
-      local package_json_blob = table.concat(vim.fn.readfile(path_join(project_root, "/package.json")))
+      local package_json_blob =
+        table.concat(vim.fn.readfile(path_join(project_root, "/package.json")))
       local package_json = vim.json.decode(package_json_blob)
       return not not package_json["prettier"]
     end)
@@ -62,6 +66,5 @@ function M.config_exists(opts)
 
   return exists
 end
-
 
 return M

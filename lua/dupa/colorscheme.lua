@@ -33,6 +33,8 @@ require("tokyonight").setup({
     highlights["Function"] = { fg = colors.blue }
     highlights["CmpItemKindVariable"] = { fg = colors.orange }
     highlights["LspKindFile"] = { fg = colors.magenta2 }
+
+    highlights["TinyInlineDiagnosticVirtualTextError"] = { fg = "#ee0000", bg = "None" }
   end,
 })
 

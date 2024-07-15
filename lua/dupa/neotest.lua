@@ -6,6 +6,7 @@ end
 
 local configurationJestCommand = require("neoconf").get("jestRunCommand")
 
+--   local cmd = { vim.loop.exepath(), "--embed", "--headless", "-n", "--clean" } -- subprocess.lua
 require("neotest").setup({
   adapters = {
     require("neotest-jest")({
@@ -28,10 +29,6 @@ require("neotest").setup({
   },
   discovery = {
     enabled = false,
-    -- concurrent = 1,
-    -- filter_dir = function()
-    --   return false
-    -- end,
   },
   summary = {
     mappings = {

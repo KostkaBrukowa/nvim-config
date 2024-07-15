@@ -12,9 +12,6 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-
 require("lazy").setup({
   -- Essentials
   "wbthomason/packer.nvim",
@@ -49,7 +46,7 @@ require("lazy").setup({
   "windwp/nvim-spectre",
 
   -- Session management
-  "olimorris/persisted.nvim",
+  "rmagatti/auto-session",
 
   -- CMP
   "hrsh7th/nvim-cmp",
@@ -108,7 +105,7 @@ require("lazy").setup({
 
   -- LSP
   "neovim/nvim-lspconfig",
-  { "VonHeikemen/lsp-zero.nvim", version = "v2.x" },
+  { "VonHeikemen/lsp-zero.nvim", version = "v3.x" },
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -124,7 +121,22 @@ require("lazy").setup({
   },
   "pmizio/typescript-tools.nvim",
   "KostkaBrukowa/clear-action.nvim",
-  "dgagn/diagflow.nvim",
+  {
+    "rachartier/tiny-inline-diagnostic.nvim",
+    config = function()
+      require("tiny-inline-diagnostic").setup({
+        hi = {
+          background = "",
+        },
+        signs = {
+          left = "",
+          right = "",
+          arrow = "   ",
+        },
+      })
+    end,
+  },
+
   "folke/neoconf.nvim",
 
   -- Folding
@@ -134,10 +146,10 @@ require("lazy").setup({
   {
     "nvim-neotest/neotest",
     dependencies = {
-      "neotest-jest",
-      "haydenmeade/neotest-jest",
+      "nvim-neotest/nvim-nio",
       "thenbe/neotest-playwright",
       "nvim-neotest/neotest-plenary",
+      "nvim-neotest/neotest-jest",
     },
   },
 

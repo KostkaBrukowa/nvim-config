@@ -46,7 +46,13 @@ function M.checkout_remote_smart()
         local bufremove = require("mini.bufremove")
         for _, buf in pairs(vim.api.nvim_list_bufs()) do
           local buf_name = vim.api.nvim_buf_get_name(buf)
-          if vim.fn.filereadable(buf_name) == 0 then
+          if
+            vim.fn.filereadable(buf_name) == 0
+            and not vim.tbl_contains(
+              { "neotest-summary" },
+              vim.api.nvim_buf_get_option(buf, "filetype")
+            )
+          then
             bufremove.delete(buf, true)
           end
         end

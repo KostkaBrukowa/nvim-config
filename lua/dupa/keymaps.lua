@@ -2,6 +2,9 @@ local opts = { noremap = true, silent = true }
 local keymap = vim.api.nvim_set_keymap
 local fn = vim.fn
 
+vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+
 keymap("", "<Space>", "<Nop>", opts)
 
 keymap("v", "p", '"_dP', opts)
@@ -56,3 +59,12 @@ keymap("n", "U", "<c-r>", opts)
 -- alt-backspace to delete word backwards
 keymap("i", "<A-Backspace>", "<ESC>lcb", opts)
 keymap("n", "<A-Backspace>", "lcb<ESC>", opts)
+
+keymap("n", "<leader>w", "<cmd>wall<CR>", opts)
+keymap("n", "<leader>e", "<cmd>e<CR>", opts)
+keymap(
+  "n",
+  "<leader>q",
+  "<cmd>wall<CR><cmd>lua vim.defer_fn(function() vim.cmd('qall') end, 100)<CR>",
+  opts
+)

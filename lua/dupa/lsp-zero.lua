@@ -70,6 +70,7 @@ require("mason-null-ls").setup({
         condition = function()
           return require("utils.file").config_exists({
             check_package_json = true,
+            config_names = { ".prettierrc*", "prettier.config.*" },
           })
         end,
       }))
@@ -88,6 +89,17 @@ require("mason-null-ls").setup({
           null_ls.builtins.formatting.stylelint.filetypes,
           { [#null_ls.builtins.formatting.stylelint.filetypes + 1] = "postcss" }
         ),
+      }))
+    end,
+
+    stylua = function()
+      null_ls.register(null_ls.builtins.formatting.stylua.with({
+        condition = function()
+          return require("utils.file").config_exists({
+            check_package_json = true,
+            config_names = { "stylua.*" },
+          })
+        end,
       }))
     end,
   },
@@ -119,24 +131,44 @@ local cmp = require("cmp")
 local keymap = require("cmp.utils.keymap")
 local feedkeys = require("cmp.utils.feedkeys")
 local compare = require("cmp.config.compare")
+local luasnip = require("luasnip")
 
 cmp.setup({
+  sources = {
+    { name = "nvim_lsp" },
+    { name = "path" },
+    { name = "buffer", keyword_length = 3 },
+    { name = "luasnip", keyword_length = 2 },
+  },
+
   mapping = {
     ["<C-e>"] = cmp.mapping.scroll_docs(-4),
     ["<C-n>"] = cmp.mapping.scroll_docs(4),
     ["<Up>"] = cmp.mapping.select_prev_item(),
     ["<Down>"] = cmp.mapping.select_next_item(),
+    ["<C-Space>"] = cmp.mapping.complete(),
     ["<Tab>"] = {
       i = function()
         if cmp.visible() then
           cmp.select_next_item()
+        elseif luasnip.expand_or_locally_jumpable() then
+          luasnip.expand_or_jump()
         else
           feedkeys.call(keymap.t("<tab>"), "n")
         end
       end,
     },
-    ["<S-Tab>"] = cmp_action.select_prev_or_fallback(),
-    ["<C-Space>"] = cmp.mapping.complete(),
+    ["<S-Tab>"] = {
+      i = function()
+        if cmp.visible() then
+          cmp.select_prev_item()
+        elseif luasnip.jumpable(-1) then
+          luasnip.jump(-1)
+        else
+          feedkeys.call(keymap.t("<s-tab>"), "n")
+        end
+      end,
+    },
     ["<CR>"] = cmp.mapping.confirm({ select = false }),
     ["<Esc>"] = cmp.mapping({
       i = function()

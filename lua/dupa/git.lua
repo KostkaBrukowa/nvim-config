@@ -105,11 +105,11 @@ require("diffview").setup({
   },
   hooks = {
     diff_buf_read = function(bufnr) end,
-    -- view_opened = function()
-    --   vim.cmd("UfoDisable")
-    -- end,
-    -- view_closed = function()
-    --   vim.cmd("UfoEnable")
-    -- end,
+    view_opened = function()
+      vim.cmd("UfoDisable")
+    end,
+    view_closed = function()
+      vim.cmd("UfoEnable")
+    end,
   },
 })
