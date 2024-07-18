@@ -133,10 +133,14 @@ local feedkeys = require("cmp.utils.feedkeys")
 local compare = require("cmp.config.compare")
 local luasnip = require("luasnip")
 
+require("cmp-npm").setup({
+  ignore = { "rc", "canary", "beta", "next", "alpha" },
+})
 cmp.setup({
   sources = {
     { name = "nvim_lsp" },
-    { name = "path" },
+    { name = "async_path" },
+    { name = "npm", keyword_length = 4 },
     { name = "buffer", keyword_length = 3 },
     { name = "luasnip", keyword_length = 2 },
   },
@@ -184,6 +188,7 @@ cmp.setup({
         luasnip = "[Snippet]",
         buffer = "",
         path = "[Path]",
+        npm = "[NPM]",
       })[entry.source.name]
 
       if vim_item.kind == "Text" then
@@ -260,6 +265,8 @@ require("lspconfig").lua_ls.setup({
     },
   },
 })
+
+--FelipeLema/cmp-async-path
 
 -- https://www.allegro.pl/404
 -- require("lspconfig").tsserver.setup({

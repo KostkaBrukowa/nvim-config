@@ -54,6 +54,8 @@ require("lazy").setup({
   "hrsh7th/cmp-path",
   "hrsh7th/cmp-cmdline",
   "hrsh7th/cmp-nvim-lsp",
+  { "David-Kunz/cmp-npm", ft = "json" },
+  { url = "https://codeberg.org/FelipeLema/cmp-async-path" },
   "windwp/nvim-autopairs",
   "windwp/nvim-ts-autotag",
 

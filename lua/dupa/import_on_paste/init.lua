@@ -41,13 +41,13 @@ local add_missing_imports = function(diagnostics)
     diagnostics
   )
 
-  if not missing_import_diagnostics then
-    return
-  end
-
   -- read last_yank_filename file and parse with tree-sitter to find all imports
   local source_bufnr = utils.get_bufnr_from_filename(last_yank_filename)
   local imports_to_add = find_imports.find_missing_imports(source_bufnr, missing_import_diagnostics)
+
+  if #imports_to_add == 0 then
+    return
+  end
 
   local source_file_directory = path_utils.get_directory(last_yank_filename)
   local target_file_directory = path_utils.get_directory(vim.api.nvim_buf_get_name(0))
@@ -69,16 +69,6 @@ local add_missing_imports = function(diagnostics)
 
   -- add all corrected imports at the top of the file
   vim.api.nvim_buf_set_lines(0, 0, 0, true, corrected_imports)
-
-  -- run typescript organize imports to remove duplicates only if something changed
-  if #corrected_imports > 0 then
-    -- run linters
-    vim.defer_fn(function()
-      typescript_tools.organize_imports(true) -- sync true
-
-      -- vim.lsp.buf.format({ timeout_ms = 60000 })
-    end, 100)
-  end
 end
 
 local import_on_paste_group = vim.api.nvim_create_augroup("import_on_paste_group", {})
@@ -112,7 +102,7 @@ vim.api.nvim_create_autocmd({ "User" }, {
     local _, register_lines_count = vim.fn.getreg('"'):gsub("\n", "\n")
 
     cursor_position_after_paste = {
-      pasted_text_end_position[1] + register_lines_count,
+      pasted_text_end_position[1] + register_lines_count + 1,
       pasted_text_end_position[2],
     }
 
@@ -129,6 +119,6 @@ vim.api.nvim_create_autocmd({ "User" }, {
       else
         vim.notify("You've changed file before diagnoostics showed up. importing aborted")
       end
-    end, typescript_tools_constants.CustomMethods.CustomDiagnostic)
+    end)
   end,
 })

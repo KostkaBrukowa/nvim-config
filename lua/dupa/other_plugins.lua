@@ -9,6 +9,8 @@ require("lsp-file-operations").setup({})
 vim.cmd("let g:cursorword_disable_filetypes = ['fugitive', 'NvimTree']")
 vim.cmd("let g:cursorword_disable_at_startup = v:false")
 
-require("mini.ai").setup()
+require("mini.ai").setup({
+  n_lines = 500,
+})
 require("clear-action").setup({ signs = { enable = false } })
 require("textcase").setup({})
