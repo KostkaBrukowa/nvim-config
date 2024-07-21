@@ -17,6 +17,7 @@ tst.setup({
   settings = {
     tsserver_file_preferences = {
       importModuleSpecifierPreference = "non-relative",
+      providePrefixAndSuffixTextForRename = false,
     },
     tsserver_plugins = { "typescript-plugin-css-modules" },
     separate_diagnostic_server = true,

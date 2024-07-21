@@ -143,6 +143,10 @@ local mappings = {
     name = "Utils",
     ["m"] = { "<cmd>Messages<cr>", "Open messages view" },
     ["c"] = { "<cmd>TextCaseOpenTelescope<cr>", "Open telescope with text case changer" },
+    ["v"] = {
+      "<cmd>lua vim.cmd('! code ' .. vim.api.nvim_buf_get_name(0))<cr>",
+      "Open vscode in the file",
+    },
     ["f"] = {
       name = "Find",
       ["t"] = {
