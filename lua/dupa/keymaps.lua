@@ -61,10 +61,10 @@ keymap("i", "<A-Backspace>", "<ESC>lcb", opts)
 keymap("n", "<A-Backspace>", "lcb<ESC>", opts)
 
 keymap("n", "<leader>w", "<cmd>wall<CR>", opts)
-keymap("n", "<leader>e", "<cmd>e<CR>", opts)
+keymap("n", "<leader>e", "<cmd>e<CR>", { noremap = true, silent = true, desc = "Reopen file" })
 keymap(
   "n",
   "<leader>q",
   "<cmd>wall<CR><cmd>lua vim.defer_fn(function() vim.cmd('qall') end, 100)<CR>",
-  opts
+  { noremap = true, silent = true, desc = "Save and exit" }
 )

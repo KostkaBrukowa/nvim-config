@@ -69,7 +69,7 @@ vim.keymap.set("n", "<leader>m", function()
   vim.api.nvim_win_set_cursor(0, m_mark)
 
   vim.api.nvim_buf_set_mark(0, "m", cursor[1], cursor[2], {})
-end, { noremap = true })
+end, { noremap = true, desc = "Set custom mark" })
 
 vim.keymap.set("n", "<leader>ux", require("substitute.exchange").operator, { noremap = true })
 vim.keymap.set("n", "<leader>uxx", require("substitute.exchange").line, { noremap = true })

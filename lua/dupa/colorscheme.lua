@@ -4,7 +4,7 @@ require("tokyonight").setup({
     colors.hint = colors.dark5
   end,
   on_highlights = function(highlights, colors)
-    highlights["CursorWord"] = { bg = highlights.MiniCursorword.bg }
+    highlights["CursorWord"] = { bg = colors.fg_gutter }
 
     highlights["MsgArea"] = { bg = colors.bg_dark }
     highlights["NvimTreeGitUntracked"] = { fg = colors.bg_dark }

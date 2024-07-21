@@ -4,304 +4,415 @@ if not which_key then
   return
 end
 
-local setup = {
+which_key.setup({
+  preset = "helix",
   plugins = {
-    marks = true,
-    registers = true,
-    spelling = {
-      enabled = true,
-      suggestions = 20,
-    },
-    presets = {
-      operators = false,
-      motions = false,
-      text_objects = false,
-      windows = false,
-      nav = false,
-      z = true,
-      g = true,
-    },
+    presets = { windows = false },
   },
-  window = {
-    border = "rounded",
-    position = "bottom",
-    margin = { 1, 0, 1, 0 },
-    padding = { 2, 2, 2, 2 },
-    winblend = 0,
-  },
-  ignore_missing = true,
-  hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " },
   show_help = false,
-  triggers = "auto",
-}
+  delay = 1000,
+})
 
-local opts = {
-  mode = "n",
-  prefix = "<leader>",
-  silent = true,
-  noremap = true,
-}
-
-local format_command = "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000 })<CR>"
-
-local mappings = {
-  ["w"] = { "<cmd>wall<CR>", "Save" },
-  ["x"] = { "<cmd>quit<CR>", "Close buffer" },
-  ["X"] = { "<cmd>%bd|e#<CR>", "Close all buffers except current one" },
-  ["p"] = { format_command, "Format with prettier" },
-  ["o"] = {
-    name = "Other files",
-    ["t"] = { "<cmd>lua require('other-nvim').open('test')<CR>", "Find test file" },
-    ["s"] = { "<cmd>lua require('other-nvim').open('style')<CR>", "Find style file" },
-    ["p"] = {
-      "<cmd>lua require('other-nvim').open('stylesheet')<CR>",
-      "Find module less/pcss file",
-    },
-    ["c"] = { "<cmd>lua require('other-nvim').open('component')<CR>", "Find component" },
+which_key.add({
+  { "<leader>X", "<cmd>%bd|e#<CR>", desc = "Close all buffers except current one", remap = false },
+  { "<leader>a", group = "Aerial", remap = false },
+  { "<leader>ac", "<cmd>AerialClose<CR>", desc = "Close aerial", remap = false },
+  { "<leader>ao", "<cmd>AerialOpen<CR>", desc = "Open aerial", remap = false },
+  { "<leader>c", group = "Changes in project", remap = false },
+  { "<leader>cc", "<cmd>DiffviewClose<cr>", desc = "Close diffview", remap = false },
+  { "<leader>co", "<cmd>DiffviewOpen<cr>", desc = "Open diffview", remap = false },
+  { "<leader>d", group = "Diff View", remap = false },
+  { "<leader>dd", "<cmd>diffoff<CR>", desc = "Close fugitive diff", remap = false },
+  { "<leader>de", "<cmd>Gitsigns prev_hunk<CR>", desc = "Previous hunk", remap = false },
+  { "<leader>dn", "<cmd>Gitsigns next_hunk<CR>", desc = "Next hunk", remap = false },
+  { "<leader>dp", "<cmd>Gitsigns preview_hunk<CR>", desc = "Preview hunk", remap = false },
+  { "<leader>dr", "<cmd>Gitsigns reset_hunk<CR>", desc = "Reset hunk", remap = false },
+  { "<leader>f", group = "Find", remap = false },
+  {
+    "<leader>fL",
+    "<cmd>lua require('utils.telescope-custom-pickers').last_picker()<CR>",
+    desc = "Last find window with index",
+    remap = false,
   },
-  ["t"] = {
-    name = "File Explorer",
-    ["t"] = { "<cmd>NvimTreeToggle<CR>", "Toggle" },
-    ["f"] = { "<cmd>NvimTreeRefresh<CR>", "Refresh" },
-    ["c"] = { "<cmd>NvimTreeClose<CR>", "Close" },
-    ["o"] = { "<cmd>NvimTreeCollapse<CR>", "Collapse" },
-    ["r"] = { "<cmd>TypescriptRenameFile<CR>", "Rename file" },
+  {
+    "<leader>ff",
+    "<cmd>lua require('telescope.builtin').live_grep({ glob_pattern = '!package-lock.json'})<CR>",
+    desc = "Live grep",
+    remap = false,
   },
-  ["f"] = {
-    name = "Find",
-    ["f"] = {
-      "<cmd>lua require('telescope.builtin').live_grep({ glob_pattern = '!package-lock.json'})<CR>",
-      "Live grep",
-    },
-    ["t"] = {
-      "<cmd>lua require('telescope.builtin').live_grep({ glob_pattern = '!*.spec.*' })<CR>",
-      "Live grep",
-    },
-    ["l"] = { "<cmd>lua require('telescope.builtin').resume()<CR>", "Last find window" },
-    ["L"] = {
-      "<cmd>lua require('utils.telescope-custom-pickers').last_picker()<CR>",
-      "Last find window with index",
-    },
-    ["s"] = { "<cmd>lua require('telescope.builtin').grep_string()<CR>", "Grep string" },
-    ["r"] = {
-      "<cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
-      "Telescope refactorings",
-    },
-    -- ["p"] = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "Files" },
-    ["p"] = {
-      "<cmd>lua require('telescope').extensions.smart_open.smart_open({cwd_only = true})<CR>",
-      "Files",
-    },
-    ["h"] = {
-      "<cmd>lua require('telescope.builtin').command_history()<CR>",
-      "Command history",
-    },
-    ["o"] = {
-      "<cmd>lua require('utils.telescope-custom-pickers').open_saved_project_picker()<CR>",
-      "Projects",
-    },
-    ["y"] = {
-      "<cmd>lua require('telescope').extensions.yank_history.yank_history()<cr>",
-      "Open yank history",
-    },
+  {
+    "<leader>fh",
+    "<cmd>lua require('telescope.builtin').command_history()<CR>",
+    desc = "Command history",
+    remap = false,
   },
-  ["g"] = {
-    name = "Git",
-    ["c"] = { "<cmd>Redir Git commit<CR>", "Commit files" },
-    ["n"] = { "<cmd>Redir Git commit --amend<CR>", "Commit ammend" },
-    ["v"] = { "<cmd>Redir Git commit --no-verify<CR>", "Commit no verify" },
-    ["a"] = { "<cmd>Git fetch --all<CR>", "Fetch all" },
-    ["s"] = { "<cmd>GitNewBranch<CR>", "Switch to new branch" },
-    ["b"] = {
-      "<cmd>lua require('utils.telescope-custom-pickers').checkout_remote_smart()<CR>",
-      "Branches",
-    },
-    ["m"] = {
-      "<cmd>lua require('utils.telescope-custom-pickers').merge_branch()<CR>",
-      "Git merge",
-    },
-    ["p"] = { "<cmd>Git push<CR>", "Git push" },
-    ["l"] = { "<cmd>Git pull<CR>", "Git pull" },
-    ["g"] = { "<cmd>Git<CR>", "Fugitive" },
-    ["u"] = { "<cmd>lua require('gitlinker').get_buf_range_url('n')<CR>", "Get github url/link" },
-    ["f"] = { "<cmd>DiffviewFileHistory %<CR>", "File history" },
+  {
+    "<leader>fl",
+    "<cmd>lua require('telescope.builtin').resume()<CR>",
+    desc = "Last find window",
+    remap = false,
   },
-  ["c"] = {
-    name = "Changes in project",
-    ["o"] = { "<cmd>DiffviewOpen<cr>", "Open diffview" },
-    ["c"] = { "<cmd>DiffviewClose<cr>", "Close diffview" },
+  {
+    "<leader>fo",
+    "<cmd>lua require('utils.telescope-custom-pickers').open_saved_project_picker()<CR>",
+    desc = "Projects",
+    remap = false,
   },
-  ["d"] = {
-    name = "Diff View",
-    ["d"] = { "<cmd>diffoff<CR>", "Close fugitive diff" },
-    ["p"] = { "<cmd>Gitsigns preview_hunk<CR>", "Preview hunk" },
-    ["r"] = { "<cmd>Gitsigns reset_hunk<CR>", "Reset hunk" },
-    ["n"] = { "<cmd>Gitsigns next_hunk<CR>", "Next hunk" },
-    ["e"] = { "<cmd>Gitsigns prev_hunk<CR>", "Previous hunk" },
+  {
+    "<leader>fp",
+    "<cmd>lua require('telescope').extensions.smart_open.smart_open({cwd_only = true})<CR>",
+    desc = "Files",
+    remap = false,
   },
-  ["u"] = {
-    name = "Utils",
-    ["m"] = { "<cmd>Messages<cr>", "Open messages view" },
-    ["c"] = { "<cmd>TextCaseOpenTelescope<cr>", "Open telescope with text case changer" },
-    ["v"] = {
-      "<cmd>lua vim.cmd('! code ' .. vim.api.nvim_buf_get_name(0))<cr>",
-      "Open vscode in the file",
-    },
-    ["f"] = {
-      name = "Find",
-      ["t"] = {
-        "<cmd>lua require('telescope.builtin').live_grep({ glob_pattern = '!*.spec.{ts,tsx,js,jsx}'})<CR>",
-        "Live grep without tests",
-      },
-    },
-    ["l"] = {
-      name = "LSP",
-      ["r"] = {
-        "<cmd>LspRestart<cr>",
-        "Restart lsp server",
-      },
-      ["e"] = {
-        "<cmd>!/Users/jaroslaw.glegola/.local/share/nvim/mason/packages/eslint_d/node_modules/.bin/eslint_d restart<cr>",
-        "Restart eslint server",
-      },
-      ["p"] = {
-        "<cmd>!rm /Users/jaroslaw.glegola/.prettierd<cr><cmd>silent !/Users/jaroslaw.glegola/.local/share/nvim/mason/packages/prettierd/node_modules/.bin/prettierd restart<cr>",
-        "Restart prettier server",
-      },
-    },
-    ["p"] = {
-      name = "Package json actions",
-      ["s"] = { "<cmd>lua require('package-info').show()<cr>", "Show package versions" },
-      ["h"] = { '<cmd>lua require("package-info").hide()<cr>', "Hide package versions" },
-      ["t"] = { '<cmd>lua require("package-info").toggle()<cr>', "Toggle package versions" },
-      ["u"] = { '<cmd>lua require("package-info").update()<cr>', "Update package version" },
-      ["d"] = { '<cmd>lua require("package-info").delete()<cr>', "Delete package" },
-      ["i"] = { '<cmd>lua require("package-info").install()<cr>', "Install package" },
-      ["c"] = { '<cmd>lua require("package-info").change_version()<cr>', "Change package version" },
-    },
-    ["t"] = {
-      "<cmd>lua require('utils.treesitter-utils').goto_translation()<CR>",
-      "Go to translation",
-    },
-    ["e"] = {
-      "<cmd>lua require('utils.treesitter-utils').goto_main_export()<CR>",
-      "Go to translation",
-    },
-    ["r"] = {
-      name = "Find and replace",
-      ["o"] = { "<cmd>lua require('spectre').open()<cr>", "Find and replace - Open" },
-      ["w"] = {
-        "<cmd>lua require('spectre').open_visual({select_word=true})<cr>",
-        "Find and replace - Seach current word",
-      },
-      ["l"] = {
-        "<cmd>lua require('spectre').resume_last_search()<cr>",
-        "Find and replace - Resume last search",
-      },
-      ["f"] = {
-        "<cmd>lua require('spectre').open_file_search()<cr>",
-        "Find and replace - Rearch in file",
-      },
-    },
+  {
+    "<leader>fr",
+    "<cmd>lua require('telescope').extensions.refactoring.refactors()<CR>",
+    desc = "Telescope refactorings",
+    remap = false,
   },
-  ["i"] = {
-    name = "TSTools",
-    ["a"] = { "<cmd>TSToolsAddMissingImports sync<CR>" .. format_command, "Add missing imports" },
-    ["o"] = { "<cmd>TSToolsOrganizeImports sync<CR>" .. format_command, "Organize imports" },
-    ["u"] = { "<cmd>TSToolsRemoveUnusedImports sync<CR>" .. format_command, "Remove unused" },
-    ["f"] = { "<cmd>TSToolsFixAll sync<CR>" .. format_command, "Fix all problems" },
-    ["r"] = {
-      "<cmd>lua require('utils.treesitter-utils').change_relative_absolute()<cr>",
-      "Convert relative to absolute",
-    },
+  {
+    "<leader>fs",
+    "<cmd>lua require('telescope.builtin').grep_string()<CR>",
+    desc = "Grep string",
+    remap = false,
   },
-  ["a"] = {
-    name = "Aerial",
-    ["o"] = { "<cmd>AerialOpen<CR>", "Open aerial" },
-    ["c"] = { "<cmd>AerialClose<CR>", "Close aerial" },
+  {
+    "<leader>ft",
+    "<cmd>lua require('telescope.builtin').live_grep({ glob_pattern = '!*.spec.*' })<CR>",
+    desc = "Live grep",
+    remap = false,
   },
-  ["n"] = {
-    ["name"] = "Neotest",
-    ["a"] = { "<cmd>lua require('neotest').run.attach()<cr>", "Attach" },
-    ["f"] = { "<cmd>w<cr><cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>", "Run File" },
-    ["F"] = {
-      "<cmd>w<cr><cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>",
-      "Debug File",
-    },
-    ["l"] = { "<cmd>w<cr><cmd>lua require('neotest').run.run_last()<cr>", "Run Last" },
-    ["L"] = {
-      "<cmd>w<cr><cmd>lua require('neotest').run.run_last({ strategy = 'dap' })<cr>",
-      "Debug Last",
-    },
-    ["n"] = { "<cmd>w<cr><cmd>lua require('neotest').run.run()<cr>", "Run Nearest" },
-    ["w"] = {
-      "<cmd>w<cr><cmd>lua require('neotest').run.run({ jestCommand = 'jest --watch ' })<cr>",
-      "Run Nearest watch",
-    },
-    ["N"] = {
-      "<cmd>w<cr><cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>",
-      "Debug Nearest",
-    },
-    ["O"] = { "<cmd>lua require('neotest').output.open({ enter = true })<cr>", "Full Output" },
-    ["o"] = {
-      "<cmd>lua require('neotest').output.open({ enter = true, short = true })<cr>",
-      "Short output",
-    },
-    ["S"] = { "<cmd>lua require('neotest').run.stop()<cr>", "Stop" },
-    ["s"] = { "<cmd>lua require('neotest').summary.open()<cr>", "Summary" },
+  {
+    "<leader>fy",
+    "<cmd>lua require('telescope').extensions.yank_history.yank_history()<cr>",
+    desc = "Open yank history",
+    remap = false,
   },
-}
-
-local visual_opts = {
-  mode = "v",
-  prefix = "<leader>",
-  silent = true,
-  noremap = true,
-}
-
-local visual_mappings = {
-  ["y"] = { '"+y', "Yank to global register" },
-  ["u"] = {
-    ["name"] = "Utils",
-    ["c"] = { "<cmd>TextCaseOpenTelescope<cr>", "Open telescope with text case changer" },
+  { "<leader>g", group = "Git", remap = false },
+  { "<leader>ga", "<cmd>Git fetch --all<CR>", desc = "Fetch all", remap = false },
+  {
+    "<leader>gb",
+    "<cmd>lua require('utils.telescope-custom-pickers').checkout_remote_smart()<CR>",
+    desc = "Branches",
+    remap = false,
   },
-  ["f"] = {
-    ["f"] = {
+  { "<leader>gc", "<cmd>Redir Git commit<CR>", desc = "Commit files", remap = false },
+  { "<leader>gf", "<cmd>DiffviewFileHistory %<CR>", desc = "File history", remap = false },
+  { "<leader>gg", "<cmd>Git<CR>", desc = "Fugitive", remap = false },
+  { "<leader>gl", "<cmd>Git pull<CR>", desc = "Git pull", remap = false },
+  {
+    "<leader>gm",
+    "<cmd>lua require('utils.telescope-custom-pickers').merge_branch()<CR>",
+    desc = "Git merge",
+    remap = false,
+  },
+  { "<leader>gn", "<cmd>Redir Git commit --amend<CR>", desc = "Commit ammend", remap = false },
+  { "<leader>gp", "<cmd>Git push<CR>", desc = "Git push", remap = false },
+  { "<leader>gs", "<cmd>GitNewBranch<CR>", desc = "Switch to new branch", remap = false },
+  {
+    "<leader>gu",
+    "<cmd>lua require('gitlinker').get_buf_range_url('n')<CR>",
+    desc = "Get github url/link",
+    remap = false,
+  },
+  {
+    "<leader>gv",
+    "<cmd>Redir Git commit --no-verify<CR>",
+    desc = "Commit no verify",
+    remap = false,
+  },
+  { "<leader>i", group = "TSTools", remap = false },
+  {
+    "<leader>ia",
+    "<cmd>TSToolsAddMissingImports sync<CR><cmd>lua vim.lsp.buf.format({ timeout_ms = 60000 })<CR>",
+    desc = "Add missing imports",
+    remap = false,
+  },
+  {
+    "<leader>if",
+    "<cmd>TSToolsFixAll sync<CR><cmd>lua vim.lsp.buf.format({ timeout_ms = 60000 })<CR>",
+    desc = "Fix all problems",
+    remap = false,
+  },
+  {
+    "<leader>io",
+    "<cmd>TSToolsOrganizeImports sync<CR><cmd>lua vim.lsp.buf.format({ timeout_ms = 60000 })<CR>",
+    desc = "Organize imports",
+    remap = false,
+  },
+  {
+    "<leader>ir",
+    "<cmd>lua require('utils.treesitter-utils').change_relative_absolute()<cr>",
+    desc = "Convert relative to absolute",
+    remap = false,
+  },
+  {
+    "<leader>iu",
+    "<cmd>TSToolsRemoveUnusedImports sync<CR><cmd>lua vim.lsp.buf.format({ timeout_ms = 60000 })<CR>",
+    desc = "Remove unused",
+    remap = false,
+  },
+  { "<leader>n", group = "Neotest", remap = false },
+  {
+    "<leader>nF",
+    "<cmd>w<cr><cmd>lua require('neotest').run.run({vim.fn.expand('%'), strategy = 'dap'})<cr>",
+    desc = "Debug File",
+    remap = false,
+  },
+  {
+    "<leader>nL",
+    "<cmd>w<cr><cmd>lua require('neotest').run.run_last({ strategy = 'dap' })<cr>",
+    desc = "Debug Last",
+    remap = false,
+  },
+  {
+    "<leader>nN",
+    "<cmd>w<cr><cmd>lua require('neotest').run.run({strategy = 'dap'})<cr>",
+    desc = "Debug Nearest",
+    remap = false,
+  },
+  {
+    "<leader>nO",
+    "<cmd>lua require('neotest').output.open({ enter = true })<cr>",
+    desc = "Full Output",
+    remap = false,
+  },
+  { "<leader>nS", "<cmd>lua require('neotest').run.stop()<cr>", desc = "Stop", remap = false },
+  { "<leader>na", "<cmd>lua require('neotest').run.attach()<cr>", desc = "Attach", remap = false },
+  {
+    "<leader>nf",
+    "<cmd>w<cr><cmd>lua require('neotest').run.run(vim.fn.expand('%'))<cr>",
+    desc = "Run File",
+    remap = false,
+  },
+  {
+    "<leader>nl",
+    "<cmd>w<cr><cmd>lua require('neotest').run.run_last()<cr>",
+    desc = "Run Last",
+    remap = false,
+  },
+  {
+    "<leader>nn",
+    "<cmd>w<cr><cmd>lua require('neotest').run.run()<cr>",
+    desc = "Run Nearest",
+    remap = false,
+  },
+  {
+    "<leader>no",
+    "<cmd>lua require('neotest').output.open({ enter = true, short = true })<cr>",
+    desc = "Short output",
+    remap = false,
+  },
+  {
+    "<leader>ns",
+    "<cmd>lua require('neotest').summary.open()<cr>",
+    desc = "Summary",
+    remap = false,
+  },
+  {
+    "<leader>nw",
+    "<cmd>w<cr><cmd>lua require('neotest').run.run({ jestCommand = 'jest --watch ' })<cr>",
+    desc = "Run Nearest watch",
+    remap = false,
+  },
+  { "<leader>o", group = "Other files", remap = false },
+  {
+    "<leader>oc",
+    "<cmd>lua require('other-nvim').open('component')<CR>",
+    desc = "Find component",
+    remap = false,
+  },
+  {
+    "<leader>op",
+    "<cmd>lua require('other-nvim').open('stylesheet')<CR>",
+    desc = "Find module less/pcss file",
+    remap = false,
+  },
+  {
+    "<leader>os",
+    "<cmd>lua require('other-nvim').open('style')<CR>",
+    desc = "Find style file",
+    remap = false,
+  },
+  {
+    "<leader>ot",
+    "<cmd>lua require('other-nvim').open('test')<CR>",
+    desc = "Find test file",
+    remap = false,
+  },
+  {
+    "<leader>p",
+    "<cmd>lua vim.lsp.buf.format({ timeout_ms = 60000 })<CR>",
+    desc = "Format with prettier",
+    remap = false,
+  },
+  { "<leader>t", group = "File Explorer", remap = false },
+  { "<leader>tc", "<cmd>NvimTreeClose<CR>", desc = "Close", remap = false },
+  { "<leader>tf", "<cmd>NvimTreeRefresh<CR>", desc = "Refresh", remap = false },
+  { "<leader>to", "<cmd>NvimTreeCollapse<CR>", desc = "Collapse", remap = false },
+  { "<leader>tr", "<cmd>TypescriptRenameFile<CR>", desc = "Rename file", remap = false },
+  { "<leader>tt", "<cmd>NvimTreeToggle<CR>", desc = "Toggle", remap = false },
+  { "<leader>u", group = "Utils", remap = false },
+  {
+    "<leader>uc",
+    "<cmd>TextCaseOpenTelescope<cr>",
+    desc = "Open telescope with text case changer",
+    remap = false,
+  },
+  {
+    "<leader>ue",
+    "<cmd>lua require('utils.treesitter-utils').goto_main_export()<CR>",
+    desc = "Go to translation",
+    remap = false,
+  },
+  { "<leader>uf", group = "Find", remap = false },
+  {
+    "<leader>uft",
+    "<cmd>lua require('telescope.builtin').live_grep({ glob_pattern = '!*.spec.{ts,tsx,js,jsx}'})<CR>",
+    desc = "Live grep without tests",
+    remap = false,
+  },
+  { "<leader>ul", group = "LSP", remap = false },
+  {
+    "<leader>ule",
+    "<cmd>!/Users/jaroslaw.glegola/.local/share/nvim/mason/packages/eslint_d/node_modules/.bin/eslint_d restart<cr>",
+    desc = "Restart eslint server",
+    remap = false,
+  },
+  {
+    "<leader>ulp",
+    "<cmd>!rm /Users/jaroslaw.glegola/.prettierd<cr><cmd>silent !/Users/jaroslaw.glegola/.local/share/nvim/mason/packages/prettierd/node_modules/.bin/prettierd restart<cr>",
+    desc = "Restart prettier server",
+    remap = false,
+  },
+  { "<leader>ulr", "<cmd>LspRestart<cr>", desc = "Restart lsp server", remap = false },
+  { "<leader>um", "<cmd>Messages<cr>", desc = "Open messages view", remap = false },
+  { "<leader>up", group = "Package json actions", remap = false },
+  {
+    "<leader>upc",
+    '<cmd>lua require("package-info").change_version()<cr>',
+    desc = "Change package version",
+    remap = false,
+  },
+  {
+    "<leader>upd",
+    '<cmd>lua require("package-info").delete()<cr>',
+    desc = "Delete package",
+    remap = false,
+  },
+  {
+    "<leader>uph",
+    '<cmd>lua require("package-info").hide()<cr>',
+    desc = "Hide package versions",
+    remap = false,
+  },
+  {
+    "<leader>upi",
+    '<cmd>lua require("package-info").install()<cr>',
+    desc = "Install package",
+    remap = false,
+  },
+  {
+    "<leader>ups",
+    "<cmd>lua require('package-info').show()<cr>",
+    desc = "Show package versions",
+    remap = false,
+  },
+  {
+    "<leader>upt",
+    '<cmd>lua require("package-info").toggle()<cr>',
+    desc = "Toggle package versions",
+    remap = false,
+  },
+  {
+    "<leader>upu",
+    '<cmd>lua require("package-info").update()<cr>',
+    desc = "Update package version",
+    remap = false,
+  },
+  { "<leader>ur", group = "Find and replace", remap = false },
+  {
+    "<leader>urf",
+    "<cmd>lua require('spectre').open_file_search()<cr>",
+    desc = "Find and replace - Rearch in file",
+    remap = false,
+  },
+  {
+    "<leader>url",
+    "<cmd>lua require('spectre').resume_last_search()<cr>",
+    desc = "Find and replace - Resume last search",
+    remap = false,
+  },
+  {
+    "<leader>uro",
+    "<cmd>lua require('spectre').open()<cr>",
+    desc = "Find and replace - Open",
+    remap = false,
+  },
+  {
+    "<leader>urw",
+    "<cmd>lua require('spectre').open_visual({select_word=true})<cr>",
+    desc = "Find and replace - Seach current word",
+    remap = false,
+  },
+  {
+    "<leader>ut",
+    "<cmd>lua require('utils.treesitter-utils').goto_translation()<CR>",
+    desc = "Go to translation",
+    remap = false,
+  },
+  {
+    "<leader>uv",
+    "<cmd>lua vim.cmd('! code ' .. vim.api.nvim_buf_get_name(0))<cr>",
+    desc = "Open vscode in the file",
+    remap = false,
+  },
+  { "<leader>w", "<cmd>wall<CR>", desc = "Save", remap = false },
+  { "<leader>x", "<cmd>quit<CR>", desc = "Close buffer", remap = false },
+  ---------------------------- VISUAL Mappings --------------------------
+  {
+    mode = { "v" },
+    {
+      "<leader>ff",
       "<cmd>lua require('utils.telescope-custom-pickers').find_visual()<CR>",
-      "Find word under cursor",
+      desc = "Find word under cursor",
+      remap = false,
     },
-    ["y"] = {
+    {
+      "<leader>fy",
       "<cmd>lua require('telescope').extensions.yank_history.yank_history()<cr>",
-      "Open yank history",
+      desc = "Open yank history",
+      remap = false,
     },
+    { "<leader>g", group = "Git", remap = false },
+    {
+      "<leader>gu",
+      "<cmd>lua require('gitlinker').get_buf_range_url('v')<CR>",
+      desc = "Fugitive",
+      remap = false,
+    },
+    { "<leader>r", group = "Find and replace", remap = false },
+    {
+      "<leader>ro",
+      "<esc>:lua require('spectre').open_visual()<cr>",
+      desc = "Find under cursor",
+      remap = false,
+    },
+    { "<leader>u", group = "Utils", remap = false },
+    {
+      "<leader>uc",
+      "<cmd>TextCaseOpenTelescope<cr>",
+      desc = "Open telescope with text case changer",
+      remap = false,
+    },
+    { "<leader>y", '"+y', desc = "Yank to global register", remap = false },
   },
-  ["r"] = {
-    name = "Find and replace",
-    ["o"] = { "<esc>:lua require('spectre').open_visual()<cr>", "Find under cursor" },
-  },
-  ["g"] = {
-    name = "Git",
-    ["u"] = { "<cmd>lua require('gitlinker').get_buf_range_url('v')<CR>", "Fugitive" },
-  },
-}
-
-local movement_opts = {
-  mode = "n",
-  prefix = "[",
-  silent = true,
-  noremap = true,
-}
-
-local movement_mappings = {
-  ["name"] = "Move back",
-  ["c"] = {
+  ---------------------------- [ Mappings --------------------------
+  { "[", group = "Move back", remap = false },
+  {
+    "[c",
     "<cmd>lua require('treesitter-context').go_to_context(-1)<cr>",
-    "Go to most upper context",
+    desc = "Go to most upper context",
+    remap = false,
   },
-}
-
-which_key.setup(setup)
-
-which_key.register(mappings, opts)
-which_key.register(visual_mappings, visual_opts)
-which_key.register(movement_mappings, movement_opts)
+})
