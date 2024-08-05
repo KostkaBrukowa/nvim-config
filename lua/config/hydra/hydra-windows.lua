@@ -12,18 +12,21 @@ local window_hint = [[
  ^ ^ ^ ^ ^ ^  ^ ^ ^ ^ ^ ^   ^^ ^          ^   
 ]]
 
-Hydra({
+require("hydra").setup({
+  invoke_on_body = true,
+  hint = {
+    show_name = true,
+    position = { "bottom" },
+    offset = 0,
+    float_opts = { border = "rounded" },
+  },
+})
+
+local h = Hydra({
   name = "Windows",
   hint = window_hint,
-  config = {
-    invoke_on_body = true,
-    hint = {
-      border = "rounded",
-      offset = -1,
-    },
-  },
+  body = "<c-w>",
   mode = "n",
-  body = "<C-w>",
   heads = {
     { "h", "<C-w>h" },
     { "n", "<C-w>j" },

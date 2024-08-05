@@ -19,8 +19,10 @@ Hydra({
     invoke_on_body = true,
     color = "pink",
     hint = {
-      border = "rounded",
       offset = -1,
+      float_opts = {
+        border = "rounded",
+      },
     },
   },
   mode = "n",

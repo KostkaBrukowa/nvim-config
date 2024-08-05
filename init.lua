@@ -1,12 +1,27 @@
 require("dupa.keymaps")
 
-require("utils.module_utils")
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
 
-require("dupa.lazy-plugins")
+vim.opt.rtp:prepend(lazypath)
+
+require("lazy").setup("plugins", { change_detection = { notify = false } })
+
+require("utils.module_utils")
 require("dupa.colorscheme")
 require("dupa.options")
 require("dupa.which-key")
 require("dupa.lualine")
+require("dupa.other-mappings")
 
 require("dupa.treesitter")
 require("dupa.neotree")
@@ -14,7 +29,6 @@ require("dupa.telescope")
 require("dupa.neodev")
 require("dupa.neoconf")
 require("dupa.lsp-zero")
-require("dupa.autopairs")
 require("dupa.impatient")
 require("dupa.comment")
 require("dupa.lastplace")
@@ -27,7 +41,6 @@ require("dupa.other")
 require("dupa.neotest")
 require("dupa.dap")
 require("config.luasnip")
-require("dupa.auto-session")
 require("dupa.hydra")
 require("dupa.ufo")
 require("dupa.other_plugins")
@@ -44,4 +57,3 @@ require("dupa.typescript-tools")
 
 require("dupa.import_on_paste")
 require("dupa.definitions_or_references")
-require("dupa.other-mappings")

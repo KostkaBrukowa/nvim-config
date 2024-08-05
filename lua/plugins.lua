@@ -1,18 +1,4 @@
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  vim.fn.system({
-    "git",
-    "clone",
-    "--filter=blob:none",
-    "https://github.com/folke/lazy.nvim.git",
-    "--branch=stable", -- latest stable release
-    lazypath,
-  })
-end
-
-vim.opt.rtp:prepend(lazypath)
-
-require("lazy").setup({
+return {
   -- Essentials
   "wbthomason/packer.nvim",
   "nvim-lua/plenary.nvim",
@@ -32,7 +18,7 @@ require("lazy").setup({
   "nvim-treesitter/nvim-treesitter-context",
 
   -- Keymaps
-  "folke/which-key.nvim",
+  { "echasnovski/mini.clue", version = "*" },
 
   -- Telescope
   "KostkaBrukowa/telescope.nvim",
@@ -44,9 +30,6 @@ require("lazy").setup({
   },
 
   "windwp/nvim-spectre",
-
-  -- Session management
-  "rmagatti/auto-session",
 
   -- CMP
   "hrsh7th/nvim-cmp",
@@ -79,7 +62,7 @@ require("lazy").setup({
   "akinsho/toggleterm.nvim",
   "gbprod/substitute.nvim",
   "kylechui/nvim-surround",
-  "anuvyklack/hydra.nvim",
+  "nvimtools/hydra.nvim",
   "vuki656/package-info.nvim",
   "mbbill/undotree",
   "rareitems/printer.nvim",
@@ -127,6 +110,9 @@ require("lazy").setup({
     "rachartier/tiny-inline-diagnostic.nvim",
     config = function()
       require("tiny-inline-diagnostic").setup({
+        options = {
+          show_source = true,
+        },
         hi = {
           background = "",
         },
@@ -138,7 +124,6 @@ require("lazy").setup({
       })
     end,
   },
-
   "folke/neoconf.nvim",
 
   -- Folding
@@ -171,4 +156,4 @@ require("lazy").setup({
       "jbyuki/one-small-step-for-vimkind",
     },
   },
-})
+}
