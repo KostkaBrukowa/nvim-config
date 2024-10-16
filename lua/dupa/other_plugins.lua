@@ -20,7 +20,9 @@ vim.api.nvim_create_user_command("Eslint", function()
 end, {})
 
 vim.api.nvim_create_user_command("EslintPanel", function()
-  vim.cmd("compiler jest | make --selectProjects lint | copen")
+  vim.cmd(
+    "compiler jest | make --selectProjects lint --silent --reporters=jest-silent-reporter | copen"
+  )
 end, {})
 
 vim.api.nvim_create_user_command("JestPanel", function()

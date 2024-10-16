@@ -75,6 +75,7 @@ end
 local function configure_debuggers()
   require("config.dap.javascript")
   require("config.dap.lua")
+  require("config.dap.csharp")
 end
 
 configure() -- Configuration

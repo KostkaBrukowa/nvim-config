@@ -48,6 +48,6 @@ if not js_debug then
 end
 
 js_debug.setup({
-  debugger_path = "/Users/jaroslaw.glegola/.local/share/nvim/site/pack/packer/start/vscode-js-debug/", -- Path to vscode-js-debug installation.
+  debugger_path = "/Users/jaroslaw.glegola/.local/share/nvim/lazy/vscode-js-debug/", -- Path to vscode-js-debug installation.
   adapters = { "pwa-node", "pwa-chrome", "node-terminal" }, -- which adapters to register in nvim-dap
 })

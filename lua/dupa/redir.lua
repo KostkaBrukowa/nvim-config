@@ -10,7 +10,7 @@ local function redir_vim_command(cmd)
   vim.cmd("redir END")
   local output = vim.fn.split(vim.g.output, "\n")
   local errors = vim.tbl_filter(function(line)
-    return string.match(line, "code %d %((error)")
+    return string.match(line, "code %d %((error)") or string.match(line, "failed %((code %d)")
   end, output)
 
   if #errors == 0 then

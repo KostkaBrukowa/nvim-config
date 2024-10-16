@@ -1,8 +1,6 @@
 -- Possible improvements: instead of using OrganizeImports build imports yourself
 -- add support for imports that import variable that are in global scope like 'screen' - no idea how
-local keymap_amend = require("keymap-amend")
-local typescript_tools = require("typescript-tools.api")
-local typescript_tools_constants = require("typescript-tools.protocol.constants")
+-- local typescript_tools = require("typescript-tools.api")
 
 local log = require("dupa.log-mock")
 local path_utils = require("dupa.import_on_paste.path_utils")
@@ -108,17 +106,17 @@ vim.api.nvim_create_autocmd({ "User" }, {
 
     local pasted_filename = vim.api.nvim_buf_get_name(0)
 
-    typescript_tools.request_diagnostics(function(err, diagnostics)
-      log.trace("starting processing import on paste with diagnostics")
-      if err then
-        vim.notify("diagnostics request failed")
-      end
-
-      if vim.api.nvim_buf_get_name(0) == pasted_filename then
-        add_missing_imports(diagnostics)
-      else
-        vim.notify("You've changed file before diagnoostics showed up. importing aborted")
-      end
-    end)
+    -- typescript_tools.request_diagnostics(function(err, diagnostics)
+    --   log.trace("starting processing import on paste with diagnostics")
+    --   if err then
+    --     vim.notify("diagnostics request failed")
+    --   end
+    --
+    --   if vim.api.nvim_buf_get_name(0) == pasted_filename then
+    --     add_missing_imports(diagnostics)
+    --   else
+    --     vim.notify("You've changed file before diagnoostics showed up. importing aborted")
+    --   end
+    -- end)
   end,
 })

@@ -1,4 +1,3 @@
-local cmp_action = require("lsp-zero").cmp_action()
 local lsp = require("lsp-zero").preset({
   name = "recommended",
   set_lsp_keymaps = false,
@@ -24,6 +23,16 @@ lsp.format_on_save({
   },
   servers = {
     ["null-ls"] = {
+      "javascript",
+      "typescript",
+      "lua",
+      "javascriptreact",
+      "typescriptreact",
+      "postcss",
+      "json",
+      "cs",
+    },
+    ["eslint"] = {
       "javascript",
       "typescript",
       "lua",
@@ -124,8 +133,6 @@ vim.diagnostic.handlers.virtual_text = {
   hide = vim.diagnostic.handlers.virtual_text.hide,
 }
 
--- vim.fn.executable()
-
 -- TODO move to separate file
 local cmp = require("cmp")
 local keymap = require("cmp.utils.keymap")
@@ -134,7 +141,7 @@ local compare = require("cmp.config.compare")
 local luasnip = require("luasnip")
 
 require("cmp-npm").setup({
-  ignore = { "rc", "canary", "beta", "next", "alpha" },
+  ignore = { "rc", "canary", "beta", "next", "alpha", "dev" },
 })
 cmp.setup({
   sources = {

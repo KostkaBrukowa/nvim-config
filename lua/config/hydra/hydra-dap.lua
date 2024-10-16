@@ -2,8 +2,8 @@ local Hydra = require("hydra")
 local cmd = require("hydra.keymap-util").cmd
 
 local hint = [[
- _o_:  Step over       _t_:  Toggle Breakpoint           _s_: Start                _E_: Eval expression input
- _i_:  Step into       _C_: Conditional breakpoint        _p_: Pause                _e_: Evaluate
+ _o_:  Step over       _t_:  Toggle Breakpoint           _s_: Start                _V_: Eval expression input
+ _i_:  Step into       _C_: Conditional breakpoint        _p_: Pause                _v_: Evaluate
  _u_:  Step out        ^ ^                                _d_: Disconnect           _h_: Hover variable
  _c_: 淪Continue        ^ ^                                _x_: Terminate            _S_: Scopes   
  _b_:  Step back       ^ ^                                _r_: Toggle Repl      
@@ -28,8 +28,8 @@ Hydra({
   mode = "n",
   body = "<space>b",
   heads = {
-    { "E", "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>", { silent = true } },
-    { "e", "<cmd>lua require'dapui'.eval()<cr>", { silent = true } },
+    { "V", "<cmd>lua require'dapui'.eval(vim.fn.input '[Expression] > ')<cr>", { silent = true } },
+    { "v", "<cmd>lua require'dapui'.eval()<cr>", { silent = true } },
     { "h", "<cmd>lua require'dap.ui.widgets'.hover()<cr>", { silent = true } },
     { "S", "<cmd>lua require'dap.ui.widgets'.scopes()<cr>", { silent = true } },
 

@@ -8,7 +8,6 @@ return {
 
   -- File explorer
   "nvim-tree/nvim-web-devicons",
-  "nvim-neo-tree/neo-tree.nvim",
 
   -- Buffer and status lines
   "nvim-lualine/lualine.nvim",
@@ -32,7 +31,7 @@ return {
   "windwp/nvim-spectre",
 
   -- CMP
-  "hrsh7th/nvim-cmp",
+  "iguanacucumber/magazine.nvim",
   "hrsh7th/cmp-buffer",
   "hrsh7th/cmp-path",
   "hrsh7th/cmp-cmdline",
@@ -58,14 +57,12 @@ return {
 
   -- Utils
   "lewis6991/impatient.nvim",
-  "ethanholz/nvim-lastplace",
   "akinsho/toggleterm.nvim",
   "gbprod/substitute.nvim",
   "kylechui/nvim-surround",
   "nvimtools/hydra.nvim",
   "vuki656/package-info.nvim",
   "mbbill/undotree",
-  "rareitems/printer.nvim",
   "AckslD/messages.nvim",
   "anuvyklack/keymap-amend.nvim",
   "rgroli/other.nvim",
@@ -85,7 +82,6 @@ return {
   "echasnovski/mini.bufremove",
 
   -- UI
-  "stevearc/dressing.nvim",
   "MunifTanjim/nui.nvim",
 
   -- LSP
@@ -96,15 +92,12 @@ return {
   "WhoIsSethDaniel/mason-tool-installer.nvim",
   "jayp0521/mason-null-ls.nvim",
   "jose-elias-alvarez/null-ls.nvim",
-  "folke/neodev.nvim",
   "antosha417/nvim-lsp-file-operations",
-  "j-hui/fidget.nvim",
   "b0o/schemastore.nvim",
   {
     "git@github.com:allegro-internal/vscode-allegro-metrum",
     build = "npm ci --quiet && npm ci --prefix ./server --quiet && npm run build",
   },
-  "pmizio/typescript-tools.nvim",
   "KostkaBrukowa/clear-action.nvim",
   {
     "rachartier/tiny-inline-diagnostic.nvim",
@@ -124,7 +117,6 @@ return {
       })
     end,
   },
-  "folke/neoconf.nvim",
 
   -- Folding
   { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },

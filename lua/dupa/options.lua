@@ -15,7 +15,7 @@ vim.cmd([[set jumpoptions+=stack]])
 vim.opt.shortmess:append("nocI")
 -- vim.notify = require("notify")
 
-vim.o.sessionoptions = "buffers,curdir,winpos,winsize"
+vim.o.sessionoptions = "buffers,curdir,winpos,winsize,terminal"
 
 local options = {
   backup = false,

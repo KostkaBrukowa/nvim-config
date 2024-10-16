@@ -47,6 +47,7 @@ vim.keymap.set(
   end)
 )
 keymap("n", "<leader>rI", "<leader>r$", { noremap = false })
+keymap("n", "dI", "d$", { noremap = false })
 
 keymap("n", "m", "mm", opts)
 vim.keymap.set("n", "<leader>m", function()
