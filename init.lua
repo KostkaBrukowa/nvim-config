@@ -1,3 +1,4 @@
+require("dupa.options")
 require("dupa.keymaps")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -17,7 +18,6 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins", { change_detection = { notify = false } })
 
 require("utils.module_utils")
-require("dupa.options")
 require("dupa.which-key")
 require("dupa.lualine")
 require("dupa.other-mappings")
@@ -44,3 +44,4 @@ require("dupa.import_on_paste")
 require("dupa.definitions_or_references")
 
 -- when deleting first character of a line, move cursor to indentation of previous line
+-- better other.nvim that lets me use functions instead of regex

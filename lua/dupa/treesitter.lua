@@ -40,6 +40,9 @@ treesitter.setup({
 })
 
 require("nvim-treesitter.configs").setup({
+  indent = {
+    enable = true,
+  },
   incremental_selection = {
     enable = true,
     keymaps = {
@@ -70,7 +73,7 @@ vim.api.nvim_create_autocmd({ "User" }, {
   pattern = { "PastePost" },
   callback = function()
     if require("nvim-ts-autotag.config.plugin").get_opts(vim.bo.filetype).enable_rename then
-      vim.cmd.undojoin() -- makes sure the rename is a single undo
+      pcall(vim.cmd.undojoin) -- makes sure the rename is a single undo
       require("nvim-ts-autotag.internal").rename_tag()
     end
   end,

@@ -11,6 +11,7 @@ vim.cmd([[set fillchars+=vertleft:┫]])
 vim.cmd([[set fillchars+=vertright:┣]])
 vim.cmd([[set fillchars+=verthoriz:╋]])
 vim.cmd([[set jumpoptions+=stack]])
+vim.cmd([[set indentexpr=nvim_treesitter#indent()]])
 
 vim.opt.shortmess:append("nocI")
 -- vim.notify = require("notify")
@@ -31,7 +32,7 @@ local options = {
   showmode = false,
   showtabline = 0,
   smartcase = true,
-  smartindent = true,
+  smartindent = false,
   splitbelow = true,
   splitright = true,
   swapfile = false,
