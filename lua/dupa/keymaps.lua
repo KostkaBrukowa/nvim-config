@@ -68,3 +68,5 @@ keymap(
   "<cmd>wall<CR><cmd>lua vim.defer_fn(function() vim.cmd('qall') end, 100)<CR>",
   { noremap = true, silent = true, desc = "Save and exit" }
 )
+
+keymap("n", "zq", "q", { noremap = true, silent = true, desc = "Start macro" })

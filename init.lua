@@ -44,4 +44,8 @@ require("dupa.import_on_paste")
 require("dupa.definitions_or_references")
 
 -- when deleting first character of a line, move cursor to indentation of previous line
--- better other.nvim that lets me use functions instead of regex
+-- given something like this
+--
+-- const x = 1
+-- ^ <- cursor here in insert mode
+-- and when using up arrow cursor lands on the start of the line

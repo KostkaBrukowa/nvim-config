@@ -1,7 +1,9 @@
 return {
   "Saghen/blink.cmp",
   enabled = false,
-  tag = "v0.3.1",
+  dependencies = {
+    "L3MON4D3/LuaSnip",
+  },
   opts = {},
   -- opts = {
   --   keymap = {

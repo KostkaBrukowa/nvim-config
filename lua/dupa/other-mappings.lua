@@ -111,14 +111,14 @@ local normal_keymaps = {
     remap = false,
   },
   {
-    "<leader>fo",
-    "<cmd>lua require('utils.telescope-custom-pickers').open_saved_project_picker()<CR>",
-    desc = "Projects",
-    remap = false,
-  },
-  {
-    "<leader>fp",
-    "<cmd>lua require('telescope').extensions.smart_open.smart_open({cwd_only = true})<CR>",
+    "q",
+    function()
+      if vim.fn.reg_recording() == "" then
+        require("telescope").extensions.smart_open.smart_open({ cwd_only = true })
+      else
+        vim.cmd("normal! q")
+      end
+    end,
     desc = "Files",
     remap = false,
   },
@@ -437,7 +437,7 @@ local visual_keymaps = {
     remap = false,
   },
   {
-    "<leader>ro",
+    "<leader>uro",
     "<esc>:lua require('spectre').open_visual()<cr>",
     desc = "Find under cursor",
     remap = false,

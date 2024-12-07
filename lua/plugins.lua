@@ -30,21 +30,6 @@ return {
 
   "windwp/nvim-spectre",
 
-  -- CMP
-  "iguanacucumber/magazine.nvim",
-  "hrsh7th/cmp-buffer",
-  "hrsh7th/cmp-path",
-  "hrsh7th/cmp-cmdline",
-  "hrsh7th/cmp-nvim-lsp",
-  { "David-Kunz/cmp-npm", ft = "json" },
-  { url = "https://codeberg.org/FelipeLema/cmp-async-path" },
-  "windwp/nvim-autopairs",
-  "windwp/nvim-ts-autotag",
-
-  -- Snippets
-  "L3MON4D3/LuaSnip",
-  "saadparwaiz1/cmp_luasnip",
-
   -- Comments
   "numToStr/Comment.nvim",
   "JoosepAlviste/nvim-ts-context-commentstring",
@@ -72,7 +57,7 @@ return {
   "github/copilot.vim",
   "kevinhwang91/nvim-bqf",
   "dmmulroy/tsc.nvim",
-  "gbprod/yanky.nvim",
+
   "KostkaBrukowa/nvim-cursorword", -- fork of xiyaowong/nvim-cursorword with treesitter support
   "backdround/improved-search.nvim",
   "KostkaBrukowa/definition-or-references.nvim",
@@ -86,7 +71,7 @@ return {
 
   -- LSP
   "neovim/nvim-lspconfig",
-  { "VonHeikemen/lsp-zero.nvim", version = "v3.x" },
+  { "VonHeikemen/lsp-zero.nvim", version = "v4.x" },
   "williamboman/mason.nvim",
   "williamboman/mason-lspconfig.nvim",
   "WhoIsSethDaniel/mason-tool-installer.nvim",
@@ -99,24 +84,6 @@ return {
     build = "npm ci --quiet && npm ci --prefix ./server --quiet && npm run build",
   },
   "KostkaBrukowa/clear-action.nvim",
-  {
-    "rachartier/tiny-inline-diagnostic.nvim",
-    config = function()
-      require("tiny-inline-diagnostic").setup({
-        options = {
-          show_source = true,
-        },
-        hi = {
-          background = "",
-        },
-        signs = {
-          left = "",
-          right = "",
-          arrow = "   ",
-        },
-      })
-    end,
-  },
 
   -- Folding
   { "kevinhwang91/nvim-ufo", dependencies = "kevinhwang91/promise-async" },

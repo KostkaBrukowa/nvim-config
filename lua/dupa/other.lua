@@ -20,12 +20,14 @@ local patterns = {
 local targets = {
   { target = "/%1/%2.jsx", context = "component" },
   { target = "/%1/%2.tsx", context = "component" },
+  { target = "/%1/*.tsx", context = "component", fallback = true },
   { target = "/%1/%2.js", context = "component" },
   { target = "/%1/%2.ts", context = "component" },
   { target = "/%1/__tests__/%2.spec.ts", context = "test" },
   { target = "/%1/__tests__/%2.spec.tsx", context = "test" },
   { target = "/%1/__tests__/%2.test.ts", context = "test" },
   { target = "/%1/__tests__/%2.test.tsx", context = "test" },
+  { target = "/%1/__tests__/*.spec.tsx", context = "test", fallback = true },
   { target = "/%1/%2.spec.ts", context = "test" },
   { target = "/%1/%2.spec.tsx", context = "test" },
   { target = "/%1/%2.test.ts", context = "test" },
@@ -34,6 +36,9 @@ local targets = {
   { target = "/%1/%2.module.pcss", context = "stylesheet" },
   { target = "/%1/%2.module.less", context = "stylesheet" },
   { target = "/%1/%2.module.css", context = "stylesheet" },
+  { target = "/%1/*.pcss", context = "stylesheet", fallback = true },
+  { target = "/%1/*.module.css", context = "stylesheet", fallback = true },
+  { target = "/%1/*.module.less", context = "stylesheet", fallback = true },
   { target = "/%1/%2.style.ts", context = "style" },
 }
 

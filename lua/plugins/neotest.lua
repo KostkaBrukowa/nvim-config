@@ -4,15 +4,18 @@ return {
     "nvim-neotest/nvim-nio",
     "nvim-neotest/neotest-plenary",
     "nvim-neotest/neotest-jest",
+    "marilari88/neotest-vitest",
     "folke/neoconf.nvim",
   },
+  lazy = true,
   config = function()
     local configurationJestCommand = require("neoconf").get("jestRunCommand")
+    local testRunner = require("neoconf").get("testRunner")
 
     --   local cmd = { vim.loop.exepath(), "--embed", "--headless", "-n", "--clean" } -- subprocess.lua
     require("neotest").setup({
       adapters = {
-        require("neotest-jest")({
+        testRunner == "vitest" and require("neotest-vitest") or require("neotest-jest")({
           jest_test_discovery = false,
           jestCommand = configurationJestCommand,
         }),
