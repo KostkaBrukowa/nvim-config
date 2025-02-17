@@ -116,7 +116,6 @@ local normal_keymaps = {
       if vim.fn.reg_recording() == "" then
         require("telescope").extensions.smart_open.smart_open({ cwd_only = true })
       else
-        vim.cmd("normal! q")
       end
     end,
     desc = "Files",
@@ -453,6 +452,7 @@ local visual_keymaps = {
 
 for _, keymap in ipairs(normal_keymaps) do
   if not keymap.group then
+    -- vim.api.nvim_set_keymap()
     vim.keymap.set("n", keymap[1], keymap[2], { noremap = not keymap.remap, desc = keymap.desc })
   end
 end

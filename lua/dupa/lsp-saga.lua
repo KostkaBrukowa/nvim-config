@@ -1,4 +1,4 @@
-local cmp = require("cmp")
+local cmp_ok, cmp = pcall(require, "cmp")
 local ASquareRight = vim.fn.has("macunix") == 1 and "ä" or "<A-.>"
 
 local definition_or_references = require("definition-or-references").definition_or_references
@@ -23,12 +23,13 @@ end
 vim.keymap.set({ "n", "v" }, "<C-.>", require("clear-action").code_action, { silent = true })
 vim.keymap.set("n", "<leader>2", vim.lsp.buf.rename, { silent = true })
 vim.keymap.set("n", "gt", vim.lsp.buf.hover, { silent = true })
-vim.keymap.set("i", "<c-i>", function()
-  if cmp.visible() then
+vim.keymap.set("i", "<F13>", function()
+  if cmp_ok and cmp.visible() then
     cmp.abort()
   end
   vim.lsp.buf.signature_help()
 end, { silent = true })
+
 vim.keymap.set("n", "gh", open_float, { silent = true })
 vim.keymap.set("n", ASquareRight, definition_or_references, { silent = true })
 

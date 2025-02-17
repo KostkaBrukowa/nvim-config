@@ -31,16 +31,15 @@ keymap("", "J", "E", opts)
 keymap("n", "Y", "y$", opts)
 -- change current word and allow to use . for changing next words
 keymap("n", "c*", "*Ncgn", opts)
-
--- Window navigation
+--
+-- -- Window navigation
 keymap("n", "<C-h>", "<C-w>h", opts)
 keymap("n", "<C-n>", "<C-w>j", opts)
 keymap("n", "<C-e>", "<C-w>k", opts)
-keymap("n", "<C-i>", "<C-w>l", opts)
+keymap("n", "<F13>", "<C-w>l", opts)
 keymap("i", "<C-h>", "<cmd>wincmd h<cr>", opts)
 keymap("i", "<C-n>", "<cmd>wincmd j<cr>", opts)
 keymap("i", "<C-e>", "<cmd>wincmd k<cr>", opts)
-keymap("i", "<C-i>", "<cmd>wincmd l<cr>", opts)
 
 -- Go back and forward defined in setup_listeners.lua
 keymap("n", "<C-l>", "<C-o>", opts)

@@ -1,0 +1,112 @@
+return {
+  "lewis6991/gitsigns.nvim",
+  dependencies = {
+    "ruifm/gitlinker.nvim",
+    "sindrets/diffview.nvim",
+  },
+  config = function()
+    local signs = require("gitsigns")
+    local git_linker = require("gitlinker")
+    local diffview = require("diffview")
+
+    -- Gitsigns setup
+    signs.setup({
+      on_attach = function(bufnr)
+        -- Do not attach to fugitive or terminal buffers
+        if
+          vim.startswith(vim.api.nvim_buf_get_name(bufnr), "fugitive://")
+          or vim.startswith(vim.api.nvim_buf_get_name(bufnr), "term://")
+        then
+          return false
+        end
+      end,
+      attach_to_untracked = true,
+      signs = {
+        add = { text = "█" },
+        change = { text = "█" },
+        delete = { text = "▬" },
+        topdelete = { text = "‾" },
+        changedelete = { text = "~" },
+        untracked = { text = "┇" },
+      },
+    })
+
+    -- Auto-insert JIRA task into commit message
+    vim.api.nvim_create_autocmd("FileType", {
+      pattern = "gitcommit",
+      group = vim.api.nvim_create_augroup("git-commit-jira", { clear = true }),
+      callback = function()
+        local content = vim.api.nvim_buf_get_lines(0, 0, -1, false)[1]
+        if content ~= "" and not content:find("^Merge branch") then
+          return
+        end
+
+        local branch = vim.fn.system("git branch --show-current"):match("/?([%u%d]+-%d+)-?")
+        if branch then
+          vim.api.nvim_buf_set_lines(0, 0, 0, false, { branch .. " | " })
+          vim.api.nvim_win_set_cursor(0, { 1, branch:len() + 1 })
+          vim.cmd(":startinsert!")
+        end
+      end,
+    })
+
+    -- GitNewBranch command
+    vim.api.nvim_create_user_command("GitNewBranch", function()
+      vim.ui.input({
+        prompt = "New branch name",
+        default = "ADS-",
+      }, function(input)
+        if input then
+          vim.cmd("Git checkout -b " .. input)
+        end
+      end)
+    end, {})
+
+    -- Gitlinker setup
+    git_linker.setup({
+      mappings = nil,
+    })
+
+    -- DiffviewToggle command
+    vim.api.nvim_create_user_command("DiffviewToggle", function()
+      local view = require("diffview.lib").get_current_view()
+      if view then
+        vim.cmd("DiffviewClose")
+      else
+        vim.cmd("DiffviewOpen")
+      end
+    end, {})
+
+    -- Diffview setup
+    diffview.setup({
+      enhanced_diff_hl = true,
+      keymaps = {
+        view = {
+          ["<leader>co"] = false,
+          ["<leader>ct"] = false,
+          ["<leader>cb"] = false,
+          ["<leader>ca"] = false,
+          ["<leader>cO"] = false,
+          ["<leader>cT"] = false,
+          ["<leader>cB"] = false,
+          ["<leader>cA"] = false,
+        },
+        file_panel = {
+          ["<leader>cO"] = false,
+          ["<leader>cT"] = false,
+          ["<leader>cB"] = false,
+          ["<leader>cA"] = false,
+        },
+      },
+      hooks = {
+        diff_buf_read = function(bufnr) end,
+        view_opened = function()
+          vim.cmd("UfoDisable")
+        end,
+        view_closed = function()
+          vim.cmd("UfoEnable")
+        end,
+      },
+    })
+  end,
+}

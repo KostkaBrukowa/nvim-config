@@ -41,7 +41,7 @@ for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "java
   }
 end
 
-local js_debug = safe_require("dap-vscode-js")
+local js_debug = require("dap-vscode-js")
 
 if not js_debug then
   return
