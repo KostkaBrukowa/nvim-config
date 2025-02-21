@@ -1,5 +1,6 @@
 return {
   "rgroli/other.nvim",
+  -- cond = not vim.g.vscode,
   config = function()
     local other = require("other-nvim")
 

@@ -1,5 +1,7 @@
 return {
   "folke/neoconf.nvim",
+  cond = not vim.g.vscode,
+
   opts = {
     plugins = {
       lspconfig = {

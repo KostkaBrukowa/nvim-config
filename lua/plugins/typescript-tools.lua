@@ -2,6 +2,8 @@ return {
   enabled = true,
   "pmizio/typescript-tools.nvim",
   event = "BufEnter",
+  cond = not vim.g.vscode,
+
   opts = {
 
     filetypes = {

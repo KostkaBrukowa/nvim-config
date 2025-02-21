@@ -1,5 +1,6 @@
 return {
   "KostkaBrukowa/mini.ai",
+  -- cond = not vim.g.vscode,
   dependencies = {
     "echasnovski/mini.bufremove",
   },

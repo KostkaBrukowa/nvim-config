@@ -1,5 +1,6 @@
 return {
   "windwp/nvim-autopairs",
+  cond = not vim.g.vscode,
   opts = { check_ts = true },
   config = function(_, opts)
     require("nvim-autopairs").setup(opts)

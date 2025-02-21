@@ -1,5 +1,6 @@
 return {
   "KostkaBrukowa/telescope.nvim",
+  cond = not vim.g.vscode,
   dependencies = {
     "nvim-telescope/telescope-fzf-native.nvim",
     "nvim-telescope/telescope-project.nvim",

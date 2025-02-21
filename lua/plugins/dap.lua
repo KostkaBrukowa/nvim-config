@@ -1,5 +1,7 @@
 return {
   "mfussenegger/nvim-dap",
+  cond = not vim.g.vscode,
+
   dependencies = {
     "Pocco81/dap-buddy.nvim",
     "theHamsta/nvim-dap-virtual-text",

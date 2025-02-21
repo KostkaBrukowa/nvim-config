@@ -24,6 +24,12 @@ end
 
 return {
   "nvim-neo-tree/neo-tree.nvim",
+  cond = not vim.g.vscode,
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-tree/nvim-web-devicons",
+    "MunifTanjim/nui.nvim",
+  },
   keys = {
     { "<CR>", "<cmd>Neotree toggle reveal<CR>", desc = "Open neotree" },
   },

@@ -1,5 +1,7 @@
 return {
   "lewis6991/gitsigns.nvim",
+  cond = not vim.g.vscode,
+
   dependencies = {
     "ruifm/gitlinker.nvim",
     "sindrets/diffview.nvim",

@@ -1,5 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  -- cond = not vim.g.vscode,
   dependencies = {
     "nvim-treesitter/nvim-treesitter-context",
     "windwp/nvim-ts-autotag",

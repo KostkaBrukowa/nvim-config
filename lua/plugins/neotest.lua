@@ -1,5 +1,6 @@
 return {
   "nvim-neotest/neotest",
+  cond = not vim.g.vscode,
   dependencies = {
     "nvim-neotest/nvim-nio",
     "nvim-neotest/neotest-plenary",

@@ -1,6 +1,8 @@
 return {
   "Saghen/blink.cmp",
   enabled = false,
+  cond = not vim.g.vscode,
+
   dependencies = {
     "L3MON4D3/LuaSnip",
   },

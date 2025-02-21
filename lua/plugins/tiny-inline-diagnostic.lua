@@ -1,5 +1,6 @@
 return {
   "rachartier/tiny-inline-diagnostic.nvim",
+  cond = not vim.g.vscode,
   opts = {
     options = {
       show_source = true,

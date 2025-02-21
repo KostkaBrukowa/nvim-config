@@ -1,5 +1,6 @@
 return {
   "echasnovski/mini.operators",
+  -- cond = not vim.g.vscode,
   opts = {
     multiply = {
       prefix = "<leader>d",

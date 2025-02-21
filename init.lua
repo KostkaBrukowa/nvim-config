@@ -16,19 +16,21 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup("plugins", { change_detection = { notify = false } })
-
-require("utils.module_utils")
-
-require("dupa.other-mappings")
-require("dupa.auto-save")
-require("plugins.other")
-require("config.luasnip")
 require("dupa.lsp-saga")
-require("dupa.redir")
-require("dupa.autocommands")
 
-require("dupa.import_on_paste")
-require("dupa.definitions_or_references")
+if not vim.g.vscode then
+  require("dupa.other-mappings")
+  require("dupa.auto-save")
+  require("plugins.other")
+  require("config.luasnip")
+  require("dupa.redir")
+  require("dupa.autocommands")
+
+  require("dupa.import_on_paste")
+  require("dupa.definitions_or_references")
+else
+  require("dupa.other-mappings-vscode")
+end
 
 -- when deleting first character of a line, move cursor to indentation of previous line
 -- given something like this

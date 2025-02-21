@@ -1,4 +1,5 @@
 return {
   "kevinhwang91/nvim-bqf",
-  config = true
+  cond = not vim.g.vscode,
+  config = true,
 }

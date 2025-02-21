@@ -1,5 +1,6 @@
 return {
   "nvim-lualine/lualine.nvim",
+  -- cond = not vim.g.vscode,
   requires = { "nvim-tree/nvim-web-devicons", opt = true },
   config = function()
     local lualine = require("lualine")
@@ -41,7 +42,7 @@ return {
         -- Disable sections and component separators
         component_separators = "",
         section_separators = "",
-        theme = "tokyonight",
+        theme = not vim.g.vscode and "tokyonight" or nil,
         disabled_filetypes = { "NvimTree", "alpha" },
       },
       sections = {
@@ -75,14 +76,15 @@ return {
       table.insert(config.sections.lualine_x, component)
     end
 
-    ins_left({
-      function()
-        return "▊"
-      end,
-      color = { fg = colors.blue }, -- Sets highlighting of component
-      padding = { left = 0, right = 1 }, -- We don't need space before this
-    })
-
+    if not vim.g.vscode then
+      ins_left({
+        function()
+          return "▊"
+        end,
+        color = { fg = colors.blue }, -- Sets highlighting of component
+        padding = { left = 0, right = 1 }, -- We don't need space before this
+      })
+    end
     ins_left({
       "filename",
       cond = conditions.buffer_not_empty,
@@ -90,44 +92,46 @@ return {
       color = { fg = colors.magenta, gui = "bold" },
     })
 
-    ins_left({ "location" })
+    if not vim.g.vscode then
+      ins_left({ "location" })
 
-    ins_left({
-      "diagnostics",
-      sources = { "nvim_diagnostic" },
-      symbols = { error = " ", warn = " ", info = " " },
-      diagnostics_color = {
-        color_error = { fg = colors.red },
-        color_warn = { fg = colors.yellow },
-        color_info = { fg = colors.cyan },
-      },
-    })
+      ins_left({
+        "diagnostics",
+        sources = { "nvim_diagnostic" },
+        symbols = { error = " ", warn = " ", info = " " },
+        diagnostics_color = {
+          color_error = { fg = colors.red },
+          color_warn = { fg = colors.yellow },
+          color_info = { fg = colors.cyan },
+        },
+      })
 
-    -- Insert mid section. You can make any number of sections in neovim :)
-    -- for lualine it's any number greater then 2
-    ins_left({
-      function()
-        return "%="
-      end,
-    })
+      -- Insert mid section. You can make any number of sections in neovim :)
+      -- for lualine it's any number greater then 2
+      ins_left({
+        function()
+          return "%="
+        end,
+      })
 
-    ins_right({
-      "filetype",
-    })
+      ins_right({
+        "filetype",
+      })
 
-    ins_right({
-      "branch",
-      icon = "",
-      color = { fg = colors.violet, gui = "bold" },
-    })
+      ins_right({
+        "branch",
+        icon = "",
+        color = { fg = colors.violet, gui = "bold" },
+      })
 
-    ins_right({
-      function()
-        return "▊"
-      end,
-      color = { fg = colors.blue },
-      padding = { left = 1 },
-    })
+      ins_right({
+        function()
+          return "▊"
+        end,
+        color = { fg = colors.blue },
+        padding = { left = 1 },
+      })
+    end
 
     -- Now don't forget to initialize lualine
     lualine.setup(config)

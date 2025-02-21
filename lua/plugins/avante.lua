@@ -1,6 +1,8 @@
 return {
   "yetone/avante.nvim",
   event = "VeryLazy",
+  cond = not vim.g.vscode,
+
   lazy = true,
   opts = {
     -- add any opts here

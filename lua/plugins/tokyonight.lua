@@ -1,5 +1,6 @@
 return {
   "folke/tokyonight.nvim",
+  cond = not vim.g.vscode,
   opts = {
     dim_inactive = true,
     on_colors = function(colors)

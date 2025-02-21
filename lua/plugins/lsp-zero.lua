@@ -1,5 +1,7 @@
 return {
   "VonHeikemen/lsp-zero.nvim",
+  cond = not vim.g.vscode,
+
   dependencies = {
     "neovim/nvim-lspconfig",
     "williamboman/mason.nvim",

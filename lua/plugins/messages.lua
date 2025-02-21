@@ -1,4 +1,6 @@
 return {
   "AckslD/messages.nvim",
-  config = true
+  cond = not vim.g.vscode,
+
+  config = true,
 }

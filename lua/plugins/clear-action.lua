@@ -1,3 +1,4 @@
 return {
   "KostkaBrukowa/clear-action.nvim",
+  cond = not vim.g.vscode,
 }

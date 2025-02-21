@@ -43,35 +43,45 @@ function M.goto_translation()
   local po_winid = vim.fn.bufwinid(vim.fn.bufnr("src/translations/pl-PL.po"))
 
   if po_winid == -1 then
-    vim.cmd(":vs ./src/translations/pl-PL.po")
+    if vim.g.vscode then
+      require("vscode").call("_workbench.open", {
+        args = {
+          vim.fn.getcwd() .. "/src/translations/pl-PL.po",
+        },
+      })
+    else
+      vim.cmd(":e ./src/translations/pl-PL.po")
+    end
   else
     vim.api.nvim_set_current_win(po_winid)
   end
 
-  local translation_found = vim.fn.search('"' .. name .. '"')
+  vim.defer_fn(function()
+    local translation_found = vim.fn.search('"' .. name .. '"')
 
-  vim.cmd("nohl")
+    vim.cmd("nohl")
 
-  if translation_found == 0 then
-    local handle_select_choice = function(picked_option)
-      if picked_option == "Yes" then
-        -- vim.api.nvim_command('! npx @allegro/i18n-tools add "' .. name .. '" "' .. name .. '" -t')
-        vim.api.nvim_buf_set_lines(
-          0,
-          -1,
-          -1,
-          false,
-          { "", 'msgid "' .. name .. '"', 'msgstr "' .. name .. '"' }
-        )
+    if translation_found == 0 then
+      local handle_select_choice = function(picked_option)
+        if picked_option == "Yes" then
+          -- vim.api.nvim_command('! npx @allegro/i18n-tools add "' .. name .. '" "' .. name .. '" -t')
+          vim.api.nvim_buf_set_lines(
+            0,
+            -1,
+            -1,
+            false,
+            { "", 'msgid "' .. name .. '"', 'msgstr "' .. name .. '"' }
+          )
+        end
       end
-    end
 
-    vim.ui.select(
-      { "Yes", "No" },
-      { prompt = "Create missing translation?", telescope = { initial_mode = "normal" } },
-      handle_select_choice
-    )
-  end
+      vim.ui.select(
+        { "Yes", "No" },
+        { prompt = "Create missing translation?", telescope = { initial_mode = "normal" } },
+        handle_select_choice
+      )
+    end
+  end, 150)
 
   return true
 end
@@ -103,7 +113,11 @@ function M.goto_main_export()
   for _, export_name, _ in exports_query:iter_captures(root, 0, root:start(), root:end_()) do
     local start_row, start_column = export_name:range()
     vim.api.nvim_win_set_cursor(0, { start_row + 1, start_column })
-    require("definition-or-references").definition_or_references()
+    if vim.g.vscode then
+      require("vscode").call("editor.action.goToReferences")
+    else
+      require("definition-or-references").definition_or_references()
+    end
     return
   end
 

@@ -1,5 +1,7 @@
 return {
   "windwp/nvim-spectre",
+  cond = not vim.g.vscode,
+
   opts = {
     highlight = {
       ui = "String",

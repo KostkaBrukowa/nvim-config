@@ -1,5 +1,6 @@
 return {
   "gbprod/yanky.nvim",
+  -- cond = not vim.g.vscode,
   opts = {
     highlight = {
       on_put = false,
