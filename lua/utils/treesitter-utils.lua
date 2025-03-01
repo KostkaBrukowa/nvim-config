@@ -114,7 +114,9 @@ function M.goto_main_export()
     local start_row, start_column = export_name:range()
     vim.api.nvim_win_set_cursor(0, { start_row + 1, start_column })
     if vim.g.vscode then
-      require("vscode").call("editor.action.goToReferences")
+      vim.defer_fn(function()
+        require("vscode").call("editor.action.goToReferences")
+      end, 100)
     else
       require("definition-or-references").definition_or_references()
     end

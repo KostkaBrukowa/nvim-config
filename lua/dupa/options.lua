@@ -20,7 +20,7 @@ vim.o.sessionoptions = "buffers,curdir,winpos,winsize,terminal"
 
 local options = {
   backup = false,
-  cmdheight = 1,
+  cmdheight = vim.g.vscode and 2 or 1,
   laststatus = 3,
   completeopt = { "menuone", "noselect" },
   conceallevel = 0,
@@ -53,7 +53,7 @@ local options = {
   switchbuf = "useopen,usetab",
   sidescrolloff = 8,
   spelllang = "en_us,pl",
-  spell = true,
+  spell = not vim.g.vscode,
   spelloptions = "camel,noplainbuffer",
   spellcapcheck = "",
 }

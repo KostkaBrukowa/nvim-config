@@ -72,8 +72,18 @@ vim.keymap.del("n", "<c-w><c-d>")
 vim.keymap.del("n", "<c-w>d")
 
 local normal_keymaps = {
-  { "<leader>X", "<cmd>%bd|e#<CR>", desc = "Close all buffers except current one", remap = false },
-  { "<leader>cc", "<cmd>DiffviewClose<cr>", desc = "Close diffview", remap = false },
+  {
+    "<leader>X",
+    "<cmd>%bd|e#<CR>",
+    desc = "Close all buffers except current one",
+    remap = false,
+  },
+  {
+    "<leader>cc",
+    "<cmd>DiffviewClose<cr>",
+    desc = "Close diffview",
+    remap = false,
+  },
   {
     "<leader>co",
     "<cmd>lua require('vscode').action('workbench.view.scm')<CR>",
@@ -143,9 +153,8 @@ local normal_keymaps = {
     remap = false,
   },
   {
-    -- TODO
     "<leader>fy",
-    "<cmd>lua require('telescope').extensions.yank_history.yank_history()<cr>",
+    "<cmd>YankyRingHistory<cr>",
     desc = "Open yank history",
     remap = false,
   },
@@ -439,8 +448,34 @@ local normal_keymaps = {
     remap = false,
   },
   {
+    "<leader>aw",
+    "<cmd>lua require('vscode').action('workbench.action.chat.openEditSession')<CR>",
+    remap = false,
+  },
+  {
+    "<leader>aa",
+    "<cmd>lua require('vscode').action('github.copilot.edits.attachFile')<CR>",
+    remap = false,
+  },
+  {
     "<leader>at",
     "<cmd>lua require('vscode').action('workbench.panel.chat')<CR>",
+    remap = false,
+  },
+  {
+    "<leader>/",
+    function()
+      require("vscode").action("editor.action.commentLine")
+    end,
+    desc = "editor.action.commentLine",
+    remap = false,
+  },
+  {
+    "<leader>f.",
+    function()
+      require("vscode").action("references-view.findReferences")
+    end,
+    desc = "editor.action.commentLine",
     remap = false,
   },
 }
@@ -454,7 +489,7 @@ local visual_keymaps = {
   },
   {
     "<leader>fy",
-    "<cmd>lua require('telescope').extensions.yank_history.yank_history()<cr>",
+    "<cmd>YankyRingHistory<cr>",
     desc = "Open yank history",
     remap = false,
   },
@@ -467,6 +502,15 @@ local visual_keymaps = {
   {
     "<leader>uc",
     "<cmd>lua require('vscode').action('workbench.action.quickOpen', {args = {'>Transform to '} })<CR>",
+    desc = "Open telescope with text case changer",
+    remap = false,
+  },
+  {
+    "<leader>/",
+    function()
+      require("vscode").call("editor.action.commentLine")
+      require("vscode").call("vscode-neovim.escape")
+    end,
     desc = "Open telescope with text case changer",
     remap = false,
   },
@@ -485,3 +529,6 @@ for _, keymap in ipairs(visual_keymaps) do
     vim.keymap.set("v", keymap[1], keymap[2], { noremap = not keymap.remap, desc = keymap.desc })
   end
 end
+
+vim.keymap.del("n", "gh")
+vim.keymap.del("n", "gt")

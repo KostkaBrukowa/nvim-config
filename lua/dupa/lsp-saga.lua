@@ -34,5 +34,14 @@ if not vim.g.vscode then
 
   vim.keymap.set("n", "gh", open_float, { silent = true })
   vim.keymap.set("n", ASquareRight, definition_or_references, { silent = true })
+  vim.keymap.set("n", "<C-k>", goto_next_diagnostic, { silent = true })
 else
+  vim.keymap.set("n", "gh", function()
+    require("vscode").action("editor.action.showHover")
+  end)
+  vim.keymap.set("n", "gt", vim.lsp.buf.hover)
+  vim.keymap.set("n", "M", vim.lsp.buf.hover)
+  vim.keymap.set({ "n", "v" }, "<C-.>", function()
+    require("vscode").action("highlight-errors.executeCodeAction")
+  end)
 end

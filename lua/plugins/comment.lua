@@ -1,6 +1,6 @@
 return {
   "numToStr/Comment.nvim",
-  -- cond = not vim.g.vscode,
+  cond = not vim.g.vscode,
   dependencies = {
     "JoosepAlviste/nvim-ts-context-commentstring",
   },

@@ -36,7 +36,7 @@ return {
         "vimdoc",
       },
       highlight = {
-        enable = true,
+        enable = not vim.g.vscode,
         disable = function(lang, bufnr) -- Disable in large C++ buffers
           return vim.api.nvim_buf_line_count(bufnr) > 10000
         end,
@@ -45,7 +45,7 @@ return {
 
     require("nvim-treesitter.configs").setup({
       indent = {
-        enable = true,
+        enable = not vim.g.vscode,
       },
       incremental_selection = {
         enable = true,
@@ -57,10 +57,12 @@ return {
       },
     })
 
-    require("treesitter-context").setup({
-      max_lines = 2,
-      trim_scope = "inner",
-    })
+    if not vim.g.vscode then
+      require("treesitter-context").setup({
+        max_lines = 2,
+        trim_scope = "inner",
+      })
+    end
 
     require("nvim-ts-autotag").setup({
       opts = {
