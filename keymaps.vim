@@ -78,3 +78,6 @@ nnoremap <leader>q :wall<CR>:lua vim.defer_fn(function() vim.cmd('qall') end, 10
 
 " Start macro
 nnoremap zq q
+
+nnoremap k n
+nnoremap K N
