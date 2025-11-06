@@ -12,6 +12,7 @@ set fillchars+=vertright:┣
 set fillchars+=verthoriz:╋
 set jumpoptions+=stack
 set indentexpr=nvim_treesitter#indent()
+set clipboard=unnamedplus
 
 " Shorten messages
 set shortmess+=nocI

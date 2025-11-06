@@ -31,7 +31,7 @@ local function close_import_folds_with_ts()
 
   local first_row = -1
   local last_row = -1
-  for _, export_name, _ in exports_query:iter_captures(root, 0, root:start(), root:end_()) do
+  for _, export_name, _ in exports_query:iter_captures(root, 0) do
     local start_row, _, end_row = export_name:range()
     last_row = end_row
     if first_row == -1 then

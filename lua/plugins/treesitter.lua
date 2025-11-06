@@ -34,6 +34,11 @@ return {
         "yaml",
         "toml",
         "vimdoc",
+        "jsonc",
+        "ini",
+        "gitignore",
+        "editorconfig",
+        "po",
       },
       highlight = {
         enable = not vim.g.vscode,

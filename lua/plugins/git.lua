@@ -16,8 +16,8 @@ return {
       on_attach = function(bufnr)
         -- Do not attach to fugitive or terminal buffers
         if
-          vim.startswith(vim.api.nvim_buf_get_name(bufnr), "fugitive://")
-          or vim.startswith(vim.api.nvim_buf_get_name(bufnr), "term://")
+            vim.startswith(vim.api.nvim_buf_get_name(bufnr), "fugitive://")
+            or vim.startswith(vim.api.nvim_buf_get_name(bufnr), "term://")
         then
           return false
         end
@@ -30,6 +30,9 @@ return {
         topdelete = { text = "‾" },
         changedelete = { text = "~" },
         untracked = { text = "┇" },
+      },
+      preview_config = {
+        border = "rounded",
       },
     })
 
