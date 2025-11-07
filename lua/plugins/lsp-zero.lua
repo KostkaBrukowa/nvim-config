@@ -7,7 +7,7 @@ return {
     "williamboman/mason.nvim",
     "williamboman/mason-lspconfig.nvim",
     "jayp0521/mason-null-ls.nvim",
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     "b0o/schemastore.nvim",
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     "antosha417/nvim-lsp-file-operations",
@@ -141,10 +141,10 @@ return {
       virtual_text = false,
     })
 
-    vim.diagnostic.handlers.underline = {
-      show = require("dupa.lsp.custom-lsp-handlers").remove_multiline_underline_handler,
-      hide = vim.diagnostic.handlers.underline.hide,
-    }
+    -- vim.diagnostic.handlers.underline = {
+    --   show = require("dupa.lsp.custom-lsp-handlers").remove_multiline_underline_handler,
+    --   hide = vim.diagnostic.handlers.underline.hide,
+    -- }
 
     vim.diagnostic.handlers.virtual_text = {
       show = require("dupa.lsp.custom-lsp-handlers").add_source_to_virtual_text_handler,
@@ -152,7 +152,7 @@ return {
     }
 
     -- TODO move to separate file
-    require("lspconfig").jsonls.setup({
+    vim.lsp.config("jsonls", {
       settings = {
         json = {
           schemas = require("schemastore").json.schemas(),
@@ -161,7 +161,7 @@ return {
       },
     })
 
-    require("lspconfig").yamlls.setup({
+    vim.lsp.config("yamlls", {
       settings = {
         yaml = {
           schemaStore = { enable = false, url = "" },
@@ -170,7 +170,7 @@ return {
       },
     })
 
-    require("lspconfig").lua_ls.setup({
+    vim.lsp.config("lua_ls", {
       settings = {
         Lua = {
           workspace = {

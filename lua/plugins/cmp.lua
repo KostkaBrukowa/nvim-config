@@ -30,8 +30,8 @@ return {
       sources = {
         { name = "nvim_lsp" },
         { name = "path" },
-        { name = "npm", keyword_length = 4 },
-        { name = "buffer", keyword_length = 3 },
+        { name = "npm",     keyword_length = 4 },
+        { name = "buffer",  keyword_length = 3 },
         { name = "luasnip", keyword_length = 2 },
       },
 
@@ -89,11 +89,9 @@ return {
         end,
       },
       window = {
-        completion = { -- rounded border; thin-style scrollbar
-          border = "rounded",
+        completion = {    -- rounded border; thin-style scrollbar
         },
         documentation = { -- no border; native-style scrollbar
-          border = "rounded",
         },
       },
       confirm_opts = {

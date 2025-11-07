@@ -10,13 +10,18 @@ return {
   },
   lazy = true,
   config = function()
+    local config_exists = require("utils.file").config_exists
     local configurationJestCommand = require("neoconf").get("jestRunCommand")
-    local testRunner = require("neoconf").get("testRunner")
+
+    -- Check for vitest config files
+    local is_vitest = config_exists({
+      config_names = { "vitest.config.*", "vite.config.*" },
+    })
 
     --   local cmd = { vim.loop.exepath(), "--embed", "--headless", "-n", "--clean" } -- subprocess.lua
     require("neotest").setup({
       adapters = {
-        testRunner == "vitest" and require("neotest-vitest") or require("neotest-jest")({
+        is_vitest and require("neotest-vitest") or require("neotest-jest")({
           jest_test_discovery = false,
           jestCommand = configurationJestCommand,
         }),

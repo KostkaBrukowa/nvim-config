@@ -1,9 +1,9 @@
 return {
   "nvimtools/hydra.nvim",
-  enabled = false,
+  enabled = true,
   cond = not vim.g.vscode,
   config = function()
-    require("config.hydra.hydra-dap")
     require("config.hydra.hydra-windows")
+    -- require("config.hydra.hydra-dap")
   end,
 }

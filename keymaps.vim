@@ -42,6 +42,7 @@ nnoremap <C-h> <C-w>h
 nnoremap <C-n> <C-w>j
 nnoremap <C-e> <C-w>k
 nnoremap <F13> <C-w>l
+nnoremap <C-i> <C-w>l
 inoremap <C-h> <cmd>wincmd h<cr>
 inoremap <C-n> <cmd>wincmd j<cr>
 inoremap <C-e> <cmd>wincmd k<cr>
@@ -81,3 +82,5 @@ nnoremap zq q
 
 nnoremap k n
 nnoremap K N
+
+nnoremap <leader>uo <C-w>o

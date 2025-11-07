@@ -34,11 +34,10 @@ return {
 
     completion = {
       menu = {
-        border = "rounded",
         draw = {
           columns = {
             { "kind_icon" },
-            { "label", "label_description", gap = 1 },
+            { "label",      "label_description", gap = 1 },
             { "source_name" },
           },
 
@@ -75,9 +74,6 @@ return {
       },
       documentation = {
         auto_show = true,
-        window = {
-          border = "rounded",
-        },
       },
       ghost_text = {
         enabled = false,
@@ -116,7 +112,7 @@ return {
           score_offset = -3,
           enabled = function(ctx)
             return ctx ~= nil
-              and ctx.trigger.kind ~= vim.lsp.protocol.CompletionTriggerKind.TriggerCharacter
+                and ctx.trigger.kind ~= vim.lsp.protocol.CompletionTriggerKind.TriggerCharacter
           end,
         },
       },

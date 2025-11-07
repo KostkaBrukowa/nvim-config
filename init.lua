@@ -1,5 +1,5 @@
-vim.cmd('source ' .. vim.fn.stdpath('config') .. '/options.vim')
-vim.cmd('source ' .. vim.fn.stdpath('config') .. '/keymaps.vim')
+vim.cmd("source " .. vim.fn.stdpath("config") .. "/options.vim")
+vim.cmd("source " .. vim.fn.stdpath("config") .. "/keymaps.vim")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then

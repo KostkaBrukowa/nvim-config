@@ -60,6 +60,9 @@ set switchbuf=useopen,usetab
 set sidescrolloff=8
 set spelllang=en_us,pl
 
+" Set global window border style
+lua vim.o.winborder = "rounded"
+
 " Spell check (conditional based on vscode)
 if !exists('g:vscode')
   set spell

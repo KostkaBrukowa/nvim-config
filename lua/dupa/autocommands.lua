@@ -74,3 +74,110 @@ end, {})
 vim.api.nvim_create_user_command("Jest", function()
   vim.cmd("compiler jest | make | copen")
 end, {})
+
+-- ide like highlight when stopping cursor
+vim.api.nvim_create_autocmd("CursorMoved", {
+  group = vim.api.nvim_create_augroup("LspReferenceHighlight", { clear = true }),
+  desc = "Highlight references under cursor",
+  callback = function()
+    -- Only run if the cursor is not in insert mode
+    if vim.fn.mode() ~= "i" then
+      local clients = vim.lsp.get_clients({ bufnr = 0 })
+      local supports_highlight = false
+      for _, client in ipairs(clients) do
+        if client.server_capabilities.documentHighlightProvider then
+          supports_highlight = true
+          break -- Found a supporting client, no need to check others
+        end
+      end
+
+      -- 3. Proceed only if an LSP is active AND supports the feature
+      if supports_highlight then
+        vim.lsp.buf.clear_references()
+        vim.lsp.buf.document_highlight()
+      end
+    end
+  end,
+})
+
+-- ide like highlight when stopping cursor
+vim.api.nvim_create_autocmd("CursorMovedI", {
+  group = "LspReferenceHighlight",
+  desc = "Clear highlights when entering insert mode",
+  callback = function()
+    vim.lsp.buf.clear_references()
+  end,
+})
+
+-- Kitty padding management
+local function set_kitty_padding()
+  -- Only proceed if we're running in Kitty
+  if vim.env.KITTY_WINDOW_ID == nil or vim.env.KITTY_WINDOW_ID == "" then
+    return
+  end
+
+  -- Count vertical splits (windows side by side, not stacked)
+  local wins = vim.api.nvim_tabpage_list_wins(0)
+  local columns = {}
+
+  for _, win in ipairs(wins) do
+    -- Check if window is valid and not floating
+    if vim.api.nvim_win_is_valid(win) then
+      local config = vim.api.nvim_win_get_config(win)
+      if config.relative == "" then -- Not a floating window
+        -- Get window position (column position)
+        local win_pos = vim.api.nvim_win_get_position(win)
+        local col = win_pos[2] -- Column (horizontal position)
+
+        -- Track unique column positions (different columns = vertical splits)
+        if not vim.tbl_contains(columns, col) then
+          table.insert(columns, col)
+        end
+      end
+    end
+  end
+
+  -- If more than one column (vertical split), remove padding
+  if #columns > 1 then
+    vim.fn.system("kitty @ set-spacing padding-left=0 2>/dev/null")
+    return
+  end
+
+  -- Get window width and calculate 30% padding
+  local width = vim.o.columns
+  local padding = math.floor(width * 1.9)
+
+  -- Apply padding
+  vim.fn.system(string.format("kitty @ set-spacing padding-left=%d 2>/dev/null", padding))
+end
+
+-- Create autogroup for Kitty padding
+local kitty_group = vim.api.nvim_create_augroup("KittyPadding", { clear = true })
+
+-- Set padding on VimEnter
+vim.api.nvim_create_autocmd("VimEnter", {
+  group = kitty_group,
+  desc = "Set Kitty padding on Vim enter",
+  callback = set_kitty_padding,
+})
+
+-- Update padding when window layout changes
+vim.api.nvim_create_autocmd({ "WinNew", "WinClosed" }, {
+  group = kitty_group,
+  desc = "Update Kitty padding on window changes",
+  callback = function()
+    -- Small delay to ensure window layout is updated
+    vim.defer_fn(set_kitty_padding, 150)
+  end,
+})
+
+-- Remove padding on VimLeave
+vim.api.nvim_create_autocmd("VimLeave", {
+  group = kitty_group,
+  desc = "Remove Kitty padding on Vim exit",
+  callback = function()
+    if vim.env.KITTY_WINDOW_ID ~= nil and vim.env.KITTY_WINDOW_ID ~= "" then
+      vim.fn.system("kitty @ set-spacing padding-left=0 2>/dev/null")
+    end
+  end,
+})

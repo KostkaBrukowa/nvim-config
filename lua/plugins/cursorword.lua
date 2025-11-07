@@ -1,5 +1,6 @@
 return {
   "KostkaBrukowa/nvim-cursorword",
+  enabled = false,
   cond = not vim.g.vscode,
 
   config = function()

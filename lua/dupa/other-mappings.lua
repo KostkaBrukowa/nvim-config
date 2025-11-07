@@ -414,6 +414,7 @@ local normal_keymaps = {
   },
   { "<leader>uxx", require("substitute.exchange").line, desc = "Exchange line", remap = false },
   { "<leader>uxc", require("substitute.exchange").cancel, remap = false },
+  { "<leader>uo", "<C-w>o", remap = false, desc = "Leave only current split. Close others" },
 }
 
 local visual_keymaps = {
