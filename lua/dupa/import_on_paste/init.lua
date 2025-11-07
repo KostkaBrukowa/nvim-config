@@ -1,6 +1,6 @@
 -- Possible improvements: instead of using OrganizeImports build imports yourself
 -- add support for imports that import variable that are in global scope like 'screen' - no idea how
--- local typescript_tools = require("typescript-tools.api")
+local typescript_tools = require("typescript-tools")
 
 local log = require("dupa.log-mock")
 local path_utils = require("dupa.import_on_paste.path_utils")
