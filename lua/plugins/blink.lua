@@ -6,7 +6,7 @@ return {
   dependencies = {
     "L3MON4D3/LuaSnip",
   },
-  tag = "v0.8.1",
+  tag = "v1.7.0",
   opts = {
     keymap = {
       preset = "default",
@@ -37,7 +37,7 @@ return {
         draw = {
           columns = {
             { "kind_icon" },
-            { "label",      "label_description", gap = 1 },
+            { "label", "label_description", gap = 1 },
             { "source_name" },
           },
 
@@ -112,7 +112,7 @@ return {
           score_offset = -3,
           enabled = function(ctx)
             return ctx ~= nil
-                and ctx.trigger.kind ~= vim.lsp.protocol.CompletionTriggerKind.TriggerCharacter
+              and ctx.trigger.kind ~= vim.lsp.protocol.CompletionTriggerKind.TriggerCharacter
           end,
         },
       },

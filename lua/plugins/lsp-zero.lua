@@ -50,6 +50,8 @@ return {
           "json",
           "cs",
           "python",
+          "html",
+          "vue",
         },
         ["eslint"] = {
           "javascript",
@@ -104,11 +106,9 @@ return {
         end,
         stylelint = function()
           null_ls.register(null_ls.builtins.formatting.stylelint.with({
-            filetypes = vim.tbl_extend(
-              "force",
-              null_ls.builtins.formatting.stylelint.filetypes,
-              { [#null_ls.builtins.formatting.stylelint.filetypes + 1] = "postcss" }
-            ),
+            filetypes = vim.tbl_extend("force", null_ls.builtins.formatting.stylelint.filetypes, {
+              [#null_ls.builtins.formatting.stylelint.filetypes + 1] = "postcss",
+            }),
           }))
           null_ls.register(null_ls.builtins.diagnostics.stylelint.with({
             filetypes = vim.tbl_extend(
