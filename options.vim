@@ -21,7 +21,7 @@ set shortmess+=nocI
 lua vim.o.sessionoptions = "buffers,curdir,winpos,winsize,terminal"
 
 " General options
-set nobackup
+set backupcopy=yes
 if exists('g:vscode')
   set cmdheight=2
 else

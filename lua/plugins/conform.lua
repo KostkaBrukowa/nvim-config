@@ -13,6 +13,7 @@ return {
       -- json = { "prettierd", "prettier", stop_after_first = true },
       -- postcss = { "prettierd", "prettier", stop_after_first = true },
       css = { "stylelint" },
+      postcss = { "stylelint" },
       scss = { "stylelint" },
       -- lua = { "stylua" },
       -- python = { "black" },

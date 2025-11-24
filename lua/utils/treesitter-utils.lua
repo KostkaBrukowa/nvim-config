@@ -62,23 +62,12 @@ function M.goto_translation()
     vim.cmd("nohl")
 
     if translation_found == 0 then
-      local handle_select_choice = function(picked_option)
-        if picked_option == "Yes" then
-          -- vim.api.nvim_command('! npx @allegro/i18n-tools add "' .. name .. '" "' .. name .. '" -t')
-          vim.api.nvim_buf_set_lines(
-            0,
-            -1,
-            -1,
-            false,
-            { "", 'msgid "' .. name .. '"', 'msgstr "' .. name .. '"' }
-          )
-        end
-      end
-
-      vim.ui.select(
-        { "Yes", "No" },
-        { prompt = "Create missing translation?", telescope = { initial_mode = "normal" } },
-        handle_select_choice
+      vim.api.nvim_buf_set_lines(
+        0,
+        -1,
+        -1,
+        false,
+        { "", 'msgid "' .. name .. '"', 'msgstr "' .. name .. '"' }
       )
     end
   end, 150)
@@ -110,7 +99,7 @@ function M.goto_main_export()
 
   local exports_query = vim.treesitter.query.parse(lang, EXPORT_QUERY)
 
-  for _, export_name, _ in exports_query:iter_captures(root, 0, root:start(), root:end_()) do
+  for _, export_name, _ in exports_query:iter_captures(root, 0) do
     local start_row, start_column = export_name:range()
     vim.api.nvim_win_set_cursor(0, { start_row + 1, start_column })
     if vim.g.vscode then

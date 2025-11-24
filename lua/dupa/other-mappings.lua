@@ -72,14 +72,54 @@ vim.keymap.del("n", "<c-w><c-d>")
 vim.keymap.del("n", "<c-w>d")
 
 local normal_keymaps = {
-  { "<leader>X",  "<cmd>%bd|e#<CR>",                desc = "Close all buffers except current one", remap = false },
-  { "<leader>cc", "<cmd>DiffviewClose<cr>",         desc = "Close diffview",                       remap = false },
-  { "<leader>co", "<cmd>DiffviewOpen<cr>",          desc = "Open diffview",                        remap = false },
-  { "<leader>dd", "<cmd>diffoff<CR>",               desc = "Close fugitive diff",                  remap = false },
-  { "<leader>de", "<cmd>Gitsigns prev_hunk<CR>",    desc = "Previous hunk",                        remap = false },
-  { "<leader>dn", "<cmd>Gitsigns next_hunk<CR>",    desc = "Next hunk",                            remap = false },
-  { "<leader>dp", "<cmd>Gitsigns preview_hunk<CR>", desc = "Preview hunk",                         remap = false },
-  { "<leader>dr", "<cmd>Gitsigns reset_hunk<CR>",   desc = "Reset hunk",                           remap = false },
+  {
+    "<leader>X",
+    "<cmd>%bd|e#<CR>",
+    desc = "Close all buffers except current one",
+    remap = false,
+  },
+  {
+    "<leader>cc",
+    "<cmd>DiffviewClose<cr>",
+    desc = "Close diffview",
+    remap = false,
+  },
+  {
+    "<leader>co",
+    "<cmd>DiffviewOpen<cr>",
+    desc = "Open diffview",
+    remap = false,
+  },
+  {
+    "<leader>dd",
+    "<cmd>diffoff<CR>",
+    desc = "Close fugitive diff",
+    remap = false,
+  },
+  {
+    "<leader>de",
+    "<cmd>Gitsigns prev_hunk<CR>",
+    desc = "Previous hunk",
+    remap = false,
+  },
+  {
+    "<leader>dn",
+    "<cmd>Gitsigns next_hunk<CR>",
+    desc = "Next hunk",
+    remap = false,
+  },
+  {
+    "<leader>dp",
+    "<cmd>Gitsigns preview_hunk<CR>",
+    desc = "Preview hunk",
+    remap = false,
+  },
+  {
+    "<leader>dr",
+    "<cmd>Gitsigns reset_hunk<CR>",
+    desc = "Reset hunk",
+    remap = false,
+  },
   {
     "<leader>fL",
     "<cmd>lua require('utils.telescope-custom-pickers').last_picker()<CR>",
@@ -145,24 +185,29 @@ local normal_keymaps = {
     desc = "Open yank history",
     remap = false,
   },
-  { "<leader>ga", "<cmd>Git fetch --all<CR>",       desc = "Fetch all",    remap = false },
+  { "<leader>ga", "<cmd>Git fetch --all<CR>", desc = "Fetch all", remap = false },
   {
     "<leader>gb",
     "<cmd>lua require('utils.telescope-custom-pickers').checkout_remote_smart()<CR>",
     desc = "Branches",
     remap = false,
   },
-  { "<leader>gc", "<cmd>Redir Git commit<CR>",      desc = "Commit files", remap = false },
+  { "<leader>gc", "<cmd>Redir Git commit<CR>", desc = "Commit files", remap = false },
   { "<leader>gf", "<cmd>DiffviewFileHistory %<CR>", desc = "File history", remap = false },
-  { "<leader>gg", "<cmd>Git<CR>",                   desc = "Fugitive",     remap = false },
-  { "<leader>gl", "<cmd>Git pull<CR>",              desc = "Git pull",     remap = false },
+  { "<leader>gg", "<cmd>Git<CR>", desc = "Fugitive", remap = false },
+  { "<leader>gl", "<cmd>Git pull<CR>", desc = "Git pull", remap = false },
   {
     "<leader>gm",
     "<cmd>lua require('utils.telescope-custom-pickers').merge_branch()<CR>",
     desc = "Git merge",
     remap = false,
   },
-  { "<leader>gn", "<cmd>Redir Git commit --amend<CR>", desc = "Commit ammend",        remap = false },
+  {
+    "<leader>gn",
+    "<cmd>Redir Git commit --amend<CR>",
+    desc = "Commit ammend",
+    remap = false,
+  },
   {
     "<leader>gp",
     function()
@@ -170,9 +215,14 @@ local normal_keymaps = {
       require("dupa.git-pr-workflow").post_push_pr_check()
     end,
     desc = "Git push",
-    remap = false
+    remap = false,
   },
-  { "<leader>gs", "<cmd>GitNewBranch<CR>",             desc = "Switch to new branch", remap = false },
+  {
+    "<leader>gs",
+    "<cmd>GitNewBranch<CR>",
+    desc = "Switch to new branch",
+    remap = false,
+  },
   {
     "<leader>gu",
     "<cmd>lua require('gitlinker').get_buf_range_url('n')<CR>",
@@ -239,7 +289,7 @@ local normal_keymaps = {
     desc = "Full Output",
     remap = false,
   },
-  { "<leader>nS", "<cmd>lua require('neotest').run.stop()<cr>",   desc = "Stop",   remap = false },
+  { "<leader>nS", "<cmd>lua require('neotest').run.stop()<cr>", desc = "Stop", remap = false },
   { "<leader>na", "<cmd>lua require('neotest').run.attach()<cr>", desc = "Attach", remap = false },
   {
     "<leader>nf",
@@ -332,7 +382,7 @@ local normal_keymaps = {
     remap = false,
   },
   { "<leader>ulr", "<cmd>LspRestart<cr>", desc = "Restart lsp server", remap = false },
-  { "<leader>um",  "<cmd>Messages<cr>",   desc = "Open messages view", remap = false },
+  { "<leader>um", "<cmd>Messages<cr>", desc = "Open messages view", remap = false },
   {
     "<leader>upc",
     '<cmd>lua require("package-info").change_version()<cr>',
@@ -411,7 +461,7 @@ local normal_keymaps = {
     desc = "Open vscode in the file",
     remap = false,
   },
-  { "<leader>w", "<cmd>wall<CR>", desc = "Save",         remap = false },
+  { "<leader>w", "<cmd>wall<CR>", desc = "Save", remap = false },
   { "<leader>x", "<cmd>quit<CR>", desc = "Close buffer", remap = false },
 
   {
@@ -420,9 +470,14 @@ local normal_keymaps = {
     desc = "Exchange operator",
     remap = false,
   },
-  { "<leader>uxx", require("substitute.exchange").line,   desc = "Exchange line", remap = false },
+  { "<leader>uxx", require("substitute.exchange").line, desc = "Exchange line", remap = false },
   { "<leader>uxc", require("substitute.exchange").cancel, remap = false },
-  { "<leader>uo",  "<C-w>o",                              remap = false,          desc = "Leave only current split. Close others" },
+  {
+    "<leader>uo",
+    "<C-w>o",
+    remap = false,
+    desc = "Leave only current split. Close others",
+  },
 }
 
 local visual_keymaps = {

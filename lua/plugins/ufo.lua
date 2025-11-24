@@ -44,7 +44,9 @@ return {
     end
 
     require("ufo").setup({
-      close_fold_kinds = {},
+      close_fold_kinds_for_ft = {
+        default = { "imports" },
+      },
       fold_virt_text_handler = handler,
     })
   end,

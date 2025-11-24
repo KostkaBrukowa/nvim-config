@@ -39,6 +39,7 @@ return {
         "gitignore",
         "editorconfig",
         "po",
+        "kotlin",
       },
       highlight = {
         enable = not vim.g.vscode,

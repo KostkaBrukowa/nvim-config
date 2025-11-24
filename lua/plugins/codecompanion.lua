@@ -1,5 +1,6 @@
 return {
   "olimorris/codecompanion.nvim",
+  enabled = false,
   cond = not vim.g.vscode,
   dependencies = {
     "nvim-lua/plenary.nvim",
